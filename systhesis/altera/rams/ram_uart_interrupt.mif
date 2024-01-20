@@ -1,0 +1,77 @@
+-- Copyright (C) 1991-2013 Altera Corporation
+-- Your use of Altera Corporation's design tools, logic functions 
+-- and other software and tools, and its AMPP partner logic 
+-- functions, and any output files from any of the foregoing 
+-- (including device programming or simulation files), and any 
+-- associated documentation or information are expressly subject 
+-- to the terms and conditions of the Altera Program License 
+-- Subscription Agreement, Altera MegaCore Function License 
+-- Agreement, or other applicable license agreement, including, 
+-- without limitation, that your use is for the sole purpose of 
+-- programming logic devices manufactured by Altera and sold by 
+-- Altera or its authorized distributors.  Please refer to the 
+-- applicable agreement for further details.
+
+-- Quartus II generated Memory Initialization File (.mif)
+
+WIDTH=32;
+DEPTH=2048;
+
+ADDRESS_RADIX=HEX;
+DATA_RADIX=HEX;
+
+CONTENT BEGIN
+
+
+	0:		00000463;  --		beq x0 x0 8 <reset>
+	1:		02000463;  --		beq x0 x0 40 <trap>
+
+-- 00000008 <reset>:
+	2:		61002303;  --		lw x6 1552(x0)   # 0x184 data line 4, load the line 4 address in textram
+	3:		61c02283;  --		lw x5 1564(x0)   # 0x187  load Helloworld
+	4:		00532023;  --		sw x5 0(x6)
+	5:		62002283;  --		lw x5 1568(x0)
+	6:		00532223;  --		sw x5 4(x6)
+	7:		62402283;  --		lw x5 1572(x0)
+	8:		00532423;  --		sw x5 8(x6)
+	9:		00000013;  --		nop
+
+-- 00000028 <loop_in_rest>:
+	a:		00000063;  --		beq x0 x0 0 <loop_in_rest>
+
+-- 0000002c <trap>:
+	b:		61802303;  --		lw x6 1560(x0)  # 0x186 load screen line 6
+	c:		63002403;  --		lw x8 1584(x0)  # 0x18c load screen current column 0
+	d:		62802383;  --		lw x7 1576(x0)  # 0x18a load uartdr address 0x21000
+	e:		0003a283;  --		lw x5 0(x7)     # read uartdr
+	f:		008304b3;  --		add x9 x6 x8    
+	10:		0054a023;  --		sw x5 0(x9)     # write textram
+	11:		0053a023;  --		sw x5 0(x7)     # write uartdr, echo back
+	12:		00440413;  --		addi x8 x8 4    # next character column
+	13:		62802823;  --		sw x8 1584(x0)  # store current column
+	14:		30200073;  --		mret
+
+
+	[15..17F] :     00000000;
+
+-- <data>:
+
+	180  :   00010000;      -- data line 0
+	181  :   00010050;      -- data line 1
+	182  :   000100a0;      -- data line 2
+	183  :   000100f0;      -- data line 3
+	184  :   00010140;      -- data line 4
+	185  :   00010190;      -- data line 5
+	186  :   000101e0;      -- data line 6
+
+	187  :   6c6c6548;  -- "Hello World!"
+	188  :   6f57206f;
+	189  :   21646c72; 
+	18a  :   00021000;  -- mmio uartdr
+	18b  :   000101e0;  -- current line, line 6
+	18c  :   00000000;  -- current column
+	18d  :   2a2a2a2a;  -- ascii '****'
+
+	[18e..7FF]  :   00000000;
+
+END;

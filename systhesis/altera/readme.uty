@@ -1,0 +1,5 @@
+before make, do the following:
+
+export LD_LIBRARY_PATH=/home/u/altera/13.1/quartus/linux64
+
+export LD_LIBRARY_PATH=/home/u/intelFPGA_lite/19.1/quartus/linux64

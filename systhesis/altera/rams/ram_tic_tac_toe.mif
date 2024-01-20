@@ -1,0 +1,365 @@
+-- Copyright (C) 1991-2013 Altera Corporation
+-- Your use of Altera Corporation's design tools, logic functions 
+-- and other software and tools, and its AMPP partner logic 
+-- functions, and any output files from any of the foregoing 
+-- (including device programming or simulation files), and any 
+-- associated documentation or information are expressly subject 
+-- to the terms and conditions of the Altera Program License 
+-- Subscription Agreement, Altera MegaCore Function License 
+-- Agreement, or other applicable license agreement, including, 
+-- without limitation, that your use is for the sole purpose of 
+-- programming logic devices manufactured by Altera and sold by 
+-- Altera or its authorized distributors.  Please refer to the 
+-- applicable agreement for further details.
+
+-- Quartus II generated Memory Initialization File (.mif)
+
+WIDTH=32;
+DEPTH=2048;
+
+ADDRESS_RADIX=HEX;
+DATA_RADIX=HEX;
+
+CONTENT BEGIN
+
+
+	0:		00000463;  --		beq x0 x0 8 <reset>
+	1:		14000a63;  --		beq x0 x0 340 <trap>
+
+--  <reset>:
+	2:		61002303;  --		lw x6 1552(x0)   # 0x184 data line 4, load the line 4 address in textram
+	3:		61c02283;  --		lw x5 1564(x0)   # 0x187  load Helloworld
+	4:		00532023;  --		sw x5 0(x6)
+	5:		62002283;  --		lw x5 1568(x0)
+	6:		00532223;  --		sw x5 4(x6)
+	7:		62402283;  --		lw x5 1572(x0)
+--	8:		00532423;  --		sw x5 8(x6)
+--	9:		00000013;  --		nop
+
+	8:              005001b3;  --           add x3 x0 x5
+        9:              30419073;  --           csrrw x0 mie x3 (csrw mie rs) ; enable external interrupt
+
+	a:		0ff00193;  --		addi x3 x0 0x8    ; enable interrupt
+	b:		30019073;  --		csrrw x0 mstatus x3 (csrw mstatus rs)
+
+--  <game_loop>:
+	c:		68002203;  --		lw x4 1664(x0)
+	d:		64002303;  --		lw x6 1600(x0)
+	e:		6c022283;  --		lw x5 1728(x4)
+	f:		00532023;  --		sw x5 0(x6)
+	10:		6c422283;  --		lw x5 1732(x4)
+	11:		04532823;  --		sw x5 80(x6)
+	12:		6c822283;  --		lw x5 1736(x4)
+	13:		0a532023;  --		sw x5 160(x6)
+	14:		68402203;  --		lw x4 1668(x0)
+	15:		64002303;  --		lw x6 1600(x0)
+	16:		6c022283;  --		lw x5 1728(x4)
+	17:		00532223;  --		sw x5 4(x6)
+	18:		6c422283;  --		lw x5 1732(x4)
+	19:		04532a23;  --		sw x5 84(x6)
+	1a:		6c822283;  --		lw x5 1736(x4)
+	1b:		0a532223;  --		sw x5 164(x6)
+	1c:		68802203;  --		lw x4 1672(x0)
+	1d:		64002303;  --		lw x6 1600(x0)
+	1e:		6c022283;  --		lw x5 1728(x4)
+	1f:		00532423;  --		sw x5 8(x6)
+	20:		6c422283;  --		lw x5 1732(x4)
+	21:		04532c23;  --		sw x5 88(x6)
+	22:		6c822283;  --		lw x5 1736(x4)
+	23:		0a532423;  --		sw x5 168(x6)
+
+	24:		68c02203;  --		lw x4 1676(x0)
+	25:		65002303;  --		lw x6 1616(x0)
+	26:		6c022283;  --		lw x5 1728(x4)
+	27:		00532023;  --		sw x5 0(x6)
+	28:		6c422283;  --		lw x5 1732(x4)
+	29:		04532823;  --		sw x5 80(x6)
+	2a:		6c822283;  --		lw x5 1736(x4)
+	2b:		0a532023;  --		sw x5 160(x6)
+	2c:		69002203;  --		lw x4 1680(x0)
+	2d:		65002303;  --		lw x6 1616(x0)
+	2e:		6c022283;  --		lw x5 1728(x4)
+	2f:		00532223;  --		sw x5 4(x6)
+	30:		6c422283;  --		lw x5 1732(x4)
+	31:		04532a23;  --		sw x5 84(x6)
+	32:		6c822283;  --		lw x5 1736(x4)
+	33:		0a532223;  --		sw x5 164(x6)
+	34:		69402203;  --		lw x4 1684(x0)
+	35:		65002303;  --		lw x6 1616(x0)
+	36:		6c022283;  --		lw x5 1728(x4)
+	37:		00532423;  --		sw x5 8(x6)
+	38:		6c422283;  --		lw x5 1732(x4)
+	39:		04532c23;  --		sw x5 88(x6)
+	3a:		6c822283;  --		lw x5 1736(x4)
+	3b:		0a532423;  --		sw x5 168(x6)
+
+	3c:		69802203;  --		lw x4 1688(x0)
+	3d:		66002303;  --		lw x6 1632(x0)
+	3e:		6c022283;  --		lw x5 1728(x4)
+	3f:		00532023;  --		sw x5 0(x6)
+	40:		6c422283;  --		lw x5 1732(x4)
+	41:		04532823;  --		sw x5 80(x6)
+	42:		6c822283;  --		lw x5 1736(x4)
+	43:		0a532023;  --		sw x5 160(x6)
+	44:		69c02203;  --		lw x4 1692(x0)
+	45:		66002303;  --		lw x6 1632(x0)
+	46:		6c022283;  --		lw x5 1728(x4)
+	47:		00532223;  --		sw x5 4(x6)
+	48:		6c422283;  --		lw x5 1732(x4)
+	49:		04532a23;  --		sw x5 84(x6)
+	4a:		6c822283;  --		lw x5 1736(x4)
+	4b:		0a532223;  --		sw x5 164(x6)
+	4c:		6a002203;  --		lw x4 1696(x0)
+	4d:		66002303;  --		lw x6 1632(x0)
+	4e:		6c022283;  --		lw x5 1728(x4)
+	4f:		00532423;  --		sw x5 8(x6)
+	50:		6c422283;  --		lw x5 1732(x4)
+	51:		04532c23;  --		sw x5 88(x6)
+	52:		6c822283;  --		lw x5 1736(x4)
+	53:		0a532423;  --		sw x5 168(x6)
+	54:		ee0000e3;  --		beq x0 x0 -288 <game_loop>
+
+--  <loop_in_rest>:
+	55:		00000063;  --		beq x0 x0 0 <loop_in_rest>
+
+
+--  <trap>:
+	56:		62802883;  --		lw x17 1576(x0)
+	57:		0008a783;  --		lw x15 0(x17)
+	58:		63c02803;  --		lw x16 1596(x0)
+	59:		04100593;  --		addi x11 x0 65
+	5a:		02f58c63;  --		beq x11 x15 56 <key_up>
+	5b:		04200593;  --		addi x11 x0 66
+	5c:		06f58a63;  --		beq x11 x15 116 <key_down>
+	5d:		04300593;  --		addi x11 x0 67
+	5e:		0ef58863;  --		beq x11 x15 240 <key_right>
+	5f:		04400593;  --		addi x11 x0 68
+	60:		0af58263;  --		beq x11 x15 164 <key_left>
+	61:		07800593;  --		addi x11 x0 120
+	62:		12f58063;  --		beq x11 x15 288 <key_x>
+	63:		06f00593;  --		addi x11 x0 111
+	64:		12f58863;  --		beq x11 x15 304 <key_o>
+	65:		07200593;  --		addi x11 x0 114
+	66:		14f58063;  --		beq x11 x15 320 <key_r>
+	67:		30200073;  --           mret
+
+-- 00000190 <key_up>:
+
+	68:		68000593;  --		addi x11 x0 1664
+	69:		03058e63;  --		beq x11 x16 60 <key_up_exit>
+	6a:		68400593;  --		addi x11 x0 1668
+	6b:		03058a63;  --		beq x11 x16 52 <key_up_exit>
+	6c:		68800593;  --		addi x11 x0 1672
+	6d:		03058663;  --		beq x11 x16 44 <key_up_exit>
+	6e:		00082783;  --		lw x15 0(x16)
+	6f:		03000593;  --		addi x11 x0 48
+	70:		40b787b3;  --		sub x15 x15 x11
+	71:		00f82023;  --		sw x15 0(x16)
+	72:		00c00593;  --		addi x11 x0 12
+	73:		40b80833;  --		sub x16 x16 x11
+	74:		00082783;  --		lw x15 0(x16)
+	75:		03078793;  --		addi x15 x15 48
+	76:		00f82023;  --		sw x15 0(x16)
+	77:		63002e23;  --		sw x16 1596(x0)
+
+-- 000001c0 <key_up_exit>:
+	78:		30200073;  --           mret
+
+
+-- 00000194 <key_down>:
+
+	79:		69800593;  --		addi x11 x0 1688
+	7a:		03058c63;  --		beq x11 x16 56 <key_down_exit>
+	7b:		69c00593;  --		addi x11 x0 1692
+	7c:		03058863;  --		beq x11 x16 48 <key_down_exit>
+	7d:		6a000593;  --		addi x11 x0 1696
+	7e:		03058463;  --		beq x11 x16 40 <key_down_exit>
+	7f:		00082783;  --		lw x15 0(x16)
+	80:		03000593;  --		addi x11 x0 48
+	81:		40b787b3;  --		sub x15 x15 x11
+	82:		00f82023;  --		sw x15 0(x16)
+	83:		00c80813;  --		addi x16 x16 12
+	84:		00082783;  --		lw x15 0(x16)
+	85:		03078793;  --		addi x15 x15 48
+	86:		00f82023;  --		sw x15 0(x16)
+	87:		63002e23;  --		sw x16 1596(x0)
+
+-- 000001c0 <key_down_exit>:
+	88:		30200073;  --           mret
+
+-- 00000198 <key_left>:
+
+	89:		68000593;  --		addi x11 x0 1664
+	8a:		03058e63;  --		beq x11 x16 60 <key_left_exit>
+	8b:		68c00593;  --		addi x11 x0 1676
+	8c:		03058a63;  --		beq x11 x16 52 <key_left_exit>
+	8d:		69800593;  --		addi x11 x0 1688
+	8e:		03058663;  --		beq x11 x16 44 <key_left_exit>
+	8f:		00082783;  --		lw x15 0(x16)
+	90:		03000593;  --		addi x11 x0 48
+	91:		40b787b3;  --		sub x15 x15 x11
+	92:		00f82023;  --		sw x15 0(x16)
+	93:		00400593;  --		addi x11 x0 4
+	94:		40b80833;  --		sub x16 x16 x11
+	95:		00082783;  --		lw x15 0(x16)
+	96:		03078793;  --		addi x15 x15 48
+	97:		00f82023;  --		sw x15 0(x16)
+	98:		63002e23;  --		sw x16 1596(x0)
+
+-- 000001c8 <key_left_exit>:
+	99:		30200073;  --           mret
+
+-- 0000019c <key_right>:
+
+	9a:		68800593;  --		addi x11 x0 1672
+	9b:		03058c63;  --		beq x11 x16 56 <key_right_exit>
+	9c:		69400593;  --		addi x11 x0 1684
+	9d:		03058863;  --		beq x11 x16 48 <key_right_exit>
+	9e:		6a000593;  --		addi x11 x0 1696
+	9f:		03058463;  --		beq x11 x16 40 <key_right_exit>
+	a0:		00082783;  --		lw x15 0(x16)
+	a1:		03000593;  --		addi x11 x0 48
+	a2:		40b787b3;  --		sub x15 x15 x11
+	a3:		00f82023;  --		sw x15 0(x16)
+	a4:		00480813;  --		addi x16 x16 4
+	a5:		00082783;  --		lw x15 0(x16)
+	a6:		03078793;  --		addi x15 x15 48
+	a7:		00f82023;  --		sw x15 0(x16)
+	a8:		63002e23;  --		sw x16 1596(x0)
+
+-- 000001c8 <key_right_exit>:
+	a9:		30200073;  --           mret
+
+
+-- 000001cc <key_x>:
+	aa:		00082783;  --		lw x15 0(x16)
+	ab:		03000593;  --		addi x11 x0 48
+	ac:		00b79663;  --		bne x15 x11 12 <key_x_exit>
+	ad:		04000793;  --		addi x15 x0 64
+	ae:		00f82023;  --		sw x15 0(x16)
+	af:		30200073;  --           mret
+
+-- 000001d0 <key_o>:
+	b0:		00082783;  --		lw x15 0(x16)
+	b1:		03000593;  --		addi x11 x0 48
+	b2:		00b79663;  --		bne x15 x11 12 <key_o_exit>
+	b3:		05000793;  --		addi x15 x0 80
+	b4:		00f82023;  --		sw x15 0(x16)
+	b5:		30200073;  --           mret
+
+-- 000002d0 <key_r>:
+	b6:		03000793;  --		addi x15 x0 48
+	b7:		68f02023;  --		sw x15 1664(x0)
+	b8:		68002223;  --		sw x0 1668(x0)
+	b9:		68002423;  --		sw x0 1672(x0)
+	ba:		68002623;  --		sw x0 1676(x0)
+	bb:		68002823;  --		sw x0 1680(x0)
+	bc:		68002a23;  --		sw x0 1684(x0)
+	bd:		68002c23;  --		sw x0 1688(x0)
+	be:		68002e23;  --		sw x0 1692(x0)
+	bf:		6a002023;  --		sw x0 1696(x0)
+	c0:		68000593;  --		addi x11 x0 1664
+	c1:		62b02e23;  --		sw x11 1596(x0)
+	c2:		30200073;  --           mret
+
+
+	[c3..17F] :     00000000;
+
+-- <data>:
+
+	180  :   00010000;      -- data line 0
+	181  :   00010050;      -- data line 1
+	182  :   000100a0;      -- data line 2
+	183  :   000100f0;      -- data line 3
+	184  :   00010140;      -- data line 4
+	185  :   00010190;      -- data line 5
+	186  :   000101e0;      -- data line 6
+
+	187  :   2d636954;  -- "Tic-Tac-Toe"
+	188  :   2d636154;
+	189  :   03656f54; 
+	18a  :   00021000;  -- mmio uartdr
+	18b  :   000101e0;  -- current line, line 6
+	18c  :   00000000;  -- current column
+	18d  :   2a2a2a2a;  -- ascii '****'
+	18e  :   00000000;
+	18f  :   00000680;  -- current position, reset 1a0, row 0 col 0
+
+
+
+	190  :   00010280;      -- data line 8
+	191  :   000102d0;      -- data line 9
+	192  :   00010320;      -- data line 10
+	193  :   00010370;      -- data line 11
+	194  :   000103c0;      -- data line 12
+	195  :   00010410;      -- data line 13
+	196  :   00010460;      -- data line 14
+	197  :   000104b0;      -- data line 15
+	198  :   00010500;      -- data line 16
+	199  :   00010550;      -- data line 17
+	19a  :   000105a0;      -- data line 18
+	19b  :   00000000;
+	19c  :   00000000;
+	19d  :   00000000;
+	19e  :   00000000;
+	19f  :   00000000;
+
+-- ; game data
+
+	1a0  :   00000030;  -- row 0
+	1a1  :   00000000;
+	1a2  :   00000000;
+
+	1a3  :   00000000;  -- row 1
+	1a4  :   00000000;
+	1a5  :   00000000;
+
+	1a6  :   00000000;  -- row 2
+	1a7  :   00000000;
+	1a8  :   00000000;
+
+
+	[1a9..1af]  :   00000000;
+
+-- ; tile data
+
+			    --  tile 0
+	1b0  :   00000000;  --     
+	1b1  :   00000700;  --   .   
+	1b2  :   00000000;  --     
+	1b3  :   00000000;
+
+                            --  tile 1
+	1b4  :   002F005C;  --  \ /  
+	1b5  :   00005C00;  --   / 
+	1b6  :   005C002F;  --  / \
+	1b7  :   00000000;
+
+                            --  tile 2
+	1b8  :   00002D00;  --   - 
+	1b9  :   00290028;  --  ( )
+	1ba  :   00002D00;  --   - 
+	1bb  :   00000000;
+
+                            --  tile 3
+	1bc  :   00000000;  --    
+	1bd  :   00000700;  --   .
+	1be  :   005F5F5F;  --  ___ 
+	1bf  :   00000000;
+
+                            --  tile 4
+	1c0  :   002F005C;  --  \ /  
+	1c1  :   00005C00;  --   / 
+	1c2  :   005F5F5F;  --  ___
+	1c3  :   00000000;
+
+                            --  tile 5
+	1c4  :   00002D00;  --   - 
+	1c5  :   00290028;  --  O O
+	1c6  :   005F5F5F;  --  ___
+	1c7  :   00000000;
+
+
+	[1c8..7FF]  :   00000000;
+
+END;
