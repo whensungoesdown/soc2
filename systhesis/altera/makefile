@@ -5,46 +5,45 @@
 # File (.qsf), and the list of source files used.
 ###################################################################
 
-PROJECT = soc_top
-SOURCE_FILES =  ../../soc/cpu6/defines.v \
-		../../soc/cpu6/cpu6_core.v \
-		../../soc/cpu6/cpu6_controller.v \
-		../../soc/cpu6/cpu6_maindec.v \
-		../../soc/cpu6/cpu6_aludec.v \
-		../../soc/cpu6/cpu6_datapath.v \
-		../../soc/cpu6/cpu6_dffs.v \
-		../../soc/cpu6/cpu6_adder.v \
-		../../soc/cpu6/cpu6_sl1.v \
-		../../soc/cpu6/cpu6_mux2.v \
-		../../soc/cpu6/cpu6_regfile.v \
-		../../soc/cpu6/cpu6_signext.v \
-		../../soc/cpu6/cpu6_alu.v \
-		../../soc/cpu6/cpu6_immdec.v \
-		../../soc/cpu6/cpu6_branchdec.v \
-		../../soc/cpu6/cpu6_pipelinereg_ifid.v \
-		../../soc/cpu6/cpu6_pipelinereg_idex.v \
-		../../soc/cpu6/cpu6_pipelinereg_exmem.v \
-		../../soc/cpu6/cpu6_pipelinereg_memwb.v \
-		../../soc/cpu6/cpu6_hazardcontrol.v \
-		../../soc/cpu6/cpu6_hazardunit.v \
-		../../soc/cpu6/cpu6_excp.v \
-		../../soc/cpu6/cpu6_csr.v \
-		../../soc/cpu6/cpu6_shft.v \
-		../../soc/cpu6/swrvr_clib.v \
-		../../soc/cpu6/swrvr_dlib.v \
-		../../soc/cpu6/ram.v \
-		../../soc/vga/vga640x480.v \
-		../../soc/vga/vgaram.v \
-		../../soc/vga/text80x25.v \
-		../../soc/vga/hvsync.v \
-		../../soc/vga/vgatextram.v \
-		../../soc/vga/chrom.v \
-		../../soc/lic/lic.v \
-		../../soc/uart/uart.v \
-		../../soc/soc_top.v \
+PROJECT = soc2_top
+SOURCE_FILES =  ../../rtl/cpu7b/rtl/alu.v \
+                ../../rtl/cpu7b/rtl/branch.v \
+                ../../rtl/cpu7b/rtl/common.vh \
+                ../../rtl/cpu7b/rtl/cpu7_csr_byplog.v \
+                ../../rtl/cpu7b/rtl/cpu7_csr.v \
+                ../../rtl/cpu7b/rtl/cpu7_exu_eclbyplog_rs1.v \
+                ../../rtl/cpu7b/rtl/cpu7_exu_eclbyplog.v \
+                ../../rtl/cpu7b/rtl/cpu7_exu_ecl.v \
+                ../../rtl/cpu7b/rtl/cpu7_exu.v \
+                ../../rtl/cpu7b/rtl/cpu7_ifu_dec.v \
+                ../../rtl/cpu7b/rtl/cpu7_ifu_fdp.v \
+                ../../rtl/cpu7b/rtl/cpu7_ifu_imd.v \
+                ../../rtl/cpu7b/rtl/cpu7_ifu_incr30.v \
+                ../../rtl/cpu7b/rtl/cpu7_ifu.v \
+                ../../rtl/cpu7b/rtl/cpu7_lsu.v \
+                ../../rtl/cpu7b/rtl/cpu7_nocache.v \
+                ../../rtl/cpu7b/rtl/decoded.vh \
+                ../../rtl/cpu7b/rtl/decoder.v \
+                ../../rtl/cpu7b/rtl/mul32x32.v \
+                ../../rtl/cpu7b/rtl/mul64x64.v \
+                ../../rtl/cpu7b/rtl/reg_file.v \
+                ../../rtl/cpu7b/rtl/swrvr_clib.v \
+                ../../rtl/cpu7b/rtl/swrvr_dlib.v \
+                ../../rtl/cpu7b/rtl/defines.vh \
+                ../../rtl/cpu7b/rtl/axi_sram_bridge.v \
+                ../../rtl/cpu7b/rtl/axi_interface.v \
+                ../../rtl/cpu7b/rtl/sram.v \
+                ../../rtl/cpu7b/rtl/cpu.v \
+		../../rtl/vga/vga640x480.v \
+		../../rtl/vga/vgaram.v \
+		../../rtl/vga/text80x25.v \
+		../../rtl/vga/hvsync.v \
+		../../rtl/vga/vgatextram.v \
+		../../rtl/vga/chrom.v \
+		../../rtl/soc2_top.v \
 
 SOURCE_FILES_PARAMETER = $(addprefix --source=, $(SOURCE_FILES))
-ASSIGNMENT_FILES = soc_top.qpf soc_top.qsf 
+ASSIGNMENT_FILES = soc2_top.qpf soc2_top.qsf 
 
 
 FAMILY = "Cyclone IV E"
