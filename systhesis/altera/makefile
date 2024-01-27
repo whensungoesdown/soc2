@@ -40,7 +40,8 @@ SOURCE_FILES =  ../../rtl/cpu7b/rtl/alu.v \
 		../../rtl/vga/hvsync.v \
 		../../rtl/vga/vgatextram.v \
 		../../rtl/vga/chrom.v \
-		../../rtl/soc2_top.v \
+		../../rtl/ram_bridge.v \
+		../../rtl/soc2_top.v 
 
 SOURCE_FILES_PARAMETER = $(addprefix --source=, $(SOURCE_FILES))
 ASSIGNMENT_FILES = soc2_top.qpf soc2_top.qsf 
