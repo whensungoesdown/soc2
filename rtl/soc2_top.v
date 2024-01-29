@@ -518,4 +518,6 @@ module soc2_top(
       .write_en      (|vga_wen        )
       );
 
+      assign vga_rdata = `DATA_WIDTH'h0;
+
 endmodule // soc2_top
