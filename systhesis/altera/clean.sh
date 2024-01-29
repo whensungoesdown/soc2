@@ -5,5 +5,5 @@ echo
 
 make clean
 
-movetotrash  soc_top.*
+movetotrash  soc2_top.*
 movetotrash  greybox_tmp/ incremental_db/

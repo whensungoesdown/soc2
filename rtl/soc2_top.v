@@ -257,6 +257,8 @@ module soc2_top(
 
 
    ram_bridge u_ram_bridge(
+      .clk         (clk             ),
+      .resetn      (resetn          ),
       .m_raddr     (cpu_ram_raddr   ),
       .m_rdata     (cpu_ram_rdata   ),
       .m_ren       (cpu_ram_ren     ),
@@ -276,7 +278,7 @@ module soc2_top(
       .s1_ren      (vga_ren         ),
       .s1_waddr    (vga_waddr       ),
       .s1_wdata    (vga_wdata       ),
-      .s1_wen      (vga_wen         ),
+      .s1_wen      (vga_wen         )
       );
 
 
@@ -434,8 +436,8 @@ module soc2_top(
 // 
 //      );
 
-
    
+
    sram ram(
       .clock        (clk             ),
       .rdaddress    (ram_raddr[14:2] ),
@@ -511,9 +513,9 @@ module soc2_top(
       //.write_data    (vga_data_write       ),
       //.write_en      (vgaram_ena & memwrite )
 
-      .write_address (vga_waddr[14:2] ),
+      .write_address (vga_waddr[10:2] ),
       .write_data    (vga_wdata       ),
-      .write_en      (|vga_wen         )
+      .write_en      (|vga_wen        )
       );
 
 endmodule // soc2_top

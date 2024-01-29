@@ -1,8 +1,8 @@
 `define S0_ADDR_BASE 32'h0000_0000
-`define S0_ADDR_MASK 32'h1fff_0000
+`define S0_ADDR_MASK 32'h00ff_0000
 
 `define S1_ADDR_BASE 32'h0001_0000
-`define S1_ADDR_MASK 32'h1fff_0000 
+`define S1_ADDR_MASK 32'hffff_0000 
 
 module ram_bridge #(
    parameter BUS_WIDTH = 32,

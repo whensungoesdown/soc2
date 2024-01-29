@@ -1,0 +1,8 @@
+# vsim -c -novopt -do "sim.do" top_tb -wlf result.wlf 
+# Start time: 14:44:50 on Jul 01,2023
+# ** Error: (vsim-3170) Could not find 'top_tb'.
+#         Searched libraries:
+#             //wsl$/Ubuntu-22.04/home/u/prjs/cpu7b/simulation/test0/testcode/work
+# Error loading design
+# End time: 14:44:50 on Jul 01,2023, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
