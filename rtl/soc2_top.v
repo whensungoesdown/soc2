@@ -8,6 +8,21 @@ module soc2_top(
    output           vga_vsync
    );
 
+
+   wire pll_clk_out_25mhz;
+   wire pll_locked;
+
+//   wire pll_locked_resetn;
+
+
+   pll u_pll(
+//      .areset      (!resetn           ),
+      .inclk0      (clk               ),
+      .c0          (pll_clk_out_25mhz ),
+      .locked      (pll_locked        )
+      );
+
+//   assign pll_locked_resetn = pll_locked & resetn;
    
    wire [`Larid       -1 :0] cpu_arid;
    wire [`Laraddr     -1 :0] cpu_araddr;
@@ -160,125 +175,125 @@ module soc2_top(
    
 
    cpu u_cpu(
-      .clk          (clk             ),
-      .resetn       (resetn          ),
+      .clk          (pll_clk_out_25mhz ),
+      .resetn       (resetn            ),
       
-      .awid         (cpu_awid        ),           
-      .awaddr       (cpu_awaddr      ),
-      .awlen        (cpu_awlen       ),
-      .awsize       (cpu_awsize      ),
-      .awburst      (cpu_awburst     ),
-      .awlock       (cpu_awlock      ),
-      .awcache      (cpu_awcache     ),
-      .awprot       (cpu_awprot      ),
-      .awvalid      (cpu_awvalid     ),
-      .awready      (cpu_awready     ),
-      .wid          (cpu_wid         ),
-      .wdata        (cpu_wdata       ),
-      .wstrb        (cpu_wstrb       ),
-      .wlast        (cpu_wlast       ),
-      .wvalid       (cpu_wvalid      ),
-      .wready       (cpu_wready      ),
-      .bid          (cpu_bid         ),
-      .bresp        (cpu_bresp       ),
-      .bvalid       (cpu_bvalid      ),
-      .bready       (cpu_bready      ),
+      .awid         (cpu_awid          ),           
+      .awaddr       (cpu_awaddr        ),
+      .awlen        (cpu_awlen         ),
+      .awsize       (cpu_awsize        ),
+      .awburst      (cpu_awburst       ),
+      .awlock       (cpu_awlock        ),
+      .awcache      (cpu_awcache       ),
+      .awprot       (cpu_awprot        ),
+      .awvalid      (cpu_awvalid       ),
+      .awready      (cpu_awready       ),
+      .wid          (cpu_wid           ),
+      .wdata        (cpu_wdata         ),
+      .wstrb        (cpu_wstrb         ),
+      .wlast        (cpu_wlast         ),
+      .wvalid       (cpu_wvalid        ),
+      .wready       (cpu_wready        ),
+      .bid          (cpu_bid           ),
+      .bresp        (cpu_bresp         ),
+      .bvalid       (cpu_bvalid        ),
+      .bready       (cpu_bready        ),
 
-      .arid         (cpu_arid        ),
-      .araddr       (cpu_araddr      ),
-      .arlen        (cpu_arlen       ),
-      .arsize       (cpu_arsize      ),
-      .arburst      (cpu_arburst     ),
-      .arlock       (cpu_arlock      ),
-      .arcache      (cpu_arcache     ),
-      .arprot       (cpu_arprot      ),
-      .arvalid      (cpu_arvalid     ),
-      .arready      (cpu_arready     ),
+      .arid         (cpu_arid          ),
+      .araddr       (cpu_araddr        ),
+      .arlen        (cpu_arlen         ),
+      .arsize       (cpu_arsize        ),
+      .arburst      (cpu_arburst       ),
+      .arlock       (cpu_arlock        ),
+      .arcache      (cpu_arcache       ),
+      .arprot       (cpu_arprot        ),
+      .arvalid      (cpu_arvalid       ),
+      .arready      (cpu_arready       ),
 
-      .rid          (cpu_rid         ),
-      .rdata        (cpu_rdata       ),
-      .rresp        (cpu_rresp       ),
-      .rlast        (cpu_rlast       ),
-      .rvalid       (cpu_rvalid      ),
-      .rready       (cpu_rready      )
+      .rid          (cpu_rid           ),
+      .rdata        (cpu_rdata         ),
+      .rresp        (cpu_rresp         ),
+      .rlast        (cpu_rlast         ),
+      .rvalid       (cpu_rvalid        ),
+      .rready       (cpu_rready        )
    );
 
    axi_sram_bridge u_axi_cpu_ram_bridge(
-      .aclk         (clk             ),
-      .aresetn      (resetn          ),
+      .aclk         (pll_clk_out_25mhz ),
+      .aresetn      (resetn            ),
 
-      .ram_raddr    (cpu_ram_raddr   ),
-      .ram_rdata    (cpu_ram_rdata   ),
-      .ram_ren      (cpu_ram_ren     ),
-      .ram_waddr    (cpu_ram_waddr   ),
-      .ram_wdata    (cpu_ram_wdata   ),
-      .ram_wen      (cpu_ram_wen     ),
+      .ram_raddr    (cpu_ram_raddr     ),
+      .ram_rdata    (cpu_ram_rdata     ),
+      .ram_ren      (cpu_ram_ren       ),
+      .ram_waddr    (cpu_ram_waddr     ),
+      .ram_wdata    (cpu_ram_wdata     ),
+      .ram_wen      (cpu_ram_wen       ),
 
-      .m_awid       (cpu_awid        ),           
-      .m_awaddr     (cpu_awaddr      ),
-      .m_awlen      (cpu_awlen       ),
-      .m_awsize     (cpu_awsize      ),
-      .m_awburst    (cpu_awburst     ),
-      .m_awlock     (cpu_awlock      ),
-      .m_awcache    (cpu_awcache     ),
-      .m_awprot     (cpu_awprot      ),
-      .m_awvalid    (cpu_awvalid     ),
-      .m_awready    (cpu_awready     ),
-      .m_wid        (cpu_wid         ),
-      .m_wdata      (cpu_wdata       ),
-      .m_wstrb      (cpu_wstrb       ),
-      .m_wlast      (cpu_wlast       ),
-      .m_wvalid     (cpu_wvalid      ),
-      .m_wready     (cpu_wready      ),
-      .m_bid        (cpu_bid         ),
-      .m_bresp      (cpu_bresp       ),
-      .m_bvalid     (cpu_bvalid      ),
-      .m_bready     (cpu_bready      ),
+      .m_awid       (cpu_awid          ),           
+      .m_awaddr     (cpu_awaddr        ),
+      .m_awlen      (cpu_awlen         ),
+      .m_awsize     (cpu_awsize        ),
+      .m_awburst    (cpu_awburst       ),
+      .m_awlock     (cpu_awlock        ),
+      .m_awcache    (cpu_awcache       ),
+      .m_awprot     (cpu_awprot        ),
+      .m_awvalid    (cpu_awvalid       ),
+      .m_awready    (cpu_awready       ),
+      .m_wid        (cpu_wid           ),
+      .m_wdata      (cpu_wdata         ),
+      .m_wstrb      (cpu_wstrb         ),
+      .m_wlast      (cpu_wlast         ),
+      .m_wvalid     (cpu_wvalid        ),
+      .m_wready     (cpu_wready        ),
+      .m_bid        (cpu_bid           ),
+      .m_bresp      (cpu_bresp         ),
+      .m_bvalid     (cpu_bvalid        ),
+      .m_bready     (cpu_bready        ),
       
-      .m_araddr     (cpu_araddr      ),
-      .m_arburst    (cpu_arburst     ),
-      .m_arcache    (cpu_arcache     ),
-      .m_arid       (cpu_arid        ),
-      .m_arlen      (cpu_arlen       ),
-      .m_arlock     (cpu_arlock      ),
-      .m_arprot     (cpu_arprot      ),
-      .m_arready    (cpu_arready     ),
-      .m_arsize     (cpu_arsize      ),
-      .m_arvalid    (cpu_arvalid     ),
+      .m_araddr     (cpu_araddr        ),
+      .m_arburst    (cpu_arburst       ),
+      .m_arcache    (cpu_arcache       ),
+      .m_arid       (cpu_arid          ),
+      .m_arlen      (cpu_arlen         ),
+      .m_arlock     (cpu_arlock        ),
+      .m_arprot     (cpu_arprot        ),
+      .m_arready    (cpu_arready       ),
+      .m_arsize     (cpu_arsize        ),
+      .m_arvalid    (cpu_arvalid       ),
 
-      .m_rdata      (cpu_rdata       ),
-      .m_rid        (cpu_rid         ),
-      .m_rlast      (cpu_rlast       ),
-      .m_rready     (cpu_rready      ),
-      .m_rresp      (cpu_rresp       ),
-      .m_rvalid     (cpu_rvalid      )
+      .m_rdata      (cpu_rdata         ),
+      .m_rid        (cpu_rid           ),
+      .m_rlast      (cpu_rlast         ),
+      .m_rready     (cpu_rready        ),
+      .m_rresp      (cpu_rresp         ),
+      .m_rvalid     (cpu_rvalid        )
  
       );
 
 
    ram_bridge u_ram_bridge(
-      .clk         (clk             ),
-      .resetn      (resetn          ),
-      .m_raddr     (cpu_ram_raddr   ),
-      .m_rdata     (cpu_ram_rdata   ),
-      .m_ren       (cpu_ram_ren     ),
-      .m_waddr     (cpu_ram_waddr   ),
-      .m_wdata     (cpu_ram_wdata   ),
-      .m_wen       (cpu_ram_wen     ),
+      .clk         (pll_clk_out_25mhz ),
+      .resetn      (resetn            ),
+      .m_raddr     (cpu_ram_raddr     ),
+      .m_rdata     (cpu_ram_rdata     ),
+      .m_ren       (cpu_ram_ren       ),
+      .m_waddr     (cpu_ram_waddr     ),
+      .m_wdata     (cpu_ram_wdata     ),
+      .m_wen       (cpu_ram_wen       ),
       
-      .s0_raddr    (ram_raddr       ),
-      .s0_rdata    (ram_rdata       ),
-      .s0_ren      (ram_ren         ),
-      .s0_waddr    (ram_waddr       ),
-      .s0_wdata    (ram_wdata       ),
-      .s0_wen      (ram_wen         ),
+      .s0_raddr    (ram_raddr         ),
+      .s0_rdata    (ram_rdata         ),
+      .s0_ren      (ram_ren           ),
+      .s0_waddr    (ram_waddr         ),
+      .s0_wdata    (ram_wdata         ),
+      .s0_wen      (ram_wen           ),
 
-      .s1_raddr    (vga_raddr       ),
-      .s1_rdata    (vga_rdata       ),
-      .s1_ren      (vga_ren         ),
-      .s1_waddr    (vga_waddr       ),
-      .s1_wdata    (vga_wdata       ),
-      .s1_wen      (vga_wen         )
+      .s1_raddr    (vga_raddr         ),
+      .s1_rdata    (vga_rdata         ),
+      .s1_ren      (vga_ren           ),
+      .s1_waddr    (vga_waddr         ),
+      .s1_wdata    (vga_wdata         ),
+      .s1_wen      (vga_wen           )
       );
 
 
@@ -439,7 +454,7 @@ module soc2_top(
    
 
    sram ram(
-      .clock        (clk             ),
+      .clock        (pll_clk_out_25mhz ),
       .rdaddress    (ram_raddr[14:2] ),
       .q            (ram_rdata       ),
       .rden         (ram_ren         ),
@@ -504,7 +519,7 @@ module soc2_top(
 //      );
 
    text80x25 textvga (
-      .clk           (clk             ),
+      .clk           (pll_clk_out_25mhz ),
       .vga_hsync     (vga_hsync       ),
       .vga_vsync     (vga_vsync       ),
       .vga_rgb       (vga_rgb         ),

@@ -41,6 +41,7 @@ SOURCE_FILES =  ../../rtl/cpu7b/rtl/alu.v \
 		../../rtl/vga/vgatextram.v \
 		../../rtl/vga/chrom.v \
 		../../rtl/ram_bridge.v \
+		../../rtl/pll.v \
 		../../rtl/soc2_top.v 
 
 SOURCE_FILES_PARAMETER = $(addprefix --source=, $(SOURCE_FILES))

@@ -42,5 +42,5 @@
 ../../rtl/ram_bridge.v 
 ../../rtl/pll.v
 ../../rtl/soc2_top.v 
-../../tb/soc2_test0_vgaram_top_tb.v
+../../tb/soc2_test1_pll_top_tb.v
 
