@@ -1,5 +1,4 @@
 obj_path = ./obj
-inst_srcs = $(wildcard ./inst/*.S)
 
 
 default: 
@@ -12,13 +11,9 @@ all:
 
 tidy: 
 	rm -f ${obj_path}/convert ${obj_path}/main.bin ${obj_path}/main.data ${obj_path}/main.elf ${obj_path}/start.s ${obj_path}/start.o
-	make -C inst clean 
 
 ${obj_path}/test.s: ${obj_path}/main.elf
 	loongarch32r-linux-gnusf-objdump -alD ${obj_path}/main.elf > ${obj_path}/test.s
-
-${obj_path}/libinst.a: ${inst_srcs}
-	make -C inst libinst.a
 
 ${obj_path}/start.o: ${obj_path}/start.s
 	loongarch32r-linux-gnusf-as -mabi=ilp32 ${obj_path}/start.s -o ${obj_path}/start.o
@@ -34,8 +29,8 @@ ${obj_path}/main.bin: ${obj_path}/main.elf
 ${obj_path}/main.data: ${obj_path}/main.elf
 	loongarch32r-linux-gnusf-objcopy -O binary -j .data ${obj_path}/main.elf ${obj_path}/main.data
 
-${obj_path}/main.elf: bin.lds ${obj_path}/libinst.a ${obj_path}/start.o
-	loongarch32r-linux-gnusf-ld ${obj_path}/start.o ${obj_path}/libinst.a -T bin.lds -o ${obj_path}/main.elf
+${obj_path}/main.elf: bin.lds ${obj_path}/start.o
+	loongarch32r-linux-gnusf-ld ${obj_path}/start.o -T bin.lds -o ${obj_path}/main.elf
 
 ${obj_path}/start.s: start.S
 	@mkdir -p ${obj_path}
