@@ -31,6 +31,8 @@ start:
 # set the stack point r3 at the end of ram, 1c007fff    
     lu12i.w $r3, 0x1c008
     addi.w  $r3, $r3, -0x4
+
+#    bl copy_data_section
     bl main
 
 loop:

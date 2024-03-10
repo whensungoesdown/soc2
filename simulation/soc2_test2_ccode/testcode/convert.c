@@ -36,7 +36,7 @@ int main(void)
 	int i,j,k;
 	unsigned char mem[32];
 
-    in = fopen("main.bin", "rb");
+    in = fopen("out.bin", "rb");
     out = fopen("inst_ram.coe","w");
 
 	fprintf(out, "memory_initialization_radix = 16;\n");
@@ -51,7 +51,7 @@ int main(void)
 	fclose(in);
 	fclose(out);
 
-    in = fopen("main.data", "rb");
+    in = fopen("out.data", "rb");
     out = fopen("data_ram.coe","w");
 
 	fprintf(out, "memory_initialization_radix = 16;\n");
@@ -66,7 +66,7 @@ int main(void)
 	fclose(in);
 	fclose(out);
 
-    in = fopen("main.data", "rb");
+    in = fopen("out.data", "rb");
     out = fopen("data_ram.mif","w");
 
 	while(!feof(in)) {
@@ -79,8 +79,8 @@ int main(void)
 	fclose(in);
 	fclose(out);
 
-    in = fopen("main.bin", "rb");
-    in2  = fopen("main.data","rb");
+    in = fopen("out.bin", "rb");
+    in2  = fopen("out.data","rb");
     out = fopen("inst_ram.mif","w");
 
 	//while(!feof(in)) {
@@ -127,8 +127,8 @@ int main(void)
 	fclose(in2);
 	fclose(out);
 
-    in  = fopen("main.bin","rb");
-    in2  = fopen("main.data","rb");
+    in  = fopen("out.bin","rb");
+    in2  = fopen("out.data","rb");
     out = fopen("rom.vlog","w");
     fprintf(out,"@1c000000\n");
     while(!feof(in)) {
