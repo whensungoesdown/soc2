@@ -26,7 +26,7 @@ void delay_short (void)
 	int j = 0;
 	int n = 0;
 
-	for (i = 0; i < 500000; i++)
+	for (i = 0; i < 100000; i++)
 	{
 		n += i;
 	}
@@ -346,42 +346,41 @@ void show_img (int* video_base, int pos_row, int pos_col, char* pimg, int row, i
 int main (void)
 {
 
+	int i = 0;
 	//display_dinosaur(0x10000 + 80 * 5, 0, 0);
 
 	while(1)
 	{
+
 		//display();
 		//show_img((int*)0x10000, 5, 8, (char*)0x1c000f30, 19, 24);
-		show_img((int*)0x10000, 5, 8, (char*)dinosaur_left, 19, 24);
+		show_img((int*)0x10000, 5, i, (char*)dinosaur_left, 19, 24);
 		delay_short();
+		show_img((int*)0x10000, 5, i, (char*)dinosaur_empty, 19, 24);
 
-		show_img((int*)0x10000, 5, 8, (char*)dinosaur_empty, 19, 24);
+		if (i > 52)
+		{
+			i = 0;
+		}
+		else
+		{
+			i += 4;
+		}
 
-		show_img((int*)0x10000, 5, 8, (char*)dinosaur_right, 19, 24);
+		show_img((int*)0x10000, 5, i, (char*)dinosaur_right, 19, 24);
 		delay_short();
+		show_img((int*)0x10000, 5, i, (char*)dinosaur_empty, 19, 24);
+
+		if (i > 52)
+		{
+			i = 0;
+		}
+		else
+		{
+			i += 4;
+		}
 	}
 
 
 	return 0;
 }
-
-
-// data_start, data_end are varialbes defined in bin.lds
-extern int _data_start;
-extern int _data_end;
-
-void copy_data_section (void)
-{
-//	int* data_section_begin = 0;
-//	int* data_section_end = 0;
-//
-//	data_section_begin = &_data_start;
-//	data_section_end = &_data_end;
-//
-//	int size = 0;
-//	
-//	size = (data_section_end - data_section_begin) / sizeof(int);
-//
-//	memcpy_int((int*)0x1c004000, data_section_begin, size);
-}
-
