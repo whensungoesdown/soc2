@@ -59,4 +59,4 @@
 
 ## Test
 
-![screenshot0](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/dinosaur.gif
+![screenshot0](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/dinosaur.gif)
