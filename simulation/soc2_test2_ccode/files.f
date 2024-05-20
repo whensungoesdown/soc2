@@ -41,6 +41,7 @@
 ../../rtl/vga/chrom.v 
 ../../rtl/ram_bridge.v 
 ../../rtl/pll.v
+../../rtl/amba_axi_m2s2.v
 ../../rtl/soc2_top.v 
 ../../tb/soc2_test2_ccode_top_tb.v
 
