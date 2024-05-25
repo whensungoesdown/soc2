@@ -56,6 +56,7 @@ module amba_axi_m2s2
      `ifdef AMBA_AXI_AWUSER
      , input   wire  [WIDTH_AWUSER-1:0]  M0_AWUSER
      `endif
+     , input   wire  [WIDTH_ID-1:0]      M0_WID
      , input   wire  [WIDTH_DA-1:0]      M0_WDATA
      , input   wire  [WIDTH_DS-1:0]      M0_WSTRB
      , input   wire                      M0_WLAST
@@ -123,6 +124,7 @@ module amba_axi_m2s2
      `ifdef AMBA_AXI_AWUSER
      , input   wire  [WIDTH_AWUSER-1:0]  M1_AWUSER
      `endif
+     , input   wire  [WIDTH_ID-1:0]      M1_WID
      , input   wire  [WIDTH_DA-1:0]      M1_WDATA
      , input   wire  [WIDTH_DS-1:0]      M1_WSTRB
      , input   wire                      M1_WLAST
@@ -190,6 +192,7 @@ module amba_axi_m2s2
      `ifdef AMBA_AXI_AWUSER
      , output  wire  [WIDTH_AWUSER-1:0]  S0_AWUSER
      `endif
+     , output  wire  [WIDTH_SID-1:0]     S0_WID
      , output  wire   [WIDTH_DA-1:0]     S0_WDATA
      , output  wire   [WIDTH_DS-1:0]     S0_WSTRB
      , output  wire                      S0_WLAST
@@ -236,7 +239,7 @@ module amba_axi_m2s2
      , input   wire   [WIDTH_RUSER-1:0]  S0_RUSER
      `endif
      //--------------------------------------------------------------
-     , output  wire  [WIDTH_SID-1:0]     S1_AWID
+     , output  wire  [WIDTH_SID-1:0]     S1_WID
      , output  wire  [WIDTH_AD-1:0]      S1_AWADDR
      , output  wire  [ 7:0]              S1_AWLEN
      , output  wire                      S1_AWLOCK
@@ -257,6 +260,7 @@ module amba_axi_m2s2
      `ifdef AMBA_AXI_AWUSER
      , output  wire  [WIDTH_AWUSER-1:0]  S1_AWUSER
      `endif
+     , output  wire  [WIDTH_SID-1:0]     S1_AWID
      , output  wire   [WIDTH_DA-1:0]     S1_WDATA
      , output  wire   [WIDTH_DS-1:0]     S1_WSTRB
      , output  wire                      S1_WLAST
@@ -306,10 +310,10 @@ module amba_axi_m2s2
      //-----------------------------------------------------------
      wire  [WIDTH_CID-1:0]     M0_MID=1'd0;
      wire  [WIDTH_CID-1:0]     M1_MID=1'd1;
-     wire  [WIDTH_ID-1:0]      M0_WID;
-     wire  [WIDTH_ID-1:0]      M1_WID;
-     wire  [WIDTH_SID-1:0]     S0_WID;
-     wire  [WIDTH_SID-1:0]     S1_WID;
+//     wire  [WIDTH_ID-1:0]      M0_WID;
+//     wire  [WIDTH_ID-1:0]      M1_WID;
+//     wire  [WIDTH_SID-1:0]     S0_WID;
+//     wire  [WIDTH_SID-1:0]     S1_WID;
      wire  [WIDTH_SID-1:0]     SD_WID;
      //-----------------------------------------------------------
      wire  [WIDTH_SID-1:0]     SD_AWID     ;
