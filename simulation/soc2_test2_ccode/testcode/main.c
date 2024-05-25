@@ -347,6 +347,8 @@ int main (void)
 {
 
 	int i = 0;
+
+	*(int*)0x10014 = 'C';
 	//display_dinosaur(0x10000 + 80 * 5, 0, 0);
 
 	while(1)

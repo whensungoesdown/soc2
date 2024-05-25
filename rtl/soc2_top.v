@@ -294,18 +294,20 @@ module soc2_top(
 
 
    amba_axi_m2s2 #(
+      .WIDTH_CID    (1                 ),
       .SLAVE_EN0    (1                 ),
       .ADDR_BASE0   ('h1c000000        ),
       .ADDR_LENGTH0 (16                ),
       .SLAVE_EN1    (1                 ),
       .ADDR_BASE1   ('h10000           ),
-      .ADDR_LENGTH1 (12                )
+      .ADDR_LENGTH1 (11                )
    )
 
    u_amba_axi_m2s2 (
       .ARESETn      (resetn            ),
       .ACLK         (pll_clk_out_25mhz ), 
 
+      .M0_MID       (1'h0               ),
       .M0_AWID      (cpu_awid           ),
       .M0_AWADDR    (cpu_awaddr         ),
       .M0_AWLEN     (cpu_awlen          ),
@@ -375,6 +377,7 @@ module soc2_top(
       `endif
 
 
+//      .M1_MID       (1'h1               ),
       .M1_AWID      (dma_awid           ),
       .M1_AWADDR    (dma_awaddr         ),
       .M1_AWLEN     (dma_awlen          ),

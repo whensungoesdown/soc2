@@ -22,7 +22,7 @@ start:
     lu12i.w $r6, 0x10
     addi.w  $r6, $r6, 0x10
 # address 0x10010 vgaram
-    addi.w  $r7, $r0, 0x41
+    addi.w  $r7, $r0, 0x42
 # rd is the data to be stored
     st.w $r7, $r6, 0x0
 
