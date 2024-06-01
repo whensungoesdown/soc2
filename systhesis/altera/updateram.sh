@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo sram.mif vgaram.mif: use the copy under this directory.
+echo sram.mif vgaram.mif vgatextram.mif: use the copy under this directory.
 echo
 
 quartus_cdb --update_mif soc2_top
