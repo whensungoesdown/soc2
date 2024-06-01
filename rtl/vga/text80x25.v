@@ -4,6 +4,7 @@ module text80x25 (
    output vga_vsync,
    output [2:0] vga_rgb,
 
+   input ram_clk,
    input [8:0] write_address,
    input [31:0] write_data,
    input write_en
@@ -71,10 +72,11 @@ module text80x25 (
    assign text_address = column + (row * 11'd80);
 
    vgatextram textram(
-      .clock          (clk          ),
+      .rdclock        (clk          ),
       .data           (write_data   ),
       .rdaddress      (text_address ),
       .wraddress      (write_address),
+      .wrclock        (ram_clk      ),
       .wren           (write_en     ),
       .q              (text_value   )
       );

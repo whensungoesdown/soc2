@@ -10,6 +10,7 @@ module soc2_top(
 
 
    wire pll_clk_out_25mhz;
+   wire pll_clk_out_75mhz;
    wire pll_locked;
 
 //   wire pll_locked_resetn;
@@ -19,8 +20,16 @@ module soc2_top(
 //      .areset      (!resetn           ),
       .inclk0      (clk               ),
       .c0          (pll_clk_out_25mhz ),
+      .c1          (pll_clk_out_75mhz ),
       .locked      (pll_locked        )
       );
+
+
+      wire sys_clk;
+      wire vga_clk;
+
+      assign sys_clk = pll_clk_out_75mhz;
+      assign vga_clk = pll_clk_out_25mhz;
 
 //   assign pll_locked_resetn = pll_locked & resetn;
    
@@ -249,7 +258,7 @@ module soc2_top(
 
 
    cpu u_cpu(
-      .clk          (pll_clk_out_25mhz ),
+      .clk          (sys_clk           ),
       .resetn       (resetn            ),
       
       .awid         (cpu_awid          ),           
@@ -305,7 +314,7 @@ module soc2_top(
 
    u_amba_axi_m2s2 (
       .ARESETn      (resetn            ),
-      .ACLK         (pll_clk_out_25mhz ), 
+      .ACLK         (sys_clk           ), 
 
       .M0_MID       (1'h0               ),
       .M0_AWID      (cpu_awid           ),
@@ -591,7 +600,7 @@ module soc2_top(
    assign s0_rid = `Ls_rid'b0;
 
    axi_sram_bridge u_axi_ram_bridge(
-      .aclk         (pll_clk_out_25mhz ),
+      .aclk         (sys_clk           ),
       .aresetn      (resetn            ),
 
       .ram_raddr    (ram_raddr         ),
@@ -647,7 +656,7 @@ module soc2_top(
    assign s1_rid = `Ls_rid'b0;
 
    axi_sram_bridge u_axi_vga_bridge(
-      .aclk         (pll_clk_out_25mhz ),
+      .aclk         (sys_clk           ),
       .aresetn      (resetn            ),
 
       .ram_raddr    (vga_raddr         ),
@@ -699,7 +708,7 @@ module soc2_top(
 
 
    sram ram(
-      .clock        (pll_clk_out_25mhz ),
+      .clock        (sys_clk         ),
       .rdaddress    (ram_raddr[14:2] ),
       .q            (ram_rdata       ),
       .rden         (ram_ren         ),
@@ -710,7 +719,7 @@ module soc2_top(
 
 
    text80x25 textvga (
-      .clk           (pll_clk_out_25mhz ),
+      .clk           (vga_clk         ),
       .vga_hsync     (vga_hsync       ),
       .vga_vsync     (vga_vsync       ),
       .vga_rgb       (vga_rgb         ),
@@ -719,6 +728,7 @@ module soc2_top(
       //.write_data    (vga_data_write       ),
       //.write_en      (vgaram_ena & memwrite )
 
+      .ram_clk       (sys_clk         ),
       .write_address (vga_waddr[10:2] ),
       .write_data    (vga_wdata       ),
       .write_en      (|vga_wen        )
