@@ -33,6 +33,7 @@ SOURCE_FILES =  ../../rtl/cpu7b/rtl/alu.v \
                 ../../rtl/cpu7b/rtl/axi_sram_bridge.v \
                 ../../rtl/cpu7b/rtl/axi_interface.v \
                 ../../rtl/cpu7b/rtl/sram.v \
+		../../rtl/cpu7b/rtl/cpu7_csr_timer.v \
                 ../../rtl/cpu7b/rtl/cpu.v \
 		../../rtl/vga/vga640x480.v \
 		../../rtl/vga/vgaram.v \

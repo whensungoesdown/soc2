@@ -29,6 +29,7 @@ module soc2_top(
       wire vga_clk;
 
       assign sys_clk = pll_clk_out_75mhz;
+      //assign sys_clk = pll_clk_out_25mhz;
       assign vga_clk = pll_clk_out_25mhz;
 
 //   assign pll_locked_resetn = pll_locked & resetn;
