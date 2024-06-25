@@ -8,11 +8,6 @@
 	.globl	start
 _start:
 start:
-#    addi.w t0, $r0, 1
-#    addi.w t0, t0, 2
-#    addi.w t0, t0, 3
-#    addi.w t0, t0, 4
-#    addi.w t0, t0, 5
 
     addi.w  $r6, $r0, 0
     lu12i.w $r6, 0x10
@@ -43,11 +38,6 @@ loop:
 
 excp_handler:
     
-#    addi.w	$r3,$r3,-16   #(0xff0)
-#    st.w	$r1,$r3,12    #(0xc)
-#    st.w	$r22,$r3,8    #(0x8)
-#    addi.w	$r22,$r3,16   #(0x10)
-
      addi.w	$r3,$r3,-80   #(0xfb0)
      st.w	$r1,$r3,76    #(0x4c)
      st.w	$r22,$r3,72   #(0x48)
@@ -111,7 +101,8 @@ setup_timer:
 
    addi.w  $t0, $r0, 0x4           # 
    csrwr   $t0, 0x0                # CRMD.ie = 1
-   addi.w  $t0, $r0, 0x7F3          # 'b0111 1111 0011   initval=1111 1111 00  periodic=1 en=1
+   lu12i.w $t0, 0x00FFF
+   addi.w  $t0, $t0, 0x7F3          # 'b1111 1111 1111 1111 0111 1111 0011   initval=1111 1111 1111 1111 0111 1111 00  periodic=1 en=1
    csrwr   $t0, 0x41               # TCFG
 
    jirl    $r0,$r1,0               # ret

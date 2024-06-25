@@ -343,22 +343,33 @@ void show_img (int* video_base, int pos_row, int pos_col, char* pimg, int row, i
 	}
 }
 
+// if g_jump = 0, it get stored in .bss instead of .data
+int g_jump = 1;
+
 int main (void)
 {
 
 	int i = 0;
+	int height = 0;
 
 	*(int*)0x10014 = 'C';
 	//display_dinosaur(0x10000 + 80 * 5, 0, 0);
 
+	height = 6;
+
 	while(1)
 	{
+		if (1 == g_jump)
+		{
+			g_jump = 0;
+			height = 1;
+		}
 
 		//display();
 		//show_img((int*)0x10000, 5, 8, (char*)0x1c000f30, 19, 24);
-		show_img((int*)0x10000, 5, i, (char*)dinosaur_left, 19, 24);
+		show_img((int*)0x10000, height, i, (char*)dinosaur_left, 19, 24);
 		delay_short();
-		show_img((int*)0x10000, 5, i, (char*)dinosaur_empty, 19, 24);
+		show_img((int*)0x10000, height, i, (char*)dinosaur_empty, 19, 24);
 
 		if (i > 52)
 		{
@@ -369,9 +380,15 @@ int main (void)
 			i += 4;
 		}
 
-		show_img((int*)0x10000, 5, i, (char*)dinosaur_right, 19, 24);
+		height = 6;
+		// clear banner 
+		*(int*)0x10018 = 0;
+		*(int*)0x1001c = 0;
+		*(int*)0x10020 = 0;
+
+		show_img((int*)0x10000, height, i, (char*)dinosaur_right, 19, 24);
 		delay_short();
-		show_img((int*)0x10000, 5, i, (char*)dinosaur_empty, 19, 24);
+		show_img((int*)0x10000, height, i, (char*)dinosaur_empty, 19, 24);
 
 		if (i > 52)
 		{
@@ -390,11 +407,13 @@ int main (void)
 void do_excp_handler (void)
 {
 	*(int*)0x10018 = 'emiT';
+	*(int*)0x1001c = 'nI r';
+	*(int*)0x10020 = '!rt';
 
 
 	//clr_timer_intr();
 	asm volatile("addi.w  $t0, $r0, 0x1");
 	asm volatile("csrwr   $t0, 0x44");
 
-	//asm volatile("ertn");
+	g_jump = 1;
 }
