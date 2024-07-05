@@ -4,10 +4,11 @@ module text80x25 (
    output vga_vsync,
    output [2:0] vga_rgb,
 
-   input ram_clk,
-   input [8:0] write_address,
+   input        ram_clk,
+   input [8:0]  write_address,
    input [31:0] write_data,
-   input write_en
+   input [3:0]  write_byteena,
+   input        write_en
    );
 
 
@@ -77,6 +78,7 @@ module text80x25 (
       .rdaddress      (text_address ),
       .wraddress      (write_address),
       .wrclock        (ram_clk      ),
+      .byteena_a      (write_byteena),
       .wren           (write_en     ),
       .q              (text_value   )
       );

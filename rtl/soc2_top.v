@@ -715,6 +715,7 @@ module soc2_top(
       .rden         (ram_ren         ),
       .wraddress    (ram_waddr[14:2] ),
       .data         (ram_wdata       ),
+      .byteena_a    (ram_wen         ),
       .wren         (|ram_wen        )
       );
 
@@ -732,6 +733,7 @@ module soc2_top(
       .ram_clk       (sys_clk         ),
       .write_address (vga_waddr[10:2] ),
       .write_data    (vga_wdata       ),
+      .write_byteena (vga_wen         ),
       .write_en      (|vga_wen        )
       );
 

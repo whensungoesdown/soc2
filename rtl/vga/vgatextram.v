@@ -37,6 +37,7 @@
 `timescale 1 ps / 1 ps
 // synopsys translate_on
 module vgatextram (
+	byteena_a,
 	data,
 	rdaddress,
 	rdclock,
@@ -45,6 +46,7 @@ module vgatextram (
 	wren,
 	q);
 
+	input	[3:0]  byteena_a;
 	input	[31:0]  data;
 	input	[10:0]  rdaddress;
 	input	  rdclock;
@@ -55,6 +57,7 @@ module vgatextram (
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
+	tri1	[3:0]  byteena_a;
 	tri1	  wrclock;
 	tri0	  wren;
 `ifndef ALTERA_RESERVED_QIS
@@ -66,6 +69,7 @@ module vgatextram (
 
 	altsyncram	altsyncram_component (
 				.address_a (wraddress),
+				.byteena_a (byteena_a),
 				.clock0 (wrclock),
 				.data_a (data),
 				.wren_a (wren),
@@ -76,7 +80,6 @@ module vgatextram (
 				.aclr1 (1'b0),
 				.addressstall_a (1'b0),
 				.addressstall_b (1'b0),
-				.byteena_a (1'b1),
 				.byteena_b (1'b1),
 				.clocken0 (1'b1),
 				.clocken1 (1'b1),
@@ -91,6 +94,7 @@ module vgatextram (
 	defparam
 		altsyncram_component.address_aclr_b = "NONE",
 		altsyncram_component.address_reg_b = "CLOCK1",
+		altsyncram_component.byte_size = 8,
 		altsyncram_component.clock_enable_input_a = "BYPASS",
 		altsyncram_component.clock_enable_input_b = "BYPASS",
 		altsyncram_component.clock_enable_output_b = "BYPASS",
@@ -108,7 +112,7 @@ module vgatextram (
 		altsyncram_component.widthad_b = 11,
 		altsyncram_component.width_a = 32,
 		altsyncram_component.width_b = 8,
-		altsyncram_component.width_byteena_a = 1;
+		altsyncram_component.width_byteena_a = 4;
 
 
 endmodule
@@ -120,7 +124,7 @@ endmodule
 // Retrieval info: PRIVATE: ADDRESSSTALL_B NUMERIC "0"
 // Retrieval info: PRIVATE: BYTEENA_ACLR_A NUMERIC "0"
 // Retrieval info: PRIVATE: BYTEENA_ACLR_B NUMERIC "0"
-// Retrieval info: PRIVATE: BYTE_ENABLE_A NUMERIC "0"
+// Retrieval info: PRIVATE: BYTE_ENABLE_A NUMERIC "1"
 // Retrieval info: PRIVATE: BYTE_ENABLE_B NUMERIC "0"
 // Retrieval info: PRIVATE: BYTE_SIZE NUMERIC "8"
 // Retrieval info: PRIVATE: BlankMemory NUMERIC "0"
@@ -178,6 +182,7 @@ endmodule
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 // Retrieval info: CONSTANT: ADDRESS_ACLR_B STRING "NONE"
 // Retrieval info: CONSTANT: ADDRESS_REG_B STRING "CLOCK1"
+// Retrieval info: CONSTANT: BYTE_SIZE NUMERIC "8"
 // Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_A STRING "BYPASS"
 // Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_B STRING "BYPASS"
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_B STRING "BYPASS"
@@ -195,7 +200,8 @@ endmodule
 // Retrieval info: CONSTANT: WIDTHAD_B NUMERIC "11"
 // Retrieval info: CONSTANT: WIDTH_A NUMERIC "32"
 // Retrieval info: CONSTANT: WIDTH_B NUMERIC "8"
-// Retrieval info: CONSTANT: WIDTH_BYTEENA_A NUMERIC "1"
+// Retrieval info: CONSTANT: WIDTH_BYTEENA_A NUMERIC "4"
+// Retrieval info: USED_PORT: byteena_a 0 0 4 0 INPUT VCC "byteena_a[3..0]"
 // Retrieval info: USED_PORT: data 0 0 32 0 INPUT NODEFVAL "data[31..0]"
 // Retrieval info: USED_PORT: q 0 0 8 0 OUTPUT NODEFVAL "q[7..0]"
 // Retrieval info: USED_PORT: rdaddress 0 0 11 0 INPUT NODEFVAL "rdaddress[10..0]"
@@ -205,6 +211,7 @@ endmodule
 // Retrieval info: USED_PORT: wren 0 0 0 0 INPUT GND "wren"
 // Retrieval info: CONNECT: @address_a 0 0 9 0 wraddress 0 0 9 0
 // Retrieval info: CONNECT: @address_b 0 0 11 0 rdaddress 0 0 11 0
+// Retrieval info: CONNECT: @byteena_a 0 0 4 0 byteena_a 0 0 4 0
 // Retrieval info: CONNECT: @clock0 0 0 0 0 wrclock 0 0 0 0
 // Retrieval info: CONNECT: @clock1 0 0 0 0 rdclock 0 0 0 0
 // Retrieval info: CONNECT: @data_a 0 0 32 0 data 0 0 32 0

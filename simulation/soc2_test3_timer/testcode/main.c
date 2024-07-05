@@ -353,6 +353,7 @@ int main (void)
 	int height = 0;
 
 	*(int*)0x10014 = 'C';
+	*(char*)0x10015 = (char)0x65; //'e'
 	//display_dinosaur(0x10000 + 80 * 5, 0, 0);
 
 	height = 6;
