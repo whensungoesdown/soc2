@@ -197,6 +197,45 @@ module soc2_top(
    wire                      s1_bvalid;
    wire                      s1_bready;
 
+   wire [`Ls_arid     -1 :0] s2_arid;
+   wire [`Laraddr     -1 :0] s2_araddr;
+   wire [`Larlen      -1 :0] s2_arlen;
+   wire [`Larsize     -1 :0] s2_arsize;
+   wire [`Larburst    -1 :0] s2_arburst;
+   wire [`Larlock     -1 :0] s2_arlock;
+   wire [`Larcache    -1 :0] s2_arcache;
+   wire [`Larprot     -1 :0] s2_arprot;
+   wire                      s2_arvalid;
+   wire                      s2_arready;
+   
+   wire [`Ls_rid      -1 :0] s2_rid;
+   wire [`Lrdata      -1 :0] s2_rdata;
+   wire [`Lrresp      -1 :0] s2_rresp;
+   wire                      s2_rlast;
+   wire                      s2_rvalid;
+   wire                      s2_rready;
+
+   wire [`Ls_awid     -1 :0] s2_awid;
+   wire [`Lawaddr     -1 :0] s2_awaddr;
+   wire [`Lawlen      -1 :0] s2_awlen;
+   wire [`Lawsize     -1 :0] s2_awsize;
+   wire [`Lawburst    -1 :0] s2_awburst;
+   wire [`Lawlock     -1 :0] s2_awlock;
+   wire [`Lawcache    -1 :0] s2_awcache;
+   wire [`Lawprot     -1 :0] s2_awprot;
+   wire                      s2_awvalid;
+   wire                      s2_awready;
+   wire [`Ls_wid      -1 :0] s2_wid;
+   wire [`Lwdata      -1 :0] s2_wdata;
+   wire [`Lwstrb      -1 :0] s2_wstrb;
+   wire                      s2_wlast;
+   wire                      s2_wvalid;
+   wire                      s2_wready;
+   
+   wire [`Ls_bid      -1 :0] s2_bid;
+   wire [`Lbresp      -1 :0] s2_bresp;
+   wire                      s2_bvalid;
+   wire                      s2_bready;
 
    //ram
    wire [`BUS_WIDTH -1:0]    ram_raddr;
@@ -214,7 +253,15 @@ module soc2_top(
    wire [`BUS_WIDTH -1:0]    vga_waddr;
    wire [`DATA_WIDTH-1:0]    vga_wdata;
    wire [`DATA_WIDTH/8-1:0]  vga_wen;
-   
+  
+   // peripherals 
+   wire [`BUS_WIDTH -1:0]    peri_raddr;
+   wire [`DATA_WIDTH-1:0]    peri_rdata;
+   wire                      peri_ren  ;
+   wire [`BUS_WIDTH -1:0]    peri_waddr;
+   wire [`DATA_WIDTH-1:0]    peri_wdata;
+   wire [`DATA_WIDTH/8-1:0]  peri_wen;
+
 
    assign dma_arid = 'h0;
    assign dma_araddr = 'h0;    
@@ -303,21 +350,25 @@ module soc2_top(
    );
 
 
-   amba_axi_m2s2 #(
-      .WIDTH_CID    (1                 ),
+   amba_axi_m2s3 #(
+      .WIDTH_CID    (1                 ), // two masters need 1 bit to distinguish 
+      .WIDTH_ID     (4                 ),
       .SLAVE_EN0    (1                 ),
       .ADDR_BASE0   ('h1c000000        ),
       .ADDR_LENGTH0 (16                ),
       .SLAVE_EN1    (1                 ),
       .ADDR_BASE1   ('h10000           ),
-      .ADDR_LENGTH1 (11                )
+      .ADDR_LENGTH1 (11                ),
+      .SLAVE_EN2    (1                 ),
+      .ADDR_BASE2   ('h20000           ),
+      .ADDR_LENGTH2 (11                )
    )
 
-   u_amba_axi_m2s2 (
+   u_amba_axi_m2s3 (
       .ARESETn      (resetn            ),
       .ACLK         (sys_clk           ), 
 
-      .M0_MID       (1'h0               ),
+      .M0_MID       (4'h0                ),
       .M0_AWID      (cpu_awid           ),
       .M0_AWADDR    (cpu_awaddr         ),
       .M0_AWLEN     (cpu_awlen          ),
@@ -589,9 +640,77 @@ module soc2_top(
       .S1_RRESP     (s1_rresp          ),
       .S1_RLAST     (s1_rlast          ),
       .S1_RVALID    (s1_rvalid         ),
-      .S1_RREADY    (s1_rready         )
+      .S1_RREADY    (s1_rready         ),
       `ifdef AMBA_AXI_RUSER
-      .S1_RUSER     (s1_ruser          )
+      .S1_RUSER     (s1_ruser          ),
+      `endif
+
+      .S2_AWID      (s2_awid           ),
+      .S2_AWADDR    (s2_awaddr         ),
+      .S2_AWLEN     (s2_awlen          ),
+      .S2_AWLOCK    (s2_awlock         ),
+      .S2_AWSIZE    (s2_awsize         ),
+      .S2_AWBURST   (s2_awburst        ),
+      `ifdef  AMBA_AXI_CACHE
+      .S2_AWCACHE   (s2_awcache        ),
+      `endif
+      `ifdef AMBA_AXI_PROT
+      .S2_AWPROT    (s2_awprot         ),
+      `endif
+      .S2_AWVALID   (s2_awvalid        ),
+      .S2_AWREADY   (s2_awready        ),
+      `ifdef AMBA_QOS
+      .S2_AWQOS     (s2_awqos          ),
+      .S2_AWREGION  (s2_awregion       ),
+      `endif
+      `ifdef AMBA_AXI_AWUSER
+      .S2_AWUSER    (s2_awuser         ),
+      `endif
+      .S2_WID       (s2_wid            ),
+      .S2_WDATA     (s2_wdata          ),
+      .S2_WSTRB     (s2_wstrb          ),
+      .S2_WLAST     (s2_wlast          ),
+      .S2_WVALID    (s2_wvalid         ),
+      .S2_WREADY    (s2_wready         ),
+      `ifdef AMBA_AXI_WUSER
+      .S2_WUSER     (s2_wuser          ),
+      `endif
+      .S2_BID       (s2_bid            ),
+      .S2_BRESP     (s2_bresp          ),
+      .S2_BVALID    (s2_bvalid         ),
+      .S2_BREADY    (s2_bready         ),
+      `ifdef AMBA_AXI_BUSER
+      .S2_BUSER     (s2_buser          ),
+      `endif
+      .S2_ARID      (s2_arid           ),
+      .S2_ARADDR    (s2_araddr         ),
+      .S2_ARLEN     (s2_arlen          ),
+      .S2_ARLOCK    (s2_arlock         ),
+      .S2_ARSIZE    (s2_arsize         ),
+      .S2_ARBURST   (s2_arburst        ),
+      `ifdef  AMBA_AXI_CACHE
+      .S2_ARCACHE   (s2_arcache        ),
+      `endif
+      `ifdef AMBA_AXI_PROT
+      .S2_ARPROT    (s2_arprot         ),
+      `endif
+      .S2_ARVALID   (s2_arvalid        ),
+      .S2_ARREADY   (s2_arready        ),
+      `ifdef AMBA_QOS
+      .S2_ARQOS     (s2_arqos          ),
+      .S2_ARREGION  (s2_arregion       ),
+      `endif
+      `ifdef AMBA_AXI_ARUSER
+      .S2_ARUSER    (s2_aruser         ),
+      `endif
+      .S2_RID       (s2_rid            ),
+      .S2_RDATA     (s2_rdata          ),
+      .S2_RRESP     (s2_rresp          ),
+      .S2_RLAST     (s2_rlast          ),
+      .S2_RVALID    (s2_rvalid         ),
+      .S2_RREADY    (s2_rready         )
+      `ifdef AMBA_AXI_RUSER
+      .S2_RUSER     (s2_ruser          )
       `endif
    );
 
@@ -707,6 +826,60 @@ module soc2_top(
       .m_rvalid     (s1_rvalid         )
       );
 
+   // should be the logic in axi_sram_bridge that set the bid 
+   assign s2_bid = `Ls_bid'b0;
+   assign s2_rid = `Ls_rid'b0;
+
+   axi_sram_bridge u_axi_peri_bridge(
+      .aclk         (sys_clk           ),
+      .aresetn      (resetn            ),
+
+      .ram_raddr    (peri_raddr        ),
+      .ram_rdata    (peri_rdata        ),
+      .ram_ren      (peri_ren          ),
+      .ram_waddr    (peri_waddr        ),
+      .ram_wdata    (peri_wdata        ),
+      .ram_wen      (peri_wen          ),
+
+      .m_awid       (s2_awid[3:0]           ),           
+      .m_awaddr     (s2_awaddr         ),
+      .m_awlen      (s2_awlen          ),
+      .m_awsize     (s2_awsize         ),
+      .m_awburst    (s2_awburst        ),
+      .m_awlock     (s2_awlock         ),
+      .m_awcache    (s2_awcache        ),
+      .m_awprot     (s2_awprot         ),
+      .m_awvalid    (s2_awvalid        ),
+      .m_awready    (s2_awready        ),
+      .m_wid        (s2_wid[3:0]            ),
+      .m_wdata      (s2_wdata          ),
+      .m_wstrb      (s2_wstrb          ),
+      .m_wlast      (s2_wlast          ),
+      .m_wvalid     (s2_wvalid         ),
+      .m_wready     (s2_wready         ),
+      .m_bid        (s2_bid[3:0]            ),
+      .m_bresp      (s2_bresp          ),
+      .m_bvalid     (s2_bvalid         ),
+      .m_bready     (s2_bready         ),
+      
+      .m_araddr     (s2_araddr         ),
+      .m_arburst    (s2_arburst        ),
+      .m_arcache    (s2_arcache        ),
+      .m_arid       (s2_arid[3:0]           ),
+      .m_arlen      (s2_arlen          ),
+      .m_arlock     (s2_arlock         ),
+      .m_arprot     (s2_arprot         ),
+      .m_arready    (s2_arready        ),
+      .m_arsize     (s2_arsize         ),
+      .m_arvalid    (s2_arvalid        ),
+
+      .m_rdata      (s2_rdata          ),
+      .m_rid        (s2_rid[3:0]            ),
+      .m_rlast      (s2_rlast          ),
+      .m_rready     (s2_rready         ),
+      .m_rresp      (s2_rresp          ),
+      .m_rvalid     (s2_rvalid         )
+      );
 
    sram ram(
       .clock        (sys_clk         ),
@@ -738,5 +911,22 @@ module soc2_top(
       );
 
       assign vga_rdata = `DATA_WIDTH'h0;
+
+
+
+   peripherals u_peri(
+      .clk          (sys_clk         ),
+      .rdaddress    (peri_raddr[14:2] ),
+      .rdata        (peri_rdata       ),
+      .rden         (peri_ren         ),
+      .wraddress    (peri_waddr[14:2] ),
+      .wdata        (peri_wdata       ),
+      .wrbyteena    (peri_wen         ),
+      .wren         (|peri_wen        ),
+      
+      .uart_rx      (                ),
+      .uart_tx      (                ),
+      .uart_intr    (                )
+      );
 
 endmodule // soc2_top
