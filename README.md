@@ -215,28 +215,43 @@ _f _d _e _m _w
 ## Memory Map
 
 ```````````````
-    0x0  +-------------+
-         |             |
-         |    RAM      |  64KB
-         |             |
-         |             |
- 0xffff  |             |
-0x10000  +-------------+
-         |   VGA RAM   |2KB
-0x107ff  +-------------+   
-         |             |  64KB
-         | Reserved    |
-         | VGA RAM     | 
-0x20000  +-------------+         0x20000  RW   uartdr     (32-bit register, 
-         |             |                                   low 8 bits are used to transmit and receive data)
-         |             |  64KB
-         | Device MMIO |         
-         |             |         
-0x2ffff  |             |
-         +------------ +
-         |             |
-         |             |
-         .....
+        0x0  +--------------+
+(0x1c000000) |              |
+             |    RAM       |  64KB
+             |              |
+             |              |
+     0xffff  |              |
+    0x10000  +--------------+
+             | VGA RAM(2KB) |
+    0x107ff  +--------------+   
+             |              |  64KB
+             | Reserved     |
+             | VGA RAM      | 
+    0x20000  +--------------+         0x20000  RW   uartdr     (32-bit register, 
+             |              |                                   low 8 bits are used to transmit and receive data)
+             |              |  64KB
+             | Device MMIO  |         
+             |              |         
+    0x2ffff  |              |
+             +--------------+
+             |              |
+             |              |
+
+             .....
+
+             |              |
+             |              |
+0x1c000000   +--------------+
+             |              |
+             |    RAM       |  64KB
+             |              |
+             |              |
+             |              |
+             +--------------+
+             |              |
+             |              |
+
+             .....
 ```````````````
 
 
