@@ -13,6 +13,6 @@ set_location_assignment PIN_J21 -to vga_rgb[0]
 set_location_assignment PIN_M21 -to vga_rgb[1]
 set_location_assignment PIN_W19 -to vga_rgb[2]
 
-#set_location_assignment PIN_114 -to uart_rxd
-#set_location_assignment PIN_113 -to uart_txd
+set_location_assignment PIN_V1 -to uart_rx
+set_location_assignment PIN_U1 -to uart_tx
 

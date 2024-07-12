@@ -5,7 +5,9 @@ module soc2_top(
    input            resetn,
    output [2:0]     vga_rgb,
    output           vga_hsync,
-   output           vga_vsync
+   output           vga_vsync,
+   input            uart_rx,
+   output           uart_tx
    );
 
 
@@ -27,10 +29,12 @@ module soc2_top(
 
       wire sys_clk;
       wire vga_clk;
+      wire uart_clk;
 
       assign sys_clk = pll_clk_out_75mhz;
       //assign sys_clk = pll_clk_out_25mhz;
       assign vga_clk = pll_clk_out_25mhz;
+      assign uart_clk = pll_clk_out_25mhz;
 
 //   assign pll_locked_resetn = pll_locked & resetn;
    
@@ -304,11 +308,14 @@ module soc2_top(
    assign dma_bready = 'h0;
 
 
+   wire ext_intr;
 
    cpu u_cpu(
       .clk          (sys_clk           ),
       .resetn       (resetn            ),
       
+      .ext_intr     (ext_intr          ),
+
       .awid         (cpu_awid          ),           
       .awaddr       (cpu_awaddr        ),
       .awlen        (cpu_awlen         ),
@@ -361,14 +368,14 @@ module soc2_top(
       .ADDR_LENGTH1 (11                ),
       .SLAVE_EN2    (1                 ),
       .ADDR_BASE2   ('h20000           ),
-      .ADDR_LENGTH2 (11                )
+      .ADDR_LENGTH2 (16                )
    )
 
    u_amba_axi_m2s3 (
       .ARESETn      (resetn            ),
       .ACLK         (sys_clk           ), 
 
-      .M0_MID       (4'h0                ),
+      .M0_MID       (1'b0                ),
       .M0_AWID      (cpu_awid           ),
       .M0_AWADDR    (cpu_awaddr         ),
       .M0_AWLEN     (cpu_awlen          ),
@@ -438,7 +445,7 @@ module soc2_top(
       `endif
 
 
-//      .M1_MID       (1'h1               ),
+      .M1_MID       (1'b1               ),
       .M1_AWID      (dma_awid           ),
       .M1_AWADDR    (dma_awaddr         ),
       .M1_AWLEN     (dma_awlen          ),
@@ -715,9 +722,6 @@ module soc2_top(
    );
 
 
-   // should be the logic in axi_sram_bridge that set the bid 
-   assign s0_bid = `Ls_bid'b0;
-   assign s0_rid = `Ls_rid'b0;
 
    axi_sram_bridge u_axi_ram_bridge(
       .aclk         (sys_clk           ),
@@ -730,7 +734,7 @@ module soc2_top(
       .ram_wdata    (ram_wdata         ),
       .ram_wen      (ram_wen           ),
 
-      .m_awid       (s0_awid[3:0]           ),           
+      .m_awid       (s0_awid            ),           
       .m_awaddr     (s0_awaddr         ),
       .m_awlen      (s0_awlen          ),
       .m_awsize     (s0_awsize         ),
@@ -740,13 +744,13 @@ module soc2_top(
       .m_awprot     (s0_awprot         ),
       .m_awvalid    (s0_awvalid        ),
       .m_awready    (s0_awready        ),
-      .m_wid        (s0_wid[3:0]            ),
+      .m_wid        (s0_wid             ),
       .m_wdata      (s0_wdata          ),
       .m_wstrb      (s0_wstrb          ),
       .m_wlast      (s0_wlast          ),
       .m_wvalid     (s0_wvalid         ),
       .m_wready     (s0_wready         ),
-      .m_bid        (s0_bid[3:0]            ),
+      .m_bid        (s0_bid             ),
       .m_bresp      (s0_bresp          ),
       .m_bvalid     (s0_bvalid         ),
       .m_bready     (s0_bready         ),
@@ -754,7 +758,7 @@ module soc2_top(
       .m_araddr     (s0_araddr         ),
       .m_arburst    (s0_arburst        ),
       .m_arcache    (s0_arcache        ),
-      .m_arid       (s0_arid[3:0]           ),
+      .m_arid       (s0_arid            ),
       .m_arlen      (s0_arlen          ),
       .m_arlock     (s0_arlock         ),
       .m_arprot     (s0_arprot         ),
@@ -763,7 +767,7 @@ module soc2_top(
       .m_arvalid    (s0_arvalid        ),
 
       .m_rdata      (s0_rdata          ),
-      .m_rid        (s0_rid[3:0]            ),
+      .m_rid        (s0_rid             ),
       .m_rlast      (s0_rlast          ),
       .m_rready     (s0_rready         ),
       .m_rresp      (s0_rresp          ),
@@ -771,9 +775,6 @@ module soc2_top(
       );
 
 
-   // should be the logic in axi_sram_bridge that set the bid 
-   assign s1_bid = `Ls_bid'b0;
-   assign s1_rid = `Ls_rid'b0;
 
    axi_sram_bridge u_axi_vga_bridge(
       .aclk         (sys_clk           ),
@@ -786,7 +787,7 @@ module soc2_top(
       .ram_wdata    (vga_wdata         ),
       .ram_wen      (vga_wen           ),
 
-      .m_awid       (s1_awid[3:0]           ),           
+      .m_awid       (s1_awid            ),           
       .m_awaddr     (s1_awaddr         ),
       .m_awlen      (s1_awlen          ),
       .m_awsize     (s1_awsize         ),
@@ -796,13 +797,13 @@ module soc2_top(
       .m_awprot     (s1_awprot         ),
       .m_awvalid    (s1_awvalid        ),
       .m_awready    (s1_awready        ),
-      .m_wid        (s1_wid[3:0]            ),
+      .m_wid        (s1_wid             ),
       .m_wdata      (s1_wdata          ),
       .m_wstrb      (s1_wstrb          ),
       .m_wlast      (s1_wlast          ),
       .m_wvalid     (s1_wvalid         ),
       .m_wready     (s1_wready         ),
-      .m_bid        (s1_bid[3:0]            ),
+      .m_bid        (s1_bid             ),
       .m_bresp      (s1_bresp          ),
       .m_bvalid     (s1_bvalid         ),
       .m_bready     (s1_bready         ),
@@ -810,7 +811,7 @@ module soc2_top(
       .m_araddr     (s1_araddr         ),
       .m_arburst    (s1_arburst        ),
       .m_arcache    (s1_arcache        ),
-      .m_arid       (s1_arid[3:0]           ),
+      .m_arid       (s1_arid            ),
       .m_arlen      (s1_arlen          ),
       .m_arlock     (s1_arlock         ),
       .m_arprot     (s1_arprot         ),
@@ -819,16 +820,13 @@ module soc2_top(
       .m_arvalid    (s1_arvalid        ),
 
       .m_rdata      (s1_rdata          ),
-      .m_rid        (s1_rid[3:0]            ),
+      .m_rid        (s1_rid             ),
       .m_rlast      (s1_rlast          ),
       .m_rready     (s1_rready         ),
       .m_rresp      (s1_rresp          ),
       .m_rvalid     (s1_rvalid         )
       );
 
-   // should be the logic in axi_sram_bridge that set the bid 
-   assign s2_bid = `Ls_bid'b0;
-   assign s2_rid = `Ls_rid'b0;
 
    axi_sram_bridge u_axi_peri_bridge(
       .aclk         (sys_clk           ),
@@ -841,7 +839,7 @@ module soc2_top(
       .ram_wdata    (peri_wdata        ),
       .ram_wen      (peri_wen          ),
 
-      .m_awid       (s2_awid[3:0]           ),           
+      .m_awid       (s2_awid            ),           
       .m_awaddr     (s2_awaddr         ),
       .m_awlen      (s2_awlen          ),
       .m_awsize     (s2_awsize         ),
@@ -851,13 +849,13 @@ module soc2_top(
       .m_awprot     (s2_awprot         ),
       .m_awvalid    (s2_awvalid        ),
       .m_awready    (s2_awready        ),
-      .m_wid        (s2_wid[3:0]            ),
+      .m_wid        (s2_wid             ),
       .m_wdata      (s2_wdata          ),
       .m_wstrb      (s2_wstrb          ),
       .m_wlast      (s2_wlast          ),
       .m_wvalid     (s2_wvalid         ),
       .m_wready     (s2_wready         ),
-      .m_bid        (s2_bid[3:0]            ),
+      .m_bid        (s2_bid             ),
       .m_bresp      (s2_bresp          ),
       .m_bvalid     (s2_bvalid         ),
       .m_bready     (s2_bready         ),
@@ -865,7 +863,7 @@ module soc2_top(
       .m_araddr     (s2_araddr         ),
       .m_arburst    (s2_arburst        ),
       .m_arcache    (s2_arcache        ),
-      .m_arid       (s2_arid[3:0]           ),
+      .m_arid       (s2_arid            ),
       .m_arlen      (s2_arlen          ),
       .m_arlock     (s2_arlock         ),
       .m_arprot     (s2_arprot         ),
@@ -874,7 +872,7 @@ module soc2_top(
       .m_arvalid    (s2_arvalid        ),
 
       .m_rdata      (s2_rdata          ),
-      .m_rid        (s2_rid[3:0]            ),
+      .m_rid        (s2_rid             ),
       .m_rlast      (s2_rlast          ),
       .m_rready     (s2_rready         ),
       .m_rresp      (s2_rresp          ),
@@ -910,23 +908,33 @@ module soc2_top(
       .write_en      (|vga_wen        )
       );
 
-      assign vga_rdata = `DATA_WIDTH'h0;
+   assign vga_rdata = `DATA_WIDTH'h0;
 
+
+
+   wire uart_intr;
 
 
    peripherals u_peri(
       .clk          (sys_clk         ),
-      .rdaddress    (peri_raddr[14:2] ),
+      .uart_clk     (uart_clk        ),
+      .resetn       (resetn          ),
+      .rdaddress    (peri_raddr       ),
       .rdata        (peri_rdata       ),
       .rden         (peri_ren         ),
-      .wraddress    (peri_waddr[14:2] ),
+      .wraddress    (peri_waddr       ),
       .wdata        (peri_wdata       ),
       .wrbyteena    (peri_wen         ),
       .wren         (|peri_wen        ),
       
-      .uart_rx      (                ),
-      .uart_tx      (                ),
-      .uart_intr    (                )
+      .uart_rx      (uart_rx         ),
+      .uart_tx      (uart_tx         ),
+      .uart_intr    (uart_intr       )
       );
+
+
+
+   // need a pic here
+   assign ext_intr = uart_intr;
 
 endmodule // soc2_top

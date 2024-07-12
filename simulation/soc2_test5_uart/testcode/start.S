@@ -101,9 +101,14 @@ setup_timer:
 
    addi.w  $t0, $r0, 0x4           # 
    csrwr   $t0, 0x0                # CRMD.ie = 1
-   lu12i.w $t0, 0x0FFFF
-   addi.w  $t0, $t0, 0x7F3          # 'b1111 1111 1111 1111 1111 0111 1111 0011   initval=1111 1111 1111 1111 1111 0111 1111 00  periodic=1 en=1
-   csrwr   $t0, 0x41               # TCFG
+
+#   lu12i.w $t0, 0x0FFFF
+#   addi.w  $t0, $t0, 0x7F3          # 'b1111 1111 1111 1111 1111 0111 1111 0011   initval=1111 1111 1111 1111 1111 0111 1111 00  periodic=1 en=1
+#   csrwr   $t0, 0x41               # TCFG
+
+   nop
+   nop
+   nop
 
    jirl    $r0,$r1,0               # ret
 

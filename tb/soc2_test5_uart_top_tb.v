@@ -8,17 +8,33 @@ module top_tb(
 
    reg clk;
    reg resetn;
+   reg rx;
 
    initial
       begin
 	 $display("Start ...");
 	 clk = 1'b1;
 	 resetn = 1'b0;
+
+	 rx = 1'b1;
  
 	 // reset long enough to let the pll locked
 	 #132;
 	 resetn = 1'b1;
 
+	 // trick the uart to report data
+	 #5000;
+	 rx = 1'b0; // start bit
+	 #5;
+	 rx = 1'b1;
+
+	 u_top.u_peri.u_uart.urx.sample_now = 1'b1;
+	 u_top.u_peri.u_uart.urx.state = 2'b10;
+
+	 #30;
+
+	 u_top.u_peri.u_uart.urx.sample_now = 0;
+	 u_top.u_peri.u_uart.urx.state = 2'b00;
 	 
       end
 
@@ -27,7 +43,8 @@ module top_tb(
 
    soc2_top u_top (
       .clk      (clk      ),
-      .resetn   (resetn   )
+      .resetn   (resetn   ),
+      .uart_rx  (rx       )
       );
 
    //always @(negedge clk)
@@ -67,7 +84,7 @@ module top_tb(
 	                 $display("**************************************************");
 	                 $display("\n");
 	                 $display("\033[0m");
-			 $finish;
+//			 $finish;
 		 end
 		 else
 		 begin

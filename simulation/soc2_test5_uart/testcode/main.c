@@ -446,14 +446,68 @@ int main (void)
 
 void do_excp_handler (void)
 {
-	*(int*)0x10018 = 'emiT';
-	*(int*)0x1001c = 'nI r';
-	*(int*)0x10020 = '!rt';
+	int estat = 0;
+	int uart_data = 0;
+
+	//
+	// test
+	//
+	
+//	asm volatile("csrrd   $r13, 0x5 \n\t"
+//		     "addi.w  $r13, $r13, 0x41 \n\t"
+//
+//                     "lu12i.w $r12, 0x10 \n\t"
+//		     "addi.w  $r12, $r12, 0x14 \n\t"
+//		     "st.w    $r13, $r12, 0x0 \n\t"
+//
+//                     "lu12i.w $r12, 0x20 \n\t"
+//		     "ld.w    $r13, $r12, 0x0 \n\t"
+//		    );
+//
+//	return;
+	//
+
+	asm volatile("csrrd   %0, 0x5\n\t"
+		     "nop \n\t"
+			:"=r"(estat)
+			);
+
+	*(int*)0x10014 = estat;
+
+	if (0x08 == estat)
+	{
+		// TI
+		*(int*)0x10018 = 'emiT';
+		*(int*)0x1001c = 'nI r';
+		*(int*)0x10020 = '!!rt';
 
 
-	//clr_timer_intr();
-	asm volatile("addi.w  $t0, $r0, 0x1");
-	asm volatile("csrwr   $t0, 0x44");
+		// clr timer intr
+		asm volatile("addi.w  $t0, $r0, 0x1");
+		asm volatile("csrwr   $t0, 0x44");
 
-	g_jump = 1;
+		g_jump = 1;
+	}
+	else if (0x10 == estat)
+	{
+
+		// HWI0, uart
+		*(int*)0x10018 = 'traU';
+		*(int*)0x1001c = 'tnI ';
+		*(int*)0x10020 = '  !r';
+
+		// read uartdr registers, also clear uart intr
+		uart_data = *(int*)0x20000;
+
+		*(int*)0x10024 = uart_data;
+
+		g_jump = 1;
+	}
+	else
+	{
+		// Unknown
+		*(int*)0x10018 = 'nknU';
+		*(int*)0x1001c = ' nwo';
+		*(int*)0x10020 = 'rtnI';
+	}
 }
