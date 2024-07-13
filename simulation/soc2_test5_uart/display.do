@@ -118,3 +118,17 @@ add wave -position 47  result:/top_tb/u_top/u_amba_axi_m2s3/u_axi_mtos_s0/ARSELE
 add wave -position 47  result:/top_tb/u_top/u_amba_axi_m2s3/u_axi_mtos_s0/M0_ARADDR
 add wave -position 49  result:/top_tb/u_top/u_amba_axi_m2s3/u_axi_mtos_s2/M0_ARADDR
 add wave -position 50  result:/top_tb/u_top/u_amba_axi_m2s3/u_axi_mtos_s2/ARSELECT
+
+
+add wave -position 19  result:/top_tb/u_top/u_amba_axi_m2s3/M0_ARREADY
+add wave -position 25  result:/top_tb/u_top/u_amba_axi_m2s3/S2_ARID
+add wave -position 26  result:/top_tb/u_top/u_amba_axi_m2s3/S2_ARADDR
+add wave -position 27  result:/top_tb/u_top/u_amba_axi_m2s3/S2_ARVALID
+add wave -position 28  result:/top_tb/u_top/u_amba_axi_m2s3/S2_ARREADY
+add wave -position 56  result:/top_tb/u_top/u_amba_axi_m2s3/u_axi_mtos_s0/ARGRANT
+add wave -position 54  result:/top_tb/u_top/u_amba_axi_m2s3/u_axi_mtos_s0/ARGRANT
+add wave -position 55  result:/top_tb/u_top/u_amba_axi_m2s3/u_axi_mtos_s0/u_axi_arbiter_mtos_m2/ARSELECT
+add wave -position 56  result:/top_tb/u_top/u_amba_axi_m2s3/u_axi_mtos_s0/u_axi_arbiter_mtos_m2/ARGRANT
+add wave -position 56  result:/top_tb/u_top/u_amba_axi_m2s3/u_axi_mtos_s0/u_axi_arbiter_mtos_m2/stateAR
+add wave -position 57  result:/top_tb/u_top/u_amba_axi_m2s3/u_axi_mtos_s0/u_axi_arbiter_mtos_m2/argrant_reg
+
