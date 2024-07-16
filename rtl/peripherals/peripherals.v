@@ -85,8 +85,24 @@ module peripherals (
 
 
 
-   assign rdata = {32{uart_ren}} & {24'h0, uart_dr_q} // |
+
+   //
+   // consist with ram, return data in the next cycle
+   //
+
+   wire [31:0] rdata_in; 
+   wire [31:0] rdata_q; 
+
+   assign rdata_in = {32{uart_ren}} & {24'h0, uart_dr_q} // |
                   ;
+
+   dff_s #(32) rdata_reg (
+      .din   (rdata_in),
+      .clk   (clk),
+      .q     (rdata_q),
+      .se(), .si(), .so());
+
+   assign rdata = rdata_q;
 
 endmodule
 

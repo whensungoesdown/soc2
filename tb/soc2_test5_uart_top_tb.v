@@ -23,18 +23,20 @@ module top_tb(
 	 resetn = 1'b1;
 
 	 // trick the uart to report data
-	 //#5000;
-	 //rx = 1'b0; // start bit
-	 //#5;
-	 //rx = 1'b1;
+	 #5000;
+	 rx = 1'b0; // start bit
+	 #5;
+	 rx = 1'b1;
 
-	 //u_top.u_peri.u_uart.urx.sample_now = 1'b1;
-	 //u_top.u_peri.u_uart.urx.state = 2'b10;
+	 u_top.u_peri.u_uart.urx.sample_now = 1'b1;
+	 u_top.u_peri.u_uart.urx.state = 2'b10;
+	 u_top.u_peri.u_uart.urx.rx_data = 8'h7;
+	 u_top.u_peri.u_uart.urx.rx_shift = 8'h5;
 
-	 //#30;
+	 #30;
 
-	 //u_top.u_peri.u_uart.urx.sample_now = 0;
-	 //u_top.u_peri.u_uart.urx.state = 2'b00;
+	 u_top.u_peri.u_uart.urx.sample_now = 0;
+	 u_top.u_peri.u_uart.urx.state = 2'b00;
 	 
       end
 
@@ -84,7 +86,7 @@ module top_tb(
 	                 $display("**************************************************");
 	                 $display("\n");
 	                 $display("\033[0m");
-//			 $finish;
+			 $finish;
 		 end
 		 else
 		 begin

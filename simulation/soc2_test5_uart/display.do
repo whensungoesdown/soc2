@@ -133,3 +133,10 @@ add wave -position end  result:/top_tb/u_top/u_cpu/u_axi_interface/data_data_ok_
 add wave -position end  result:/top_tb/u_top/u_cpu/u_axi_interface/lsu_read_m
  
 add wave -divider
+
+add wave -position end  result:/top_tb/u_top/u_peri/uart_dr_reg/q
+add wave -position end  result:/top_tb/u_top/u_peri/u_uart/urx/rx_data
+add wave -position end  result:/top_tb/u_top/u_peri/u_uart/urx/state
+add wave -position end  result:/top_tb/u_top/u_peri/u_uart/urx/rx_data_fresh
+
+add wave -divider
