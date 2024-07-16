@@ -419,6 +419,8 @@ int main (void)
 		}
 		else
 		{
+			*(char*)0x10015 = (char)'B';
+
 			show_img((int*)0x10000, 6, i, (char*)dinosaur_left, 19, 24);
 			delay_short();
 			delay_short();

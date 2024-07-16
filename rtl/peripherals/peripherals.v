@@ -60,7 +60,8 @@ module peripherals (
 
 
    dffrle_s #(1) uart_intr_reg (
-      .din   (rx_data_fresh & (~uart_ren)),
+      //.din   (rx_data_fresh & (~uart_ren)),
+      .din   (rx_data_fresh),
       .rst_l (resetn),
       .en    (rx_data_fresh | uart_ren), // read uartdr clear the interrupt
       .clk   (clk),
