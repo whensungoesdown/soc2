@@ -58,6 +58,11 @@ void main(void)
 	int j = 0;
 
 
+	// clear "Press RST"
+	*(int*)0x10008 = 0;
+	*(int*)0x1000c = 0;
+	*(int*)0x10010 = 0;
+
 	//*(int*)(TEXT_VIDEO_RAM_START) = 0x30303030;
 
 	for (i = 0; i < 10; i++)
@@ -185,12 +190,6 @@ void main(void)
 			}
 		}
 	}
-
-	// tmp test code
-	//	asm("addi x2, x0, 0xFF"); // user stack at 0xff00
-	//        asm("slli x2, x2, 0x8");
-
-	//	((void (*) (void)) 0x1000) ();
 
 
 	return;
