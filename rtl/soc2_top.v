@@ -12,7 +12,7 @@ module soc2_top(
 
 
    wire pll_clk_out_25mhz;
-   wire pll_clk_out_50mhz;
+   wire pll_clk_out_75mhz;
    wire pll_locked;
 
 //   wire pll_locked_resetn;
@@ -22,7 +22,7 @@ module soc2_top(
 //      .areset      (!resetn           ),
       .inclk0      (clk               ),
       .c0          (pll_clk_out_25mhz ),
-      .c1          (pll_clk_out_50mhz ),
+      .c1          (pll_clk_out_75mhz ),
       .locked      (pll_locked        )
       );
 
@@ -31,7 +31,7 @@ module soc2_top(
       wire vga_clk;
       wire uart_clk;
 
-      assign sys_clk = pll_clk_out_50mhz;
+      assign sys_clk = pll_clk_out_75mhz;
       //assign sys_clk = pll_clk_out_25mhz;
       assign vga_clk = pll_clk_out_25mhz;
       assign uart_clk = pll_clk_out_25mhz;
