@@ -1,13 +1,14 @@
 
 #define TEXT_VIDEO_RAM_START     0x10000
-#define TEXT_COLUMN              80
-#define TEXT_ROW                 25
+#define TEXT_COLUMN_MAX              80
+#define TEXT_ROW_MAX                 25
 
-// /^\ ; defender
-#define DEF 	        0x5c5e2f
+// /^\ ; defender       0x5c5e2f
+#define DEFENDER 	         "/^\\"
+#define DEFENDER_SIZE            3
 
 // >=<
-#define DEF_BLAST	0x3c3d3d3e
+#define DEFENDER_BLAST	0x3c3d3e
 
 // invader
 #define I               0x01
@@ -46,7 +47,7 @@
 
 
 #define GAME_ROW_BGN         1
-#define GAME_ROW_END         25
+#define GAME_ROW_END         24
 
 #define GAME_COL_BGN         0
 #define GAME_COL_END         49
@@ -63,12 +64,15 @@
 
 int g_key = 0;
 
-int g_currentpos = 0;
+#define DEFENDER_ROW         GAME_ROW_END
+
+int g_defender_pos = 0;
+
 int g_bulletdelay = 0;
 int g_blastdelay = 0;
 
 //
-char g_screen[TEXT_ROW][TEXT_COLUMN] = {
+char g_screen[TEXT_ROW_MAX][TEXT_COLUMN_MAX] = {
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 /////////////////////////////////////////////////////////////////////////////////////////////////////**/
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -114,10 +118,15 @@ void draw (void)
 
 	// entire screen
 	//memcpy((void*)TEXT_VIDEO_RAM_START, g_screen, sizeof(g_screen));
-	for (i = GAME_ROW_BGN; i < GAME_ROW_END; i++)
+	
+	// game screen
+	for (i = GAME_ROW_BGN; i <= GAME_ROW_END; i++)
 	{
-		memcpy((void*)((int)TEXT_VIDEO_RAM_START + TEXT_COLUMN * i), (char*)g_screen + TEXT_COLUMN * i, GAME_COL_LEN);
+		memcpy((void*)((int)TEXT_VIDEO_RAM_START + TEXT_COLUMN_MAX * i), (char*)g_screen + TEXT_COLUMN_MAX * i, GAME_COL_LEN);
 	}
+
+	// defender
+	memcpy((void*)((int)TEXT_VIDEO_RAM_START + TEXT_COLUMN_MAX * DEFENDER_ROW + g_defender_pos), DEFENDER, DEFENDER_SIZE);
 }
 
 void main (void)
@@ -134,6 +143,8 @@ void main (void)
 	*(int*)0x1000c = 0;
 	*(int*)0x10010 = 0;
 
+
+	g_defender_pos = 25;
 
 	draw();
 }

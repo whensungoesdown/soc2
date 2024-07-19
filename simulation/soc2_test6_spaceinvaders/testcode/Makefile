@@ -27,7 +27,7 @@ ${obj_path}/convert: convert.c
 ${obj_path}/out.bin: ${obj_path}/out.elf
 	loongarch32r-linux-gnusf-objcopy -O binary -j .text ${obj_path}/out.elf ${obj_path}/out.bin
 ${obj_path}/out.data: ${obj_path}/out.elf
-	loongarch32r-linux-gnusf-objcopy -O binary -j .data -j .got ${obj_path}/out.elf ${obj_path}/out.data
+	loongarch32r-linux-gnusf-objcopy -O binary -j .rodata -j .data -j .got ${obj_path}/out.elf ${obj_path}/out.data
 
 #${obj_path}/out.elf: bin.lds ${obj_path}/start.o ${obj_path}/main.o
 #	loongarch32r-linux-gnusf-ld ${obj_path}/start.o ${obj_path}/main.o -T bin.lds -o ${obj_path}/out.elf
