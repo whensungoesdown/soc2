@@ -1662,8 +1662,9 @@ module axi_arbiter_mtos_m2
                            // then things can go wrong.
                            if (~|(ARGRANT&ARREADY)) begin
                                argrant_reg <= ARGRANT;
-//                               stateAR     <= STAR_WAIT;
+                               stateAR     <= STAR_WAIT;
 // uty: test   BUG somewhere; ARREADY received, ARSELECT=00, ARGRANT = argrant_reg = 01 (previous value)                              
+//  not amba_axi_m2s3's BUG, axi_interface send arvalid always high and channel id is the same (not interleaving)
                            end
                         end
                     end
