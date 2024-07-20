@@ -8,7 +8,7 @@
 #define DEFENDER_SIZE            3
 
 // >=<
-#define DEFENDER_BLAST	0x3c3d3e
+#define DEFENDER_BLAST	         ">=<"
 
 // invader
 #define I               0x01
@@ -27,6 +27,10 @@
 
 // |
 #define BULLET	        0x7c
+
+#define INV_BULLET      0x19
+
+#define BULLET_BLAST    0x0f
 
 // D
 #define LEFT	        0x44
@@ -67,6 +71,7 @@ int g_key = 0;
 #define DEFENDER_ROW         GAME_ROW_END
 
 int g_defender_pos = 0;
+int g_defender_hit = 0;
 
 int g_bulletdelay = 0;
 int g_blastdelay = 0;
@@ -219,7 +224,14 @@ void draw (void)
 	}
 
 	// defender
-	memcpy((void*)((int)TEXT_VIDEO_RAM_START + TEXT_COLUMN_MAX * DEFENDER_ROW + g_defender_pos), DEFENDER, DEFENDER_SIZE);
+	if (1 == g_defender_hit)
+	{
+		memcpy((void*)((int)TEXT_VIDEO_RAM_START + TEXT_COLUMN_MAX * DEFENDER_ROW + g_defender_pos), DEFENDER_BLAST, DEFENDER_SIZE);
+	}
+	else
+	{
+		memcpy((void*)((int)TEXT_VIDEO_RAM_START + TEXT_COLUMN_MAX * DEFENDER_ROW + g_defender_pos), DEFENDER, DEFENDER_SIZE);
+	}
 }
 
 void update_defender (void)
@@ -249,6 +261,9 @@ void update_defender (void)
 			g_bullet++;
 			g_screen[DEFENDER_ROW - 1][g_defender_pos + 1] = BULLET;
 		}
+
+		// temp, restart if defender is hit
+		g_defender_hit = 0;
 	}
 	else
 	{
@@ -304,19 +319,56 @@ void update_bullet (void)
 				}
 				else
 				{
-					// ??
 					// hit BLK_BLAST INV_BLAST
 					g_bullet--;
 				}
 			}
 		} // j
 	} // i
+	
 
-	for (j = GAME_COL_BGN; j <= GAME_COL_END; j++);
+	// scan g_screen to find invaders bullets
+	for (i = GAME_ROW_END - 1; i >=  GAME_ROW_BGN; i--)
 	{
-		if (BULLET == g_screen[GAME_ROW_BGN][j])
+		for (j = GAME_COL_BGN; j <= GAME_COL_END; j++)
 		{
-			g_screen[GAME_ROW_BGN][j] = 0;
+			if (INV_BULLET == g_screen[i][j])
+			{
+				g_screen[i][j] = 0;
+
+				if (0 == g_screen[i+1][j])
+				{
+					// invaders bullet move through
+					g_screen[i+1][j] = INV_BULLET;
+				}
+				else if (B == g_screen[i+1][j])
+				{
+					// hit a block
+					g_screen[i+1][j] = BLK_BLAST;
+				}
+				else if (BULLET == g_screen[i+1][j])
+				{
+					// hit a bullet
+					g_screen[i+1][j] = BULLET_BLAST;
+					g_bullet--;
+				}
+			}
+		} // j
+	} // i
+
+
+	// handle GAME_ROW_END, invaders bullet fly out of screen, disappear
+	
+	for (i = GAME_COL_BGN; i <= GAME_COL_END; i++)
+	{
+		if (INV_BULLET == g_screen[GAME_ROW_END][i])
+		{
+			if (i>= g_defender_pos && i <= g_defender_pos+2)
+			{
+				g_defender_hit = 1;
+			}
+
+			g_screen[GAME_ROW_END][i] = 0;
 		}
 	}
 }
@@ -338,6 +390,14 @@ void update_blast (void)
 			else if (INV_BLAST == g_screen[i][j])
 			{
 				g_screen[i][j] = 0;
+			}
+			else if (BULLET_BLAST == g_screen[i][j])
+			{
+				g_screen[i][j] = 0;
+			}
+			else
+			{
+				// ??
 			}
 		}
 	}
@@ -431,6 +491,31 @@ void update_invaders_matrix (void)
 	}
 }
 
+void invaders_shoot (void)
+{
+	int i = 0;
+	int j = 0;
+
+
+	// simply last row shoot
+	for (i = INVADERS_ROW_BGN; i <= INVADERS_ROW_END; i++)
+	{
+		for (j = GAME_COL_BGN; j <= GAME_COL_END; j++)
+		{
+			if (I == g_screen[i][j])
+			{
+				if (0 == g_screen[i+2][j] && 0 == g_screen[i+1][j] && (j == g_defender_pos))
+				{
+					// make it simple, last row shoot, and no bullet coming
+					// so dont neet to handle bullet clash here
+					// only the invader whose j == g_defender_pos shoot, otherwise, too much
+					g_screen[i+1][j] = INV_BULLET;
+				}	
+			}
+		}
+	}
+}
+
 void main (void)
 {
 	//int n = 0x30313233;
@@ -468,6 +553,8 @@ void main (void)
 			g_invadersdelay = 0;
 
 			update_invaders_matrix();
+
+			invaders_shoot();
 		}
 
 		// update defender position and clear g_key
