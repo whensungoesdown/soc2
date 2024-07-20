@@ -40,10 +40,10 @@
 
 
 // update bullet, in cycles
-#define BULLET_SPEED        300
+#define BULLET_DELAY         20
 
-// update BLAST, in cycles, should be much smaller than BULLET_SPEED
-#define BLAST_LAST          50
+// update BLAST, in cycles 
+#define BLAST_DELAY          80
 
 
 #define GAME_ROW_BGN         1
@@ -71,20 +71,27 @@ int g_defender_pos = 0;
 int g_bulletdelay = 0;
 int g_blastdelay = 0;
 
+#define MAX_BULLET_NUM          1
+int g_bullet = 0;
+
+// clear Uart Intr! banner, in cycles
+#define BANNER_DELAY            200
+int g_bannerdelay = 0;
+
 //
 char g_screen[TEXT_ROW_MAX][TEXT_COLUMN_MAX] = {
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 /////////////////////////////////////////////////////////////////////////////////////////////////////**/
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,I,0,0,I,0,0,I,0,0,I,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,I,0,0,I,0,0,I,0,0,I,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,I,0,0,I,0,0,I,0,0,I,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,I,0,0,I,0,0,I,0,0,I,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,I,0,0,I,0,0,I,0,0,I,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,I,0,0,I,0,0,I,0,0,I,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,I,0,0,I,0,0,I,0,0,I,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,I,0,0,I,0,0,I,0,0,I,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,I,0,0,I,0,0,I,0,0,I,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -112,6 +119,75 @@ void *memcpy(void *dest, const void *src, unsigned n)
     return dest;
 }
 
+
+#define	wsize	sizeof(int)
+#define	wmask	(wsize - 1)
+
+#define	RETURN	return (dst0)
+#define	VAL	c0
+#define	WIDEVAL	c
+
+void *
+memset(dst0, c0, length)
+	void *dst0;
+	register int c0;
+	register int length;
+{
+	register int t;
+	register int c;
+	register char *dst;
+
+	dst = dst0;
+	/*
+	 * If not enough words, just fill bytes.  A length >= 2 words
+	 * guarantees that at least one of them is `complete' after
+	 * any necessary alignment.  For instance:
+	 *
+	 *	|-----------|-----------|-----------|
+	 *	|00|01|02|03|04|05|06|07|08|09|0A|00|
+	 *	          ^---------------------^
+	 *		 dst		 dst+length-1
+	 *
+	 * but we use a minimum of 3 here since the overhead of the code
+	 * to do word writes is substantial.
+	 */
+	if (length < 3 * wsize) {
+		while (length != 0) {
+			*dst++ = VAL;
+			--length;
+		}
+		RETURN;
+	}
+
+	if ((c = (char)c0) != 0) {	/* Fill the word. */
+		c = (c << 8) | c;	/* u_int is 16 bits. */
+		c = (c << 16) | c;	/* u_int is 32 bits. */
+	}
+	/* Align destination by filling in bytes. */
+	if ((t = (int)dst & wmask) != 0) {
+		t = wsize - t;
+		length -= t;
+		do {
+			*dst++ = VAL;
+		} while (--t != 0);
+	}
+
+	/* Fill words.  Length was >= 2*words so we know t >= 1 here. */
+	t = length / wsize;
+	do {
+		*(int *)dst = WIDEVAL;
+		dst += wsize;
+	} while (--t != 0);
+
+	/* Mop up trailing bytes, if any. */
+	t = length & wmask;
+	if (t != 0)
+		do {
+			*dst++ = VAL;
+		} while (--t != 0);
+	RETURN;
+}
+
 void draw (void)
 {
 	int i = 0;
@@ -127,6 +203,127 @@ void draw (void)
 
 	// defender
 	memcpy((void*)((int)TEXT_VIDEO_RAM_START + TEXT_COLUMN_MAX * DEFENDER_ROW + g_defender_pos), DEFENDER, DEFENDER_SIZE);
+}
+
+void update_defender (void)
+{
+	if (LEFT == g_key)
+	{
+		if (g_defender_pos > GAME_COL_BGN)
+		{
+			g_defender_pos--;
+		}
+	}
+	else if (RIGHT == g_key)
+	{
+		if (g_defender_pos + DEFENDER_SIZE < GAME_COL_END)
+		{
+			g_defender_pos++;
+		}	
+	}
+	else if (SPACE == g_key)
+	{
+		//
+		//  |
+		// /^\
+		//
+		if (g_bullet < MAX_BULLET_NUM)
+		{
+			g_bullet++;
+			g_screen[DEFENDER_ROW - 1][g_defender_pos + 1] = BULLET;
+		}
+	}
+	else
+	{
+		// do nothing
+	}
+
+	// clear g_key
+	g_key = 0;
+}
+
+void update_bullet (void)
+{
+	int i = 0;
+	int j = 0;
+
+	// handle GAME_ROW_BGN, bullet fly out of screen, disappear
+	
+	for (i = GAME_COL_BGN; i <= GAME_COL_END; i++)
+	{
+		if (BULLET == g_screen[GAME_ROW_BGN][i])
+		{
+			g_screen[GAME_ROW_BGN][i] = 0;
+			g_bullet--;
+		}
+	}
+
+
+	// scan g_screen to find bullets
+	for (i = GAME_ROW_BGN + 1; i <= GAME_ROW_END - 1; i++)
+	{
+		for (j = GAME_COL_BGN; j <= GAME_COL_END; j++)
+		{
+			if (BULLET == g_screen[i][j])
+			{
+				g_screen[i][j] = 0;
+
+				if (0 == g_screen[i-1][j])
+				{
+					// bullet move through
+					g_screen[i-1][j] = BULLET;
+				}
+				else if (B == g_screen[i-1][j])
+				{
+					// hit a block
+					g_screen[i-1][j] = BLK_BLAST;
+					g_bullet--;
+				}
+				else if (I == g_screen[i-1][j])
+				{
+					// hit a invader
+					g_screen[i-1][j] = INV_BLAST;
+					g_bullet--;
+				}
+				else
+				{
+					// ??
+					// hit BLK_BLAST INV_BLAST
+					g_bullet--;
+				}
+			}
+		} // j
+	} // i
+
+	for (j = GAME_COL_BGN; j <= GAME_COL_END; j++);
+	{
+		if (BULLET == g_screen[GAME_ROW_BGN][j])
+		{
+			g_screen[GAME_ROW_BGN][j] = 0;
+		}
+	}
+}
+
+void update_blast (void)
+{
+	int i = 0;
+	int j = 0;
+
+	// scan g_screen to find bullets
+	for (i = GAME_ROW_BGN + 1; i <= GAME_ROW_END - 1; i++)
+	{
+		for (j = GAME_COL_BGN; j <= GAME_COL_END; j++)
+		{
+			if (BLK_BLAST == g_screen[i][j])
+			{
+				g_screen[i][j] = 0;
+			}
+			else if (INV_BLAST == g_screen[i][j])
+			{
+				g_screen[i][j] = 0;
+			}
+		}
+	}
 }
 
 void main (void)
@@ -146,7 +343,41 @@ void main (void)
 
 	g_defender_pos = 25;
 
-	draw();
+	// main loop
+	while (1)
+	{
+		// clear Uart Intr!
+		if (g_bannerdelay++ > BANNER_DELAY)
+		{
+			g_bannerdelay = 0;
+
+			*(int*)0x10014 = 0;
+			*(int*)0x10018 = 0;
+			*(int*)0x1001c = 0;
+			*(int*)0x10020 = 0;
+			*(int*)0x10024 = 0;
+		}
+
+		// update defender position and clear g_key
+		update_defender();
+
+		if (g_bulletdelay++ > BULLET_DELAY)
+		{
+			g_bulletdelay = 0;
+
+			update_bullet();
+		}
+
+		if (g_blastdelay++ > BLAST_DELAY)
+		{
+			g_blastdelay = 0;
+
+			update_blast();
+		}
+
+		draw();
+	}
+
 }
 
 void do_excp_handler (void)
