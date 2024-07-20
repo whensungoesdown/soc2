@@ -78,6 +78,23 @@ int g_bullet = 0;
 #define BANNER_DELAY            200
 int g_bannerdelay = 0;
 
+
+#define INVADERS_ROTATE_DELAY       800
+int g_invadersdelay = 0;
+
+// 
+#define INVADERS_ROW_BGN            2
+#define INVADERS_ROW_END            8
+
+// invaders matrix move from 0 to 16, initial position is 8
+#define INVADERS_POS_MIN            0
+#define INVADERS_POS_MAX            16
+int g_invaders_matrix_pos = 8;
+
+#define INVADERS_DIRECTION_LEFT     0
+#define INVADERS_DIRECTION_RIGHT    1
+int g_invaders_matrix_direction = INVADERS_DIRECTION_LEFT;
+
 //
 char g_screen[TEXT_ROW_MAX][TEXT_COLUMN_MAX] = {
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -326,6 +343,94 @@ void update_blast (void)
 	}
 }
 
+void invaders_rotate_left (void)
+{
+	int i = 0;
+	int j = 0;
+
+	// search invaders
+	for (i = INVADERS_ROW_BGN; i <= INVADERS_ROW_END; i++)
+	{
+		for (j = GAME_COL_BGN + 1; j <= GAME_COL_END; j++)
+		{
+			if (I == g_screen[i][j])
+			{
+				g_screen[i][j] = 0;
+				// run into a bullet
+				if (BULLET == g_screen[i][j-1])
+				{
+					g_screen[i][j-1] = INV_BLAST;
+					g_bullet--;
+				}
+				else
+				{
+					g_screen[i][j-1] = I;
+				}
+			}
+		}
+	}
+	
+}
+
+void invaders_rotate_right (void)
+{
+	int i = 0;
+	int j = 0;
+
+	// search invaders
+	for (i = INVADERS_ROW_BGN; i <= INVADERS_ROW_END; i++)
+	{
+		for (j = GAME_COL_END - 1; j >= GAME_COL_BGN; j--)
+		{
+			if (I == g_screen[i][j])
+			{
+				g_screen[i][j] = 0;
+				// run into a bullet
+				if (BULLET == g_screen[i][j+1])
+				{
+					g_screen[i][j+1] = INV_BLAST;
+					g_bullet--;
+				}
+				else
+				{
+					g_screen[i][j+1] = I;
+				}
+			}
+		}
+	}
+	
+}
+
+void update_invaders_matrix (void)
+{
+	if (INVADERS_DIRECTION_LEFT == g_invaders_matrix_direction)
+	{
+		// move to left
+		if (g_invaders_matrix_pos > INVADERS_POS_MIN)
+		{
+			g_invaders_matrix_pos--;
+			invaders_rotate_left();
+		}
+		else
+		{
+			g_invaders_matrix_direction = INVADERS_DIRECTION_RIGHT;
+		}
+	}
+	else
+	{
+		// move to right
+		if (g_invaders_matrix_pos < INVADERS_POS_MAX)
+		{
+			g_invaders_matrix_pos++;
+			invaders_rotate_right();
+		}
+		else
+		{
+			g_invaders_matrix_direction = INVADERS_DIRECTION_LEFT;
+		}
+	}
+}
+
 void main (void)
 {
 	//int n = 0x30313233;
@@ -356,6 +461,13 @@ void main (void)
 			*(int*)0x1001c = 0;
 			*(int*)0x10020 = 0;
 			*(int*)0x10024 = 0;
+		}
+
+		if (g_invadersdelay++ > INVADERS_ROTATE_DELAY)
+		{
+			g_invadersdelay = 0;
+
+			update_invaders_matrix();
 		}
 
 		// update defender position and clear g_key
