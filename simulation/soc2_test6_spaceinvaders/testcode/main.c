@@ -41,6 +41,9 @@
 // SPACE
 #define SPACE	        0x20
 
+#define KEY_R           0x52
+#define KEY_r           0x72
+
 
 
 // update bullet, in cycles
@@ -58,6 +61,9 @@
 #define GAME_COL_LEN         (GAME_COL_END - GAME_COL_BGN + 1)
 
 
+#define SCREEN_SCORE         0x1000c
+#define SCREEN_LIVES         0x10010
+
 //
 // gcc -fno-zero-initialized-in-bss 
 //
@@ -72,6 +78,11 @@ int g_key = 0;
 
 int g_defender_pos = 0;
 int g_defender_hit = 0;
+
+int g_defender_lives = 3;
+int g_gameover = 0;
+
+int g_invader_hit = 0;
 
 int g_bulletdelay = 0;
 int g_blastdelay = 0;
@@ -91,10 +102,10 @@ int g_invadersdelay = 0;
 #define INVADERS_ROW_BGN            2
 #define INVADERS_ROW_END            8
 
-// invaders matrix move from 0 to 16, initial position is 8
+// invaders matrix move from 0 to 16, initial position is 7
 #define INVADERS_POS_MIN            0
 #define INVADERS_POS_MAX            16
-int g_invaders_matrix_pos = 8;
+int g_invaders_matrix_pos = 7;
 
 #define INVADERS_DIRECTION_LEFT     0
 #define INVADERS_DIRECTION_RIGHT    1
@@ -102,6 +113,36 @@ int g_invaders_matrix_direction = INVADERS_DIRECTION_LEFT;
 
 //
 char g_screen[TEXT_ROW_MAX][TEXT_COLUMN_MAX] = {
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+/////////////////////////////////////////////////////////////////////////////////////////////////////**/
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,I,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,B,B,B,B,B,0,0,0,0,0,0,B,B,B,B,B,0,0,0,0,0,0,B,B,B,B,B,0,0,0,0,0,0,B,B,B,B,B,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,B,B,B,B,B,B,B,0,0,0,0,B,B,B,B,B,B,B,0,0,0,0,B,B,B,B,B,B,B,0,0,0,0,B,B,B,B,B,B,B,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,B,B,B,B,B,B,B,0,0,0,0,B,B,B,B,B,B,B,0,0,0,0,B,B,B,B,B,B,B,0,0,0,0,B,B,B,B,B,B,B,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,B,B,0,0,0,B,B,0,0,0,0,B,B,0,0,0,B,B,0,0,0,0,B,B,0,0,0,B,B,0,0,0,0,B,B,0,0,0,B,B,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+};
+
+// used for game reset
+char g_screen_reset[TEXT_ROW_MAX][TEXT_COLUMN_MAX] = {
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 /////////////////////////////////////////////////////////////////////////////////////////////////////**/
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,/**/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -210,6 +251,72 @@ memset(dst0, c0, length)
 	RETURN;
 }
 
+#define __inout
+#define __in
+#define __out
+
+#define MAX(x, y) (x > y ? x : y)
+#define MIN(x, y) (x < y ? x : y)
+
+//
+// add arry_b to array_a, they are the same size for simplicity
+//
+// dont care if array_a overflow
+//
+void
+chararrayadd (
+	__inout unsigned char* array_a,
+	__in  unsigned char* array_b,
+	__in  int array_size
+	)
+{
+	int i = 0;
+	int carry = 0;
+	unsigned char tmp = 0;
+
+	for (i = 0; i < array_size; i++)
+	{
+		tmp = array_a[i] + array_b[i] + carry;
+
+		if (tmp >= 10)
+		{
+			carry = 1;
+			array_a[i] = tmp - 10;
+		}
+		else
+		{
+			carry = 0;
+			array_a[i] = tmp;
+		}
+	}
+
+
+	return;
+}
+
+// 4 digits
+unsigned char g_score[4] = {0};
+int g_score_int = 0x30303030;
+
+void count_score (void)
+{
+        unsigned char p10[4] = "\x0\x1\x0\x0";
+
+        chararrayadd(g_score, p10, 4);
+        g_score_int = *(int*)g_score;
+        g_score_int += 0x30303030;
+
+
+	// update score in draw()
+
+	return;
+}
+
+#define HTONL(A) ((((int)(A) & 0xff000000) >> 24) | \
+                  (((int)(A) & 0x00ff0000) >>  8) | \
+                  (((int)(A) & 0x0000ff00) <<  8) | \
+		  (((int)(A) & 0x000000ff) << 24))
+
 void draw (void)
 {
 	int i = 0;
@@ -231,6 +338,27 @@ void draw (void)
 	else
 	{
 		memcpy((void*)((int)TEXT_VIDEO_RAM_START + TEXT_COLUMN_MAX * DEFENDER_ROW + g_defender_pos), DEFENDER, DEFENDER_SIZE);
+	}
+
+	// update score on the screen
+        *(int*)SCREEN_SCORE = HTONL(g_score_int);
+
+	// update defender lives on the screen
+	if (3 == g_defender_lives)
+	{
+		*(int*)SCREEN_LIVES = 0x03030300;
+	}
+	else if (2 == g_defender_lives)
+	{
+		*(int*)SCREEN_LIVES = 0x00030300;
+	}
+	else if (1 == g_defender_lives)
+	{
+		*(int*)SCREEN_LIVES = 0x00000300;
+	}
+	else
+	{
+		*(int*)SCREEN_LIVES = 0x00000000;
 	}
 }
 
@@ -264,6 +392,10 @@ void update_defender (void)
 
 		// temp, restart if defender is hit
 		g_defender_hit = 0;
+	}
+	else if (KEY_R == g_key || KEY_r == g_key)
+	{
+		g_gameover = 0;
 	}
 	else
 	{
@@ -316,6 +448,8 @@ void update_bullet (void)
 					// hit a invader
 					g_screen[i-1][j] = INV_BLAST;
 					g_bullet--;
+
+					count_score();
 				}
 				else
 				{
@@ -366,6 +500,12 @@ void update_bullet (void)
 			if (i>= g_defender_pos && i <= g_defender_pos+2)
 			{
 				g_defender_hit = 1;
+				g_defender_lives--;
+				if (0 == g_defender_lives)
+				{
+					g_gameover = 1;
+				}
+
 			}
 
 			g_screen[GAME_ROW_END][i] = 0;
@@ -496,6 +636,8 @@ void invaders_shoot (void)
 	int i = 0;
 	int j = 0;
 
+	//int shoot_already = 0;
+
 
 	// simply last row shoot
 	for (i = INVADERS_ROW_BGN; i <= INVADERS_ROW_END; i++)
@@ -504,16 +646,36 @@ void invaders_shoot (void)
 		{
 			if (I == g_screen[i][j])
 			{
+				//if (0 == g_screen[i+2][j] && 0 == g_screen[i+1][j] && (j >= g_defender_pos && j <= g_defender_pos+DEFENDER_SIZE) && (0 == shoot_already))
 				if (0 == g_screen[i+2][j] && 0 == g_screen[i+1][j] && (j == g_defender_pos))
 				{
 					// make it simple, last row shoot, and no bullet coming
 					// so dont neet to handle bullet clash here
 					// only the invader whose j == g_defender_pos shoot, otherwise, too much
 					g_screen[i+1][j] = INV_BULLET;
+
+					//shoot_already = 1;
 				}	
 			}
 		}
 	}
+}
+
+
+int show_press_space_banner (void)
+{
+	// row 11, col 12
+	int screen_pos = 0;
+
+	memcpy((void*)((int)TEXT_VIDEO_RAM_START + TEXT_COLUMN_MAX * 11 + 12), "Press SPACE to continue...", 26);
+}
+
+int show_gameover_banner (void)
+{
+	// row 11, col 20
+	int screen_pos = 0;
+
+	memcpy((void*)((int)TEXT_VIDEO_RAM_START + TEXT_COLUMN_MAX * 11 + 12), "Press R to restart...", 21);
 }
 
 void main (void)
@@ -548,6 +710,34 @@ void main (void)
 			*(int*)0x10024 = 0;
 		}
 
+		// update defender position and clear g_key
+		// handle SPCAE key to contine
+		update_defender();
+
+		if (g_gameover)
+		{
+			// reset
+			g_defender_hit = 0;
+			g_defender_pos = 25; // initial position
+			g_defender_lives = 3;
+			memset(g_score, 0, 4);
+			g_score_int = 0x30303030;
+
+			memcpy(g_screen, g_screen_reset, sizeof(g_screen_reset));
+
+			show_gameover_banner();
+
+			continue;
+		}
+
+		if (g_defender_hit)
+		{
+			g_defender_pos = 25; // initial position
+			show_press_space_banner();
+
+			continue;
+		}
+
 		if (g_invadersdelay++ > INVADERS_ROTATE_DELAY)
 		{
 			g_invadersdelay = 0;
@@ -556,9 +746,6 @@ void main (void)
 
 			invaders_shoot();
 		}
-
-		// update defender position and clear g_key
-		update_defender();
 
 		if (g_bulletdelay++ > BULLET_DELAY)
 		{
