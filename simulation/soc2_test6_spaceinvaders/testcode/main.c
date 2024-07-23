@@ -720,6 +720,7 @@ void main (void)
 			g_defender_hit = 0;
 			g_defender_pos = 25; // initial position
 			g_defender_lives = 3;
+			g_bullet = 0;
 			memset(g_score, 0, 4);
 			g_score_int = 0x30303030;
 
