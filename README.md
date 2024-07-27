@@ -390,3 +390,7 @@ u@uu:~/prjs/cpu7b/simulation/test0$ ./viewwave.sh
 
 ### With timer interrupt, dinosaur jumps
 ![screenshot1](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/dinosaur_jump.gif)
+
+
+### Space Invaders
+![screenshot1](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/space_invaders.gif)
