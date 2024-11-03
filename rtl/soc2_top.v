@@ -309,6 +309,7 @@ module soc2_top(
 
 
    wire ext_intr;
+   //reg ext_intr;
 
    cpu u_cpu(
       .clk          (sys_clk           ),

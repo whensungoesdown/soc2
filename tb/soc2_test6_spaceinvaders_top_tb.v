@@ -15,6 +15,9 @@ module top_tb(
 	 $display("Start ...");
 	 clk = 1'b1;
 	 resetn = 1'b0;
+	 
+	 // ext_intr is used to test inserting external intrrupt
+//	 u_top.ext_intr = 1'b0;
 
 	 rx = 1'b1;
  
@@ -37,6 +40,19 @@ module top_tb(
 
 	 u_top.u_peri.u_uart.urx.sample_now = 0;
 	 u_top.u_peri.u_uart.urx.state = 2'b00;
+
+
+
+	 // ext_intr at 1c000180
+         //#11365;
+	 //
+	 //ext_intr at 1c000164
+	 //#10385
+	 // ext_intr at 1c000180 rising edge
+         //#11283;
+	 // ext_intr at somewhere in 1c00017c
+//         #11270;
+//         u_top.ext_intr = 1'b1;
 	 
       end
 
