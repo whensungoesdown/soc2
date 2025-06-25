@@ -8,7 +8,7 @@ module amba_axi_m2s3
       #(parameter WIDTH_CID   = 4 // Channel ID width in bits
                 , WIDTH_ID    = 4 // ID width in bits
                 , WIDTH_AD    =32 // address width
-                , WIDTH_DA    =32 // data width
+                , WIDTH_DA    =64 // data width
                 , WIDTH_DS    =(WIDTH_DA/8)  // data strobe width
                 , WIDTH_SID   =(WIDTH_CID+WIDTH_ID)// ID for slave
                 `ifdef AMBA_AXI_AWUSER

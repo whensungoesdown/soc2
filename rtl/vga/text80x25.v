@@ -6,11 +6,20 @@ module text80x25 (
 
    input        ram_clk,
    input [8:0]  write_address,
-   input [31:0] write_data,
-   input [3:0]  write_byteena,
+   input [63:0] write_data,
+   input [7:0]  write_byteena,
    input        write_en
    );
 
+
+   wire high32;
+   assign high32 = write_address[0];
+
+   wire [31:0] write_data_32;
+   assign write_data_32 = high32 ? write_data[63:32] : write_data[31:0];
+
+   wire [3:0] write_byteena_4;
+   assign write_byteena_4 = high32 ? write_byteena[7:4] : write_byteena[3:0];
 
    wire vga_hsync_original;
    reg vga_hsync_delayed1;
@@ -73,14 +82,14 @@ module text80x25 (
    assign text_address = column + (row * 11'd80);
 
    vgatextram textram(
-      .rdclock        (clk          ),
-      .data           (write_data   ),
-      .rdaddress      (text_address ),
-      .wraddress      (write_address),
-      .wrclock        (ram_clk      ),
-      .byteena_a      (write_byteena),
-      .wren           (write_en     ),
-      .q              (text_value   )
+      .rdclock        (clk             ),
+      .data           (write_data_32   ),
+      .rdaddress      (text_address    ),
+      .wraddress      (write_address   ),
+      .wrclock        (ram_clk         ),
+      .byteena_a      (write_byteena_4),
+      .wren           (write_en        ),
+      .q              (text_value      )
       );
 
 

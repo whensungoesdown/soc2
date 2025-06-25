@@ -7,7 +7,7 @@ SECTIONS
 
   . = 0x1c000000;
 
-  .text :
+  .text ALIGN(0x8):
   {
     _start = . ;
     *(.text)
@@ -15,7 +15,7 @@ SECTIONS
 
 /*  . = 0x1c004000;*/
 
-  .data ALIGN(0x4) :
+  .data ALIGN(0x8) :
   {
     PROVIDE(_data_start = .);
     PROVIDE(__data_start = .);

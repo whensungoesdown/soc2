@@ -8,7 +8,7 @@
 PROJECT = soc2_top
 SOURCE_FILES =../../rtl/cpu7b/rtl/alu.v \
 	      ../../rtl/cpu7b/rtl/branch.v \
-	      ../../rtl/cpu7b/rtl/common.vh \
+	      ../../rtl/cpu7b/rtl/defines.vh \
 		../../rtl/cpu7b/rtl/c7bcsr/cpu7_csr_byplog.v \
 		../../rtl/cpu7b/rtl/c7bcsr/cpu7_csr.v \
 		../../rtl/cpu7b/rtl/c7bcsr/cpu7_csr_timer.v \
@@ -31,12 +31,18 @@ SOURCE_FILES =../../rtl/cpu7b/rtl/alu.v \
 		../../rtl/cpu7b/rtl/models/swrvr_clib.v \
 		../../rtl/cpu7b/rtl/models/swrvr_dlib.v \
 		../../rtl/cpu7b/rtl/models/sram.v \
-		../../rtl/cpu7b/rtl/defines.vh \
 		../../rtl/cpu7b/rtl/axi_sram_bridge.v \
 		../../rtl/cpu7b/rtl/c7bbiu/c7bbiu.v \
 		../../rtl/cpu7b/rtl/c7bbiu/c7bbiu_rd_arb.v \
 		../../rtl/cpu7b/rtl/c7bbiu/c7bbiu_wr_arb.v \
 		../../rtl/cpu7b/rtl/c7bbiu/c7bbiu_axi_interface.v \
+		../../rtl/cpu7b/rtl/c7bicu/c7bicu.v\
+		../../rtl/cpu7b/rtl/c7bicu/c7b_cache_rams.v \
+		../../rtl/cpu7b/rtl/models/ram22.v \
+		../../rtl/cpu7b/rtl/models/ram22_way1.v \
+		../../rtl/cpu7b/rtl/models/ram64.v \
+		../../rtl/cpu7b/rtl/models/ram64_way1.v \
+		../../rtl/cpu7b/rtl/c7bifu/cpu7_ifu_iq.v \
 		../../rtl/cpu7b/rtl/cpu.v \
 		../../rtl/vga/vga640x480.v \
 		../../rtl/vga/vgaram.v \

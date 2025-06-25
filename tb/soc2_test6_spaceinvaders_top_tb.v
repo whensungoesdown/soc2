@@ -65,8 +65,8 @@ module top_tb(
       .uart_rx  (rx       )
       );
 
-   //always @(negedge clk)
-   always @(negedge u_top.pll_clk_out_25mhz)
+   always @(negedge clk)
+   //always @(negedge u_top.pll_clk_out_25mhz)
       begin
 	 $display("+");
 	 $display("reset %b", resetn);

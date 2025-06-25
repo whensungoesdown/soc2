@@ -6,11 +6,11 @@ module peripherals (
    input          uart_clk,
    input          resetn,
    input  [31:0]  rdaddress,
-   output [31:0]  rdata,
+   output [63:0]  rdata,
    input          rden,
    input  [31:0]  wraddress,
-   input  [31:0]  wdata,
-   input  [3:0]   wrbyteena,
+   input  [63:0]  wdata,
+   input  [7:0]   wrbyteena,
    input          wren,
 
    // uart
@@ -102,7 +102,7 @@ module peripherals (
       .q     (rdata_q),
       .se(), .si(), .so());
 
-   assign rdata = rdata_q;
+   assign rdata = {32'b0, rdata_q};
 
 endmodule
 
