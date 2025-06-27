@@ -15,6 +15,12 @@ SECTIONS
 
 /*  . = 0x1c004000;*/
 
+  .rodata ALIGN(0x8) :
+  {
+    *(.rodata)
+    *(.rodata*)
+  }
+
   .data ALIGN(0x8) :
   {
     PROVIDE(_data_start = .);
