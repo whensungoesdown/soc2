@@ -8,13 +8,13 @@
 More blogs are kept at:
 - https://whensungoesdown.github.io
 
-## Pipeline
+## Microarchitecture
 
-Single issue, in order core, 5-stage pipeline.
+Single issue, in order core, 5-stage pipeline: f d e m w.
 
-16KB L1 instruction cache, 2-stage pipeline.
+16KB L1 instruction cache, 2-stage pipeline: ic1 ic2.
 
-## Modules
+### Modules
 
 `````c
  +-CPU7B-----------------------------------------------------------------------------------+
@@ -84,8 +84,6 @@ Single issue, in order core, 5-stage pipeline.
 `````
 
 ## LA32 Instructions
-
-### Implemented
 
 - Integer Arithmetic Instructions
 
