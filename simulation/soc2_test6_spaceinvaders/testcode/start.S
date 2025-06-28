@@ -12,7 +12,7 @@ start:
     addi.w  $r6, $r0, 0
     lu12i.w $r6, 0x10
     addi.w  $r6, $r6, 0x10
-# address 0x10010 vgaram
+# address 0x10010 vgaram, print 'B'
     addi.w  $r7, $r0, 0x42
 # rd is the data to be stored
     st.w $r7, $r6, 0x0
@@ -106,6 +106,16 @@ setup_timer:
 #   addi.w  $t0, $t0, 0x7F3          # 'b1111 1111 1111 1111 1111 0111 1111 0011   initval=1111 1111 1111 1111 1111 0111 1111 00  periodic=1 en=1
 #   csrwr   $t0, 0x41               # TCFG
 
+
+#   # print 'C'
+#   addi.w  $r10, $r0, 0
+#   lu12i.w $r10, 0x10
+#   addi.w  $r10, $r10, 0x10
+#   # address 0x10010 vgaram
+#   addi.w  $r11, $r0, 0x43
+#   # rd is the data to be stored
+#   st.w $r11, $r10, 0x0
+
    nop
    nop
    nop
@@ -121,7 +131,7 @@ clr_timer_intr:
 #   addi.w  $r11, $r0, 0x47
 #   # rd is the data to be stored
 #   st.w $r11, $r10, 0x0
-#
+
    # write 1'b1 to TICLR (0x44)
 #   addi.w  $r11, $r0, 0x1
 #   csrwr   $r11, 0x44
@@ -132,6 +142,8 @@ clr_timer_intr:
    nop
    nop
    nop
+
+#   nop
 
    jirl    $r0,$r1,0               # ret
 

@@ -20,7 +20,7 @@ int main(void)
     i = 0;
 
     fprintf(out, "WIDTH=64;\n");
-    fprintf(out, "DEPTH=8192;\n");
+    fprintf(out, "DEPTH=4096;\n");
     fprintf(out, "\n");
     fprintf(out, "ADDRESS_RADIX=HEX;\n");
     fprintf(out, "DATA_RADIX=HEX;\n");

@@ -102,7 +102,7 @@ module top_tb(
 	                 $display("**************************************************");
 	                 $display("\n");
 	                 $display("\033[0m");
-			 $finish;
+//			 $finish;
 		 end
 		 else
 		 begin
