@@ -337,7 +337,13 @@ test0
 test1_ld.w
 # PASS!
 
+test1_1_ld.w
+# PASS!
+
 test3_st.w
+# PASS!
+
+test3_1_st.w
 # PASS!
 
 test4_beq
@@ -407,6 +413,24 @@ test26_illinstr_exception
 # PASS!
 
 test27_estat
+# PASS!
+
+test28_ld.b.bu.h.hu
+# PASS!
+
+test29_st.b.h
+# PASS!
+
+test30_ext_intr
+# PASS!
+
+test31_andi
+# PASS!
+
+test32_ext_intr_during_ld
+# PASS!
+
+test33_icache_smoke
 # PASS!
 
 
