@@ -324,7 +324,6 @@ u@uu:~/prjs/cpu7b/systhesis/altera$ make
 `````
 
 `````
-
 ### Run all the tests
 
 `````shell
@@ -432,7 +431,6 @@ test32_ext_intr_during_ld
 
 test33_icache_smoke
 # PASS!
-
 
 `````
 
