@@ -10,33 +10,31 @@ More blogs are kept at:
 
 ## Pipeline
 
-Single issue, in order, 5-stage pipeline
+Single issue, in order core, 5-stage pipeline.
 
-_f _d _e _m _w
-
-LSU calculates address at _e and sends the request out at _m
+16KB L1 instruction cache, 2-stage pipeline.
 
 ## Modules
 
 `````c
- +-----------------------------------------------------------------------------------------+
- | CPU7B                               +----------------------------------------------+    |                           
- |                                     | EXU               +--------+    +-------+    |    |
- |                                     |     +---------+   |        |    |       |    |    |
- |                                     |     |         |   |        |    |  alu  |    |    |
- |  +-----------------------------+    |     |   csr   |   |        |    +-------+    |    |
- |  |IFU                          |    |     |         |   |        |    +-------+    |    |
- |  |    +----------+  +------+   |    |     +---------+   |        |    |  bru  |    |    |
- |  |    |          |  |      |   |    |     +---------+   |  ecl   |    |       |    |    |
- |  |    | ifu_fdp  |->|decode|.. | -> |     |         |   |   &    |    +-------+    |    |
- |  |    |          |  |      |   |    |     | regfile |   |  byp   |    +-------+    |    |
- |  |    +----------+  +------+   |    |     |         |   |        |    |       |    |    |
- |  |      |    |                 |    |     +-------- +   |        |    |  mul  |    |    |
- |  |      |    |                 |    |                   |        |    +-------+    |    |
- |  +------|----|-----------------+    |  +-----------+    |        |    +-------+    |    |          
- |         |    |                      |  |           |    |        |    |  ...  |    |    |
- |         |    |                      |  |    lsu    |    |        |    |       |    |    |
- |         |    |                      |  |           |    +--------+    +-------+    |    |
+ +-CPU7B-----------------------------------------------------------------------------------+
+ | +-----------------------------+     +----------------------------------------------+    |                           
+ | |IFU                          |     | EXU               +--------+    +-------+    |    |
+ | |    +----------+  +------+   |     |     +---------+   |        |    |       |    |    |
+ | |    |          |  |      |   |     |     |         |   |        |    |  alu  |    |    |
+ | |    | ifu_fdp  |->|decode|.. |  -> |     |   csr   |   |        |    +-------+    |    |
+ | |    |          |  |      |   |     |     |         |   |        |    +-------+    |    |
+ | |    +----------+  +------+   |     |     +---------+   |        |    |  bru  |    |    |
+ | |      |    |                 |     |     +---------+   |  ecl   |    |       |    |    |
+ | |      |    |                 |     |     |         |   |   &    |    +-------+    |    |
+ | +------|----|-----------------+     |     | regfile |   |  byp   |    +-------+    |    |
+ |        |    |                       |     |         |   |        |    |       |    |    |
+ | +----------------------+            |     +-------- +   |        |    |  mul  |    |    |
+ | |                      |            |                   |        |    +-------+    |    |
+ | | L1 instruction cache |            |  +-----------+    |        |    +-------+    |    |          
+ | |                      |            |  |           |    |        |    |  ...  |    |    |
+ | |                      |            |  |    lsu    |    |        |    |       |    |    |
+ | +----------------------+            |  |           |    +--------+    +-------+    |    |
  |         |    |                      |  +------------                               |    |
  |         |    |                      +-----|------|---------------------------------+    |
  |         |    |                            |      |                                      |
@@ -222,6 +220,51 @@ LSU calculates address at _e and sends the request out at _m
 
   IDLE
 `````
+
+## L1 Instruction Cache
+
+The L1 instruction cache is organized as a 2-way set-associative structure with a 32-byte (256-bit) line size. It consists of 256 sets, each containing two ways, for a total capacity of 16KB (32 bytes × 256 sets × 2 ways). Linefill buffer is also 32-byte, fetched from memory using AXI burst transactions of four 64-bit quadwords per access.
+
+Each way contains a 22-bit tag ram and 4 64-bit data ram.
+
+
+`````c
+ 32-bit address
+ 
+    |____________________|___________|
+   31       tag        11 10         0
+`````
+
+
+`````c
+
+ 8-bit index, 256 sets   (10-bit address in the code, but only 8 bits are actually used)
+
+ tag ram index
+
+ ifu_icu_addr_ic1[14:5]
+
+
+ data ram index, last 2-bit addresses ram line
+
+ {ic_lu_addr_ic2[14:5], al_cnt_q[1:0]}
+`````
+
+````c
+
+ tag ram 22-bit, [21] v, [20:0] tag
+
+   v
+  |_|____________________|
+ 21 20      tag          0
+
+
+ data ram 64-bit
+
+    |______________________________________________________________________|
+   63                                data                                  0
+`````
+
 
 ## Memory Map
 
