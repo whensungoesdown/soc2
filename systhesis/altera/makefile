@@ -24,7 +24,6 @@ SOURCE_FILES =../../rtl/cpu7b/rtl/alu.v \
 		../../rtl/cpu7b/rtl/c7bifu/cpu7_ifu.v \
 		../../rtl/cpu7b/rtl/c7bifu/decoder.v \
 		../../rtl/cpu7b/rtl/decoded.vh \
-		../../rtl/cpu7b/rtl/cpu7_lsu.v \
 		../../rtl/cpu7b/rtl/cpu7_core.v \
 		../../rtl/cpu7b/rtl/mul32x32.v \
 		../../rtl/cpu7b/rtl/mul64x64.v \
@@ -43,6 +42,8 @@ SOURCE_FILES =../../rtl/cpu7b/rtl/alu.v \
 		../../rtl/cpu7b/rtl/models/ram64.v \
 		../../rtl/cpu7b/rtl/models/ram64_way1.v \
 		../../rtl/cpu7b/rtl/c7bifu/cpu7_ifu_iq.v \
+		../../rtl/cpu7b/rtl/c7blsu/rtl/c7blsu.v \
+		../../rtl/cpu7b/rtl/c7blsu/rtl/decode.vh \
 		../../rtl/cpu7b/rtl/cpu.v \
 		../../rtl/vga/vga640x480.v \
 		../../rtl/vga/vgaram.v \
