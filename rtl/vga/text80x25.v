@@ -11,9 +11,14 @@ module text80x25 (
    input        write_en
    );
 
-
-   wire high32;
-   assign high32 = write_address[0];
+   // The system bus is 64-bit, but the VGA RAM has a 32-bit interface.
+   // Since writes are always 64-bit aligned, the write_address[0] is always
+   // 0. To determine whether to write to the upper or lower 32-bit half of
+   // the 64-bit bus word, check write_byteena[7:4]. If any of these bits are
+   // set, write to the upper half; otherwise, write to the lower half.
+   wire high32 = |write_byteena[7:4];
+ 
+   wire [8:0] write_address_unalign = {write_address[8:1], high32};
 
    wire [31:0] write_data_32;
    assign write_data_32 = high32 ? write_data[63:32] : write_data[31:0];
@@ -85,9 +90,9 @@ module text80x25 (
       .rdclock        (clk             ),
       .data           (write_data_32   ),
       .rdaddress      (text_address    ),
-      .wraddress      (write_address   ),
+      .wraddress      (write_address_unalign),
       .wrclock        (ram_clk         ),
-      .byteena_a      (write_byteena_4),
+      .byteena_a      (write_byteena_4 ),
       .wren           (write_en        ),
       .q              (text_value      )
       );

@@ -19,7 +19,6 @@
 ../../rtl/cpu7b/rtl/cpu7_ifu_imd.v 
 ../../rtl/cpu7b/rtl/cpu7_ifu_incr30.v 
 ../../rtl/cpu7b/rtl/cpu7_ifu.v 
-../../rtl/cpu7b/rtl/cpu7_lsu.v 
 ../../rtl/cpu7b/rtl/cpu7_nocache.v 
 ../../rtl/cpu7b/rtl/decoded.vh 
 ../../rtl/cpu7b/rtl/decoder.v 
@@ -34,6 +33,8 @@
 ../../rtl/cpu7b/rtl/sram.v 
 ../../rtl/cpu7b/rtl/cpu.v 
 ../../rtl/cpu7b/rtl/cpu7_csr_timer.v
+../../rtl/cpu7b/rtl/c7blsu/rtl/c7blsu.v
+../../rtl/cpu7b/rtl/c7blsu/rtl/decode.vh
 ../../rtl/vga/vga640x480.v 
 ../../rtl/vga/vgaram.v 
 ../../rtl/vga/text80x25.v 
