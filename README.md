@@ -467,4 +467,8 @@ u@uu:~/prjs/cpu7b/simulation/test0$ ./viewwave.sh
 
 
 ### Space Invaders
+`````shell
+$ sudo screen /dev/ttyUSB0 115200 
+`````
 ![screenshot1](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/space_invaders.gif)
+
