@@ -43,7 +43,7 @@ SOURCE_FILES =../../rtl/cpu7b/rtl/alu.v \
 		../../rtl/cpu7b/rtl/models/ram64_way1.v \
 		../../rtl/cpu7b/rtl/c7bifu/cpu7_ifu_iq.v \
 		../../rtl/cpu7b/rtl/c7blsu/rtl/c7blsu.v \
-		../../rtl/cpu7b/rtl/c7blsu/rtl/decode.vh \
+		../../rtl/cpu7b/rtl/c7blsu/rtl/c7blsu_defs.v \
 		../../rtl/cpu7b/rtl/cpu.v \
 		../../rtl/vga/vga640x480.v \
 		../../rtl/vga/vgaram.v \
