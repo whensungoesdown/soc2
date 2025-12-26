@@ -6,67 +6,32 @@
 ###################################################################
 
 PROJECT = soc2_top
-SOURCE_FILES =../../rtl/cpu7b/rtl/alu.v \
-	      ../../rtl/cpu7b/rtl/branch.v \
-	      ../../rtl/cpu7b/rtl/defines.vh \
-		../../rtl/cpu7b/rtl/c7bcsr/cpu7_csr_byplog.v \
-		../../rtl/cpu7b/rtl/c7bcsr/cpu7_csr.v \
-		../../rtl/cpu7b/rtl/c7bcsr/cpu7_csr_timer.v \
-		../../rtl/cpu7b/rtl/c7bexu/cpu7_exu_eclbyplog_rs1.v \
-		../../rtl/cpu7b/rtl/c7bexu/cpu7_exu_eclbyplog.v \
-		../../rtl/cpu7b/rtl/c7bexu/cpu7_exu_ecl.v \
-		../../rtl/cpu7b/rtl/c7bexu/cpu7_exu_rf.v \
-		../../rtl/cpu7b/rtl/c7bexu/cpu7_exu.v \
-		../../rtl/cpu7b/rtl/c7bifu/cpu7_ifu_dec.v \
-		../../rtl/cpu7b/rtl/c7bifu/cpu7_ifu_fdp.v \
-		../../rtl/cpu7b/rtl/c7bifu/cpu7_ifu_imd.v \
-		../../rtl/cpu7b/rtl/c7bifu/cpu7_ifu_incr30.v \
-		../../rtl/cpu7b/rtl/c7bifu/cpu7_ifu.v \
-		../../rtl/cpu7b/rtl/c7bifu/decoder.v \
-		../../rtl/cpu7b/rtl/decoded.vh \
-		../../rtl/cpu7b/rtl/cpu7_core.v \
-		../../rtl/cpu7b/rtl/mul32x32.v \
-		../../rtl/cpu7b/rtl/mul64x64.v \
-		../../rtl/cpu7b/rtl/models/swrvr_clib.v \
-		../../rtl/cpu7b/rtl/models/swrvr_dlib.v \
-		../../rtl/cpu7b/rtl/models/sram.v \
-		../../rtl/cpu7b/rtl/axi_sram_bridge.v \
-		../../rtl/cpu7b/rtl/c7bbiu/c7bbiu.v \
-		../../rtl/cpu7b/rtl/c7bbiu/c7bbiu_rd_arb.v \
-		../../rtl/cpu7b/rtl/c7bbiu/c7bbiu_wr_arb.v \
-		../../rtl/cpu7b/rtl/c7bbiu/c7bbiu_axi_interface.v \
-		../../rtl/cpu7b/rtl/c7bicu/c7bicu.v\
-		../../rtl/cpu7b/rtl/c7bicu/c7b_cache_rams.v \
-		../../rtl/cpu7b/rtl/models/ram22.v \
-		../../rtl/cpu7b/rtl/models/ram22_way1.v \
-		../../rtl/cpu7b/rtl/models/ram64.v \
-		../../rtl/cpu7b/rtl/models/ram64_way1.v \
-		../../rtl/cpu7b/rtl/c7bifu/cpu7_ifu_iq.v \
-		../../rtl/cpu7b/rtl/c7blsu/rtl/c7blsu.v \
-		../../rtl/cpu7b/rtl/c7blsu/rtl/c7blsu_defs.v \
-		../../rtl/cpu7b/rtl/cpu.v \
-		../../rtl/vga/vga640x480.v \
-		../../rtl/vga/vgaram.v \
-		../../rtl/vga/text80x25.v \
-		../../rtl/vga/hvsync.v \
-		../../rtl/vga/vgatextram.v \
-		../../rtl/vga/chrom.v \
-		../../rtl/ram_bridge.v \
-		../../rtl/pll.v \
-		../../rtl/amba_axi_m2s3.v \
-		../../rtl/peripherals/peripherals.v \
-		../../rtl/peripherals/uart/uart.v \
-		../../rtl/soc2_top.v 
+PROJECT_ROOT := $(shell cd ../.. && pwd)
 
+# Define multiple file lists
+FLIST_DIR := $(PROJECT_ROOT)/flist
+RTL_FLIST := $(FLIST_DIR)/soc2.flist
+#TOP_FLIST := $(FLIST_DIR)/soc2.flist
+
+
+# List of all flist files to process
+ALL_FLISTS := $(RTL_FLIST) $(TOP_FLIST)
+
+# Output file for combined sources
+COMBINED_FLIST := combined_sources.files
+
+
+# Read source files from combined list (force evaluation after COMBINED_FLIST is built)
+SOURCE_FILES = $(shell cat $(COMBINED_FLIST) 2>/dev/null || echo "")
 SOURCE_FILES_PARAMETER = $(addprefix --source=, $(SOURCE_FILES))
+
 ASSIGNMENT_FILES = soc2_top.qpf soc2_top.qsf 
-
-
 FAMILY = "Cyclone IV E"
 #PART = EP4CE6E22C8
 #BOARD = c4e6e10pins
 PART = EP4CE15F23C8
 BOARD = ac415pins
+
 ###################################################################
 # Main Targets
 #
@@ -76,10 +41,16 @@ BOARD = ac415pins
 
 all: smart.log $(PROJECT).asm.rpt $(PROJECT).sta.rpt 
 
+# Generate combined source file list
+$(COMBINED_FLIST): $(ALL_FLISTS)
+	@echo "Combining file lists..." >&2
+	@./preprocess_flist_multi.sh $@ $^ $(PROJECT_ROOT)
+
 clean:
 	rm -rf *.rpt *.chg smart.log *.htm *.eqn *.pin *.sof *.pof db
+	rm -f $(COMBINED_FLIST)
 
-map: smart.log $(PROJECT).map.rpt
+map: $(COMBINED_FLIST) smart.log $(PROJECT).map.rpt
 fit: smart.log $(PROJECT).fit.rpt
 asm: smart.log $(PROJECT).asm.rpt
 sta: smart.log $(PROJECT).sta.rpt
@@ -89,8 +60,6 @@ smart: smart.log
 # Executable Configuration
 ###################################################################
 
-# Quartus 19.1 Prime lite doesn't support CycloneII
-# To compile, put CycloneIV here
 #MAP_ARGS = --family=CycloneII $(SOURCE_FILES_PARAMETER)
 #FIT_ARGS = --part=EP2C5T144C8i
 MAP_ARGS = --family=$(FAMILY) $(SOURCE_FILES_PARAMETER)
@@ -104,7 +73,8 @@ STA_ARGS =
 
 STAMP = echo done >
 
-$(PROJECT).map.rpt: map.chg $(SOURCE_FILES) 
+# Fixed: Add $(COMBINED_FLIST) as dependency
+$(PROJECT).map.rpt: map.chg $(COMBINED_FLIST)
 	quartus_map $(MAP_ARGS) $(PROJECT)
 	$(STAMP) fit.chg
 
@@ -130,7 +100,8 @@ $(ASSIGNMENT_FILES):
 	quartus_sh --prepare $(PROJECT)
 	-cat $(BOARD) >> $(PROJECT).qsf
 
-map.chg:
+# Fixed: Add $(COMBINED_FLIST) dependency
+map.chg: $(COMBINED_FLIST)
 	$(STAMP) map.chg
 fit.chg:
 	$(STAMP) fit.chg
@@ -138,3 +109,22 @@ sta.chg:
 	$(STAMP) sta.chg
 asm.chg:
 	$(STAMP) asm.chg
+
+# Debug targets
+debug_sources: $(COMBINED_FLIST)
+	@echo "=== Combined Source Files ==="
+	@cat $(COMBINED_FLIST)
+	@echo "=== Total: $(words $(SOURCE_FILES)) files ==="
+
+debug_vars:
+	@echo "PROJECT_ROOT: $(PROJECT_ROOT)"
+	@echo "ALL_FLISTS: $(ALL_FLISTS)"
+	@echo "COMBINED_FLIST: $(COMBINED_FLIST)"
+	@echo "SOURCE_FILES count: $(words $(SOURCE_FILES))"
+	@echo "First 3 files:"
+	@for i in 1 2 3; do \
+		file=$$(echo "$(SOURCE_FILES)" | awk '{print $$'$$i'}'); \
+		[ -n "$$file" ] && echo "  $$file"; \
+	done
+
+.PHONY: all clean map fit asm sta smart debug_sources debug_vars

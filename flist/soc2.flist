@@ -1,15 +1,4 @@
-#/home/u/altera/13.1/quartus/eda/sim_lib/altera_mf.v
-#/mnt/c/intelFPGA_lite/19.1/quartus/eda/sim_lib/altera_mf.v
-
-+incdir+${PROJECT_ROOT}/rtl/cpu7b/rtl
-
-#../altera_mf.v
-${PROJECT_ROOT}/rtl/cpu7b/simulation/altera_mf.v
-
-
-
 -f ${PROJECT_ROOT}/rtl/cpu7b/flist/c7b.flist
-#-f cpu7b/flist/c7b.flist
 
 ${PROJECT_ROOT}/rtl/vga/vga640x480.v 
 ${PROJECT_ROOT}/rtl/vga/vgaram.v 
@@ -22,7 +11,3 @@ ${PROJECT_ROOT}/rtl/pll.v
 ${PROJECT_ROOT}/rtl/peripherals/peripherals.v
 ${PROJECT_ROOT}/rtl/peripherals/uart/uart.v
 ${PROJECT_ROOT}/rtl/soc2_top.v 
-#../../tb/soc2_test6_spaceinvaders_top_tb.v
-
-#-f ../../rtl/cpu7b/rtl/c7blsu/flist/c7blsu.flist
-
