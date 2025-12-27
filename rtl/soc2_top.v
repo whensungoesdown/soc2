@@ -85,8 +85,8 @@ module soc2_top(
    wire [2:0]   dma_arsize;
    wire [1:0]   dma_arburst;
    wire         dma_arlock;
-   wire [3:0]   dma_arcache;
-   wire [2:0]   dma_arprot;
+   //wire [3:0]   dma_arcache;
+   //wire [2:0]   dma_arprot;
    wire         dma_arvalid;
    wire         dma_arready;
                 
@@ -103,8 +103,8 @@ module soc2_top(
    wire [2:0]   dma_awsize;
    wire [1:0]   dma_awburst;
    wire         dma_awlock;
-   wire [3:0]   dma_awcache;
-   wire [2:0]   dma_awprot;
+   //wire [3:0]   dma_awcache;
+   //wire [2:0]   dma_awprot;
    wire         dma_awvalid;
    wire         dma_awready;
    wire [3:0]   dma_wid;
@@ -273,8 +273,8 @@ module soc2_top(
    assign dma_arsize = 'h0;
    assign dma_arburst = 'h0;
    assign dma_arlock = 'h0;
-   assign dma_arcache = 'h0;
-   assign dma_arprot = 'h0;
+   //assign dma_arcache = 'h0;
+   //assign dma_arprot = 'h0;
    assign dma_arvalid = 'h0;
    assign dma_arready = 'h0;
 
@@ -291,8 +291,8 @@ module soc2_top(
    assign dma_awsize = 'h0;
    assign dma_awburst = 'h0;
    assign dma_awlock = 'h0;
-   assign dma_awcache = 'h0;
-   assign dma_awprot = 'h0;
+   //assign dma_awcache = 'h0;
+   //assign dma_awprot = 'h0;
    assign dma_awvalid = 'h0;
    assign dma_awready = 'h0;
    assign dma_wid = 'h0;

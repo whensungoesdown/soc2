@@ -100,6 +100,10 @@ $(ASSIGNMENT_FILES):
 	quartus_sh --prepare $(PROJECT)
 	-cat $(BOARD) >> $(PROJECT).qsf
 
+	@echo "" >> $(PROJECT).qsf
+	@echo "# Warning suppression" >> $(PROJECT).qsf
+	@echo "set_global_assignment -name MESSAGE_DISABLE 10335" >> $(PROJECT).qsf
+
 # Fixed: Add $(COMBINED_FLIST) dependency
 map.chg: $(COMBINED_FLIST)
 	$(STAMP) map.chg
