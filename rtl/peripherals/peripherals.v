@@ -40,12 +40,12 @@ module peripherals (
    wire [7:0] uart_dr_q;
    wire       uart_dr_en;
 
-   dffe_s #(8) uart_dr_reg (
+   dffe_ns #(8) uart_dr_reg (
       .din   (uart_dr_in),
       .en    (uart_dr_en),
       .clk   (clk),
-      .q     (uart_dr_q),
-      .se(), .si(), .so());
+      .q     (uart_dr_q));
+      //.se(), .si(), .so());
 
 
 
@@ -59,14 +59,14 @@ module peripherals (
    assign tx_data_valid = uart_wen;
 
 
-   dffrle_s #(1) uart_intr_reg (
+   dffrle_ns #(1) uart_intr_reg (
       //.din   (rx_data_fresh & (~uart_ren)),
       .din   (rx_data_fresh),
       .rst_l (resetn),
       .en    (rx_data_fresh | uart_ren), // read uartdr clear the interrupt
       .clk   (clk),
-      .q     (uart_intr),
-      .se(), .si(), .so());
+      .q     (uart_intr));
+      //.se(), .si(), .so());
 
    uart u_uart (
       .clk              (uart_clk     ),
@@ -96,11 +96,11 @@ module peripherals (
    assign rdata_in = {32{uart_ren}} & {24'h0, uart_dr_q} // |
                   ;
 
-   dff_s #(32) rdata_reg (
+   dff_ns #(32) rdata_reg (
       .din   (rdata_in),
       .clk   (clk),
-      .q     (rdata_q),
-      .se(), .si(), .so());
+      .q     (rdata_q));
+      //.se(), .si(), .so());
 
    assign rdata = {32'b0, rdata_q};
 
