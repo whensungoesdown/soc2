@@ -311,7 +311,7 @@ module soc2_top(
    wire ext_intr;
    //reg ext_intr;
 
-   cpu u_cpu(
+   c7b u_c7b(
       .clk          (sys_clk           ),
       .resetn       (resetn            ),
       
