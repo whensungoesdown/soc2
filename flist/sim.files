@@ -2,6 +2,10 @@
 #/mnt/c/intelFPGA_lite/19.1/quartus/eda/sim_lib/altera_mf.v
 
 +incdir+${PROJECT_ROOT}/rtl/cpu7b/rtl
++incdir+${PROJECT_ROOT}/rtl/cpu7b/rtl/c7bbiu
++incdir+${PROJECT_ROOT}/rtl/cpu7b/rtl/c7blsu/rtl
++incdir+${PROJECT_ROOT}/rtl/cpu7b/rtl/c7bcsr/rtl  
++incdir+${PROJECT_ROOT}/rtl/cpu7b/rtl/c7bifu/rtl
 
 #../altera_mf.v
 ${PROJECT_ROOT}/rtl/cpu7b/simulation/altera_mf.v

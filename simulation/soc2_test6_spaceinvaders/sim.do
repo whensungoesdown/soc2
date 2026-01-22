@@ -28,9 +28,8 @@ add wave -position end  sim:/top_tb/u_top/cpu_rvalid
 add wave -position end  sim:/top_tb/u_top/cpu_rready
 
 
-add wave -position end  sim:/top_tb/u_top/u_c7b/u_core/exu/registers/regs
 
-run 50000ns
+run 1000ns
 
 # read in stimulus
 #do stim.do
