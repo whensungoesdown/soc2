@@ -29,7 +29,7 @@ add wave -position end  sim:/top_tb/u_top/cpu_rready
 
 
 
-run 1000ns
+run 200000ns
 
 # read in stimulus
 #do stim.do
