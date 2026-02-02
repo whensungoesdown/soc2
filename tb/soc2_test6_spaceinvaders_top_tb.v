@@ -17,7 +17,7 @@ module top_tb(
 	 resetn = 1'b0;
 	 
 	 // ext_intr is used to test inserting external intrrupt
-//	 u_top.ext_intr = 1'b0;
+	 u_top.ext_intr = 1'b0;
 
 	 rx = 1'b1;
  
@@ -25,21 +25,21 @@ module top_tb(
 	 #132;
 	 resetn = 1'b1;
 
-	 // trick the uart to report data
-	 #5000;
-	 rx = 1'b0; // start bit
-	 #5;
-	 rx = 1'b1;
-
-	 u_top.u_peri.u_uart.urx.sample_now = 1'b1;
-	 u_top.u_peri.u_uart.urx.state = 2'b10;
-	 u_top.u_peri.u_uart.urx.rx_data = 8'h7;
-	 u_top.u_peri.u_uart.urx.rx_shift = 8'h5;
-
-	 #30;
-
-	 u_top.u_peri.u_uart.urx.sample_now = 0;
-	 u_top.u_peri.u_uart.urx.state = 2'b00;
+//	 // trick the uart to report data
+//	 #5000;
+//	 rx = 1'b0; // start bit
+//	 #5;
+//	 rx = 1'b1;
+//
+//	 u_top.u_peri.u_uart.urx.sample_now = 1'b1;
+//	 u_top.u_peri.u_uart.urx.state = 2'b10;
+//	 u_top.u_peri.u_uart.urx.rx_data = 8'h7;
+//	 u_top.u_peri.u_uart.urx.rx_shift = 8'h5;
+//
+//	 #30;
+//
+//	 u_top.u_peri.u_uart.urx.sample_now = 0;
+//	 u_top.u_peri.u_uart.urx.state = 2'b00;
 
 
 
@@ -51,8 +51,8 @@ module top_tb(
 	 // ext_intr at 1c000180 rising edge
          //#11283;
 	 // ext_intr at somewhere in 1c00017c
-//         #11270;
-//         u_top.ext_intr = 1'b1;
+         #13270;
+         u_top.ext_intr = 1'b1;
 	 
       end
 

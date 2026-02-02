@@ -1,5 +1,6 @@
 add wave -position end  result:/top_tb/clk
 add wave -position end  result:/top_tb/resetn
+add wave -position end  result:/top_tb/u_top/u_c7b/u_core/u_exu/clk
 
 add wave -divider
 add wave -position end  result:/top_tb/u_top/u_c7b/u_core/ifu_exu_pc_d
@@ -46,3 +47,6 @@ add wave -position end  result:/top_tb/u_top/u_c7b/u_core/lsu_biu_wr_addr
 add wave -position end  result:/top_tb/u_top/u_c7b/u_core/lsu_biu_wr_data
 add wave -position end  result:/top_tb/u_top/u_c7b/u_core/lsu_biu_wr_req
 add wave -position end  result:/top_tb/u_top/u_c7b/u_core/lsu_biu_wr_strb
+add wave -divider
+add wave -position end  result:/top_tb/u_top/u_c7b/u_core/u_exu/ertn_vld_w
+
