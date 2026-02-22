@@ -26,7 +26,7 @@
 
 
 // |
-#define BULLET	        0x7c
+#define BULLET	        0x41
 
 #define INV_BULLET      0x19
 
@@ -44,10 +44,12 @@
 #define KEY_R           0x52
 #define KEY_r           0x72
 
+#define KEY_I           0x49
+#define KEY_i           0x69
 
 
 // update bullet, in cycles
-#define BULLET_DELAY         20
+#define BULLET_DELAY         40
 
 // update BLAST, in cycles 
 #define BLAST_DELAY          80
@@ -72,6 +74,8 @@
 // char uninitialized_data[4096] __attribute__((section (".data")));
 //
 
+int g_ic_en = 0;
+
 int g_key = 0;
 
 #define DEFENDER_ROW         GAME_ROW_END
@@ -87,7 +91,7 @@ int g_invader_hit = 0;
 int g_bulletdelay = 0;
 int g_blastdelay = 0;
 
-#define MAX_BULLET_NUM          1
+#define MAX_BULLET_NUM          10
 int g_bullet = 0;
 
 // clear Uart Intr! banner, in cycles
@@ -95,7 +99,7 @@ int g_bullet = 0;
 int g_bannerdelay = 0;
 
 
-#define INVADERS_ROTATE_DELAY       800
+#define INVADERS_ROTATE_DELAY       100
 int g_invadersdelay = 0;
 
 // 
@@ -387,7 +391,27 @@ void update_defender (void)
 		if (g_bullet < MAX_BULLET_NUM)
 		{
 			g_bullet++;
+
+			g_screen[DEFENDER_ROW - 1][g_defender_pos + 1] = BULLET; // central
+
 			g_screen[DEFENDER_ROW - 1][g_defender_pos + 1] = BULLET;
+			g_screen[DEFENDER_ROW - 1][g_defender_pos + 0] = BULLET;
+			g_screen[DEFENDER_ROW - 1][g_defender_pos + 2] = BULLET;
+
+			g_screen[DEFENDER_ROW - 2][g_defender_pos - 1] = BULLET;
+			g_screen[DEFENDER_ROW - 2][g_defender_pos + 0] = BULLET;
+			g_screen[DEFENDER_ROW - 2][g_defender_pos + 1] = BULLET;
+			g_screen[DEFENDER_ROW - 2][g_defender_pos + 2] = BULLET;
+			g_screen[DEFENDER_ROW - 2][g_defender_pos + 3] = BULLET;
+
+			g_screen[DEFENDER_ROW - 2][g_defender_pos - 2] = BULLET;
+			g_screen[DEFENDER_ROW - 2][g_defender_pos - 1] = BULLET;
+			g_screen[DEFENDER_ROW - 2][g_defender_pos + 0] = BULLET;
+			g_screen[DEFENDER_ROW - 2][g_defender_pos + 1] = BULLET;
+			g_screen[DEFENDER_ROW - 2][g_defender_pos + 2] = BULLET;
+			g_screen[DEFENDER_ROW - 2][g_defender_pos + 3] = BULLET;
+			g_screen[DEFENDER_ROW - 2][g_defender_pos + 4] = BULLET;
+			
 		}
 
 		// temp, restart if defender is hit
@@ -395,7 +419,37 @@ void update_defender (void)
 	}
 	else if (KEY_R == g_key || KEY_r == g_key)
 	{
+		// reset
+		g_defender_hit = 0;
+		g_defender_pos = 25; // initial position
+		g_defender_lives = 3;
+		g_bullet = 0;
+		memset(g_score, 0, 4);
+		g_score_int = 0x30303030;
+
+		memcpy(g_screen, g_screen_reset, sizeof(g_screen_reset));
+
 		g_gameover = 0;
+	}
+	else if (KEY_I == g_key || KEY_i == g_key)
+	{
+		if (0 == g_ic_en)
+		{
+			// icache enable 
+			asm volatile("addi.w  $t7, $r0, 0x1");
+			asm volatile("csrwr   $t7, 0x101");
+			g_ic_en = 1;
+			*(int*)0x10008 = 0x4900; // I
+		}
+		else
+		{
+			// icache disable 
+			asm volatile("addi.w  $t7, $r0, 0x0");
+			asm volatile("csrwr   $t7, 0x101");
+			g_ic_en = 0;
+			*(int*)0x10008 = 0;
+		}
+
 	}
 	else
 	{
