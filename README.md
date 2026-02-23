@@ -10,9 +10,13 @@ More blogs are kept at:
 
 ## Microarchitecture
 
-Single issue, in order core, 5-stage pipeline: f d e m w.
+Single issue, in order core. 
 
-16KB L1 instruction cache, 2-stage pipeline: ic1 ic2.
+Main pipeline: bf f d e m(ex2) w.
+
+LSU pipeline: ls1 ls2 ls3.
+
+16KB 2-way L1 instruction cache, pipeline: ic1 ic2.
 
 ### Modules
 
@@ -321,114 +325,10 @@ u@uu:~/prjs/cpu7b$ cd systhesis/altera/
 u@uu:~/prjs/cpu7b/systhesis/altera$ make
 `````
 
-`````
-### Run all the tests
+### Run tests
 
 `````shell
 u@unamed:~/prjs/cpu7b/simulation$ ./run_all_tests.sh 
-run tests
-
-test0
-# PASS!
-
-test1_ld.w
-# PASS!
-
-test1_1_ld.w
-# PASS!
-
-test3_st.w
-# PASS!
-
-test3_1_st.w
-# PASS!
-
-test4_beq
-# PASS!
-
-test5_jirl
-# PASS!
-
-test6_beq_testbyp
-# PASS!
-
-test8_mulw
-# PASS!
-
-test9_mulhwu
-# PASS!
-
-test10_mulhw
-# PASS!
-
-test11_csrrd
-# PASS!
-
-test12_csrwr
-# PASS!
-
-test13_csrxchg
-# PASS!
-
-test14_csr_crmd
-# PASS!
-
-test15_csr_prmd
-# PASS!
-
-test16_ale_exception
-# PASS!
-
-test17_exception_crmd_prmd
-# PASS!
-
-test18_csr_badv
-# PASS!
-
-test19_csr_tcfg
-# PASS!
-
-test20_csr_tcfg_periodic
-# PASS!
-
-test21_timer_intr_right_after_branch
-# PASS!
-
-test22_timer_intr_on_pipeline_bubble
-# PASS!
-
-test23_lsu_stall_ifu_at_e
-# PASS!
-
-test24_beq_ld.w
-# PASS!
-
-test25_lsu_stall
-# PASS!
-
-test26_illinstr_exception
-# PASS!
-
-test27_estat
-# PASS!
-
-test28_ld.b.bu.h.hu
-# PASS!
-
-test29_st.b.h
-# PASS!
-
-test30_ext_intr
-# PASS!
-
-test31_andi
-# PASS!
-
-test32_ext_intr_during_ld
-# PASS!
-
-test33_icache_smoke
-# PASS!
 
 `````
 
