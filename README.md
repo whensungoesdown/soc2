@@ -273,21 +273,33 @@ Each way contains a 22-bit tag ram and 4 64-bit data ram.
 ```````````````
         0x0  +--------------+
 (0x1c000000) |              |
-             |    RAM       |  64KB
+             |    RAM       |  32KB
              |              |
              |              |
-     0xffff  |              |
+     0x7fff  +--------------+ 
+             |              |
+             |              |
+             |              |
+             |              |
     0x10000  +--------------+
-             | VGA RAM(2KB) |
+             |   VGA RAM    |   2KB
     0x107ff  +--------------+   
-             |              |  64KB
-             | Reserved     |
-             | VGA RAM      | 
+             |              |  
+             |   Reserved   |  64KB
+             |   VGA RAM    | 
+             |              |
+             |              |
+             |              |
+             |              |
+             |              |
     0x20000  +--------------+         0x20000  RW   uartdr     (32-bit register, 
              |              |                                   low 8 bits are used to transmit and receive data)
              |              |  64KB
+             |              |
+             |              |
              | Device MMIO  |         
-             |              |         
+             |              |
+             |              |
     0x2ffff  |              |
              +--------------+
              |              |
@@ -297,12 +309,11 @@ Each way contains a 22-bit tag ram and 4 64-bit data ram.
 
              |              |
              |              |
-0x1c000000   +--------------+
+ 0x1c000000  +--------------+
              |              |
-             |    RAM       |  64KB
+             |    RAM       |  32KB
              |              |
-             |              |
-             |              |
+ 0x1c001fff  |              |
              +--------------+
              |              |
              |              |
