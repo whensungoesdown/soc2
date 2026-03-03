@@ -9,6 +9,7 @@
     .extern vTaskSwitchContext
     .extern xTaskIncrementTick
     .extern exception_handler_ale_panic
+    .extern void exception_handler_ine_panic
 
 /* ================== SAVE_CONTEXT (保持不变) ================== */
 .macro SAVE_CONTEXT
@@ -130,6 +131,10 @@ freertos_loongarch_trap_handler:
     li.w    $t2, 0xB
     beq     $t1, $t2, handle_yield
 
+    /* D. Illegal Instruction (Ecode = 0xD) */
+    li.w    $t2, 0xD
+    beq     $t1, $t2, excep_illinstr
+
     /* C. 检查 Timer 中断 (位 11) */
     /* 注意：这里必须使用原始的 $t0 (ESTAT) */
     li.w    $t2, 0x800      /* 1 << 11 */
@@ -175,6 +180,19 @@ handle_tick:
     
     bl      vTaskSwitchContext
     b       exit_trap
+
+// 4. illegal instruction
+excep_illinstr:
+    /* 强制对齐 SP，防止 printf 再次崩 */
+    //bstrins.w $sp, $zero, 3, 0 
+    srli.w   $sp, $sp, 4        // 逻辑右移4位，低4位被移出
+    slli.w   $sp, $sp, 4        // 左移4位，低4位自动补0
+    
+    /* 呼叫 C 语言 panic 函数 */
+    bl      exception_handler_ine_panic
+    
+    /* 死循环 */
+    b       .
 
 /* --- 统一出口 --- */
 exit_trap:

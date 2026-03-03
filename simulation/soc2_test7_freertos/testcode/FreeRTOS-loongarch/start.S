@@ -25,8 +25,8 @@ _start:
     la.global   $t1, __bss_end
 bss_clear_loop:
     bge     $t0, $t1, bss_done
-    st.d    $zero, $t0, 0
-    addi.d  $t0, $t0, 8
+    st.w    $zero, $t0, 0
+    addi.w  $t0, $t0, 4
     b       bss_clear_loop
 bss_done:
 

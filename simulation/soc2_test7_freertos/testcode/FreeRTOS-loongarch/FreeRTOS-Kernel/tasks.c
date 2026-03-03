@@ -1648,6 +1648,8 @@ static void prvAddNewTaskToReadyList( TCB_t * pxNewTCB ) PRIVILEGED_FUNCTION;
     {
         TCB_t * pxNewTCB;
 
+        screen_puts("In prvCreateTask 0");
+
         /* If the stack grows down then allocate the stack then the TCB so the stack
          * does not grow into the TCB.  Likewise if the stack grows up then allocate
          * the TCB then the stack. */
@@ -1660,6 +1662,11 @@ static void prvAddNewTaskToReadyList( TCB_t * pxNewTCB ) PRIVILEGED_FUNCTION;
             /* More details at: https://github.com/FreeRTOS/FreeRTOS-Kernel/blob/main/MISRA.md#rule-115 */
             /* coverity[misra_c_2012_rule_11_5_violation] */
             pxNewTCB = ( TCB_t * ) pvPortMalloc( sizeof( TCB_t ) );
+
+            screen_puts("In prvCreateTask 1, call pvPortMalloc, size:");
+	    screen_print_hex(sizeof(TCB_t));
+            screen_puts("return pxNewTCB :");
+	    screen_print_hex(pxNewTCB);
 
             if( pxNewTCB != NULL )
             {
@@ -1690,6 +1697,11 @@ static void prvAddNewTaskToReadyList( TCB_t * pxNewTCB ) PRIVILEGED_FUNCTION;
             /* More details at: https://github.com/FreeRTOS/FreeRTOS-Kernel/blob/main/MISRA.md#rule-115 */
             /* coverity[misra_c_2012_rule_11_5_violation] */
             pxStack = ( StackType_t * ) pvPortMallocStack( ( ( ( size_t ) uxStackDepth ) * sizeof( StackType_t ) ) );
+
+            screen_puts("In prvCreateTask 2, call pvPortMallocStack, size:");
+	    screen_print_hex(( ( ( size_t ) uxStackDepth ) * sizeof( StackType_t ) ));
+            screen_puts("return pxStack :");
+	    screen_print_hex(pxStack);
 
             if( pxStack != NULL )
             {
@@ -3555,6 +3567,8 @@ static BaseType_t prvCreateIdleTasks( void )
     TaskFunction_t pxIdleTaskFunction = NULL;
     UBaseType_t xIdleTaskNameIndex;
 
+    screen_puts("In prvCreateIdleTasks 0");
+
     /* MISRA Ref 14.3.1 [Configuration dependent invariant] */
     /* More details at: https://github.com/FreeRTOS/FreeRTOS-Kernel/blob/main/MISRA.md#rule-143. */
     /* coverity[misra_c_2012_rule_14_3_violation] */
@@ -3700,6 +3714,8 @@ void vTaskStartScheduler( void )
 {
     BaseType_t xReturn;
 
+    screen_puts("In vTaskStartScheduler()");
+
     traceENTER_vTaskStartScheduler();
 
     #if ( configUSE_CORE_AFFINITY == 1 ) && ( configNUMBER_OF_CORES > 1 )
@@ -3711,6 +3727,10 @@ void vTaskStartScheduler( void )
     #endif /* #if ( configUSE_CORE_AFFINITY == 1 ) && ( configNUMBER_OF_CORES > 1 ) */
 
     xReturn = prvCreateIdleTasks();
+
+    screen_puts("After prvCreateIdleTasks() called");
+    screen_puts("xReturn:");
+    screen_print_hex(xReturn);
 
     #if ( configUSE_TIMERS == 1 )
     {
@@ -3788,6 +3808,8 @@ void vTaskStartScheduler( void )
          * or the timer task. */
         configASSERT( xReturn != errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY );
     }
+
+    screen_puts("In vTaskStartScheduler() 1");
 
     /* Prevent compiler warnings if INCLUDE_xTaskGetIdleTaskHandle is set to 0,
      * meaning xIdleTaskHandles are not used anywhere else. */

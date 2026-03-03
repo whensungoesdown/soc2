@@ -69,6 +69,8 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 /* ---------------- 2. 启动调度器 ---------------- */
 BaseType_t xPortStartScheduler( void )
 {
+    screen_puts("In xPortStartScheduler");
+
     /* 在启动前，将嵌套计数清零 (或者由 xPortStartFirstTask 恢复栈中的 0) */
     uxCriticalNesting = 0;
 

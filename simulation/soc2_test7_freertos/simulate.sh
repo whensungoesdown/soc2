@@ -88,7 +88,7 @@ cat $TEMP_FLIST
 # 使用绝对路径
 #vlog +incdir+${PROJECT_ROOT}/rtl -f ${PROJECT_ROOT}/flist/sim.files ${PROJECT_ROOT}/tb/soc2_test6_spaceinvaders_top_tb.v
 
-vlog +incdir+${PROJECT_ROOT}/rtl -f "$TEMP_FLIST" ${PROJECT_ROOT}/tb/soc2_test6_spaceinvaders_top_tb.v
+vlog +incdir+${PROJECT_ROOT}/rtl -f "$TEMP_FLIST" ${PROJECT_ROOT}/tb/soc2_test7_freertos_top_tb.v
 
 rm -f "$TEMP_FILE"
 

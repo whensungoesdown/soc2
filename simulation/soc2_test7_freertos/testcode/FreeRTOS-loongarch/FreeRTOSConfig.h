@@ -26,7 +26,8 @@
 /* 内存分配 */
 #define configSUPPORT_STATIC_ALLOCATION         0
 #define configSUPPORT_DYNAMIC_ALLOCATION        1
-#define configTOTAL_HEAP_SIZE                   ( ( size_t ) ( 1024 * 1024 ) ) /* 1MB 堆 */
+//#define configTOTAL_HEAP_SIZE                   ( ( size_t ) ( 1024 * 1024 ) ) /* 1MB 堆 */
+#define configTOTAL_HEAP_SIZE                   ( ( size_t ) ( 1 * 1024 ) ) /* 1KB 堆 */
 #define configAPPLICATION_ALLOCATED_HEAP        0
 
 /* 钩子函数 (为了简单全部关掉) */

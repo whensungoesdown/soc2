@@ -3,7 +3,7 @@
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
-#include "uart.h"
+//#include "uart.h"
 /* ================= 外部依赖 ================= */
 // extern void uart_init(void);
 // extern void uart_puts(char *s);
@@ -62,19 +62,19 @@ void int_to_str(int value, char *str) {
     str[j] = '\0';
 }
 
-/* 线程安全的串口打印函数 (使用 Mutex 保护) */
-void uart_print(const char* msg) {
-    /* 如果调度器还没开始，或者互斥锁没创建，直接打印 */
-    if (xTaskGetSchedulerState() != taskSCHEDULER_RUNNING || xUartMutex == NULL) {
-        uart_puts((char*)msg);
-    } else {
-        /* 获取锁：如果别人在用，我就等 */
-        xSemaphoreTake(xUartMutex, portMAX_DELAY);
-        uart_puts((char*)msg);
-        /* 释放锁 */
-        xSemaphoreGive(xUartMutex);
-    }
-}
+///* 线程安全的串口打印函数 (使用 Mutex 保护) */
+//void uart_print(const char* msg) {
+//    /* 如果调度器还没开始，或者互斥锁没创建，直接打印 */
+//    if (xTaskGetSchedulerState() != taskSCHEDULER_RUNNING || xUartMutex == NULL) {
+//        uart_puts((char*)msg);
+//    } else {
+//        /* 获取锁：如果别人在用，我就等 */
+//        xSemaphoreTake(xUartMutex, portMAX_DELAY);
+//        uart_puts((char*)msg);
+//        /* 释放锁 */
+//        xSemaphoreGive(xUartMutex);
+//    }
+//}
 
 /* ================= 任务定义 ================= */
 
@@ -82,8 +82,8 @@ void uart_print(const char* msg) {
 void vTaskBlink(void *pvParameters) {
     const char *pcTaskName = (const char *)pvParameters;
     for (;;) {
-        uart_print(pcTaskName);
-        uart_print(" is alive (1s cycle)\r\n");
+        screen_puts(pcTaskName);
+        screen_puts(" is alive (1s cycle)\r\n");
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
@@ -99,10 +99,10 @@ void vSenderTask(void *pvParameters) {
         
         lValueToSend++;
         
-        uart_print("[Sender] Sending: ");
+        screen_puts("[Sender] Sending: ");
         int_to_str(lValueToSend, numBuf);
-        uart_print(numBuf);
-        uart_print("\r\n");
+        screen_puts(numBuf);
+        screen_puts("\r\n");
 
         /* 发送数据到队列，如果队列满则等待 0 Tick */
         xQueueSend(xIntegerQueue, &lValueToSend, 0);
@@ -120,10 +120,10 @@ void vReceiverTask(void *pvParameters) {
         xStatus = xQueueReceive(xIntegerQueue, &lReceivedValue, portMAX_DELAY);
 
         if (xStatus == pdPASS) {
-            uart_print("    [Receiver] Got: ");
+            screen_puts("    [Receiver] Got: ");
             int_to_str(lReceivedValue, numBuf);
-            uart_print(numBuf);
-            uart_print("\r\n");
+            screen_puts(numBuf);
+            screen_puts("\r\n");
         }
     }
 }
@@ -133,7 +133,7 @@ void vSemGiveTask(void *pvParameters) {
     for (;;) {
         /* 每 3 秒触发一次事件 */
         vTaskDelay(pdMS_TO_TICKS(3000));
-        uart_print("[Trigger] Firing Event!\r\n");
+        screen_puts("[Trigger] Firing Event!\r\n");
         xSemaphoreGive(xBinarySemaphore);
     }
 }
@@ -143,7 +143,7 @@ void vSemTakeTask(void *pvParameters) {
     for (;;) {
         /* 等待信号量：平时阻塞，一旦 GiveTask 释放，这里立马醒来 */
         if (xSemaphoreTake(xBinarySemaphore, portMAX_DELAY) == pdTRUE) {
-            // uart_print("    [Handler] Event Processed!\r\n");
+            // screen_puts("    [Handler] Event Processed!\r\n");
         }
     }
 }
@@ -160,7 +160,7 @@ void vTaskSender(void *pvParameters)
 
         if( xReceiverTaskHandle != NULL )
         {
-            uart_print("Sender: Raw Generic Notify Call...\r\n");
+            screen_puts("Sender: Raw Generic Notify Call...\r\n");
 
             /* 1. 奇数次循环：发送模拟信号量 (Index 0, Action=Increment) */
             if( ulLoopCount % 2 != 0 )
@@ -211,25 +211,116 @@ void vTaskReceiver(void *pvParameters)
          */
         if( ulNotifiedValue == 0x88888888 )
         {
-            uart_print("Receiver: Got DATA overwrite: 0x88888888\r\n");
+            screen_puts("Receiver: Got DATA overwrite: 0x88888888\r\n");
         }
         else if( ulNotifiedValue > 0 )
         {
             /* 这里通常是 1 */
-            uart_print("Receiver: Got SEMAPHORE increment. Value is now cleared.\r\n");
+            screen_puts("Receiver: Got SEMAPHORE increment. Value is now cleared.\r\n");
         }
         else
         {
             /* 只有超时才会到这里 (但我们用了 portMAX_DELAY，理论上不到这里) */
-            uart_print("Receiver: Timeout (Wait returned 0)\r\n");
+            screen_puts("Receiver: Timeout (Wait returned 0)\r\n");
         }
     }
 }
+
+
+
+#define TEXT_VIDEO_RAM_START     0x10000
+#define TEXT_COLUMN_MAX              80
+//#define TEXT_ROW_MAX                 25
+#define TEXT_ROW_MAX                 15
+
+int g_screen_curr_row = 0;
+
+char g_screen[TEXT_ROW_MAX][TEXT_COLUMN_MAX] = {0};
+
+void *u_memcpy(void *dest, const void *src, unsigned n)
+{
+    int i;
+    const char *s = src;
+    char *d = dest;
+
+    for (i = 0; i < n; i++)
+        d[i] = s[i];
+    return dest;
+}
+
+int u_strlen (const char *str) 
+{
+    const char *s = str;
+    while (*s) {
+        s++;
+    }
+    return s - str;
+}
+
+void scroll_screen_buffer (void)
+{
+    int i = 0;
+    
+    for (i = 0; i < TEXT_ROW_MAX - 1; i++)
+    {
+        u_memcpy(g_screen + TEXT_COLUMN_MAX * i, g_screen + TEXT_COLUMN_MAX * (i + 1), TEXT_COLUMN_MAX);
+    }
+}
+
+void update_screen (void)
+{
+    u_memcpy(TEXT_VIDEO_RAM_START, g_screen, TEXT_COLUMN_MAX * TEXT_ROW_MAX);
+}
+
+void screen_puts (char* s)
+{
+    int i = 0;
+
+    while (*s) {
+        //uart_putc(*s++);
+        g_screen[g_screen_curr_row][i] = *s;
+        i++;
+        s++;
+    }
+   
+//    u_memcpy(g_screen + g_screen_curr_row * TEXT_COLUMN_MAX, s, TEXT_COLUMN_MAX);
+    
+
+    if (g_screen_curr_row > TEXT_ROW_MAX)
+    {
+         scroll_screen_buffer();
+    }
+    else
+    {
+         g_screen_curr_row ++;
+    }
+
+    update_screen();
+}
+
+void screen_print_hex(int val)
+{
+    int i;
+    int started = 0;
+    char buffer[9] = {0}; // 32位最大8个hex字符, 0 ending
+    const char *hex_digits = "0123456789abcdef";
+
+    /* 转换为字符 buffer */
+    for (i = 0; i < 8; i++) {
+        buffer[7-i] = hex_digits[val & 0xF];
+        val >>= 4;
+    }
+
+    screen_puts(buffer);
+}
+
 /* ================= Main ================= */
-int main(void) {
+int main_bak(void) {
     /* 1. 初始化硬件 */
-    uart_init();
-    uart_print("\r\n=== LoongArch64 FreeRTOS Comprehensive Test ===\r\n");
+    //uart_init();
+    //uart_print("\r\n=== LoongArch64 FreeRTOS Comprehensive Test ===\r\n");
+
+    screen_puts("=== LoongArch64 FreeRTOS Comprehensive Test ===");
 
 //
 //void (*suicide_func)(void);
@@ -275,13 +366,84 @@ int main(void) {
         xTaskCreate(vTaskReceiver, "Receiver", 1024, NULL, 4, &xReceiverTaskHandle);
         xTaskCreate(vTaskSender,   "Sender",   1024, NULL, 3, NULL);
         /* 4. 启动调度器 */
-        uart_print("Starting Scheduler...\r\n");
+        //uart_print("Starting Scheduler...\r\n");
+        screen_puts("Starting Scheduler...\r\n");
+
         vTaskStartScheduler();
     } else {
-        uart_print("Error: Failed to create IPC objects (Heap too small?)\r\n");
+        //uart_print("Error: Failed to create IPC objects (Heap too small?)\r\n");
+        screen_puts("Error: Failed to create IPC objects (Heap too small?)\r\n");
     }
 
     /* 永远不应该运行到这里 */
     for(;;);
     return 0;
+}
+
+
+
+
+/* 任务1：每 1秒 打印一次 */
+
+void vTask1(void *pvParameters) {
+
+    const char *pcTaskName = (const char *)pvParameters;
+
+    for (;;) {
+
+        screen_puts(pcTaskName);
+
+        screen_puts(" is running\r\n");
+
+        vTaskDelay(pdMS_TO_TICKS(1000));
+
+    }
+
+}
+
+
+
+/* 任务2：每 0.5秒 打印一次 */
+
+void vTask2(void *pvParameters) {
+
+    const char *pcTaskName = (const char *)pvParameters;
+
+    for (;;) {
+
+        screen_puts(pcTaskName);
+
+        screen_puts(" is running fast!\r\n");
+
+        vTaskDelay(pdMS_TO_TICKS(500));
+
+    }
+
+}
+
+
+int main(void) {
+
+    screen_puts("\r\n=== LoongArch64 FreeRTOS Demo ===\r\n");
+
+
+
+    xTaskCreate(vTask1, "Task1", 1024, "Task1", 1, NULL);
+
+    xTaskCreate(vTask2, "Task2", 1024, "Task2", 2, NULL);
+
+
+
+    screen_puts("Starting Scheduler...\r\n");
+
+    vTaskStartScheduler();
+
+
+
+    /* 永远不应该运行到这里 */
+
+    for(;;);
+
+    return 0;
+
 }
