@@ -69,13 +69,15 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 /* ---------------- 2. 启动调度器 ---------------- */
 BaseType_t xPortStartScheduler( void )
 {
-    screen_puts("In xPortStartScheduler");
+    screen_puts("In xPortStartScheduler 0");
 
     /* 在启动前，将嵌套计数清零 (或者由 xPortStartFirstTask 恢复栈中的 0) */
     uxCriticalNesting = 0;
 
     /* 配置硬件定时器中断 */
     vPortSetupTimerInterrupt();
+
+    //screen_puts("In xPortStartScheduler 1");
 
     /* 启动第一个任务 (汇编实现) */
     /* 【修正1】调用正确的函数名 */
@@ -98,13 +100,20 @@ void vPortSetupTimerInterrupt( void )
 
     /* 设置 CSR_TCFG (0x41): Enable=1, Periodic=1 */
     unsigned long ulTCFG = (ulTickValue << 2) | 3;
+    screen_puts("ulTickValue:");
+    screen_print_hex(ulTickValue);
+    screen_puts("ulConstFreq:");
+    screen_print_hex(ulConstFreq);
+    screen_puts("configTICK_RATE_HZ");
+    screen_print_hex(configTICK_RATE_HZ);
+    //while(1) {}
     __asm__ volatile ( "csrwr %0, 0x41" : : "r"(ulTCFG) );
 
     /* 开启 CPU 内部定时器中断 CSR_ECFG (0x4) 的 bit 11 (TI) */
-    unsigned long ulECFG;
-    __asm__ volatile ( "csrrd %0, 0x4" : "=r"(ulECFG) );
-    ulECFG |= (1 << 11);
-    __asm__ volatile ( "csrwr %0, 0x4" : : "r"(ulECFG) );
+    //unsigned long ulECFG;
+    //__asm__ volatile ( "csrrd %0, 0x4" : "=r"(ulECFG) );
+    //ulECFG |= (1 << 11);
+    //__asm__ volatile ( "csrwr %0, 0x4" : : "r"(ulECFG) );
 }
 
 /* ---------------- 4. 临界区管理 ---------------- */

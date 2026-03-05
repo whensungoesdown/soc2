@@ -137,7 +137,8 @@ freertos_loongarch_trap_handler:
 
     /* C. 检查 Timer 中断 (位 11) */
     /* 注意：这里必须使用原始的 $t0 (ESTAT) */
-    li.w    $t2, 0x800      /* 1 << 11 */
+    //li.w    $t2, 0x800      /* 1 << 11 */
+    li.w    $t2, 0x8
     and     $t2, $t0, $t2   /* 检查 bit 11 是否置位 */
     bnez    $t2, handle_tick
 

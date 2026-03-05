@@ -1663,10 +1663,10 @@ static void prvAddNewTaskToReadyList( TCB_t * pxNewTCB ) PRIVILEGED_FUNCTION;
             /* coverity[misra_c_2012_rule_11_5_violation] */
             pxNewTCB = ( TCB_t * ) pvPortMalloc( sizeof( TCB_t ) );
 
-            screen_puts("In prvCreateTask 1, call pvPortMalloc, size:");
-	    screen_print_hex(sizeof(TCB_t));
-            screen_puts("return pxNewTCB :");
-	    screen_print_hex(pxNewTCB);
+            //screen_puts("In prvCreateTask 1, call pvPortMalloc, size:");
+	    //screen_print_hex(sizeof(TCB_t));
+            //screen_puts("return pxNewTCB :");
+	    //screen_print_hex(pxNewTCB);
 
             if( pxNewTCB != NULL )
             {
@@ -1691,6 +1691,9 @@ static void prvAddNewTaskToReadyList( TCB_t * pxNewTCB ) PRIVILEGED_FUNCTION;
         #else /* portSTACK_GROWTH */
         {
             StackType_t * pxStack;
+
+            //screen_puts("In prvCreateTask 2, before call pvPortMallocStack, size:");
+	    screen_print_hex(( ( ( size_t ) uxStackDepth ) * sizeof( StackType_t ) ));
 
             /* Allocate space for the stack used by the task being created. */
             /* MISRA Ref 11.5.1 [Malloc memory assignment] */
@@ -1759,9 +1762,13 @@ static void prvAddNewTaskToReadyList( TCB_t * pxNewTCB ) PRIVILEGED_FUNCTION;
         TCB_t * pxNewTCB;
         BaseType_t xReturn;
 
+        screen_puts("In xTaskCrate 0");
+
         traceENTER_xTaskCreate( pxTaskCode, pcName, uxStackDepth, pvParameters, uxPriority, pxCreatedTask );
 
         pxNewTCB = prvCreateTask( pxTaskCode, pcName, uxStackDepth, pvParameters, uxPriority, pxCreatedTask );
+
+        screen_puts("In xTaskCrate 1, after prvCreateTask");
 
         if( pxNewTCB != NULL )
         {
@@ -1772,8 +1779,12 @@ static void prvAddNewTaskToReadyList( TCB_t * pxNewTCB ) PRIVILEGED_FUNCTION;
             }
             #endif
 
+            //screen_puts("In xTaskCrate 2, before prvAddNewTaskToReadyList");
+
             prvAddNewTaskToReadyList( pxNewTCB );
             xReturn = pdPASS;
+
+            screen_puts("In xTaskCrate 3, after prvAddNewTaskToReadyList");
         }
         else
         {
@@ -2062,6 +2073,8 @@ static void prvInitialiseNewTask( TaskFunction_t pxTaskCode,
 
     static void prvAddNewTaskToReadyList( TCB_t * pxNewTCB )
     {
+        //screen_puts("In prvAddNewTaskToReadyList 0");
+
         /* Ensure interrupts don't access the task lists while the lists are being
          * updated. */
         taskENTER_CRITICAL();
@@ -2070,6 +2083,8 @@ static void prvInitialiseNewTask( TaskFunction_t pxTaskCode,
 
             if( pxCurrentTCB == NULL )
             {
+                //screen_puts("In prvAddNewTaskToReadyList 1, pxCurrentTCB == NULL");
+
                 /* There are no other tasks, or all the other tasks are in
                  * the suspended state - make this the current task. */
                 pxCurrentTCB = pxNewTCB;
@@ -2088,6 +2103,8 @@ static void prvInitialiseNewTask( TaskFunction_t pxTaskCode,
             }
             else
             {
+                //screen_puts("In prvAddNewTaskToReadyList 2, pxCurrentTCB != NULL");
+
                 /* If the scheduler is not already running, make this task the
                  * current task if it is the highest priority task to be created
                  * so far. */
@@ -2110,6 +2127,8 @@ static void prvInitialiseNewTask( TaskFunction_t pxTaskCode,
 
             uxTaskNumber++;
 
+            //screen_puts("In prvAddNewTaskToReadyList 3");
+
             #if ( configUSE_TRACE_FACILITY == 1 )
             {
                 /* Add a counter into the TCB for tracing only. */
@@ -2118,17 +2137,24 @@ static void prvInitialiseNewTask( TaskFunction_t pxTaskCode,
             #endif /* configUSE_TRACE_FACILITY */
             traceTASK_CREATE( pxNewTCB );
 
+            screen_puts("In prvAddNewTaskToReadyList 4, pxNewTCB");
+	    screen_print_hex(pxNewTCB);
             prvAddTaskToReadyList( pxNewTCB );
+	    *(int*)0x10014 = 0x41414141;
+	    //while(1) {}
 
             portSETUP_TCB( pxNewTCB );
+            screen_puts("In prvAddNewTaskToReadyList 5");
         }
         taskEXIT_CRITICAL();
 
         if( xSchedulerRunning != pdFALSE )
         {
+            //screen_puts("In prvAddNewTaskToReadyList 6");
             /* If the created task is of a higher priority than the current task
              * then it should run now. */
             taskYIELD_ANY_CORE_IF_USING_PREEMPTION( pxNewTCB );
+            //screen_puts("In prvAddNewTaskToReadyList 7");
         }
         else
         {
@@ -3747,6 +3773,8 @@ void vTaskStartScheduler( void )
 
     if( xReturn == pdPASS )
     {
+        screen_puts("In vTaskStartScheduler() 1");
+
         /* freertos_tasks_c_additions_init() should only be called if the user
          * definable macro FREERTOS_TASKS_C_ADDITIONS_INIT() is defined, as that is
          * the only macro called by the function. */
@@ -3792,6 +3820,9 @@ void vTaskStartScheduler( void )
 
         /* The return value for xPortStartScheduler is not required
          * hence using a void datatype. */
+
+        screen_puts("In vTaskStartScheduler(), call xPortStartScheduler");
+
         ( void ) xPortStartScheduler();
 
         /* In most cases, xPortStartScheduler() will not return. If it
@@ -3809,7 +3840,7 @@ void vTaskStartScheduler( void )
         configASSERT( xReturn != errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY );
     }
 
-    screen_puts("In vTaskStartScheduler() 1");
+    screen_puts("In vTaskStartScheduler() 2");
 
     /* Prevent compiler warnings if INCLUDE_xTaskGetIdleTaskHandle is set to 0,
      * meaning xIdleTaskHandles are not used anywhere else. */
@@ -5140,6 +5171,18 @@ BaseType_t xTaskIncrementTick( void )
 #if ( configNUMBER_OF_CORES == 1 )
     void vTaskSwitchContext( void )
     {
+        //screen_puts("In vTaskSwitchContext 0");
+        //*(int*)0x10004 = 0x43;
+
+        static int count = 0;
+        count++;
+        
+        // mod.w instruction not implemented yet
+        if (count == 5) {
+                screen_puts("In vTaskSwitchContext");
+                screen_print_hex(count);
+        }
+
         traceENTER_vTaskSwitchContext();
 
         if( uxSchedulerSuspended != ( UBaseType_t ) 0U )

@@ -238,6 +238,8 @@
     {
         BaseType_t xReturn = pdFAIL;
 
+        screen_puts("In xTimerCreateTimerTask 0");
+
         traceENTER_xTimerCreateTimerTask();
 
         /* This function is called when the scheduler is started if
@@ -307,12 +309,14 @@
                 }
                 #else /* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) */
                 {
+                    screen_puts("uty: test 0");
                     xReturn = xTaskCreate( &prvTimerTask,
                                            configTIMER_SERVICE_TASK_NAME,
                                            configTIMER_TASK_STACK_DEPTH,
                                            NULL,
                                            ( ( UBaseType_t ) configTIMER_TASK_PRIORITY ) | portPRIVILEGE_BIT,
                                            &xTimerTaskHandle );
+                    screen_puts("uty: test 1");
                 }
                 #endif /* configSUPPORT_STATIC_ALLOCATION */
             }

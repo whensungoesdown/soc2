@@ -3,7 +3,7 @@ CC = $(CROSS_COMPILE)gcc
 LD = $(CROSS_COMPILE)ld
 
 # 编译选项: LP64D ABI, 不使用标准库(裸机), 调试信息
-CFLAGS = -g -Og -mabi=ilp32s -march=loongarch32 \
+CFLAGS = -g -Og -mabi=ilp32s -march=loongarch32r \
          -ffreestanding -nostdlib -Wall \
          -I. -I./port -I./FreeRTOS-Kernel/include \
          -I./FreeRTOS-Kernel/portable/GCC/LoongArch32
