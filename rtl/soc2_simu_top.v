@@ -1131,7 +1131,7 @@ localparam AVALON_DATA_WIDTH = 16;
    wire                         sdram_cas_n;
    wire                         sdram_ras_n;
    wire                         sdram_we_n;
-   wire [ 1:0]                  sdram_cs_n;
+   wire                         sdram_cs_n;
    wire                         sdram_cke;
    wire [ 1:0]                  sdram_dqm;
       
@@ -1139,8 +1139,7 @@ localparam AVALON_DATA_WIDTH = 16;
       .clk            (sys_clk),
       .reset_n        (resetn),
 
-      .az_addr        ({1'b0, av_address[23:0]}),     // Address from bridge
-      //.az_addr        (25'b0),     // Address from bridge
+      .az_addr        (av_address[23:0]),     // Address from bridge
       .az_be_n        (~av_byteenable),       // Byte enable (convert to low active)
       .az_cs          (av_write | av_read),   // Chip select when read or write active
       .az_data        (av_writedata),         // Write data from bridge

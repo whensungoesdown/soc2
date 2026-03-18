@@ -431,7 +431,9 @@ void vTask1(void *pvParameters) {
 
         screen_puts(pcTaskName);
 
-        screen_puts(" is running");
+        screen_puts(" is running, write AAA to sdram address 0x2000008");
+	
+	*(int*)0x2000008 = 0x00414141;
 
         vTaskDelay(pdMS_TO_TICKS(1000));
 
@@ -447,11 +449,17 @@ void vTask2(void *pvParameters) {
 
     const char *pcTaskName = (const char *)pvParameters;
 
+    int value = 0;
+
     for (;;) {
 
         screen_puts(pcTaskName);
 
-        screen_puts(" is running fast!");
+        screen_puts(" is running fast!, read from sdram address 0x2000008:");
+
+	value = *(int*)0x2000008;
+
+	screen_puts((char*)&value);
 
         vTaskDelay(pdMS_TO_TICKS(300));
 

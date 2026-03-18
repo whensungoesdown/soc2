@@ -7,6 +7,7 @@
 
 set_location_assignment PIN_T22 -to clk
 set_location_assignment PIN_U20 -to resetn
+
 set_location_assignment PIN_AA18 -to vga_hsync
 set_location_assignment PIN_AB17 -to vga_vsync
 set_location_assignment PIN_J21 -to vga_rgb[0]
@@ -16,3 +17,47 @@ set_location_assignment PIN_W19 -to vga_rgb[2]
 set_location_assignment PIN_V1 -to uart_rx
 set_location_assignment PIN_U1 -to uart_tx
 
+set_location_assignment PIN_E5 -to sdram_clk 
+
+set_location_assignment PIN_B7 -to sdram_dq[0] 
+set_location_assignment PIN_A7 -to sdram_dq[1]
+set_location_assignment PIN_C8 -to sdram_dq[2]
+set_location_assignment PIN_B8 -to sdram_dq[3]
+set_location_assignment PIN_A8 -to sdram_dq[4]
+set_location_assignment PIN_C7 -to sdram_dq[5]
+set_location_assignment PIN_A6 -to sdram_dq[6]
+set_location_assignment PIN_B6 -to sdram_dq[7]
+set_location_assignment PIN_J1 -to sdram_dq[8]
+set_location_assignment PIN_C3 -to sdram_dq[9]
+set_location_assignment PIN_D2 -to sdram_dq[10]
+set_location_assignment PIN_E3 -to sdram_dq[11]
+set_location_assignment PIN_G4 -to sdram_dq[12]
+set_location_assignment PIN_H2 -to sdram_dq[13]
+set_location_assignment PIN_J3 -to sdram_dq[14]
+set_location_assignment PIN_J4 -to sdram_dq[15]
+
+set_location_assignment PIN_B3 -to sdram_addr[0]
+set_location_assignment PIN_B1 -to sdram_addr[1]
+set_location_assignment PIN_B2 -to sdram_addr[2]
+set_location_assignment PIN_C1 -to sdram_addr[3]
+set_location_assignment PIN_C2 -to sdram_addr[4]
+set_location_assignment PIN_E1 -to sdram_addr[5]
+set_location_assignment PIN_F1 -to sdram_addr[6]
+set_location_assignment PIN_F2 -to sdram_addr[7]
+set_location_assignment PIN_H1 -to sdram_addr[8]
+set_location_assignment PIN_N2 -to sdram_addr[9]
+set_location_assignment PIN_A3 -to sdram_addr[10]
+set_location_assignment PIN_N1 -to sdram_addr[11]
+set_location_assignment PIN_M2 -to sdram_addr[12]
+
+set_location_assignment PIN_B4 -to sdram_ba[0]
+set_location_assignment PIN_C4 -to sdram_ba[1]
+
+set_location_assignment PIN_B5 -to sdram_cas_n
+set_location_assignment PIN_D6 -to sdram_ras_n
+set_location_assignment PIN_A5 -to sdram_we_n
+set_location_assignment PIN_A4 -to sdram_cs_n
+set_location_assignment PIN_M1 -to sdram_cke
+
+set_location_assignment PIN_C6 -to sdram_dqm[0]
+set_location_assignment PIN_J2 -to sdram_dqm[1]

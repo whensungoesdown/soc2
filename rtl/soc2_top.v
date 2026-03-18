@@ -1,15 +1,29 @@
 `include "../../rtl/cpu7b/rtl/defines.vh"
 
 module soc2_top(
-   input            clk,
-   input            resetn,
-   output [2:0]     vga_rgb,
-   output           vga_hsync,
-   output           vga_vsync,
-   input            uart_rx,
-   output           uart_tx
+   input              clk,
+   input              resetn,
+
+   output [2:0]       vga_rgb,
+   output             vga_hsync,
+   output             vga_vsync,
+   input              uart_rx,
+   output             uart_tx,
+
+   output             sdram_clk,
+   inout  [15:0]      sdram_dq,
+   output [12:0]      sdram_addr,
+   output [ 1:0]      sdram_ba,
+   output             sdram_cas_n,
+   output             sdram_ras_n,
+   output             sdram_we_n,
+   output             sdram_cs_n,
+   output             sdram_cke,
+   output [ 1:0]      sdram_dqm
    );
 
+localparam AVALON_ADDR_WIDTH = 24;
+localparam AVALON_DATA_WIDTH = 16;
 
    wire pll_clk_out_25mhz;
    wire pll_clk_out_75mhz;
@@ -38,208 +52,248 @@ module soc2_top(
 
 //   assign pll_locked_resetn = pll_locked & resetn;
    
-   wire [3:0]   cpu_arid;
-   wire [31:0]  cpu_araddr;
-   wire [7:0]   cpu_arlen;
-   wire [2:0]   cpu_arsize;
-   wire [1:0]   cpu_arburst;
-   wire         cpu_arlock;
-   wire [3:0]   cpu_arcache;
-   wire [2:0]   cpu_arprot;
-   wire         cpu_arvalid;
-   wire         cpu_arready;
-                
-   wire [3:0]   cpu_rid;
-   wire [63:0]  cpu_rdata;
-   wire [1:0]   cpu_rresp;
-   wire         cpu_rlast;
-   wire         cpu_rvalid;
-   wire         cpu_rready;
-                
-   wire [3:0]   cpu_awid;
-   wire [31:0]  cpu_awaddr;
-   wire [7:0]   cpu_awlen;
-   wire [2:0]   cpu_awsize;
-   wire [1:0]   cpu_awburst;
-   wire         cpu_awlock;
-   wire [3:0]   cpu_awcache;
-   wire [2:0]   cpu_awprot;
-   wire         cpu_awvalid;
-   wire         cpu_awready;
-   wire [3:0]   cpu_wid;
-   wire [63:0]  cpu_wdata;
-   wire [7:0]   cpu_wstrb;
-   wire         cpu_wlast;
-   wire         cpu_wvalid;
-   wire         cpu_wready;
-                
-   wire [3:0]   cpu_bid;
-   wire [1:0]   cpu_bresp;
-   wire         cpu_bvalid;
-   wire         cpu_bready;
+   wire [3:0]         cpu_arid;
+   wire [31:0]        cpu_araddr;
+   wire [7:0]         cpu_arlen;
+   wire [2:0]         cpu_arsize;
+   wire [1:0]         cpu_arburst;
+   wire               cpu_arlock;
+   wire [3:0]         cpu_arcache;
+   wire [2:0]         cpu_arprot;
+   wire               cpu_arvalid;
+   wire               cpu_arready;
+                      
+   wire [3:0]         cpu_rid;
+   wire [63:0]        cpu_rdata;
+   wire [1:0]         cpu_rresp;
+   wire               cpu_rlast;
+   wire               cpu_rvalid;
+   wire               cpu_rready;
+                      
+   wire [3:0]         cpu_awid;
+   wire [31:0]        cpu_awaddr;
+   wire [7:0]         cpu_awlen;
+   wire [2:0]         cpu_awsize;
+   wire [1:0]         cpu_awburst;
+   wire               cpu_awlock;
+   wire [3:0]         cpu_awcache;
+   wire [2:0]         cpu_awprot;
+   wire               cpu_awvalid;
+   wire               cpu_awready;
+   wire [3:0]         cpu_wid;
+   wire [63:0]        cpu_wdata;
+   wire [7:0]         cpu_wstrb;
+   wire               cpu_wlast;
+   wire               cpu_wvalid;
+   wire               cpu_wready;
+                      
+   wire [3:0]         cpu_bid;
+   wire [1:0]         cpu_bresp;
+   wire               cpu_bvalid;
+   wire               cpu_bready;
    
 
-   wire [3:0]   dma_arid;
-   wire [31:0]  dma_araddr;
-   wire [7:0]   dma_arlen;
-   wire [2:0]   dma_arsize;
-   wire [1:0]   dma_arburst;
-   wire         dma_arlock;
-   //wire [3:0]   dma_arcache;
-   //wire [2:0]   dma_arprot;
-   wire         dma_arvalid;
-   wire         dma_arready;
-                
-   wire [3:0]   dma_rid;
-   wire [63:0]  dma_rdata;
-   wire [1:0]   dma_rresp;
-   wire         dma_rlast;
-   wire         dma_rvalid;
-   wire         dma_rready;
-                
-   wire [3:0]   dma_awid;
-   wire [31:0]  dma_awaddr;
-   wire [7:0]   dma_awlen;
-   wire [2:0]   dma_awsize;
-   wire [1:0]   dma_awburst;
-   wire         dma_awlock;
-   //wire [3:0]   dma_awcache;
-   //wire [2:0]   dma_awprot;
-   wire         dma_awvalid;
-   wire         dma_awready;
-   wire [3:0]   dma_wid;
-   wire [63:0]  dma_wdata;
-   wire [7:0]   dma_wstrb;
-   wire         dma_wlast;
-   wire         dma_wvalid;
-   wire         dma_wready;
-                
-   wire [3:0]   dma_bid;
-   wire [1:0]   dma_bresp;
-   wire         dma_bvalid;
-   wire         dma_bready;
+   wire [3:0]         dma_arid;
+   wire [31:0]        dma_araddr;
+   wire [7:0]         dma_arlen;
+   wire [2:0]         dma_arsize;
+   wire [1:0]         dma_arburst;
+   wire               dma_arlock;
+   //wire [3:0]         dma_arcache;
+   //wire [2:0]         dma_arprot;
+   wire               dma_arvalid;
+   wire               dma_arready;
+                      
+   wire [3:0]         dma_rid;
+   wire [63:0]        dma_rdata;
+   wire [1:0]         dma_rresp;
+   wire               dma_rlast;
+   wire               dma_rvalid;
+   wire               dma_rready;
+                      
+   wire [3:0]         dma_awid;
+   wire [31:0]        dma_awaddr;
+   wire [7:0]         dma_awlen;
+   wire [2:0]         dma_awsize;
+   wire [1:0]         dma_awburst;
+   wire               dma_awlock;
+   //wire [3:0]         dma_awcache;
+   //wire [2:0]         dma_awprot;
+   wire               dma_awvalid;
+   wire               dma_awready;
+   wire [3:0]         dma_wid;
+   wire [63:0]        dma_wdata;
+   wire [7:0]         dma_wstrb;
+   wire               dma_wlast;
+   wire               dma_wvalid;
+   wire               dma_wready;
+                      
+   wire [3:0]         dma_bid;
+   wire [1:0]         dma_bresp;
+   wire               dma_bvalid;
+   wire               dma_bready;
 
-   wire [3:0]   s0_arid;
-   wire [31:0]  s0_araddr;
-   wire [7:0]   s0_arlen;
-   wire [2:0]   s0_arsize;
-   wire [1:0]   s0_arburst;
-   wire         s0_arlock;
-   wire [3:0]   s0_arcache;
-   wire [2:0]   s0_arprot;
-   wire         s0_arvalid;
-   wire         s0_arready;
-                
-   wire [3:0]   s0_rid;
-   wire [63:0]  s0_rdata;
-   wire [1:0]   s0_rresp;
-   wire         s0_rlast;
-   wire         s0_rvalid;
-   wire         s0_rready;
-                
-   wire [3:0]   s0_awid;
-   wire [31:0]  s0_awaddr;
-   wire [7:0]   s0_awlen;
-   wire [2:0]   s0_awsize;
-   wire [1:0]   s0_awburst;
-   wire         s0_awlock;
-   wire [3:0]   s0_awcache;
-   wire [2:0]   s0_awprot;
-   wire         s0_awvalid;
-   wire         s0_awready;
-   wire [3:0]   s0_wid;
-   wire [63:0]  s0_wdata;
-   wire [7:0]   s0_wstrb;
-   wire         s0_wlast;
-   wire         s0_wvalid;
-   wire         s0_wready;
-                
-   wire [3:0]   s0_bid;
-   wire [1:0]   s0_bresp;
-   wire         s0_bvalid;
-   wire         s0_bready;
+   wire [3:0]         s0_arid;
+   wire [31:0]        s0_araddr;
+   wire [7:0]         s0_arlen;
+   wire [2:0]         s0_arsize;
+   wire [1:0]         s0_arburst;
+   wire               s0_arlock;
+   wire [3:0]         s0_arcache;
+   wire [2:0]         s0_arprot;
+   wire               s0_arvalid;
+   wire               s0_arready;
+                      
+   wire [3:0]         s0_rid;
+   wire [63:0]        s0_rdata;
+   wire [1:0]         s0_rresp;
+   wire               s0_rlast;
+   wire               s0_rvalid;
+   wire               s0_rready;
+                      
+   wire [3:0]         s0_awid;
+   wire [31:0]        s0_awaddr;
+   wire [7:0]         s0_awlen;
+   wire [2:0]         s0_awsize;
+   wire [1:0]         s0_awburst;
+   wire               s0_awlock;
+   wire [3:0]         s0_awcache;
+   wire [2:0]         s0_awprot;
+   wire               s0_awvalid;
+   wire               s0_awready;
+   wire [3:0]         s0_wid;
+   wire [63:0]        s0_wdata;
+   wire [7:0]         s0_wstrb;
+   wire               s0_wlast;
+   wire               s0_wvalid;
+   wire               s0_wready;
+                      
+   wire [3:0]         s0_bid;
+   wire [1:0]         s0_bresp;
+   wire               s0_bvalid;
+   wire               s0_bready;
 
 
 
-   wire [3:0]   s1_arid;
-   wire [31:0]  s1_araddr;
-   wire [7:0]   s1_arlen;
-   wire [2:0]   s1_arsize;
-   wire [1:0]   s1_arburst;
-   wire         s1_arlock;
-   wire [3:0]   s1_arcache;
-   wire [2:0]   s1_arprot;
-   wire         s1_arvalid;
-   wire         s1_arready;
-                
-   wire [3:0]   s1_rid;
-   wire [63:0]  s1_rdata;
-   wire [1:0]   s1_rresp;
-   wire         s1_rlast;
-   wire         s1_rvalid;
-   wire         s1_rready;
-                
-   wire [3:0]   s1_awid;
-   wire [31:0]  s1_awaddr;
-   wire [7:0]   s1_awlen;
-   wire [2:0]   s1_awsize;
-   wire [1:0]   s1_awburst;
-   wire         s1_awlock;
-   wire [3:0]   s1_awcache;
-   wire [2:0]   s1_awprot;
-   wire         s1_awvalid;
-   wire         s1_awready;
-   wire [3:0]   s1_wid;
-   wire [63:0]  s1_wdata;
-   wire [7:0]   s1_wstrb;
-   wire         s1_wlast;
-   wire         s1_wvalid;
-   wire         s1_wready;
-                
-   wire [3:0]   s1_bid;
-   wire [1:0]   s1_bresp;
-   wire         s1_bvalid;
-   wire         s1_bready;
+   wire [3:0]         s1_arid;
+   wire [31:0]        s1_araddr;
+   wire [7:0]         s1_arlen;
+   wire [2:0]         s1_arsize;
+   wire [1:0]         s1_arburst;
+   wire               s1_arlock;
+   wire [3:0]         s1_arcache;
+   wire [2:0]         s1_arprot;
+   wire               s1_arvalid;
+   wire               s1_arready;
+                      
+   wire [3:0]         s1_rid;
+   wire [63:0]        s1_rdata;
+   wire [1:0]         s1_rresp;
+   wire               s1_rlast;
+   wire               s1_rvalid;
+   wire               s1_rready;
+                      
+   wire [3:0]         s1_awid;
+   wire [31:0]        s1_awaddr;
+   wire [7:0]         s1_awlen;
+   wire [2:0]         s1_awsize;
+   wire [1:0]         s1_awburst;
+   wire               s1_awlock;
+   wire [3:0]         s1_awcache;
+   wire [2:0]         s1_awprot;
+   wire               s1_awvalid;
+   wire               s1_awready;
+   wire [3:0]         s1_wid;
+   wire [63:0]        s1_wdata;
+   wire [7:0]         s1_wstrb;
+   wire               s1_wlast;
+   wire               s1_wvalid;
+   wire               s1_wready;
+                      
+   wire [3:0]         s1_bid;
+   wire [1:0]         s1_bresp;
+   wire               s1_bvalid;
+   wire               s1_bready;
 
-   wire [3:0]   s2_arid;
-   wire [31:0]  s2_araddr;
-   wire [7:0]   s2_arlen;
-   wire [2:0]   s2_arsize;
-   wire [1:0]   s2_arburst;
-   wire         s2_arlock;
-   wire [3:0]   s2_arcache;
-   wire [2:0]   s2_arprot;
-   wire         s2_arvalid;
-   wire         s2_arready;
-                
-   wire [3:0]   s2_rid;
-   wire [63:0]  s2_rdata;
-   wire [1:0]   s2_rresp;
-   wire         s2_rlast;
-   wire         s2_rvalid;
-   wire         s2_rready;
-                
-   wire [3:0]   s2_awid;
-   wire [31:0]  s2_awaddr;
-   wire [7:0]   s2_awlen;
-   wire [2:0]   s2_awsize;
-   wire [1:0]   s2_awburst;
-   wire         s2_awlock;
-   wire [3:0]   s2_awcache;
-   wire [2:0]   s2_awprot;
-   wire         s2_awvalid;
-   wire         s2_awready;
-   wire [3:0]   s2_wid;
-   wire [63:0]  s2_wdata;
-   wire [7:0]   s2_wstrb;
-   wire         s2_wlast;
-   wire         s2_wvalid;
-   wire         s2_wready;
-                
-   wire [3:0]   s2_bid;
-   wire [1:0]   s2_bresp;
-   wire         s2_bvalid;
-   wire         s2_bready;
+   wire [3:0]         s2_arid;
+   wire [31:0]        s2_araddr;
+   wire [7:0]         s2_arlen;
+   wire [2:0]         s2_arsize;
+   wire [1:0]         s2_arburst;
+   wire               s2_arlock;
+   wire [3:0]         s2_arcache;
+   wire [2:0]         s2_arprot;
+   wire               s2_arvalid;
+   wire               s2_arready;
+                      
+   wire [3:0]         s2_rid;
+   wire [63:0]        s2_rdata;
+   wire [1:0]         s2_rresp;
+   wire               s2_rlast;
+   wire               s2_rvalid;
+   wire               s2_rready;
+                      
+   wire [3:0]         s2_awid;
+   wire [31:0]        s2_awaddr;
+   wire [7:0]         s2_awlen;
+   wire [2:0]         s2_awsize;
+   wire [1:0]         s2_awburst;
+   wire               s2_awlock;
+   wire [3:0]         s2_awcache;
+   wire [2:0]         s2_awprot;
+   wire               s2_awvalid;
+   wire               s2_awready;
+   wire [3:0]         s2_wid;
+   wire [63:0]        s2_wdata;
+   wire [7:0]         s2_wstrb;
+   wire               s2_wlast;
+   wire               s2_wvalid;
+   wire               s2_wready;
+                      
+   wire [3:0]         s2_bid;
+   wire [1:0]         s2_bresp;
+   wire               s2_bvalid;
+   wire               s2_bready;
+
+   wire [3:0]         s3_arid;
+   wire [31:0]        s3_araddr;
+   wire [7:0]         s3_arlen;
+   wire [2:0]         s3_arsize;
+   wire [1:0]         s3_arburst;
+   wire               s3_arlock;
+   wire [3:0]         s3_arcache;
+   wire [2:0]         s3_arprot;
+   wire               s3_arvalid;
+   wire               s3_arready;
+                      
+   wire [3:0]         s3_rid;
+   wire [63:0]        s3_rdata;
+   wire [1:0]         s3_rresp;
+   wire               s3_rlast;
+   wire               s3_rvalid;
+   wire               s3_rready;
+                      
+   wire [3:0]         s3_awid;
+   wire [31:0]        s3_awaddr;
+   wire [7:0]         s3_awlen;
+   wire [2:0]         s3_awsize;
+   wire [1:0]         s3_awburst;
+   wire               s3_awlock;
+   wire [3:0]         s3_awcache;
+   wire [2:0]         s3_awprot;
+   wire               s3_awvalid;
+   wire               s3_awready;
+   wire [3:0]         s3_wid;
+   wire [63:0]        s3_wdata;
+   wire [7:0]         s3_wstrb;
+   wire               s3_wlast;
+   wire               s3_wvalid;
+   wire               s3_wready;
+                      
+   wire [3:0]         s3_bid;
+   wire [1:0]         s3_bresp;
+   wire               s3_bvalid;
+   wire               s3_bready;
 
    //ram
    wire [`ADDR_WIDTH-1:0]    ram_raddr;
@@ -265,6 +319,17 @@ module soc2_top(
    wire [`ADDR_WIDTH-1:0]    peri_waddr;
    wire [`DATA_WIDTH-1:0]    peri_wdata;
    wire [`DATA_WIDTH/8-1:0]  peri_wen;
+
+   // sdram controller
+   wire [AVALON_ADDR_WIDTH-1:0]    av_address;
+   wire                            av_write;
+   wire                            av_read;
+   wire [AVALON_DATA_WIDTH-1:0]    av_writedata;
+   wire [1:0]                      av_byteenable;
+   wire                            av_burstcount;
+   wire [AVALON_DATA_WIDTH-1:0]    av_readdata;
+   wire                            av_waitrequest;
+   wire                            av_readdatavalid;
 
 
    assign dma_arid = 'h0;
@@ -362,21 +427,24 @@ module soc2_top(
    assign cpu_bid[3] = 1'b0;
 
 
-   amba_axi_m2s3 #(
-      .WIDTH_CID    (1                 ), // two masters need 1 bit to distinguish 
-      .WIDTH_ID     (3                 ), //
-      .SLAVE_EN0    (1                 ),
-      .ADDR_BASE0   ('h1c000000        ),
-      .ADDR_LENGTH0 (16                ),
-      .SLAVE_EN1    (1                 ),
-      .ADDR_BASE1   ('h10000           ),
-      .ADDR_LENGTH1 (11                ),
-      .SLAVE_EN2    (1                 ),
-      .ADDR_BASE2   ('h20000           ),
-      .ADDR_LENGTH2 (16                )
+   amba_axi_m2s4 #(
+      .WIDTH_CID    (1), // two masters need 1 bit to distinguish 
+      .WIDTH_ID     (3),
+      .SLAVE_EN0    (1),
+      .ADDR_BASE0   ('h1c000000),
+      .ADDR_LENGTH0 (16),
+      .SLAVE_EN1    (1),
+      .ADDR_BASE1   ('h10000),
+      .ADDR_LENGTH1 (11),
+      .SLAVE_EN2    (1),
+      .ADDR_BASE2   ('h20000),
+      .ADDR_LENGTH2 (16),      // 64KB
+      .SLAVE_EN3    (1),
+      .ADDR_BASE3   ('h2000000),
+      .ADDR_LENGTH3 (25)       // 32MB
    )
 
-   u_amba_axi_m2s3 (
+   u_amba_axi_m2s4 (
       .ARESETn      (resetn            ),
       .ACLK         (sys_clk           ), 
 
@@ -720,12 +788,79 @@ module soc2_top(
       .S2_RRESP     (s2_rresp          ),
       .S2_RLAST     (s2_rlast          ),
       .S2_RVALID    (s2_rvalid         ),
-      .S2_RREADY    (s2_rready         )
+      .S2_RREADY    (s2_rready         ),
       `ifdef AMBA_AXI_RUSER
-      .S2_RUSER     (s2_ruser          )
+      .S2_RUSER     (s2_ruser          ),
+      `endif
+
+      .S3_AWID      (s3_awid),
+      .S3_AWADDR    (s3_awaddr),
+      .S3_AWLEN     (s3_awlen),
+      .S3_AWLOCK    (s3_awlock),
+      .S3_AWSIZE    (s3_awsize),
+      .S3_AWBURST   (s3_awburst),
+      `ifdef  AMBA_AXI_CACHE
+      .S3_AWCACHE   (s3_awcache),
+      `endif
+      `ifdef AMBA_AXI_PROT
+      .S3_AWPROT    (s3_awprot),
+      `endif
+      .S3_AWVALID   (s3_awvalid),
+      .S3_AWREADY   (s3_awready),
+      `ifdef AMBA_QOS
+      .S3_AWQOS     (s3_awqos),
+      .S3_AWREGION  (s3_awregion),
+      `endif
+      `ifdef AMBA_AXI_AWUSER
+      .S3_AWUSER    (s3_awuser),
+      `endif
+      .S3_WID       (s3_wid),
+      .S3_WDATA     (s3_wdata),
+      .S3_WSTRB     (s3_wstrb),
+      .S3_WLAST     (s3_wlast),
+      .S3_WVALID    (s3_wvalid),
+      .S3_WREADY    (s3_wready),
+      `ifdef AMBA_AXI_WUSER
+      .S3_WUSER     (s3_wuser),
+      `endif
+      .S3_BID       (s3_bid),
+      .S3_BRESP     (s3_bresp),
+      .S3_BVALID    (s3_bvalid),
+      .S3_BREADY    (s3_bready),
+      `ifdef AMBA_AXI_BUSER
+      .S3_BUSER     (s3_buser),
+      `endif
+      .S3_ARID      (s3_arid),
+      .S3_ARADDR    (s3_araddr),
+      .S3_ARLEN     (s3_arlen),
+      .S3_ARLOCK    (s3_arlock),
+      .S3_ARSIZE    (s3_arsize),
+      .S3_ARBURST   (s3_arburst),
+      `ifdef  AMBA_AXI_CACHE
+      .S3_ARCACHE   (s3_arcache),
+      `endif
+      `ifdef AMBA_AXI_PROT
+      .S3_ARPROT    (s3_arprot),
+      `endif
+      .S3_ARVALID   (s3_arvalid),
+      .S3_ARREADY   (s3_arready),
+      `ifdef AMBA_QOS
+      .S3_ARQOS     (s3_arqos),
+      .S3_ARREGION  (s3_arregion),
+      `endif
+      `ifdef AMBA_AXI_ARUSER
+      .S3_ARUSER    (s3_aruser),
+      `endif
+      .S3_RID       (s3_rid),
+      .S3_RDATA     (s3_rdata),
+      .S3_RRESP     (s3_rresp),
+      .S3_RLAST     (s3_rlast),
+      .S3_RVALID    (s3_rvalid),
+      .S3_RREADY    (s3_rready)
+      `ifdef AMBA_AXI_RUSER
+      .S3_RUSER     (s3_ruser)
       `endif
    );
-
 
 
    axi_sram_bridge u_axi_ram_bridge(
@@ -884,6 +1019,68 @@ module soc2_top(
       .m_rvalid     (s2_rvalid         )
       );
 
+   axi_burst_master_to_avalon16 #(
+       //.AXI_ADDR_WIDTH(ADDR_WIDTH),
+       .AXI_ADDR_WIDTH(32),
+       //.AXI_DATA_WIDTH(DATA_WIDTH),
+       .AXI_DATA_WIDTH(64),
+       .AVALON_ADDR_WIDTH(AVALON_ADDR_WIDTH),
+       .AVALON_DATA_WIDTH(AVALON_DATA_WIDTH),
+       .AXI_MAX_BURST(16),
+       .FIFO_DEPTH(32)
+   ) u_axi_avalon_bridge (
+      .clk            (sys_clk),
+      .reset_n        (resetn),
+   
+      // AXI Slave Interface
+      .s_awid         (s3_awid),
+      .s_awaddr       (s3_awaddr),
+      .s_awlen        (s3_awlen),
+      .s_awsize       (s3_awsize),
+      .s_awburst      (s3_awburst),
+      .s_awvalid      (s3_awvalid),
+      .s_awready      (s3_awready),
+   
+      //.s_wid          (s3_wid), // AXI4 no wid
+      .s_wdata        (s3_wdata),
+      .s_wstrb        (s3_wstrb),
+      .s_wlast        (s3_wlast),
+      .s_wvalid       (s3_wvalid),
+      .s_wready       (s3_wready),
+   
+      .s_bid          (s3_bid),
+      .s_bresp        (s3_bresp),
+      .s_bvalid       (s3_bvalid),
+      .s_bready       (s3_bready),
+   
+      .s_arid         (s3_arid),
+      .s_araddr       (s3_araddr),
+      .s_arlen        (s3_arlen),
+      .s_arsize       (s3_arsize),
+      .s_arburst      (s3_arburst),
+      .s_arvalid      (s3_arvalid),
+      .s_arready      (s3_arready),
+   
+      .s_rid          (s3_rid),
+      .s_rdata        (s3_rdata),
+      .s_rresp        (s3_rresp),
+      .s_rlast        (s3_rlast),
+      .s_rvalid       (s3_rvalid),
+      .s_rready       (s3_rready),
+   
+      // Avalon Master Interface
+      .m_address      (av_address),
+      .m_write        (av_write),
+      .m_read         (av_read),
+      .m_writedata    (av_writedata),
+      .m_readdata     (av_readdata),
+      .m_byteenable   (av_byteenable),
+      .m_waitrequest  (av_waitrequest),
+      .m_readdatavalid(av_readdatavalid),
+      .m_burstcount   (av_burstcount)
+   );
+
+
    sram ram(
       .clock        (sys_clk         ),
       .rdaddress    (ram_raddr[14:3] ),
@@ -937,7 +1134,35 @@ module soc2_top(
       .uart_intr    (uart_intr       )
       );
 
+      
+   sdram_controller u_sdram_ctrl (
+      .clk            (sys_clk),
+      .reset_n        (resetn),
 
+      .az_addr        (av_address[23:0]),     // Address from bridge
+      .az_be_n        (~av_byteenable),       // Byte enable (convert to low active)
+      .az_cs          (av_write | av_read),   // Chip select when read or write active
+      .az_data        (av_writedata),         // Write data from bridge
+      .az_rd_n        (~av_read),             // Read strobe (low active)
+      .az_wr_n        (~av_write),            // Write strobe (low active)
+      
+      .za_data        (av_readdata),          // Read data to bridge
+      .za_valid       (av_readdatavalid),     // Read data valid
+      .za_waitrequest (av_waitrequest),       // Wait request
+      
+      // SDRAM Physical Interface (to external SDRAM chip)
+      .zs_addr        (sdram_addr),
+      .zs_ba          (sdram_ba),
+      .zs_cas_n       (sdram_cas_n),
+      .zs_cke         (sdram_cke),
+      .zs_cs_n        (sdram_cs_n),
+      .zs_dq          (sdram_dq),
+      .zs_dqm         (sdram_dqm),
+      .zs_ras_n       (sdram_ras_n),
+      .zs_we_n        (sdram_we_n)
+   );
+
+   assign sdram_clk = sys_clk;
 
    // need a pic here
    assign ext_intr = uart_intr;

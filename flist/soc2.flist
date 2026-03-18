@@ -1,5 +1,7 @@
 -f ${PROJECT_ROOT}/rtl/cpu7b/flist/c7b.flist
+-f ${PROJECT_ROOT}/rtl/sdram/flist/sdram.flist
 
+${PROJECT_ROOT}/rtl/amba_axi_m2s4.v 
 ${PROJECT_ROOT}/rtl/vga/vga640x480.v 
 ${PROJECT_ROOT}/rtl/vga/vgaram.v 
 ${PROJECT_ROOT}/rtl/vga/text80x25.v 

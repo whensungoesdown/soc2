@@ -13,11 +13,11 @@ _start:
     /* 1. 设置栈指针 */
     la.local   $sp, _stack_top
 
-//    /* 延时 500μs (75MHz 下约 37500 周期) */
-//    li.w       $r13, 40000
-//delay_500us:
-//    addi.w     $r13, $r13, -1
-//    bnez       $r13, delay_500us
+    /* 延时 500μs (75MHz 下约 37500 周期) */
+    li.w       $r13, 40000
+delay_500us:
+    addi.w     $r13, $r13, -1
+    bnez       $r13, delay_500us
 
 
     /* 3. 【关键修改】直接将 EENTRY 指向 FreeRTOS 的汇编处理函数 */
