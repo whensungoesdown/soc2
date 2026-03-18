@@ -13,7 +13,11 @@ ${PROJECT_ROOT}/rtl/cpu7b/simulation/altera_mf.v
 
 
 -f ${PROJECT_ROOT}/rtl/cpu7b/flist/c7b.flist
-#-f cpu7b/flist/c7b.flist
+-f ${PROJECT_ROOT}/rtl/sdram/flist/sdram.flist
+
+${PROJECT_ROOT}/rtl/sdram/rtl/models/sdram_controller_test_component.v
+
+${PROJECT_ROOT}/rtl/amba_axi_m2s4.v
 
 ${PROJECT_ROOT}/rtl/vga/vga640x480.v 
 ${PROJECT_ROOT}/rtl/vga/vgaram.v 
@@ -25,7 +29,8 @@ ${PROJECT_ROOT}/rtl/ram_bridge.v
 ${PROJECT_ROOT}/rtl/pll.v
 ${PROJECT_ROOT}/rtl/peripherals/peripherals.v
 ${PROJECT_ROOT}/rtl/peripherals/uart/uart.v
-${PROJECT_ROOT}/rtl/soc2_top.v 
+#${PROJECT_ROOT}/rtl/soc2_top.v 
+${PROJECT_ROOT}/rtl/soc2_simu_top.v 
 #../../tb/soc2_test6_spaceinvaders_top_tb.v
 
 #-f ../../rtl/cpu7b/rtl/c7blsu/flist/c7blsu.flist

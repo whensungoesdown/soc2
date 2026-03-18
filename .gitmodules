@@ -1,3 +1,6 @@
 [submodule "rtl/cpu7b"]
 	path = rtl/cpu7b
 	url = https://github.com/whensungoesdown/cpu7b.git
+[submodule "rtl/sdram"]
+	path = rtl/sdram
+	url = https://github.com/whensungoesdown/sdram.git

@@ -17,7 +17,7 @@ module top_tb(
 	 resetn = 1'b0;
 	 
 	 // ext_intr is used to test inserting external intrrupt
-	 u_top.ext_intr = 1'b0;
+//	 u_top.ext_intr = 1'b0;
 
 	 rx = 1'b1;
  
@@ -51,8 +51,8 @@ module top_tb(
 	 // ext_intr at 1c000180 rising edge
          //#11283;
 	 // ext_intr at somewhere in 1c00017c
-         #13270;
-         u_top.ext_intr = 1'b1;
+//         #13270;
+//         u_top.ext_intr = 1'b1;
 	 
       end
 
