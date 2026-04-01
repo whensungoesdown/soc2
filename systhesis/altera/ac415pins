@@ -61,3 +61,9 @@ set_location_assignment PIN_M1 -to sdram_cke
 
 set_location_assignment PIN_C6 -to sdram_dqm[0]
 set_location_assignment PIN_J2 -to sdram_dqm[1]
+
+
+set_location_assignment PIN_F8 -to sd_clk_dev
+set_location_assignment PIN_E9 -to sd_miso
+set_location_assignment PIN_F7 -to sd_mosi
+set_location_assignment PIN_E7 -to sd_cs_n

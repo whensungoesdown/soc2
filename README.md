@@ -262,15 +262,35 @@ Each way contains a 22-bit tag ram and 4 64-bit data ram.
              |              |                                   low 8 bits are used to transmit and receive data)
              |              |  64KB
              |              |
-             |              |
              | Device MMIO  |         
+             |              |         0x20100  RO   sdstatus   (bit0: init_done, bit1: rd_busy, bit2: wr_busy)
+             |              |         0x20104  WO   rd_addr    (32-bit)
+             |              |         0x20108  RO   rd_data    (16-bit)  
+    0x2ffff  |              |         0x2010C  WO   wr_addr    (32-bit)
+             +--------------+         0x20110  WO   wr_data    (16-bit)
              |              |
              |              |
-    0x2ffff  |              |
+             |              |
+             .....
+
+             |              |
+             |              |
+  0x2000000  +--------------+
+             |              |
+             |              |
+             |   SDRAM      |
+             |              |  32MB
+             | (32MB SDRAM  |
+             |  on AC415    |
+             |  FPGA board) |
+             |              |
+             |              |
+             |              |
+  0x3ffffff  |              |
              +--------------+
              |              |
              |              |
-
+             |              |
              .....
 
              |              |

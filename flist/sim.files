@@ -29,6 +29,12 @@ ${PROJECT_ROOT}/rtl/ram_bridge.v
 ${PROJECT_ROOT}/rtl/pll.v
 ${PROJECT_ROOT}/rtl/peripherals/peripherals.v
 ${PROJECT_ROOT}/rtl/peripherals/uart/uart.v
+
+${PROJECT_ROOT}/rtl/peripherals/sd/sd_ctrl.v
+${PROJECT_ROOT}/rtl/peripherals/sd/sd_init.v
+${PROJECT_ROOT}/rtl/peripherals/sd/sd_read.v
+${PROJECT_ROOT}/rtl/peripherals/sd/sd_write.v
+
 #${PROJECT_ROOT}/rtl/soc2_top.v 
 ${PROJECT_ROOT}/rtl/soc2_simu_top.v 
 #../../tb/soc2_test6_spaceinvaders_top_tb.v

@@ -7,39 +7,53 @@ module soc2_top(
    output           vga_hsync,
    output           vga_vsync,
    input            uart_rx,
-   output           uart_tx
+   output           uart_tx,
+
+   output           sd_clk_dev,
+   input            sd_miso,
+   output           sd_mosi,
+   output           sd_cs_n
    );
 
 localparam AVALON_ADDR_WIDTH = 24;
 localparam AVALON_DATA_WIDTH = 16;
 
+
    wire pll_clk_out_25mhz;
    wire pll_clk_out_75mhz;
+   wire pll_clk_out_37_5mhz;
+   wire pll_clk_out_37_5mhz_shift180;
    wire pll_locked;
 
 //   wire pll_locked_resetn;
 
 
    pll u_pll(
-//      .areset      (!resetn           ),
-      .inclk0      (clk               ),
-      .c0          (pll_clk_out_25mhz ),
-      .c1          (pll_clk_out_75mhz ),
-      .locked      (pll_locked        )
+//      .areset      (!resetn),
+      .inclk0      (clk),
+      .c0          (pll_clk_out_25mhz),
+      .c1          (pll_clk_out_75mhz),
+      .c2          (pll_clk_out_25mhz_shift180),
+      .locked      (pll_locked)
       );
 
 
       wire sys_clk;
       wire vga_clk;
       wire uart_clk;
+      wire sd_clk;
+      wire sd_clk_shift180;
 
       assign sys_clk = pll_clk_out_75mhz;
       //assign sys_clk = pll_clk_out_25mhz;
       assign vga_clk = pll_clk_out_25mhz;
       assign uart_clk = pll_clk_out_25mhz;
+      assign sd_clk = pll_clk_out_25mhz;
+      assign sd_clk_shift180 = pll_clk_out_25mhz_shift180;
 
 //   assign pll_locked_resetn = pll_locked & resetn;
-   
+
+
    wire [3:0]         cpu_arid;
    wire [31:0]        cpu_araddr;
    wire [7:0]         cpu_arlen;
@@ -1105,22 +1119,28 @@ localparam AVALON_DATA_WIDTH = 16;
 
    wire uart_intr;
 
-
    peripherals u_peri(
-      .clk          (sys_clk         ),
-      .uart_clk     (uart_clk        ),
-      .resetn       (resetn          ),
-      .rdaddress    (peri_raddr       ),
-      .rdata        (peri_rdata       ),
-      .rden         (peri_ren         ),
-      .wraddress    (peri_waddr       ),
-      .wdata        (peri_wdata       ),
-      .wrbyteena    (peri_wen         ),
-      .wren         (|peri_wen        ),
+      .clk                             (sys_clk),
+      .uart_clk                        (uart_clk),
+      .resetn                          (resetn),
+      .rdaddress                       (peri_raddr),
+      .rdata                           (peri_rdata),
+      .rden                            (peri_ren),
+      .wraddress                       (peri_waddr),
+      .wdata                           (peri_wdata),
+      .wrbyteena                       (peri_wen),
+      .wren                            (|peri_wen),
       
-      .uart_rx      (uart_rx         ),
-      .uart_tx      (uart_tx         ),
-      .uart_intr    (uart_intr       )
+      .uart_rx                         (uart_rx),
+      .uart_tx                         (uart_tx),
+      .uart_intr                       (uart_intr),
+
+      .sd_clk                          (sd_clk),
+      .sd_clk_shift180                 (sd_clk_shift180),
+      .sd_miso                         (sd_miso),
+      .sd_mosi                         (sd_mosi),
+      .sd_cs_n                         (sd_cs_n),
+      .sd_clk_dev                      (sd_clk_dev)
       );
 
 
