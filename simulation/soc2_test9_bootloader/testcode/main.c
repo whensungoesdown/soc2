@@ -2,11 +2,12 @@
 #define TEXT_COLUMN_MAX              80
 #define TEXT_ROW_MAX                 25
 
-#define SD_STATUS      0x20100
-#define SD_RDADDR      0x20104
-#define SD_RDDATA      0x20108
-#define SD_WRADDR      0x2010c
-#define SD_WRDATA      0x20110
+#define SD_STATUS           0x20100
+#define SD_RD_SEC_IDX       0x20104
+#define SD_RD_SEC_OFS       0x20108
+#define SD_RD_DATA          0x2010c
+#define SD_WRADDR           0x20110
+#define SD_WRDATA           0x20114
 
 #define SD_INIT_DONE   (1 << 1)
 #define SD_READ_BUSY   (1 << 2)  // Bit2 of SD_STATUS indicates read busy
@@ -128,19 +129,21 @@ void screen_print_hex(int val)
     screen_puts(buffer);
 }
 
-short sd_read (int addr)
+int sd_read (int addr)
 {
         int sdstatus = 0;
 
-        *(int*)SD_RDADDR = addr;  // Set read address
+        *(int*)SD_RD_SEC_IDX = addr / 512;  // Set read sector index
 
         do
         {
                 sdstatus = *(int*)SD_STATUS;  // Read status register
         } while (sdstatus & SD_READ_BUSY);  // Wait for read busy to clear
 
+        *(int*)SD_RD_SEC_OFS = addr % 512;  // Set read sector offset
+
         // Return the read data
-        return *(short*)SD_RDDATA;
+        return *(int*)SD_RD_DATA;
 }
 
 #define SD_INIT_TIMEOUT  10  // Timeout counter value
@@ -182,32 +185,32 @@ void main (void)
         int ret = -1;
         int sdstatus = 0;
 
-        screen_puts("SD Init ... ");                
-
-        delay();
-        delay();
-        delay();
-
-        ret = sd_wait_init_done();
-        if (0 == ret)
-        {
-                screen_puts("SD Init ... DONE.");                
-        }
-        else
-        {
-                screen_puts("SD Init ... FAIL!");                
-        }
+//        screen_puts("SD Init ... ");                
+//
+//        delay();
+//        delay();
+//        delay();
+//
+//        ret = sd_wait_init_done();
+//        if (0 == ret)
+//        {
+//                screen_puts("SD Init ... DONE.");                
+//        }
+//        else
+//        {
+//                screen_puts("SD Init ... FAIL!");                
+//        }
 
 	// main loop
 	while (1)
 	{
                 int val;
 
-                delay();
+//                delay();
                 
-                val = sd_read(0x0);
+                val = sd_read(0x1fc);
 
-                screen_puts("Read sd card, addr 0x0: ");                
+                screen_puts("Read sd card, addr 0x1fc: ");                
                 screen_print_hex(val);
 
                 sdstatus = *(int*)SD_STATUS;  // Read status register

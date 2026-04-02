@@ -1,10 +1,11 @@
-`define SOC2_PERI_UART_DR        32'h20000
+`define SOC2_PERI_UART_DR                  32'h20000
 
-`define SOC2_PERI_SD_STATUS      32'h20100
-`define SOC2_PERI_SD_RDADDR      32'h20104
-`define SOC2_PERI_SD_RDDATA      32'h20108
-`define SOC2_PERI_SD_WRADDR      32'h2010c
-`define SOC2_PERI_SD_WRDATA      32'h20110
+`define SOC2_PERI_SD_STATUS                32'h20100
+`define SOC2_PERI_SD_RD_SEC_IDX            32'h20104
+`define SOC2_PERI_SD_RD_SEC_OFS            32'h20108
+`define SOC2_PERI_SD_RD_DATA               32'h2010c
+`define SOC2_PERI_SD_WRADDR                32'h20110
+`define SOC2_PERI_SD_WRDATA                32'h20114
 
 
 module peripherals (
@@ -102,14 +103,16 @@ module peripherals (
    //
 
    wire sd_status_ren;
-   wire sd_rdaddr_wen;
-   wire sd_rddata_ren;
+   wire sd_rd_sec_idx_wen;
+   wire sd_rd_sec_ofs_wen;
+   wire sd_rd_data_ren;
    wire sd_wraddr_wen;
    wire sd_wrdata_wen;
 
    assign sd_status_ren = (rdaddress == `SOC2_PERI_SD_STATUS) & rden;
-   assign sd_rdaddr_wen = (wraddress == `SOC2_PERI_SD_RDADDR) & wren;
-   assign sd_rddata_ren = (rdaddress == `SOC2_PERI_SD_RDDATA) & rden;
+   assign sd_rd_sec_idx_wen = (wraddress == `SOC2_PERI_SD_RD_SEC_IDX) & wren;
+   assign sd_rd_sec_ofs_wen = (wraddress == `SOC2_PERI_SD_RD_SEC_OFS) & wren;
+   assign sd_rd_data_ren = (rdaddress == `SOC2_PERI_SD_RD_DATA) & rden;
    assign sd_wraddr_wen = (wraddress == `SOC2_PERI_SD_WRADDR) & wren;
    assign sd_wrdata_wen = (wraddress == `SOC2_PERI_SD_WRDATA) & wren;
 
@@ -142,13 +145,18 @@ module peripherals (
    wire sd_rd_busy;
    wire sd_rd_data_en;
    wire [15:0] sd_rd_data;
-   wire [15:0] sd_rd_data_q;
+   wire [31:0] sd_rdbuf_data;
 
-   dffe_ns #(16) sd_rd_data_reg (
-      .din   (sd_rd_data),
-      .en    (sd_rd_data_en),
+   wire [31:0] sd_rdbuf_offset_in;
+   wire [31:0] sd_rdbuf_offset;
+
+   assign sd_rdbuf_offset_in = wdata[31:0];
+
+   dffe_ns #(32) sd_rdbuf_offset_reg (
+      .din   (sd_rdbuf_offset_in),
+      .en    (sd_rd_sec_ofs_wen),
       .clk   (clk),
-      .q     (sd_rd_data_q));
+      .q     (sd_rdbuf_offset));
 
 
    sd_ctrl u_sd(
@@ -166,13 +174,25 @@ module peripherals (
       .wr_busy                         (sd_wr_busy),
       .wr_req                          (),
 
-      .rd_en                           (sd_rdaddr_wen), // start reading the data after writing the rd addr
+      .rd_en                           (sd_rd_sec_idx_wen), // start reading the data after writing the rd addr
       .rd_addr                         (wdata[31:0]),
       .rd_busy                         (sd_rd_busy),
       .rd_data_en                      (sd_rd_data_en),
       .rd_data                         (sd_rd_data),
 
       .init_end                        (sd_init_end)
+   );
+
+   sd_rdbuf u_sd_rdbuf(
+      .clk                             (sd_clk),
+      .resetn                          (resetn),
+
+      .cnt_reset                       (~sd_rd_busy),
+      .rd_data_vld                     (sd_rd_data_en),
+      .rd_data                         (sd_rd_data),
+
+      .buf_offset                      (sd_rdbuf_offset[8:0]),
+      .buf_data                        (sd_rdbuf_data)
    );
 
    //
@@ -184,8 +204,7 @@ module peripherals (
 
    assign rdata32_in = {32{uart_ren}} & {24'h0, uart_dr_q} |
                        {32{sd_status_ren}} & {29'h0, sd_wr_busy, sd_rd_busy, sd_init_end} |
-                       {32{sd_rddata_ren}} & {16'h0, sd_rd_data_q}
-                  ;
+                       {32{sd_rd_data_ren}} & {sd_rdbuf_data};
 
    dff_ns #(32) rdata32_reg (
       .din   (rdata32_in),

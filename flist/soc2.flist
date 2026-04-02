@@ -16,4 +16,5 @@ ${PROJECT_ROOT}/rtl/peripherals/sd/sd_ctrl.v
 ${PROJECT_ROOT}/rtl/peripherals/sd/sd_init.v
 ${PROJECT_ROOT}/rtl/peripherals/sd/sd_read.v
 ${PROJECT_ROOT}/rtl/peripherals/sd/sd_write.v
+${PROJECT_ROOT}/rtl/peripherals/sd/sd_rdbuf.v
 ${PROJECT_ROOT}/rtl/soc2_top.v 

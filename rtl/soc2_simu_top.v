@@ -7,12 +7,12 @@ module soc2_top(
    output           vga_hsync,
    output           vga_vsync,
    input            uart_rx,
-   output           uart_tx,
+   output           uart_tx
 
-   output           sd_clk_dev,
-   input            sd_miso,
-   output           sd_mosi,
-   output           sd_cs_n
+//   output           sd_clk_dev,
+//   input            sd_miso,
+//   output           sd_mosi,
+//   output           sd_cs_n
    );
 
 localparam AVALON_ADDR_WIDTH = 24;
@@ -1116,8 +1116,20 @@ localparam AVALON_DATA_WIDTH = 16;
    assign vga_rdata = `DATA_WIDTH'h0;
 
 
-
    wire uart_intr;
+
+   
+   wire sd_clk_dev;
+   wire sd_miso;
+   wire sd_mosi;
+   wire sd_cs_n;
+
+   sd_card_model u_sd_card (
+      .sd_clk     (sd_clk),
+      .sd_cs_n    (sd_cs_n),
+      .sd_mosi    (sd_mosi),
+      .sd_miso    (sd_miso)
+   );
 
    peripherals u_peri(
       .clk                             (sys_clk),
