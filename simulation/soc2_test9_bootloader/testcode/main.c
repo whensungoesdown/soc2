@@ -9,9 +9,9 @@
 #define SD_WRADDR           0x20110
 #define SD_WRDATA           0x20114
 
-#define SD_INIT_DONE   (1 << 1)
-#define SD_READ_BUSY   (1 << 2)  // Bit2 of SD_STATUS indicates read busy
-#define SD_WRITE_BUSY  (1 << 3)
+#define SD_INIT_DONE   (1 << 0)
+#define SD_READ_BUSY   (1 << 1)  // Bit2 of SD_STATUS indicates read busy
+#define SD_WRITE_BUSY  (1 << 2)
 
 //
 // gcc -fno-zero-initialized-in-bss 
@@ -138,9 +138,26 @@ int sd_read (int addr)
         do
         {
                 sdstatus = *(int*)SD_STATUS;  // Read status register
+//                screen_print_hex(sdstatus);
         } while (sdstatus & SD_READ_BUSY);  // Wait for read busy to clear
 
         *(int*)SD_RD_SEC_OFS = addr % 512;  // Set read sector offset
+
+        // Return the read data
+        return *(int*)SD_RD_DATA;
+}
+
+int sd_read_sector (int sec_idx)
+{
+        *(int*)SD_RD_SEC_IDX = sec_idx;  // Set read sector index
+
+	return 0;
+}
+
+int sd_read_word (int word_idx)
+{
+
+        *(int*)SD_RD_SEC_OFS = word_idx;
 
         // Return the read data
         return *(int*)SD_RD_DATA;
@@ -156,14 +173,16 @@ int sd_wait_init_done(void)
         int timeout = SD_INIT_TIMEOUT;
         int n = 0;
 
-        sd_read(0);
+        //sd_read(0);
 
         do {
                 delay();
-                //delay();
-                //delay();
+//                delay();
+//                delay();
 
                 sdstatus = *(int*)SD_STATUS;  // Read status register
+
+                screen_print_hex(sdstatus);
 
                 if (sdstatus & SD_INIT_DONE) {
                         return 0;  // Init done successfully
@@ -173,7 +192,7 @@ int sd_wait_init_done(void)
                         return -1;  // Timeout
                 }
 
-                screen_print_hex(timeout);
+                //screen_print_hex(timeout);
 
         } while (1);
 }
@@ -184,40 +203,73 @@ void main (void)
 {
         int ret = -1;
         int sdstatus = 0;
+	int i = 0;
+	int val = 0;
 
-//        screen_puts("SD Init ... ");                
-//
-//        delay();
-//        delay();
-//        delay();
-//
-//        ret = sd_wait_init_done();
-//        if (0 == ret)
-//        {
-//                screen_puts("SD Init ... DONE.");                
-//        }
-//        else
-//        {
-//                screen_puts("SD Init ... FAIL!");                
-//        }
+        screen_puts("SD Init ... ");                
 
-	// main loop
+        delay();
+//        delay();
+//        delay();
+
+        ret = sd_wait_init_done();
+        if (0 == ret)
+        {
+                screen_puts("SD Init ... DONE.");                
+        }
+        else
+        {
+                screen_puts("SD Init ... FAIL!");                
+        }
+	
+
+//	// main loop
+//	while (1)
+//	{
+//                delay();
+//                
+//                val = sd_read(0x1fc);
+//
+//                screen_puts("Read sd card, addr 0x1fc: ");                
+//                screen_print_hex(val);
+//
+//                sdstatus = *(int*)SD_STATUS;  // Read status register
+//                screen_puts("SD_STATUS: ");                
+//                screen_print_hex(sdstatus);
+//	}
+
 	while (1)
 	{
-                int val;
+		delay();
+		screen_puts("Read address 0x1fe:");                
+		val = sd_read(0x1fe);
+		screen_print_hex(val);
 
-//                delay();
-                
-                val = sd_read(0x1fc);
+		screen_puts("Read address 0x00:");                
+		val = sd_read(0x00);
+		screen_print_hex(val);
 
-                screen_puts("Read sd card, addr 0x1fc: ");                
-                screen_print_hex(val);
+		screen_puts("Read address 512:");                
+		val = sd_read(512);
+		screen_print_hex(val);
 
-                sdstatus = *(int*)SD_STATUS;  // Read status register
-                screen_puts("SD_STATUS: ");                
-                screen_print_hex(sdstatus);
+		screen_puts("Read address 0x1c0:");                
+		val = sd_read(0x1c0);
+		screen_print_hex(val);
+
+		//screen_puts("Read sector 0x0:");                
+         	//sd_read_sector(0);
+
+		delay();
+		delay();
+//		//delay();
+
+		for (i = 0; i < 512; i+=2)
+		{
+			val = sd_read_word(i);
+			screen_print_hex(val);
+		}
 	}
-
 }
 
 void do_excp_handler (void)
