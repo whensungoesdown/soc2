@@ -1,0 +1,262 @@
+<session jtag_chain="USB-Blaster [1-2]" jtag_device="@1: EP3C16/EP4CE15 (0x020F20DD)" sof_file="soc2_top.sof">
+  <display_tree gui_logging_enabled="0">
+    <display_branch instance="auto_signaltap_0" log="USE_GLOBAL_TEMP" signal_set="USE_GLOBAL_TEMP" trigger="USE_GLOBAL_TEMP"/>
+  </display_tree>
+  <global_info>
+    <multi attribute="column width" size="23" value="34,34,344,74,128,70,88,88,98,98,88,88,110,101,101,101,101,101,101,101,101,107,56"/>
+    <single attribute="active instance" value="0"/>
+    <multi attribute="frame size" size="2" value="1920,1025"/>
+    <single attribute="jtag widget visible" value="1"/>
+    <multi attribute="jtag widget size" size="2" value="406,145"/>
+    <single attribute="instance widget visible" value="1"/>
+    <single attribute="config widget visible" value="1"/>
+    <single attribute="hierarchy widget visible" value="1"/>
+    <single attribute="data log widget visible" value="1"/>
+    <single attribute="hierarchy widget height" value="237"/>
+  </global_info>
+  <instance entity_name="sld_signaltap" is_auto_node="yes" name="auto_signaltap_0" source_file="sld_signaltap.vhd">
+    <node_ip_info instance_id="0" mfg_id="110" node_id="0" version="6"/>
+    <position_info>
+      <single attribute="active tab" value="0"/>
+      <single attribute="data vertical scroll position" value="0"/>
+      <single attribute="data horizontal scroll position" value="16"/>
+      <single attribute="zoom level numerator" value="4"/>
+      <single attribute="zoom level denominator" value="1"/>
+      <single attribute="zoom offset numerator" value="32512"/>
+      <single attribute="zoom offset denominator" value="1"/>
+    </position_info>
+    <signal_set global_temp="1" name="signal_set: 2026/04/05 03:07:22  #0">
+      <clock name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|clk" polarity="posedge" tap_mode="classic"/>
+      <config ram_type="AUTO" reserved_data_nodes="0" reserved_storage_qualifier_nodes="0" reserved_trigger_nodes="0" sample_depth="256" trigger_in_enable="no" trigger_out_enable="no"/>
+      <top_entity/>
+      <signal_vec>
+        <trigger_input_vec>
+          <wire name="peripherals:u_peri|sd_rd_data_ren" tap_mode="classic"/>
+        </trigger_input_vec>
+        <data_input_vec>
+          <wire name="peripherals:u_peri|sd_rd_data_ren" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rd_sec_idx_wen" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[0]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[10]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[11]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[12]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[13]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[14]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[15]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[1]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[2]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[3]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[4]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[5]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[6]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[7]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[8]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[9]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[0]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[1]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[2]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[3]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[4]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[5]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[6]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[7]" tap_mode="classic"/>
+        </data_input_vec>
+        <storage_qualifier_input_vec>
+          <wire name="peripherals:u_peri|sd_rd_data_ren" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rd_sec_idx_wen" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[0]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[10]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[11]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[12]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[13]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[14]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[15]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[1]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[2]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[3]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[4]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[5]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[6]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[7]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[8]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[9]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[0]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[1]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[2]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[3]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[4]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[5]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[6]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[7]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[0]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[1]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[2]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[3]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[4]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[5]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[6]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[7]" tap_mode="classic"/>
+          <wire name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data_vld" tap_mode="classic"/>
+        </storage_qualifier_input_vec>
+      </signal_vec>
+      <presentation>
+        <unified_setup_data_view>
+          <node data_index="1" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" level-0="high" name="peripherals:u_peri|sd_rd_sec_idx_wen" storage_index="1" tap_mode="classic" trigger_index="0" type="unknown"/>
+          <node data_index="9" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" level-0="high" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data_vld" storage_index="34" tap_mode="classic" trigger_index="0" type="unknown"/>
+          <node name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[0..7]" order="lsb_to_msb" type="combinatorial">
+            <node data_index="1" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[0]" storage_index="26" tap_mode="classic" type="unknown"/>
+            <node data_index="2" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[1]" storage_index="27" tap_mode="classic" type="unknown"/>
+            <node data_index="3" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[2]" storage_index="28" tap_mode="classic" type="unknown"/>
+            <node data_index="4" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[3]" storage_index="29" tap_mode="classic" type="unknown"/>
+            <node data_index="5" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[4]" storage_index="30" tap_mode="classic" type="unknown"/>
+            <node data_index="6" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[5]" storage_index="31" tap_mode="classic" type="unknown"/>
+            <node data_index="7" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[6]" storage_index="32" tap_mode="classic" type="unknown"/>
+            <node data_index="8" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[7]" storage_index="33" tap_mode="classic" type="unknown"/>
+          </node>
+          <node name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset" order="msb_to_lsb" type="combinatorial">
+            <node data_index="25" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[7]" storage_index="25" tap_mode="classic" type="unknown"/>
+            <node data_index="24" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[6]" storage_index="24" tap_mode="classic" type="unknown"/>
+            <node data_index="23" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[5]" storage_index="23" tap_mode="classic" type="unknown"/>
+            <node data_index="22" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[4]" storage_index="22" tap_mode="classic" type="unknown"/>
+            <node data_index="21" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[3]" storage_index="21" tap_mode="classic" type="unknown"/>
+            <node data_index="20" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[2]" storage_index="20" tap_mode="classic" type="unknown"/>
+            <node data_index="19" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[1]" storage_index="19" tap_mode="classic" type="unknown"/>
+            <node data_index="18" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[0]" storage_index="18" tap_mode="classic" type="unknown"/>
+          </node>
+          <node name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data" order="msb_to_lsb" type="combinatorial">
+            <node data_index="8" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[15]" storage_index="8" tap_mode="classic" type="unknown"/>
+            <node data_index="7" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[14]" storage_index="7" tap_mode="classic" type="unknown"/>
+            <node data_index="6" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[13]" storage_index="6" tap_mode="classic" type="unknown"/>
+            <node data_index="5" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[12]" storage_index="5" tap_mode="classic" type="unknown"/>
+            <node data_index="4" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[11]" storage_index="4" tap_mode="classic" type="unknown"/>
+            <node data_index="3" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[10]" storage_index="3" tap_mode="classic" type="unknown"/>
+            <node data_index="17" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[9]" storage_index="17" tap_mode="classic" type="unknown"/>
+            <node data_index="16" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[8]" storage_index="16" tap_mode="classic" type="unknown"/>
+            <node data_index="15" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[7]" storage_index="15" tap_mode="classic" type="unknown"/>
+            <node data_index="14" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[6]" storage_index="14" tap_mode="classic" type="unknown"/>
+            <node data_index="13" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[5]" storage_index="13" tap_mode="classic" type="unknown"/>
+            <node data_index="12" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[4]" storage_index="12" tap_mode="classic" type="unknown"/>
+            <node data_index="11" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[3]" storage_index="11" tap_mode="classic" type="unknown"/>
+            <node data_index="10" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[2]" storage_index="10" tap_mode="classic" type="unknown"/>
+            <node data_index="9" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[1]" storage_index="9" tap_mode="classic" type="unknown"/>
+            <node data_index="2" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[0]" storage_index="2" tap_mode="classic" type="unknown"/>
+          </node>
+          <node data_index="0" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="high" name="peripherals:u_peri|sd_rd_data_ren" storage_index="0" tap_mode="classic" trigger_index="0" type="unknown"/>
+        </unified_setup_data_view>
+        <data_view>
+          <net data_index="1" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" level-0="high" name="peripherals:u_peri|sd_rd_sec_idx_wen" storage_index="1" tap_mode="classic" trigger_index="0" type="unknown"/>
+          <bus name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset" order="msb_to_lsb" type="combinatorial">
+            <net data_index="25" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[7]" storage_index="25" tap_mode="classic" type="unknown"/>
+            <net data_index="24" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[6]" storage_index="24" tap_mode="classic" type="unknown"/>
+            <net data_index="23" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[5]" storage_index="23" tap_mode="classic" type="unknown"/>
+            <net data_index="22" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[4]" storage_index="22" tap_mode="classic" type="unknown"/>
+            <net data_index="21" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[3]" storage_index="21" tap_mode="classic" type="unknown"/>
+            <net data_index="20" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[2]" storage_index="20" tap_mode="classic" type="unknown"/>
+            <net data_index="19" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[1]" storage_index="19" tap_mode="classic" type="unknown"/>
+            <net data_index="18" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[0]" storage_index="18" tap_mode="classic" type="unknown"/>
+          </bus>
+          <bus name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data" order="msb_to_lsb" type="combinatorial">
+            <net data_index="8" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[15]" storage_index="8" tap_mode="classic" type="unknown"/>
+            <net data_index="7" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[14]" storage_index="7" tap_mode="classic" type="unknown"/>
+            <net data_index="6" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[13]" storage_index="6" tap_mode="classic" type="unknown"/>
+            <net data_index="5" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[12]" storage_index="5" tap_mode="classic" type="unknown"/>
+            <net data_index="4" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[11]" storage_index="4" tap_mode="classic" type="unknown"/>
+            <net data_index="3" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[10]" storage_index="3" tap_mode="classic" type="unknown"/>
+            <net data_index="17" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[9]" storage_index="17" tap_mode="classic" type="unknown"/>
+            <net data_index="16" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[8]" storage_index="16" tap_mode="classic" type="unknown"/>
+            <net data_index="15" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[7]" storage_index="15" tap_mode="classic" type="unknown"/>
+            <net data_index="14" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[6]" storage_index="14" tap_mode="classic" type="unknown"/>
+            <net data_index="13" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[5]" storage_index="13" tap_mode="classic" type="unknown"/>
+            <net data_index="12" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[4]" storage_index="12" tap_mode="classic" type="unknown"/>
+            <net data_index="11" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[3]" storage_index="11" tap_mode="classic" type="unknown"/>
+            <net data_index="10" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[2]" storage_index="10" tap_mode="classic" type="unknown"/>
+            <net data_index="9" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[1]" storage_index="9" tap_mode="classic" type="unknown"/>
+            <net data_index="2" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[0]" storage_index="2" tap_mode="classic" type="unknown"/>
+          </bus>
+          <net data_index="0" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="high" name="peripherals:u_peri|sd_rd_data_ren" storage_index="0" tap_mode="classic" trigger_index="0" type="unknown"/>
+        </data_view>
+        <setup_view>
+          <net data_index="1" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" level-0="high" name="peripherals:u_peri|sd_rd_sec_idx_wen" storage_index="1" tap_mode="classic" trigger_index="0" type="unknown"/>
+          <net data_index="9" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" level-0="high" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data_vld" storage_index="34" tap_mode="classic" trigger_index="0" type="unknown"/>
+          <bus name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[0..7]" order="lsb_to_msb" type="combinatorial">
+            <net data_index="1" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[0]" storage_index="26" tap_mode="classic" type="unknown"/>
+            <net data_index="2" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[1]" storage_index="27" tap_mode="classic" type="unknown"/>
+            <net data_index="3" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[2]" storage_index="28" tap_mode="classic" type="unknown"/>
+            <net data_index="4" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[3]" storage_index="29" tap_mode="classic" type="unknown"/>
+            <net data_index="5" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[4]" storage_index="30" tap_mode="classic" type="unknown"/>
+            <net data_index="6" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[5]" storage_index="31" tap_mode="classic" type="unknown"/>
+            <net data_index="7" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[6]" storage_index="32" tap_mode="classic" type="unknown"/>
+            <net data_index="8" duplicate_name_allowed="false" is_data_input="false" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|rd_data[7]" storage_index="33" tap_mode="classic" type="unknown"/>
+          </bus>
+          <bus name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset" order="msb_to_lsb" type="combinatorial">
+            <net data_index="25" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[7]" storage_index="25" tap_mode="classic" type="unknown"/>
+            <net data_index="24" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[6]" storage_index="24" tap_mode="classic" type="unknown"/>
+            <net data_index="23" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[5]" storage_index="23" tap_mode="classic" type="unknown"/>
+            <net data_index="22" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[4]" storage_index="22" tap_mode="classic" type="unknown"/>
+            <net data_index="21" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[3]" storage_index="21" tap_mode="classic" type="unknown"/>
+            <net data_index="20" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[2]" storage_index="20" tap_mode="classic" type="unknown"/>
+            <net data_index="19" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[1]" storage_index="19" tap_mode="classic" type="unknown"/>
+            <net data_index="18" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_offset[0]" storage_index="18" tap_mode="classic" type="unknown"/>
+          </bus>
+          <bus name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data" order="msb_to_lsb" type="combinatorial">
+            <net data_index="8" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[15]" storage_index="8" tap_mode="classic" type="unknown"/>
+            <net data_index="7" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[14]" storage_index="7" tap_mode="classic" type="unknown"/>
+            <net data_index="6" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[13]" storage_index="6" tap_mode="classic" type="unknown"/>
+            <net data_index="5" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[12]" storage_index="5" tap_mode="classic" type="unknown"/>
+            <net data_index="4" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[11]" storage_index="4" tap_mode="classic" type="unknown"/>
+            <net data_index="3" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[10]" storage_index="3" tap_mode="classic" type="unknown"/>
+            <net data_index="17" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[9]" storage_index="17" tap_mode="classic" type="unknown"/>
+            <net data_index="16" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[8]" storage_index="16" tap_mode="classic" type="unknown"/>
+            <net data_index="15" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[7]" storage_index="15" tap_mode="classic" type="unknown"/>
+            <net data_index="14" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[6]" storage_index="14" tap_mode="classic" type="unknown"/>
+            <net data_index="13" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[5]" storage_index="13" tap_mode="classic" type="unknown"/>
+            <net data_index="12" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[4]" storage_index="12" tap_mode="classic" type="unknown"/>
+            <net data_index="11" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[3]" storage_index="11" tap_mode="classic" type="unknown"/>
+            <net data_index="10" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[2]" storage_index="10" tap_mode="classic" type="unknown"/>
+            <net data_index="9" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[1]" storage_index="9" tap_mode="classic" type="unknown"/>
+            <net data_index="2" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="false" name="peripherals:u_peri|sd_rdbuf:u_sd_rdbuf|buf_data[0]" storage_index="2" tap_mode="classic" type="unknown"/>
+          </bus>
+          <net data_index="0" duplicate_name_allowed="false" is_data_input="true" is_node_valid="true" is_storage_input="true" is_trigger_input="true" level-0="high" name="peripherals:u_peri|sd_rd_data_ren" storage_index="0" tap_mode="classic" trigger_index="0" type="unknown"/>
+        </setup_view>
+        <trigger_in_editor/>
+        <trigger_out_editor/>
+      </presentation>
+      <trigger CRC="9818951C" attribute_mem_mode="false" gap_record="true" global_temp="1" name="trigger: 2026/04/05 03:07:22  #1" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="256" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+        <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
+        <events use_custom_flow_control="no">
+          <level enabled="yes" name="condition1" type="basic">'peripherals:u_peri|sd_rd_data_ren' == high
+            <power_up enabled="yes">
+            </power_up>
+            <op_node/>
+          </level>
+        </events>
+        <storage_qualifier_events>
+          <transitional>10000000000000000000000000000000000
+            <pwr_up_transitional>10000000000000000000000000000000000</pwr_up_transitional>
+          </transitional>
+          <storage_qualifier_level type="basic">
+            <power_up>
+            </power_up>
+            <op_node/>
+          </storage_qualifier_level>
+          <storage_qualifier_level type="basic">
+            <power_up>
+            </power_up>
+            <op_node/>
+          </storage_qualifier_level>
+          <storage_qualifier_level type="basic">
+            <power_up>
+            </power_up>
+            <op_node/>
+          </storage_qualifier_level>
+        </storage_qualifier_events>
+        <log>
+          <data global_temp="1" name="log: 2026/04/05 03:15:03  #0" power_up_mode="false" sample_depth="256" trigger_position="32">00000110000000111100000000000001100000001111000000000000011000000011110000000000000110000000111100000000000001100000001111000000000000011000000011110000000000000110000000111100000000000001100000001111000000000000011000000011110000000000000110000000111100000000000001100000001111000000000000011000000011110000000000000110000000111100000000000001100000001111000000000000011000000011110000000000000110000000111100000000000001100000001111000000000000011000000011110000000000000110000000111100000000000001100000001111000000000000011000000011110000000000000110000000111100000000000001100000001111000000000000011000000011110000000000000110000000111111111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111111001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111000101010101010110111111110001010101010101101111111100010101010101011011111111</data>
+          <extradata>11111111111111111111111111111111T1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</extradata>
+        </log>
+      </trigger>
+    </signal_set>
+  </instance>
+  <static_plugin_mnemonics/>
+  <mnemonics/>
+</session>

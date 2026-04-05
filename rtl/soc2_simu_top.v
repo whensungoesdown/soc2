@@ -22,7 +22,7 @@ localparam AVALON_DATA_WIDTH = 16;
    wire pll_clk_out_25mhz;
    wire pll_clk_out_75mhz;
    wire pll_clk_out_37_5mhz;
-   wire pll_clk_out_37_5mhz_shift180;
+   wire pll_clk_out_37_5mhz_shift90;
    wire pll_locked;
 
 //   wire pll_locked_resetn;
@@ -33,7 +33,7 @@ localparam AVALON_DATA_WIDTH = 16;
       .inclk0      (clk),
       .c0          (pll_clk_out_25mhz),
       .c1          (pll_clk_out_75mhz),
-      .c2          (pll_clk_out_25mhz_shift180),
+      .c2          (pll_clk_out_25mhz_shift90),
       .locked      (pll_locked)
       );
 
@@ -42,14 +42,14 @@ localparam AVALON_DATA_WIDTH = 16;
       wire vga_clk;
       wire uart_clk;
       wire sd_clk;
-      wire sd_clk_shift180;
+      wire sd_clk_shift90;
 
       assign sys_clk = pll_clk_out_75mhz;
       //assign sys_clk = pll_clk_out_25mhz;
       assign vga_clk = pll_clk_out_25mhz;
       assign uart_clk = pll_clk_out_25mhz;
       assign sd_clk = pll_clk_out_25mhz;
-      assign sd_clk_shift180 = pll_clk_out_25mhz_shift180;
+      assign sd_clk_shift90 = pll_clk_out_25mhz_shift90;
 
 //   assign pll_locked_resetn = pll_locked & resetn;
 
@@ -1125,7 +1125,7 @@ localparam AVALON_DATA_WIDTH = 16;
    wire sd_cs_n;
 
    sd_card_model u_sd_card (
-      .sd_clk     (sd_clk),
+      .sd_clk     (sd_clk_dev),
       .sd_cs_n    (sd_cs_n),
       .sd_mosi    (sd_mosi),
       .sd_miso    (sd_miso)
@@ -1148,7 +1148,7 @@ localparam AVALON_DATA_WIDTH = 16;
       .uart_intr                       (uart_intr),
 
       .sd_clk                          (sd_clk),
-      .sd_clk_shift180                 (sd_clk_shift180),
+      .sd_clk_shift90                  (sd_clk_shift90),
       .sd_miso                         (sd_miso),
       .sd_mosi                         (sd_mosi),
       .sd_cs_n                         (sd_cs_n),

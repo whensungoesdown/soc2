@@ -134,3 +134,33 @@ sd_read sd_read_inst
 );
 
 endmodule
+
+module sd_clk_mux (
+    input  wire        clk_25m,
+    input  wire        rst_n,
+    input  wire        init_end,
+    output reg         sd_clk
+);
+
+reg [5:0] cnt;
+
+always @(posedge clk_25m or negedge rst_n) begin
+    if (!rst_n) begin
+        cnt <= 6'd0;
+        sd_clk <= 1'b1;
+    end else if (!init_end) begin
+        // Slow mode: 400kHz
+        if (cnt == 6'd30) begin  // Toggle every 31 cycles = 403.2kHz
+            cnt <= 6'd0;
+            sd_clk <= ~sd_clk;
+        end else begin
+            cnt <= cnt + 1'b1;
+        end
+    end else begin
+        // Fast mode: 25MHz
+        cnt <= 6'd0;
+        sd_clk <= clk_25m;
+    end
+end
+
+endmodule
