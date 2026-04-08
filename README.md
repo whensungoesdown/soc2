@@ -299,7 +299,7 @@ Each way contains a 22-bit tag ram and 4 64-bit data ram.
              |              |
              |    RAM       |  32KB
              |              |
- 0x1c001fff  |              |
+ 0x1c007fff  |              |
              +--------------+
              |              |
              |              |
