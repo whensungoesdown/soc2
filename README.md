@@ -368,4 +368,4 @@ $ sudo screen /dev/ttyUSB0 115200
 
 
 ### soc2_test9_bootloader
-![screenshot1](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/bootloader_ver0_1.gif)
+![screenshot2](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/bootloader_ver0_1.jpg)
