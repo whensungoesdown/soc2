@@ -35,10 +35,12 @@ ${obj_path}/out.elf: bin.lds ${obj_path}/start.o ${obj_path}/main.o
 #	loongarch32r-linux-gnusf-ld ${obj_path}/start.o ${obj_path}/main.o -T bin.lds -o ${obj_path}/out.elf -L/home/u/loongson-gnu-toolchain-8.3-x86_64-loongarch32r-linux-gnusf-v2.0/lib/gcc/loongarch32r-linux-gnusf/8.3.0/ -lgcc_eh
 	loongarch32r-linux-gnusf-ld ${obj_path}/start.o ${obj_path}/main.o -T bin.lds -o ${obj_path}/out.elf
 
+#-nostdinc
+
 ${obj_path}/start.s: start.S
 	@mkdir -p ${obj_path}
 	loongarch32r-linux-gnusf-gcc \
-		-nostdinc -nostdlib -fno-builtin -D__loongarch32\
+		-nostdlib -nostartfiles -fno-builtin -D__loongarch32\
 		-S start.S > ${obj_path}/start.s
 
 		#-nostdinc -nostdlib -fno-builtin -D__loongarch32\
@@ -46,7 +48,7 @@ ${obj_path}/start.s: start.S
 ${obj_path}/main.o: main.c
 	@mkdir -p ${obj_path}
 	loongarch32r-linux-gnusf-gcc \
-		-nostdinc -nostdlib -fno-builtin -D__loongarch32\
+		-nostdlib -nostartfiles -fno-builtin -D__loongarch32\
 		-fno-zero-initialized-in-bss \
 		-g -c main.c -o ${obj_path}/main.o
 
