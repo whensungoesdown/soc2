@@ -1,56 +1,46 @@
-obj_path = ./obj
+# ============================================
+# Project Configuration
+# ============================================
+obj_path := ./obj
 
+# Toolchain prefix
+CROSS_COMPILE := loongarch32r-linux-gnusf-
+CC := $(CROSS_COMPILE)gcc
+AS := $(CROSS_COMPILE)as
+LD := $(CROSS_COMPILE)ld
+OBJCOPY := $(CROSS_COMPILE)objcopy
+OBJDUMP := $(CROSS_COMPILE)objdump
 
-default: 
-	make all
-	make tidy
+# Common compilation flags
+CFLAGS := -nostdlib -nostartfiles -fno-builtin -D__loongarch32
+CFLAGS += -fno-zero-initialized-in-bss
+CFLAGS += -g -c
+CFLAGS += -mabi=ilp32s -march=loongarch32r
 
-all:
-	mkdir -p ${obj_path}
-	make ${obj_path}/inst_ram.coe ${obj_path}/test.s
+LDFLAGS := -T bin.lds
 
-tidy: 
-	rm -f ${obj_path}/convert ${obj_path}/out.bin ${obj_path}/out.data ${obj_path}/out.elf ${obj_path}/start.s ${obj_path}/start.o
+# ============================================
+# Object File List
+# ============================================
+OBJS_C := $(obj_path)/main.o $(obj_path)/lib.o
+START_O := $(obj_path)/start.o
 
-${obj_path}/test.s: ${obj_path}/out.elf
-	loongarch32r-linux-gnusf-objdump -alD ${obj_path}/out.elf > ${obj_path}/test.s
+TARGET_ELF := $(obj_path)/out.elf
+TARGET_BIN := $(obj_path)/out.bin
+TARGET_DATA := $(obj_path)/out.data
+TARGET_S := $(obj_path)/test.s
+TARGET_CONVERT := $(obj_path)/convert
 
-${obj_path}/start.o: ${obj_path}/start.s
-	loongarch32r-linux-gnusf-as -mabi=ilp32 ${obj_path}/start.s -o ${obj_path}/start.o
+# ============================================
+# Default Target
+# ============================================
+.PHONY: default all tidy clean help
+default: all tidy
 
-${obj_path}/inst_ram.coe ${obj_path}/inst_ram.mif: ${obj_path}/out.bin ${obj_path}/out.data ${obj_path}/convert
-	cd ${obj_path} && ./convert && cp inst_ram.mif ../../sram.mif 
+all: $(obj_path)/inst_ram.coe $(TARGET_S)
 
-${obj_path}/convert: convert.c
-	gcc ./convert.c -o ${obj_path}/convert 
-
-${obj_path}/out.bin: ${obj_path}/out.elf
-	loongarch32r-linux-gnusf-objcopy -O binary -j .text ${obj_path}/out.elf ${obj_path}/out.bin
-${obj_path}/out.data: ${obj_path}/out.elf
-	loongarch32r-linux-gnusf-objcopy -O binary -j .rodata -j .data -j .got ${obj_path}/out.elf ${obj_path}/out.data
-
-#${obj_path}/out.elf: bin.lds ${obj_path}/start.o ${obj_path}/main.o
-#	loongarch32r-linux-gnusf-ld ${obj_path}/start.o ${obj_path}/main.o -T bin.lds -o ${obj_path}/out.elf
-${obj_path}/out.elf: bin.lds ${obj_path}/start.o ${obj_path}/main.o
-#	loongarch32r-linux-gnusf-ld ${obj_path}/start.o ${obj_path}/main.o -T bin.lds -o ${obj_path}/out.elf -L/home/u/loongson-gnu-toolchain-8.3-x86_64-loongarch32r-linux-gnusf-v2.0/lib/gcc/loongarch32r-linux-gnusf/8.3.0/ -lgcc_eh
-	loongarch32r-linux-gnusf-ld ${obj_path}/start.o ${obj_path}/main.o -T bin.lds -o ${obj_path}/out.elf
-
-#-nostdinc
-
-${obj_path}/start.s: start.S
-	@mkdir -p ${obj_path}
-	loongarch32r-linux-gnusf-gcc \
-		-nostdlib -nostartfiles -fno-builtin -D__loongarch32\
-		-S start.S > ${obj_path}/start.s
-
-		#-nostdinc -nostdlib -fno-builtin -D__loongarch32\
-
-${obj_path}/main.o: main.c
-	@mkdir -p ${obj_path}
-	loongarch32r-linux-gnusf-gcc \
-		-nostdlib -nostartfiles -fno-builtin -D__loongarch32\
-		-fno-zero-initialized-in-bss \
-		-g -c main.c -o ${obj_path}/main.o
+tidy:
+	rm -f $(TARGET_CONVERT) $(TARGET_BIN) $(TARGET_DATA) $(TARGET_ELF) $(START_O)
 
 clean:
 	rm -rf obj
@@ -65,3 +55,42 @@ help:
 	@echo "###     make help : show help information"
 	@echo "###############################################################"
 
+# ============================================
+# Rule Definitions
+# ============================================
+
+# Create target directory
+$(obj_path):
+	mkdir -p $@
+
+# Generate disassembly file
+$(TARGET_S): $(TARGET_ELF)
+	$(OBJDUMP) -alD $< > $@
+
+# Assemble start.S directly to start.o (fixed: removed intermediate .s file)
+$(START_O): start.S | $(obj_path)
+	$(CC) $(CFLAGS) -c start.S -o $@
+
+# Compile C object files
+$(obj_path)/%.o: %.c | $(obj_path)
+	$(CC) $(CFLAGS) $< -o $@
+
+# Link to generate ELF file
+$(TARGET_ELF): bin.lds $(START_O) $(OBJS_C)
+	$(LD) $(START_O) $(OBJS_C) -T bin.lds -o $@
+
+# Generate binary file (text section only)
+$(TARGET_BIN): $(TARGET_ELF)
+	$(OBJCOPY) -O binary -j .text $< $@
+
+# Generate data file (read-only data, data, and GOT sections)
+$(TARGET_DATA): $(TARGET_ELF)
+	$(OBJCOPY) -O binary -j .rodata -j .data -j .got $< $@
+
+# Build conversion tool
+$(TARGET_CONVERT): convert.c | $(obj_path)
+	gcc $< -o $@
+
+# Generate COE and MIF files for instruction memory initialization
+$(obj_path)/inst_ram.coe $(obj_path)/inst_ram.mif: $(TARGET_BIN) $(TARGET_DATA) $(TARGET_CONVERT)
+	cd $(obj_path) && ./convert && cp inst_ram.mif ../../sram.mif

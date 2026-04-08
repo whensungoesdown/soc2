@@ -366,3 +366,6 @@ $ sudo screen /dev/ttyUSB0 115200
 `````
 ![screenshot1](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/space_invaders.gif)
 
+
+### soc2_test9_bootloader
+![screenshot1](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/bootloader_ver0_1.gif)
