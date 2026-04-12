@@ -1045,7 +1045,8 @@ localparam AVALON_DATA_WIDTH = 16;
    
       // AXI Slave Interface
       .s_awid         (s3_awid),
-      .s_awaddr       (s3_awaddr),
+      //.s_awaddr       (s3_awaddr),
+      .s_awaddr       ({s3_awaddr[31:3], 3'b000}),
       .s_awlen        (s3_awlen),
       .s_awsize       (s3_awsize),
       .s_awburst      (s3_awburst),
@@ -1065,7 +1066,8 @@ localparam AVALON_DATA_WIDTH = 16;
       .s_bready       (s3_bready),
    
       .s_arid         (s3_arid),
-      .s_araddr       (s3_araddr),
+      //.s_araddr       (s3_araddr),
+      .s_araddr       ({s3_araddr[31:3], 3'b000}),
       .s_arlen        (s3_arlen),
       .s_arsize       (s3_arsize),
       .s_arburst      (s3_arburst),

@@ -1,4 +1,6 @@
 #include "lib.h"
+#include "heapmgr.h"
+#include "fat.h"
 
 void banner (void)
 {
@@ -14,12 +16,153 @@ void banner (void)
     u_printf("    \n");
 }
 
+void print_buffer(const unsigned char* pbuff, int len) 
+{
+    int i;
+    char hex_table[] = "0123456789ABCDEF";
+
+    for (i = 0; i < len; i++) {
+        u_printf("%c%c",
+               hex_table[(pbuff[i] >> 4) & 0x0F],
+               hex_table[pbuff[i] & 0x0F]);
+
+        if ((i + 1) % 16 == 0)
+            u_printf("\n");
+        else
+            u_printf(" ");
+    }
+}
+
+static bool disk_read(uint8_t* buf, uint32_t sect);
+static bool disk_write(const uint8_t* buf, uint32_t sect);
+
+static Fat g_fat;
+static const char* g_months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+
+static DiskOps g_ops =
+{
+  .read  = disk_read,
+  .write = disk_write,
+};
+
+
+//------------------------------------------------------------------------------
+static bool disk_read(uint8_t* buf, uint32_t sect)
+{
+    int ret = 0;
+    
+    ret = sd_read_sector(sect, buf);
+    if (0 == ret)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+//------------------------------------------------------------------------------
+static bool disk_write(const uint8_t* buf, uint32_t sect)
+{
+    // READ ONLY
+    return true;
+}
+
+void print_info(DirInfo* info)
+{
+    //u_printf("%5d   %s %02d   %02d:%02d   %.*s%c\n",
+//    u_printf("%d   %s %d   %d:%d   %.*s%c\n",
+//            info->size, g_months[info->modified.month - 1], info->modified.day,
+//            info->modified.hour, info->modified.min,
+//            info->name_len, info->name, info->attr & FAT_ATTR_DIR ? '/' : ' ');
+    u_printf( info->name);
+}
+
+void load_kernel (void)
+{
+    int err, cnt;
+    File file;
+    Dir dir;
+    DirInfo info;
+
+    // You can scan the drive for FAT32 partitions before mounting to avoid
+    // allocating excess fat structures.
+    err = fat_probe(&g_ops, 0);
+    if (FAT_ERR_NONE != err)
+    {
+        u_printf("fat_probe err: 0x%x\n", err);
+        return;
+    }
+
+    // Mount the partition under /SD
+    fat_mount(&g_ops, 0, &g_fat, "SD");
+    if (FAT_ERR_NONE != err)
+    {
+        u_printf("fat_probe err: 0x%x\n", err);
+        return;
+    }
+
+    // ls /SD
+    u_printf("List SD root /SD\n");
+    fat_dir_open(&dir, "/SD");
+    if (FAT_ERR_NONE != err)
+    {
+        u_printf("fat_dir_open err: 0x%x\n", err);
+        return;
+    }
+
+    for (;;)
+    {
+        err = fat_dir_read(&dir, &info);
+        if (err == FAT_ERR_EOF)
+            break;
+        //CHECK_ERROR(err);
+        if (0 != err)
+        {
+            u_printf("fat_dir read err: 0x%x\n", err);
+            break;
+        } 
+
+        print_info(&info);
+
+        err = fat_dir_next(&dir);
+        //CHECK_ERROR(err);
+        if (0 != err)
+        {
+            u_printf("fat_dir_next read err: 0x%x\n", err);
+            break;
+        } 
+    }
+
+}
+
+//char g_testbuffer[512] = {0};
+
 void main (void)
 {
     int ret = -1;
     int sdstatus = 0;
     int i = 0;
     int val = 0;
+    void* pbuff = NULL;
+
+
+//    // uty: test
+//    val = 0x0000aabb;
+//    *(short*)(0x2000000 + 0) = (short)val;
+//
+//    val = 0x0000ccdd;
+//    *(short*)(0x2000000 + 2) = (short)val;
+//
+//    val = 0x0000eeff;
+//    *(short*)(0x2000000 + 4) = (short)val;
+//
+//    val = 0x00001122;
+//    *(short*)(0x2000000 + 6) = (short)val;
+//
+//    val = 0x00003344;
+//    *(short*)(0x2000000 + 8) = (short)val;
+
+    //
 
     banner();
 
@@ -53,7 +196,16 @@ void main (void)
 
     }
 
+    // uty: test
+    val = sd_read(0x1c4);
+    u_printf("SD: Read word at offset 0x1c4: 0x%x\n", val);
+    val = sd_read(0x1c6);
+    u_printf("SD: Read word at offset 0x1c6: 0x%x\n", val);
+    val = sd_read(0x1c8);
+    u_printf("SD: Read word at offset 0x1c8: 0x%x\n", val);
 
+
+    u_printf("SDRAM: 0x2000000 - 0x3f00000\n");
     u_printf("SDRAM: Read dword at address 0x2000030: 0x%x\n", *(int*)0x2000030);
 
     u_printf("SDRAM: Write 0xAABBCCDD at address 0x2000030\n");
@@ -74,8 +226,42 @@ void main (void)
     }
 
 
-    u_printf("System check PASS.\n");
+    u_printf("System check PASS.\n\n");
+
+
+    u_printf("Heap located at 0x0x3E00000, size 0x200000 (2MB)\n");
+    pbuff = HeapMgr_malloc(512);
+    u_printf("pbuff = 0x%x\n", pbuff);
+    if (NULL == pbuff)
+    {
+	    u_printf("HeapMgr_malloc fail!\n");
+	    goto exit;
+    }
+
+
+    ret = sd_read_sector(0, pbuff);
+    if (0 != ret)
+    {
+	    u_printf("sd_read_sector error!\n");
+	    goto exit;
+    }
+
+    u_printf("Read SD sector 0:\n");
+    print_buffer(pbuff, 512);
+
+//    u_printf("buffer 0x1c4: 0x%x\n", *(short*)((int)pbuff + 0x1c4));
+//    u_printf("buffer 0x1c6: 0x%x\n", *(short*)((int)pbuff + 0x1c6));
+//    u_printf("buffer 0x1c8: 0x%x\n", *(short*)((int)pbuff + 0x1c8));
+
+    //load_kernel();
+
 exit:
+
+    if (NULL != pbuff)
+    {
+    	HeapMgr_free(pbuff);
+    }
+
     while (1)
     {
     }
@@ -95,38 +281,6 @@ exit:
     //                screen_print_hex(sdstatus);
     //	}
 
-    while (1)
-    {
-        delay();
-        screen_puts("Read address 0x1fe:");                
-        val = sd_read(0x1fe);
-        screen_print_hex(val);
-
-        screen_puts("Read address 0x00:");                
-        val = sd_read(0x00);
-        screen_print_hex(val);
-
-        screen_puts("Read address 512:");                
-        val = sd_read(512);
-        screen_print_hex(val);
-
-        screen_puts("Read address 0x1c0:");                
-        val = sd_read(0x1c0);
-        screen_print_hex(val);
-
-        //screen_puts("Read sector 0x0:");                
-        //sd_read_sector(0);
-
-        delay();
-        delay();
-        //		//delay();
-
-        for (i = 0; i < 512; i+=2)
-        {
-            val = sd_read_word(i);
-            screen_print_hex(val);
-        }
-    }
 }
 
 void do_excp_handler (void)

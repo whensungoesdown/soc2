@@ -176,7 +176,8 @@ module peripherals (
    );
 
    sd_rdbuf u_sd_rdbuf(
-      .clk                             (sd_clk),
+      .clk                             (clk),
+      .sd_clk                          (sd_clk),
       .resetn                          (resetn),
 
       .cnt_reset                       (sd_rd_sec_ofs_wen),
@@ -202,9 +203,14 @@ module peripherals (
       .din   (rdata32_in),
       .clk   (clk),
       .q     (rdata32_q));
-      //.se(), .si(), .so());
 
-   assign rdata = rdaddress[2] ? {rdata32_q, 32'b0} : {32'b0, rdata32_q};
+   wire addr_high;
+   dff_ns #(1) addr_high_reg (
+      .din   (rdaddress[2]),
+      .clk   (clk),
+      .q     (addr_high));
+
+   assign rdata = addr_high ? {rdata32_q, 32'b0} : {32'b0, rdata32_q};
 
 endmodule
 

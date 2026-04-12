@@ -1,4 +1,5 @@
 #include <stdarg.h>   // for va_list va_start and va_end
+#include "lib.h"
 
 #define TEXT_VIDEO_RAM_START     0x10000
 #define TEXT_COLUMN_MAX              80
@@ -18,8 +19,6 @@ int g_screen_curr_col = 0;
 char g_screen[TEXT_ROW_MAX][TEXT_COLUMN_MAX] = {0};
 
 
-#define NULL 0
-
 
 void *u_memcpy(void *dest, const void *src, unsigned n)
 {
@@ -38,6 +37,17 @@ void u_memset(char* dest, char ch, int count)
     for (i = 0; i < count; i++) {
         dest[i] = ch;
     }
+}
+
+int u_memcmp(const void *s1, const void *s2, int n) 
+{
+    const unsigned char *p1 = s1;
+    const unsigned char *p2 = s2;
+    for (int i = 0; i < n; i++) {
+        if (p1[i] != p2[i])
+            return p1[i] - p2[i];
+    }
+    return 0;
 }
 
 int u_strlen (const char *str) 
@@ -340,11 +350,16 @@ int u_printf(const char *format, ...)
 int sd_read (int addr)
 {
     int sdstatus = 0;
+    int timeout = 100000;
 
     *(int*)SD_RD_SEC_IDX = addr / 512;  // Set read sector index
 
     do
     {
+        if (--timeout == 0)
+        {
+            return -1;
+        }
         sdstatus = *(int*)SD_STATUS;  // Read status register
         //                screen_print_hex(sdstatus);
     } while (sdstatus & SD_READ_BUSY);  // Wait for read busy to clear
@@ -355,20 +370,57 @@ int sd_read (int addr)
     return *(int*)SD_RD_DATA;
 }
 
-int sd_read_sector (int sec_idx)
-{
-    *(int*)SD_RD_SEC_IDX = sec_idx;  // Set read sector index
+//int sd_read_sector (int sec_idx)
+//{
+//    *(int*)SD_RD_SEC_IDX = sec_idx;  // Set read sector index
+//
+//    return 0;
+//}
+//
+//int sd_read_word (int word_idx)
+//{
+//
+//    *(int*)SD_RD_SEC_OFS = word_idx;
+//
+//    // Return the read data
+//    return *(int*)SD_RD_DATA;
+//}
 
-    return 0;
+static inline short htos16(short x) 
+{
+    return (x << 8) | (x >> 8);
 }
 
-int sd_read_word (int word_idx)
+int sd_read_sector (int sec_idx, void* buffer)
 {
+    int sdstatus = 0;
+    int i = 0;
+    int timeout = 100000;
+    int val = 0;
 
-    *(int*)SD_RD_SEC_OFS = word_idx;
+    *(int*)SD_RD_SEC_IDX = sec_idx;  // Set read sector index
 
-    // Return the read data
-    return *(int*)SD_RD_DATA;
+    do {
+        sdstatus = *(int*)SD_STATUS;
+        if (--timeout == 0)
+        {
+            return -1;
+        }
+    } while (sdstatus & SD_READ_BUSY);
+
+
+    // uty: test
+    for (i = 0; i < 512; i+=2)
+    //for (i = 0; i < 0x1d0; i+=2)
+    {
+        *(int*)SD_RD_SEC_OFS = i;
+        val = *(int*)SD_RD_DATA;
+        *(short*)((char*)buffer + i) = htos16((short)val);
+	//u_printf("0x%x: 0x%x\n", i, (short)val);
+        //*(short*)((char*)buffer + i) = (short)val;
+    }
+
+    return 0;
 }
 
 #define SD_INIT_TIMEOUT  10  // Timeout counter value

@@ -22,7 +22,7 @@ LDFLAGS := -T bin.lds
 # ============================================
 # Object File List
 # ============================================
-OBJS_C := $(obj_path)/main.o $(obj_path)/lib.o
+OBJS_C := $(obj_path)/main.o $(obj_path)/lib.o $(obj_path)/heapmgrkr.o $(obj_path)/fat.o
 START_O := $(obj_path)/start.o
 
 TARGET_ELF := $(obj_path)/out.elf
