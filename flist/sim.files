@@ -39,6 +39,8 @@ ${PROJECT_ROOT}/rtl/peripherals/sd/models/sd_rdbuf_ram.v
 ${PROJECT_ROOT}/rtl/peripherals/sd/models/sd_rdbuf_ram_2port.v
 ${PROJECT_ROOT}/rtl/peripherals/sd/models/sd_card_model.v
 
+${PROJECT_ROOT}/rtl/cdc_sync.v
+
 #${PROJECT_ROOT}/rtl/soc2_top.v 
 ${PROJECT_ROOT}/rtl/soc2_simu_top.v 
 #../../tb/soc2_test6_spaceinvaders_top_tb.v

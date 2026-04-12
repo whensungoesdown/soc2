@@ -358,6 +358,7 @@ int sd_read (int addr)
     {
         if (--timeout == 0)
         {
+            u_printf("sd_read timeout!\n");
             return -1;
         }
         sdstatus = *(int*)SD_STATUS;  // Read status register

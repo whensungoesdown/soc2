@@ -253,7 +253,7 @@ void main (void)
 //    u_printf("buffer 0x1c6: 0x%x\n", *(short*)((int)pbuff + 0x1c6));
 //    u_printf("buffer 0x1c8: 0x%x\n", *(short*)((int)pbuff + 0x1c8));
 
-    //load_kernel();
+    load_kernel();
 
 exit:
 

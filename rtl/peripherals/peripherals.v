@@ -151,6 +151,42 @@ module peripherals (
       .q     (sd_rdbuf_offset));
 
 
+   //
+   // clk 75MHz, sd_clk 25MHz
+   // extend cycles 75/25 = 3
+   //
+   
+   wire sd_rd_sec_idx_wen_sync;
+
+   cdc_sync #(
+       .WIDTH(1),
+       .PULSE_EXTEND(1),
+       .EXTEND_CYCLES(3)
+   ) u_cdc_sd_rd_sec_idx_wen_stretch (
+       .src_clk    (clk),
+       .src_rst_n  (resetn),
+       .src_sig    (sd_rd_sec_idx_wen),
+       .dst_clk    (sd_clk),
+       .dst_rst_n  (resetn),
+       .dst_sig    (sd_rd_sec_idx_wen_sync)
+       );
+
+   wire sd_rd_sec_idx_sync;
+
+   cdc_sync #(
+       .WIDTH(32),
+       .PULSE_EXTEND(1),
+       .EXTEND_CYCLES(3)
+   ) u_cdc_sd_rd_sec_idx_stretch (
+       .src_clk    (clk),
+       .src_rst_n  (resetn),
+       .src_sig    (sd_rd_sec_idx),
+       .dst_clk    (sd_clk),
+       .dst_rst_n  (resetn),
+       .dst_sig    (sd_rd_sec_idx_sync)
+       );
+
+
    sd_ctrl u_sd(
       .sys_clk                         (sd_clk),
       .sys_clk_shift                   (sd_clk_shift90),
@@ -166,8 +202,10 @@ module peripherals (
       .wr_busy                         (sd_wr_busy),
       .wr_req                          (),
 
-      .rd_en                           (sd_rd_sec_idx_wen), // start reading the data after writing the rd addr
-      .rd_addr                         (sd_rd_sec_idx),
+      //.rd_en                           (sd_rd_sec_idx_wen), // start reading the data after writing the rd addr
+      .rd_en                           (sd_rd_sec_idx_wen_sync), // start reading the data after writing the rd addr
+      //.rd_addr                         (sd_rd_sec_idx),
+      .rd_addr                         (sd_rd_sec_idx_sync),
       .rd_busy                         (sd_rd_busy),
       .rd_data_en                      (sd_rd_data_en),
       .rd_data                         (sd_rd_data),
