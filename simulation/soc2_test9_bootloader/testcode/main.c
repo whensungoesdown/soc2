@@ -33,6 +33,24 @@ void print_buffer(const unsigned char* pbuff, int len)
     }
 }
 
+
+void print_buffer_dword(const int* pbuff, int len)
+{
+    int i;
+    for (i = 0; i < len; i++) {
+        // Print each dword in hex, 8 hex digits (32 bits), with leading zeros
+        u_printf("%x ", pbuff[i]);
+
+        // Optional: newline every 4 dwords for readability
+//        if ((i + 1) % 4 == 0)
+//            u_printf("\n");
+    }
+
+    // If last line not ended with newline, add one
+    if (len % 4 != 0)
+        u_printf("\n");
+}
+
 static bool disk_read(uint8_t* buf, uint32_t sect);
 static bool disk_write(const uint8_t* buf, uint32_t sect);
 
@@ -51,6 +69,8 @@ static bool disk_read(uint8_t* buf, uint32_t sect)
 {
     int ret = 0;
     
+    u_printf("disk_read(): sect 0x%x\n", sect);
+
     ret = sd_read_sector(sect, buf);
     if (0 == ret)
     {
@@ -74,7 +94,12 @@ void print_info(DirInfo* info)
 //            info->size, g_months[info->modified.month - 1], info->modified.day,
 //            info->modified.hour, info->modified.min,
 //            info->name_len, info->name, info->attr & FAT_ATTR_DIR ? '/' : ' ');
-    u_printf( info->name);
+
+    char buf[32] = {0};
+    u_memcpy(buf, info->name, info->name_len < 31 ? info->name_len : 31 );
+    u_printf(buf);
+    //u_printf("name_len %d\n", info->name_len);
+    u_printf("\n");
 }
 
 void load_kernel (void)
@@ -89,7 +114,7 @@ void load_kernel (void)
     err = fat_probe(&g_ops, 0);
     if (FAT_ERR_NONE != err)
     {
-        u_printf("fat_probe err: 0x%x\n", err);
+        u_printf("fat_probe err partition 0: 0x%x\n", err);
         return;
     }
 
@@ -97,7 +122,7 @@ void load_kernel (void)
     fat_mount(&g_ops, 0, &g_fat, "SD");
     if (FAT_ERR_NONE != err)
     {
-        u_printf("fat_probe err: 0x%x\n", err);
+        u_printf("fat_mount err: 0x%x\n", err);
         return;
     }
 
@@ -145,22 +170,30 @@ void main (void)
     int val = 0;
     void* pbuff = NULL;
 
-
+//    ret = sd_read_sector(0x2000, g_testbuffer);
+//
 //    // uty: test
-//    val = 0x0000aabb;
-//    *(short*)(0x2000000 + 0) = (short)val;
+//    val = 0xffffaabb;
+//    *(short*)(g_testbuffer + 0) = (short)val;
 //
-//    val = 0x0000ccdd;
-//    *(short*)(0x2000000 + 2) = (short)val;
+//    val = 0xffffccdd;
+//    *(short*)(g_testbuffer + 2) = (short)val;
 //
-//    val = 0x0000eeff;
-//    *(short*)(0x2000000 + 4) = (short)val;
+//    val = 0xffffeeff;
+//    *(short*)(g_testbuffer + 4) = (short)val;
 //
-//    val = 0x00001122;
-//    *(short*)(0x2000000 + 6) = (short)val;
+//    val = 0xffff1122;
+//    *(short*)(g_testbuffer + 6) = (short)val;
 //
-//    val = 0x00003344;
-//    *(short*)(0x2000000 + 8) = (short)val;
+//    val = 0xffff3344;
+//    *(short*)(g_testbuffer + 8) = (short)val;
+//
+//    val = 0xffff5566;
+//    *(short*)(g_testbuffer + 8) = (short)val;
+//
+//    print_buffer_dword(g_testbuffer, 3);
+//
+//    //while(1){}
 
     //
 
@@ -196,71 +229,71 @@ void main (void)
 
     }
 
-    // uty: test
-    val = sd_read(0x1c4);
-    u_printf("SD: Read word at offset 0x1c4: 0x%x\n", val);
-    val = sd_read(0x1c6);
-    u_printf("SD: Read word at offset 0x1c6: 0x%x\n", val);
-    val = sd_read(0x1c8);
-    u_printf("SD: Read word at offset 0x1c8: 0x%x\n", val);
+//    // uty: test
+//    val = sd_read(0x1c4);
+//    u_printf("SD: Read word at offset 0x1c4: 0x%x\n", val);
+//    val = sd_read(0x1c6);
+//    u_printf("SD: Read word at offset 0x1c6: 0x%x\n", val);
+//    val = sd_read(0x1c8);
+//    u_printf("SD: Read word at offset 0x1c8: 0x%x\n", val);
 
 
-    u_printf("SDRAM: 0x2000000 - 0x3f00000\n");
-    u_printf("SDRAM: Read dword at address 0x2000030: 0x%x\n", *(int*)0x2000030);
+//    u_printf("SDRAM: 0x2000000 - 0x3f00000\n");
+//    u_printf("SDRAM: Read dword at address 0x2000030: 0x%x\n", *(int*)0x2000030);
+//
+//    u_printf("SDRAM: Write 0xAABBCCDD at address 0x2000030\n");
+//    *(int*)0x2000030 = 0xAABBCCDD;
+//
+//    val = *(int*)0x2000030;
+//    u_printf("SDRAM: Read dword at address 0x2000030: 0x%x         ", val);
+//
+//    if (0xAABBCCDD == val)
+//    {
+//        u_printf("[OK]\n\n");
+//    }
+//    else
+//    {
+//        u_printf( "FAIL!\n\n");                
+//        goto exit;
+//
+//    }
+//
+//
+//    u_printf("System check PASS.\n\n");
+//
+//
+//    u_printf("Heap located at 0x0x3E00000, size 0x200000 (2MB)\n");
+//    pbuff = HeapMgr_malloc(512);
+//    u_printf("pbuff = 0x%x\n", pbuff);
+//    if (NULL == pbuff)
+//    {
+//	    u_printf("HeapMgr_malloc fail!\n");
+//	    goto exit;
+//    }
 
-    u_printf("SDRAM: Write 0xAABBCCDD at address 0x2000030\n");
-    *(int*)0x2000030 = 0xAABBCCDD;
 
-    val = *(int*)0x2000030;
-    u_printf("SDRAM: Read dword at address 0x2000030: 0x%x         ", val);
+//    //ret = sd_read_sector(0x2000, pbuff);
+//    ret = sd_read_sector(0x2000, g_testbuffer);
+//    if (0 != ret)
+//    {
+//	    u_printf("sd_read_sector error!\n");
+//	    goto exit;
+//    }
+//
+//    u_printf("Read SD sector 0x2000:\n");
+//    //print_buffer(pbuff, 16);
+//    //print_buffer_dword((int*)pbuff, 4);
+//    print_buffer(g_testbuffer, 16);
 
-    if (0xAABBCCDD == val)
-    {
-        u_printf("[OK]\n\n");
-    }
-    else
-    {
-        u_printf( "FAIL!\n\n");                
-        goto exit;
-
-    }
-
-
-    u_printf("System check PASS.\n\n");
-
-
-    u_printf("Heap located at 0x0x3E00000, size 0x200000 (2MB)\n");
-    pbuff = HeapMgr_malloc(512);
-    u_printf("pbuff = 0x%x\n", pbuff);
-    if (NULL == pbuff)
-    {
-	    u_printf("HeapMgr_malloc fail!\n");
-	    goto exit;
-    }
-
-
-    ret = sd_read_sector(0, pbuff);
-    if (0 != ret)
-    {
-	    u_printf("sd_read_sector error!\n");
-	    goto exit;
-    }
-
-    u_printf("Read SD sector 0:\n");
-    print_buffer(pbuff, 512);
-
-//    u_printf("buffer 0x1c4: 0x%x\n", *(short*)((int)pbuff + 0x1c4));
-//    u_printf("buffer 0x1c6: 0x%x\n", *(short*)((int)pbuff + 0x1c6));
-//    u_printf("buffer 0x1c8: 0x%x\n", *(short*)((int)pbuff + 0x1c8));
 
     load_kernel();
 
 exit:
 
-    if (NULL != pbuff)
-    {
-    	HeapMgr_free(pbuff);
-    }
+//    if (NULL != pbuff)
+//    {
+//    	HeapMgr_free(pbuff);
+//    }
 
     while (1)
     {

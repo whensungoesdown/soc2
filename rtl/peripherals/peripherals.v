@@ -26,7 +26,7 @@ module peripherals (
    output         uart_intr,
 
    input          sd_clk,
-   input          sd_clk_shift90,
+   input          sd_clk_shift180,
    input          sd_miso,
    output         sd_mosi,
    output         sd_cs_n,
@@ -137,7 +137,19 @@ module peripherals (
    wire [15:0] sd_rdbuf_data;
 
    wire [31:0] sd_rd_sec_idx;
+   wire [31:0] sd_rd_sec_idx_q;
    assign sd_rd_sec_idx = wraddress[2] ? wdata[63:32] : wdata[31:0];
+
+   dffe_ns #(32) sd_rd_sec_idx_reg (
+      .din   (sd_rd_sec_idx),
+      .en    (sd_rd_sec_idx_wen),
+      .clk   (clk),
+      .q     (sd_rd_sec_idx_q));
+
+   dff_ns #(1) sd_rd_sec_idx_wen_reg (
+      .din   (sd_rd_sec_idx_wen),
+      .clk   (clk),
+      .q     (sd_rd_sec_idx_wen_q));
 
    wire [31:0] sd_rdbuf_offset_in;
    wire [31:0] sd_rdbuf_offset;
@@ -165,31 +177,32 @@ module peripherals (
    ) u_cdc_sd_rd_sec_idx_wen_stretch (
        .src_clk    (clk),
        .src_rst_n  (resetn),
-       .src_sig    (sd_rd_sec_idx_wen),
+       .src_sig    (sd_rd_sec_idx_wen_q),
        .dst_clk    (sd_clk),
        .dst_rst_n  (resetn),
        .dst_sig    (sd_rd_sec_idx_wen_sync)
        );
 
-   wire sd_rd_sec_idx_sync;
-
-   cdc_sync #(
-       .WIDTH(32),
-       .PULSE_EXTEND(1),
-       .EXTEND_CYCLES(3)
-   ) u_cdc_sd_rd_sec_idx_stretch (
-       .src_clk    (clk),
-       .src_rst_n  (resetn),
-       .src_sig    (sd_rd_sec_idx),
-       .dst_clk    (sd_clk),
-       .dst_rst_n  (resetn),
-       .dst_sig    (sd_rd_sec_idx_sync)
-       );
+//   wire [31:0] sd_rd_sec_idx_sync;
+//
+//   cdc_sync #(
+//       .WIDTH(32),
+//       .PULSE_EXTEND(1),
+//       .EXTEND_CYCLES(3)
+//   ) u_cdc_sd_rd_sec_idx_stretch (
+//       .src_clk    (clk),
+//       .src_rst_n  (resetn),
+//       //.src_sig    (sd_rd_sec_idx),
+//       .src_sig    (sd_rd_sec_idx_q),
+//       .dst_clk    (sd_clk),
+//       .dst_rst_n  (resetn),
+//       .dst_sig    (sd_rd_sec_idx_sync)
+//       );
 
 
    sd_ctrl u_sd(
       .sys_clk                         (sd_clk),
-      .sys_clk_shift                   (sd_clk_shift90),
+      .sys_clk_shift                   (sd_clk_shift180),
       .sys_rst_n                       (resetn),
 
       .sd_miso                         (sd_miso),
@@ -203,9 +216,10 @@ module peripherals (
       .wr_req                          (),
 
       //.rd_en                           (sd_rd_sec_idx_wen), // start reading the data after writing the rd addr
-      .rd_en                           (sd_rd_sec_idx_wen_sync), // start reading the data after writing the rd addr
-      //.rd_addr                         (sd_rd_sec_idx),
-      .rd_addr                         (sd_rd_sec_idx_sync),
+      //.rd_en                           (sd_rd_sec_idx_wen_sync), // start reading the data after writing the rd addr
+      .rd_en                           (sd_rd_sec_idx_wen), // start reading the data after writing the rd addr
+      .rd_addr                         (sd_rd_sec_idx),
+      //.rd_addr                         (sd_rd_sec_idx_q),
       .rd_busy                         (sd_rd_busy),
       .rd_data_en                      (sd_rd_data_en),
       .rd_data                         (sd_rd_data),
@@ -213,12 +227,15 @@ module peripherals (
       .init_end                        (sd_init_end)
    );
 
+
    sd_rdbuf u_sd_rdbuf(
       .clk                             (clk),
       .sd_clk                          (sd_clk),
       .resetn                          (resetn),
 
-      .cnt_reset                       (sd_rd_sec_ofs_wen),
+      //.cnt_reset                       (sd_rd_sec_ofs_wen),
+      //.cnt_reset                       (sd_rd_sec_idx_wen_sync),
+      .cnt_reset                       (sd_rd_sec_idx_wen),
       .rd_data_vld                     (sd_rd_data_en),
       .rd_data                         (sd_rd_data),
 

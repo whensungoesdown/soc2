@@ -32,7 +32,7 @@ localparam AVALON_DATA_WIDTH = 16;
 
    wire pll_clk_out_25mhz;
    wire pll_clk_out_75mhz;
-   wire pll_clk_out_25mhz_shift90;
+   wire pll_clk_out_25mhz_shift180;
    wire pll_locked;
 
 //   wire pll_locked_resetn;
@@ -43,24 +43,25 @@ localparam AVALON_DATA_WIDTH = 16;
       .inclk0      (clk),
       .c0          (pll_clk_out_25mhz),
       .c1          (pll_clk_out_75mhz),
-      .c2          (pll_clk_out_25mhz_shift90),
+      .c2          (pll_clk_out_25mhz_shift180),
       .locked      (pll_locked)
       );
 
+   wire sys_clk;
+   wire vga_clk;
+   wire uart_clk;
+   wire sd_clk;
+   wire sd_clk_shift180;
 
-      wire sys_clk;
-      wire vga_clk;
-      wire uart_clk;
-      wire sd_clk;
-      wire sd_clk_shift90;
+   //assign sys_clk = clk; // 50mhz
+   //assign sys_clk = pll_clk_out_75mhz;
+   assign sys_clk = pll_clk_out_25mhz;
+   assign vga_clk = pll_clk_out_25mhz;
+   assign uart_clk = pll_clk_out_25mhz;
+   assign sd_clk = pll_clk_out_25mhz;
+   assign sd_clk_shift180 = pll_clk_out_25mhz_shift180;
 
-      //assign sys_clk = clk; // 25mhz
-      assign sys_clk = pll_clk_out_75mhz;
-      //assign sys_clk = pll_clk_out_25mhz;
-      assign vga_clk = pll_clk_out_25mhz;
-      assign uart_clk = pll_clk_out_25mhz;
-      assign sd_clk = pll_clk_out_25mhz;
-      assign sd_clk_shift90 = pll_clk_out_25mhz_shift90;
+   assign sdram_clk = sys_clk;
 
 //   assign pll_locked_resetn = pll_locked & resetn;
    
@@ -888,6 +889,7 @@ localparam AVALON_DATA_WIDTH = 16;
 
       .m_awid       (s0_awid            ),           
       .m_awaddr     (s0_awaddr         ),
+      //.m_awaddr     ({s0_awaddr[31:3], 3'b000}),
       .m_awlen      (s0_awlen          ),
       .m_awsize     (s0_awsize         ),
       .m_awburst    (s0_awburst        ),
@@ -908,6 +910,7 @@ localparam AVALON_DATA_WIDTH = 16;
       .m_bready     (s0_bready         ),
       
       .m_araddr     (s0_araddr         ),
+      //.m_araddr     ({s0_araddr[31:3], 3'b000}         ),
       .m_arburst    (s0_arburst        ),
       .m_arcache    (s0_arcache        ),
       .m_arid       (s0_arid            ),
@@ -1148,7 +1151,7 @@ localparam AVALON_DATA_WIDTH = 16;
       .uart_intr                       (uart_intr),
 
       .sd_clk                          (sd_clk),
-      .sd_clk_shift90                  (sd_clk_shift90),
+      .sd_clk_shift180                 (sd_clk_shift180),
       .sd_miso                         (sd_miso),
       .sd_mosi                         (sd_mosi),
       .sd_cs_n                         (sd_cs_n),
@@ -1182,8 +1185,6 @@ localparam AVALON_DATA_WIDTH = 16;
       .zs_ras_n       (sdram_ras_n),
       .zs_we_n        (sdram_we_n)
    );
-
-   assign sdram_clk = sys_clk;
 
    // need a pic here
    assign ext_intr = uart_intr;

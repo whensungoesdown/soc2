@@ -37,3 +37,10 @@ add wave -position end  result:/top_tb/u_top/u_sdram_ctrl/az_data
 add wave -position end  result:/top_tb/u_top/u_sdram_ctrl/zs_addr
 add wave -position end  result:/top_tb/u_top/u_sdram_ctrl/zs_dq
 add wave -position end  result:/top_tb/u_top/u_sdram_ctrl/zs_dqm
+add wave -divider
+add wave -position end  result:/top_tb/u_top/u_peri/sd_clk
+add wave -position end  result:/top_tb/u_top/u_peri/sd_rd_sec_idx
+add wave -position end  result:/top_tb/u_top/u_peri/sd_rd_sec_idx_q
+add wave -position end  result:/top_tb/u_top/u_peri/sd_rd_sec_idx_wen
+add wave -position end  result:/top_tb/u_top/u_peri/sd_rd_sec_idx_wen_q
+add wave -position end  result:/top_tb/u_top/u_peri/sd_rd_sec_idx_wen_sync

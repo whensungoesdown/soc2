@@ -387,7 +387,8 @@ int sd_read (int addr)
 //    return *(int*)SD_RD_DATA;
 //}
 
-static inline short htos16(short x) 
+// !!! having unsigned is important !!!
+static inline unsigned short htos16(unsigned short x) 
 {
     return (x << 8) | (x >> 8);
 }
@@ -417,8 +418,8 @@ int sd_read_sector (int sec_idx, void* buffer)
         *(int*)SD_RD_SEC_OFS = i;
         val = *(int*)SD_RD_DATA;
         *(short*)((char*)buffer + i) = htos16((short)val);
-	//u_printf("0x%x: 0x%x\n", i, (short)val);
         //*(short*)((char*)buffer + i) = (short)val;
+	//u_printf("0x%x: 0x%x  ", i, (short)val);
     }
 
     return 0;

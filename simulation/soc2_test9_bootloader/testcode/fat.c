@@ -141,7 +141,7 @@ typedef struct
 
 //------------------------------------------------------------------------------
 static Fat* g_fat_list;
-
+ 
 static uint8_t g_lfn_indices[13] = {1, 3, 5, 7, 9, 14, 16, 18, 20, 22, 24, 28, 30};
 
 static uint8_t g_buf[512];
@@ -1005,6 +1005,8 @@ static bool check_fat(uint8_t* buf)
   if (bpb->jump[0] != 0xeb && bpb->jump[0] != 0xe9)
     return false;
 
+  // uty: test
+  u_printf("bpb->fat_cnt 0x%x\n", bpb->fat_cnt);
   // Check if we need to be this strict.
   if (bpb->fat_cnt != 2)
     return false;
@@ -1031,20 +1033,37 @@ static bool check_fat(uint8_t* buf)
 }
 
 //------------------------------------------------------------------------------
+void print_buffer(const unsigned char* pbuff, int len);
+void print_buffer_dword(const int* pbuff, int len);
+
 int probe(DiskOps* ops, int partition, uint32_t* lba)
 {
   *lba = 0;
   if (!ops->read(g_buf, *lba))
     return FAT_ERR_IO;
 
-  if (check_fat(g_buf))
-    return partition == 0 ? FAT_ERR_NONE : FAT_ERR_NOFAT;
+  // uty: test
+//  u_printf("In probe(), lba 0x%x\n", lba);
+  //print_buffer(g_buf, 512);
+  //print_buffer_dword((int*)g_buf, 128);
+
+//  if (check_fat(g_buf))
+//    return partition == 0 ? FAT_ERR_NONE : FAT_ERR_NOFAT;
 
   if (!get_part_lba(g_buf, partition, lba))
+  {
+    u_printf("get_part_lba fail\n");
     return FAT_ERR_NOFAT;
+  }
   
+  // uty: test
+  u_printf("In probe(), lba 0x%x\n", *lba);
+
   if (!ops->read(g_buf, *lba))
     return FAT_ERR_IO;
+
+  // uty: test
+  //print_buffer(g_buf, 16);
   
   return check_fat(g_buf) ? FAT_ERR_NONE : FAT_ERR_NOFAT;
 }
