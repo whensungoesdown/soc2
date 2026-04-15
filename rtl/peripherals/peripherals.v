@@ -192,7 +192,6 @@ module peripherals (
 //   ) u_cdc_sd_rd_sec_idx_stretch (
 //       .src_clk    (clk),
 //       .src_rst_n  (resetn),
-//       //.src_sig    (sd_rd_sec_idx),
 //       .src_sig    (sd_rd_sec_idx_q),
 //       .dst_clk    (sd_clk),
 //       .dst_rst_n  (resetn),
@@ -215,11 +214,8 @@ module peripherals (
       .wr_busy                         (sd_wr_busy),
       .wr_req                          (),
 
-      //.rd_en                           (sd_rd_sec_idx_wen), // start reading the data after writing the rd addr
-      //.rd_en                           (sd_rd_sec_idx_wen_sync), // start reading the data after writing the rd addr
-      .rd_en                           (sd_rd_sec_idx_wen), // start reading the data after writing the rd addr
-      .rd_addr                         (sd_rd_sec_idx),
-      //.rd_addr                         (sd_rd_sec_idx_q),
+      .rd_en                           (sd_rd_sec_idx_wen_sync), // start reading the data after writing the rd addr
+      .rd_addr                         (sd_rd_sec_idx_q),
       .rd_busy                         (sd_rd_busy),
       .rd_data_en                      (sd_rd_data_en),
       .rd_data                         (sd_rd_data),
@@ -233,9 +229,8 @@ module peripherals (
       .sd_clk                          (sd_clk),
       .resetn                          (resetn),
 
-      //.cnt_reset                       (sd_rd_sec_ofs_wen),
-      //.cnt_reset                       (sd_rd_sec_idx_wen_sync),
-      .cnt_reset                       (sd_rd_sec_idx_wen),
+      .cnt_reset                       (sd_rd_sec_idx_wen_sync),
+      //.cnt_reset                       (~sd_rd_busy),
       .rd_data_vld                     (sd_rd_data_en),
       .rd_data                         (sd_rd_data),
 
@@ -245,19 +240,28 @@ module peripherals (
 
    //
    // consist with ram, return data in the next cycle
+   // sd_rdbuf_data read latency is 1 cyle
    //
 
-   wire [31:0] rdata32_in; 
-   wire [31:0] rdata32_q; 
+   wire [31:0] rdata32_part_in; 
+   wire [31:0] rdata32_part_q; 
 
-   assign rdata32_in = {32{uart_ren}} & {24'h0, uart_dr_q} |
-                       {32{sd_status_ren}} & {29'h0, sd_wr_busy, sd_rd_busy, sd_init_end} |
-                       {32{sd_rd_data_ren}} & {sd_rdbuf_data};
+   assign rdata32_part_in = {32{uart_ren}} & {24'h0, uart_dr_q} |
+                            {32{sd_status_ren}} & {29'h0, sd_wr_busy, sd_rd_busy, sd_init_end};
 
-   dff_ns #(32) rdata32_reg (
-      .din   (rdata32_in),
+   dff_ns #(32) rdata32_part_reg (
+      .din   (rdata32_part_in),
       .clk   (clk),
-      .q     (rdata32_q));
+      .q     (rdata32_part_q));
+
+
+   wire sd_rd_data_ren_dly;
+   dff_ns #(1) sd_rd_data_ren_reg (
+      .din   (sd_rd_data_ren),
+      .clk   (clk),
+      .q     (sd_rd_data_ren_dly));
+
+   wire [31:0] rdata32;
 
    wire addr_high;
    dff_ns #(1) addr_high_reg (
@@ -265,7 +269,8 @@ module peripherals (
       .clk   (clk),
       .q     (addr_high));
 
-   assign rdata = addr_high ? {rdata32_q, 32'b0} : {32'b0, rdata32_q};
+   assign rdata32 = rdata32_part_q | {{32{sd_rd_data_ren_dly}} & sd_rdbuf_data};
+   assign rdata = addr_high ? {rdata32, 32'b0} : {32'b0, rdata32};
 
 endmodule
 

@@ -54,8 +54,8 @@ localparam AVALON_DATA_WIDTH = 16;
    wire sd_clk_shift180;
 
    //assign sys_clk = clk; // 50mhz
-   //assign sys_clk = pll_clk_out_75mhz;
-   assign sys_clk = pll_clk_out_25mhz;
+   assign sys_clk = pll_clk_out_75mhz;
+   //assign sys_clk = pll_clk_out_25mhz;
    assign vga_clk = pll_clk_out_25mhz;
    assign uart_clk = pll_clk_out_25mhz;
    assign sd_clk = pll_clk_out_25mhz;

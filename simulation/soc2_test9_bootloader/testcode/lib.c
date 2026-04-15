@@ -397,13 +397,27 @@ int sd_read_sector (int sec_idx, void* buffer)
 {
     int sdstatus = 0;
     int i = 0;
+    int start_rd_timeout = 1000;
     int timeout = 100000;
     int val = 0;
 
     *(int*)SD_RD_SEC_IDX = sec_idx;  // Set read sector index
 
+//    while (!(*(int*)SD_STATUS & SD_READ_BUSY)) 
+//    {
+//        if (--start_rd_timeout == 0) 
+//        {
+//            // 如果一直没变高，可能已经完成了
+//            break;
+//        }
+//    }
+//
     do {
+        asm volatile ("nop");
+        asm volatile ("nop");
         sdstatus = *(int*)SD_STATUS;
+
+        //u_printf("sdstatus: 0x%x\n", sdstatus);
         if (--timeout == 0)
         {
             return -1;
@@ -419,7 +433,7 @@ int sd_read_sector (int sec_idx, void* buffer)
         val = *(int*)SD_RD_DATA;
         *(short*)((char*)buffer + i) = htos16((short)val);
         //*(short*)((char*)buffer + i) = (short)val;
-	//u_printf("0x%x: 0x%x  ", i, (short)val);
+	u_printf("%x ", htos16((short)val));
     }
 
     return 0;

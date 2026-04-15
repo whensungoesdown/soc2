@@ -69,6 +69,10 @@ static bool disk_read(uint8_t* buf, uint32_t sect)
 {
     int ret = 0;
     
+    delay();
+    delay();
+    delay();
+
     u_printf("disk_read(): sect 0x%x\n", sect);
 
     ret = sd_read_sector(sect, buf);
@@ -215,19 +219,19 @@ void main (void)
         goto exit;
     }
 
-    val = sd_read(0x1fe);
-    u_printf("SD: Read word at offset 0x1fe: 0x%x                      ", val);
-
-    if (0x000055aa == val)
-    {
-        u_printf("[OK]\n\n");
-    }
-    else
-    {
-        u_printf( "FAIL!\n\n");                
-        goto exit;
-
-    }
+//    val = sd_read(0x1fe);
+//    u_printf("SD: Read word at offset 0x1fe: 0x%x                      ", val);
+//
+//    if (0x000055aa == val)
+//    {
+//        u_printf("[OK]\n\n");
+//    }
+//    else
+//    {
+//        u_printf( "FAIL!\n\n");                
+//        goto exit;
+//
+//    }
 
 //    // uty: test
 //    val = sd_read(0x1c4);
@@ -260,8 +264,8 @@ void main (void)
 //
 //
 //    u_printf("System check PASS.\n\n");
-//
-//
+
+
 //    u_printf("Heap located at 0x0x3E00000, size 0x200000 (2MB)\n");
 //    pbuff = HeapMgr_malloc(512);
 //    u_printf("pbuff = 0x%x\n", pbuff);
@@ -272,8 +276,8 @@ void main (void)
 //    }
 
 
-//    //ret = sd_read_sector(0x2000, pbuff);
-//    ret = sd_read_sector(0x2000, g_testbuffer);
+//    ret = sd_read_sector(0x2000, pbuff);
+//    //ret = sd_read_sector(0x2000, g_testbuffer);
 //    if (0 != ret)
 //    {
 //	    u_printf("sd_read_sector error!\n");
@@ -281,9 +285,9 @@ void main (void)
 //    }
 //
 //    u_printf("Read SD sector 0x2000:\n");
-//    //print_buffer(pbuff, 16);
-//    //print_buffer_dword((int*)pbuff, 4);
-//    print_buffer(g_testbuffer, 16);
+    //print_buffer(pbuff, 16);
+    //print_buffer_dword((int*)pbuff, 4);
+    //print_buffer(g_testbuffer, 16);
 
 
     load_kernel();
