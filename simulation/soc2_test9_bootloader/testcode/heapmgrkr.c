@@ -7,7 +7,7 @@
 #include "lib.h"
 
 // last 2MB of the SDRAM (0x2000000 - 0x3ffffff)
-#define HEAP_ADDR    0x3E00000
+#define HEAP_ADDR    0x3C00000
 #define HEAP_SIZE    0x200000
 
 struct header {       /* block header */

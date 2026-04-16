@@ -387,7 +387,7 @@ int sd_read (int addr)
 //    return *(int*)SD_RD_DATA;
 //}
 
-// !!! having unsigned is important !!!
+// !!! having "unsigned" is important !!! otherwise it extends upper bit 
 static inline unsigned short htos16(unsigned short x) 
 {
     return (x << 8) | (x >> 8);
@@ -403,18 +403,21 @@ int sd_read_sector (int sec_idx, void* buffer)
 
     *(int*)SD_RD_SEC_IDX = sec_idx;  // Set read sector index
 
-//    while (!(*(int*)SD_STATUS & SD_READ_BUSY)) 
-//    {
-//        if (--start_rd_timeout == 0) 
-//        {
-//            // 如果一直没变高，可能已经完成了
-//            break;
-//        }
-//    }
-//
+    while (!(*(int*)SD_STATUS & SD_READ_BUSY)) 
+    {
+        if (--start_rd_timeout == 0) 
+        {
+            // 如果一直没变高，可能已经完成了
+            break;
+        }
+    }
+
     do {
-        asm volatile ("nop");
-        asm volatile ("nop");
+        //asm volatile ("nop");
+        //asm volatile ("nop");
+        //asm volatile ("nop");
+        //asm volatile ("nop");
+        //asm volatile ("nop");
         sdstatus = *(int*)SD_STATUS;
 
         //u_printf("sdstatus: 0x%x\n", sdstatus);
@@ -433,7 +436,7 @@ int sd_read_sector (int sec_idx, void* buffer)
         val = *(int*)SD_RD_DATA;
         *(short*)((char*)buffer + i) = htos16((short)val);
         //*(short*)((char*)buffer + i) = (short)val;
-	u_printf("%x ", htos16((short)val));
+	//u_printf("%x ", htos16((short)val));
     }
 
     return 0;
@@ -451,8 +454,6 @@ int sd_wait_init_done(void)
 
 
     do {
-        delay();
-
         sdstatus = *(int*)SD_STATUS;  // Read status register
 
         //screen_print_hex(sdstatus);
@@ -464,6 +465,8 @@ int sd_wait_init_done(void)
         if (--timeout == 0) {
             return -1;  // Timeout
         }
+
+        delay();
 
     } while (1);
 }

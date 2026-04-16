@@ -63,17 +63,19 @@ static DiskOps g_ops =
   .write = disk_write,
 };
 
+// Must allocate 512-byte from heap, or declare g_buf[512] in the sram
+extern uint8_t* g_buf;
 
 //------------------------------------------------------------------------------
 static bool disk_read(uint8_t* buf, uint32_t sect)
 {
     int ret = 0;
     
-    delay();
-    delay();
-    delay();
+//    delay();
+//    delay();
+//    delay();
 
-    u_printf("disk_read(): sect 0x%x\n", sect);
+//    u_printf("disk_read(): sect 0x%x\n", sect);
 
     ret = sd_read_sector(sect, buf);
     if (0 == ret)
@@ -113,6 +115,21 @@ void load_kernel (void)
     Dir dir;
     DirInfo info;
 
+    if (NULL == g_buf)
+    {
+        u_printf("fat: g_buf is NULL\n");
+        return;
+    }
+
+    g_buf = HeapMgr_malloc(512);
+
+    u_printf("FAT: Allocated 512 bytes of heap for g_buf at 0x%x\n\n", g_buf);
+    if (NULL == g_buf)
+    {
+	    u_printf("HeapMgr_malloc fail!\n");
+        return;
+    }
+
     // You can scan the drive for FAT32 partitions before mounting to avoid
     // allocating excess fat structures.
     err = fat_probe(&g_ops, 0);
@@ -131,7 +148,7 @@ void load_kernel (void)
     }
 
     // ls /SD
-    u_printf("List SD root /SD\n");
+    u_printf("list /SD :\n\n");
     fat_dir_open(&dir, "/SD");
     if (FAT_ERR_NONE != err)
     {
@@ -164,14 +181,40 @@ void load_kernel (void)
 
 }
 
-//char g_testbuffer[512] = {0};
 void main_sdram_stack (void)
 {
-    u_printf("Hello World\n");
+    int ret = 0;
+
+    u_printf("main_sdram_stack:\n\n");
+
+    u_printf("SD: Init ...                                               ");                
+
+    ret = sd_wait_init_done();
+    if (0 == ret)
+    {
+        u_printf("[OK]\n\n");                
+    }
+    else
+    {
+        u_printf( "FAIL!\n\n");                
+        goto exit_main_sdram_stack;
+    }
+
+    u_printf("Heap located at 0x0x3C00000, size 0x200000 (2MB)\n\n");
+
+
+    load_kernel();
+
+
+exit_main_sdram_stack:
+
+    //if (NULL != pbuff)
+    //{
+    //	HeapMgr_free(pbuff);
+    //}
 
     while(1) 
     {
-        u_printf("Hello World!\n");
     }
 }
 
@@ -181,7 +224,6 @@ void main (void)
     int sdstatus = 0;
     int i = 0;
     int val = 0;
-    void* pbuff = NULL;
 
 //    ret = sd_read_sector(0x2000, g_testbuffer);
 //
@@ -218,19 +260,6 @@ void main (void)
     delay();
     delay();
 
-    u_printf("SD: Init ...                                               ");                
-
-    ret = sd_wait_init_done();
-    if (0 == ret)
-    {
-        u_printf("[OK]\n");                
-    }
-    else
-    {
-        u_printf( "FAIL!\n");                
-        goto exit;
-    }
-
     u_printf("SDRAM: 0x2000000 - 0x3fffffff\n");
     u_printf("SDRAM: Read dword at address 0x2000030: 0x%x\n", *(int*)0x2000030);
 
@@ -247,19 +276,22 @@ void main (void)
     else
     {
         u_printf( "FAIL!\n\n");                
-        goto exit;
+        goto exit_main;
 
     }
 
 
     //u_printf("System check PASS.\n\n");
 
+    u_printf("Set new stack top SDRAM 0x3fffff0\n\n");
+    u_printf("Jump to main_sdram_stack()\n\n");
+
     __asm__ volatile (
         "move $sp, %0\n\t"
         "la $t0, main_sdram_stack\n\t"
         "jirl $zero, $t0, 0\n\t"
         :
-        : "r"(0x2000000 + 4096)  // 留出4KB空间
+        : "r"(0x3fffff0)  
         : "sp", "$t0"
     );
 
@@ -291,15 +323,6 @@ void main (void)
 
 
 
-//    u_printf("Heap located at 0x0x3E00000, size 0x200000 (2MB)\n");
-//    pbuff = HeapMgr_malloc(512);
-//    u_printf("pbuff = 0x%x\n", pbuff);
-//    if (NULL == pbuff)
-//    {
-//	    u_printf("HeapMgr_malloc fail!\n");
-//	    goto exit;
-//    }
-
 
 //    ret = sd_read_sector(0x2000, pbuff);
 //    //ret = sd_read_sector(0x2000, g_testbuffer);
@@ -315,34 +338,13 @@ void main (void)
     //print_buffer(g_testbuffer, 16);
 
 
-    load_kernel();
 
-exit:
+exit_main:
 
-//    if (NULL != pbuff)
-//    {
-//    	HeapMgr_free(pbuff);
-//    }
 
     while (1)
     {
     }
-
-    //	// main loop
-    //	while (1)
-    //	{
-    //                delay();
-    //                
-    //                val = sd_read(0x1fc);
-    //
-    //                screen_puts("Read sd card, addr 0x1fc: ");                
-    //                screen_print_hex(val);
-    //
-    //                sdstatus = *(int*)SD_STATUS;  // Read status register
-    //                screen_puts("SD_STATUS: ");                
-    //                screen_print_hex(sdstatus);
-    //	}
-
 }
 
 void do_excp_handler (void)

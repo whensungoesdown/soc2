@@ -144,8 +144,8 @@ static Fat* g_fat_list;
  
 static uint8_t g_lfn_indices[13] = {1, 3, 5, 7, 9, 14, 16, 18, 20, 22, 24, 28, 30};
 
-static uint8_t g_buf[512];
-//uint8_t* g_buf;
+//static uint8_t g_buf[512];
+uint8_t* g_buf;
 static uint16_t g_len;
 static uint8_t g_crc;
 
@@ -1007,7 +1007,7 @@ static bool check_fat(uint8_t* buf)
 //    return false;
 
   // uty: test
-  u_printf("bpb->fat_cnt 0x%x\n", bpb->fat_cnt);
+  //u_printf("bpb->fat_cnt 0x%x\n", bpb->fat_cnt);
   // Check if we need to be this strict.
   if (bpb->fat_cnt != 2)
     return false;
@@ -1058,7 +1058,7 @@ int probe(DiskOps* ops, int partition, uint32_t* lba)
   }
   
   // uty: test
-  u_printf("In probe(), lba 0x%x\n", *lba);
+  //u_printf("In probe(), lba 0x%x\n", *lba);
 
   if (!ops->read(g_buf, *lba))
     return FAT_ERR_IO;
