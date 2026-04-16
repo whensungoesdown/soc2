@@ -18,6 +18,8 @@ set_location_assignment PIN_V1 -to uart_rx
 set_location_assignment PIN_U1 -to uart_tx
 
 set_location_assignment PIN_E5 -to sdram_clk 
+#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sdram_clk
+#set_instance_assignment -name CURRENT_STRENGTH 8MA -to sdram_clk
 
 set_location_assignment PIN_B7 -to sdram_dq[0] 
 set_location_assignment PIN_A7 -to sdram_dq[1]

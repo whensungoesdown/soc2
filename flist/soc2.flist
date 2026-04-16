@@ -20,4 +20,5 @@ ${PROJECT_ROOT}/rtl/peripherals/sd/sd_rdbuf.v
 ${PROJECT_ROOT}/rtl/peripherals/sd/models/sd_rdbuf_ram.v
 ${PROJECT_ROOT}/rtl/peripherals/sd/models/sd_rdbuf_ram_2port.v
 ${PROJECT_ROOT}/rtl/cdc_sync.v
+${PROJECT_ROOT}/rtl/altddioout.v
 ${PROJECT_ROOT}/rtl/soc2_top.v 

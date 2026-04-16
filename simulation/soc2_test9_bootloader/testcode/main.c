@@ -165,6 +165,15 @@ void load_kernel (void)
 }
 
 //char g_testbuffer[512] = {0};
+void main_sdram_stack (void)
+{
+    u_printf("Hello World\n");
+
+    while(1) 
+    {
+        u_printf("Hello World!\n");
+    }
+}
 
 void main (void)
 {
@@ -205,6 +214,9 @@ void main (void)
 
     delay();
     delay();
+    delay();
+    delay();
+    delay();
 
     u_printf("SD: Init ...                                               ");                
 
@@ -218,6 +230,41 @@ void main (void)
         u_printf( "FAIL!\n");                
         goto exit;
     }
+
+    u_printf("SDRAM: 0x2000000 - 0x3fffffff\n");
+    u_printf("SDRAM: Read dword at address 0x2000030: 0x%x\n", *(int*)0x2000030);
+
+    u_printf("SDRAM: Write 0xAABBCCDD at address 0x2000030\n");
+    *(int*)0x2000030 = 0xAABBCCDD;
+
+    val = *(int*)0x2000030;
+    u_printf("SDRAM: Read dword at address 0x2000030: 0x%x         ", val);
+
+    if (0xAABBCCDD == val)
+    {
+        u_printf("[OK]\n\n");
+    }
+    else
+    {
+        u_printf( "FAIL!\n\n");                
+        goto exit;
+
+    }
+
+
+    //u_printf("System check PASS.\n\n");
+
+    __asm__ volatile (
+        "move $sp, %0\n\t"
+        "la $t0, main_sdram_stack\n\t"
+        "jirl $zero, $t0, 0\n\t"
+        :
+        : "r"(0x2000000 + 4096)  // 留出4KB空间
+        : "sp", "$t0"
+    );
+
+
+
 
 //    val = sd_read(0x1fe);
 //    u_printf("SD: Read word at offset 0x1fe: 0x%x                      ", val);
@@ -242,28 +289,6 @@ void main (void)
 //    u_printf("SD: Read word at offset 0x1c8: 0x%x\n", val);
 
 
-//    u_printf("SDRAM: 0x2000000 - 0x3f00000\n");
-//    u_printf("SDRAM: Read dword at address 0x2000030: 0x%x\n", *(int*)0x2000030);
-//
-//    u_printf("SDRAM: Write 0xAABBCCDD at address 0x2000030\n");
-//    *(int*)0x2000030 = 0xAABBCCDD;
-//
-//    val = *(int*)0x2000030;
-//    u_printf("SDRAM: Read dword at address 0x2000030: 0x%x         ", val);
-//
-//    if (0xAABBCCDD == val)
-//    {
-//        u_printf("[OK]\n\n");
-//    }
-//    else
-//    {
-//        u_printf( "FAIL!\n\n");                
-//        goto exit;
-//
-//    }
-//
-//
-//    u_printf("System check PASS.\n\n");
 
 
 //    u_printf("Heap located at 0x0x3E00000, size 0x200000 (2MB)\n");

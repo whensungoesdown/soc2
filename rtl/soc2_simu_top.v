@@ -19,10 +19,10 @@ localparam AVALON_ADDR_WIDTH = 24;
 localparam AVALON_DATA_WIDTH = 16;
 
 
-   wire pll_clk_out_25mhz;
    wire pll_clk_out_75mhz;
-   wire pll_clk_out_37_5mhz;
-   wire pll_clk_out_37_5mhz_shift180;
+   wire pll_clk_out_75mhz_shift;
+   wire pll_clk_out_25mhz;
+   wire pll_clk_out_25mhz_shift180;
    wire pll_locked;
 
 //   wire pll_locked_resetn;
@@ -34,6 +34,7 @@ localparam AVALON_DATA_WIDTH = 16;
       .c0          (pll_clk_out_25mhz),
       .c1          (pll_clk_out_75mhz),
       .c2          (pll_clk_out_25mhz_shift180),
+      .c3          (pll_clk_out_75mhz_shift),
       .locked      (pll_locked)
       );
 

@@ -1,6 +1,8 @@
 add wave -position end  result:/top_tb/clk
 add wave -position end  result:/top_tb/resetn
 add wave -position end  result:/top_tb/u_top/u_c7b/u_core/u_exu/clk
+add wave -position end  result:/top_tb/u_top/pll_clk_out_75mhz
+add wave -position end  result:/top_tb/u_top/pll_clk_out_75mhz_shift
 
 add wave -divider
 add wave -position end  result:/top_tb/u_top/u_c7b/u_core/u_exu/exu_ifu_stall

@@ -30,8 +30,9 @@ module soc2_top(
 localparam AVALON_ADDR_WIDTH = 24;
 localparam AVALON_DATA_WIDTH = 16;
 
-   wire pll_clk_out_25mhz;
    wire pll_clk_out_75mhz;
+   wire pll_clk_out_75mhz_shift;
+   wire pll_clk_out_25mhz;
    wire pll_clk_out_25mhz_shift180;
    wire pll_locked;
 
@@ -44,6 +45,7 @@ localparam AVALON_DATA_WIDTH = 16;
       .c0          (pll_clk_out_25mhz),
       .c1          (pll_clk_out_75mhz),
       .c2          (pll_clk_out_25mhz_shift180),
+      .c3          (pll_clk_out_75mhz_shift),
       .locked      (pll_locked)
       );
 
@@ -61,7 +63,6 @@ localparam AVALON_DATA_WIDTH = 16;
    assign sd_clk = pll_clk_out_25mhz;
    assign sd_clk_shift180 = pll_clk_out_25mhz_shift180;
 
-   assign sdram_clk = sys_clk;
 
 //   assign pll_locked_resetn = pll_locked & resetn;
    
@@ -1158,9 +1159,28 @@ localparam AVALON_DATA_WIDTH = 16;
       .sd_clk_dev                      (sd_clk_dev)
       );
 
+
+//   assign sdram_clk = sys_clk;
+   assign sdram_clk = pll_clk_out_75mhz_shift;
+
+//   ALTDDIO_OUT #(
+//       .EXTEND_OE_DISABLE("OFF"),
+//       .INTENDED_DEVICE_FAMILY("Cyclone IV E"),
+//       .WIDTH(1)
+//   ) u_sdram_clk (
+//       .datain_h(1'b0),
+//       .datain_l(1'b1),
+//       .outclock(pll_clk_out_75mhz_shift),  // 使用相移时钟
+//       //.outclock(pll_clk_out_75mhz),  // 使用相移时钟
+//       .outclocken(1'b1),
+//       .dataout(sdram_clk),
+//       .oe(1'b1),
+//       .aclr(~reset_n)
+//   );
       
    sdram_controller u_sdram_ctrl (
-      .clk            (sys_clk),
+      //.clk            (sys_clk),
+      .clk            (pll_clk_out_75mhz),
       .reset_n        (resetn),
 
       .az_addr        (av_address[23:0]),     // Address from bridge
