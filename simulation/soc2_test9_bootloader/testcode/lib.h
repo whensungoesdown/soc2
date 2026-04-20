@@ -12,6 +12,7 @@ int u_strlen (const char *str);
 
 void scroll_screen_buffer(void);
 void update_screen (void);
+void screen_clear(void);
 void screen_puts(char* s);
 void screen_print_hex(int val);
 void putchar(char c); 

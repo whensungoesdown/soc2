@@ -16,6 +16,7 @@ CFLAGS := -nostdlib -nostartfiles -fno-builtin -D__loongarch32
 CFLAGS += -fno-zero-initialized-in-bss
 CFLAGS += -g -c
 CFLAGS += -mabi=ilp32s -march=loongarch32r
+CFLAGS += -Wno-multichar
 
 LDFLAGS := -T bin.lds
 

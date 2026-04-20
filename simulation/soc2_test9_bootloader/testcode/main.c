@@ -108,12 +108,46 @@ void print_info(DirInfo* info)
     u_printf("\n");
 }
 
+#define EI_NIDENT 16
+
+typedef struct {
+    unsigned char e_ident[EI_NIDENT]; // 16 B
+    unsigned short e_type;            // 2 B
+    unsigned short e_machine;         // 2 B
+    unsigned int e_version;           // 4 B
+    unsigned int e_entry;             // 4 B (32位系统通常4字节)
+    unsigned int e_phoff;             // 4 B
+    unsigned int e_shoff;             // 4 B
+    unsigned int e_flags;             // 4 B
+    unsigned short e_ehsize;          // 2 B
+    unsigned short e_phentsize;       // 2 B
+    unsigned short e_phnum;           // 2 B
+    unsigned short e_shentsize;       // 2 B
+    unsigned short e_shnum;           // 2 B
+    unsigned short e_shstrndx;        // 2 B
+} Elf32_Ehdr;
+
+
+void jump_to_kernel(unsigned kernel_entry)
+{
+    void (*entry)(void) = (void (*)(void))kernel_entry;
+    entry();
+}
+
 void load_kernel (void)
 {
     int err, cnt;
     File file;
     Dir dir;
     DirInfo info;
+    char* pbuf = NULL;
+    int i = 0;
+    int buf_size;
+    int total_read;
+    unsigned int dest_addr;
+
+    Elf32_Ehdr* pelfhdr = NULL;
+    unsigned int kernel_entry = 0;
 
     if (NULL == g_buf)
     {
@@ -125,8 +159,8 @@ void load_kernel (void)
 
     u_printf("FAT: Allocated 512 bytes of heap for g_buf at 0x%x\n\n", g_buf);
     if (NULL == g_buf)
-    {
-	    u_printf("HeapMgr_malloc fail!\n");
+    {	
+        u_printf("HeapMgr_malloc fail!\n");
         return;
     }
 
@@ -179,6 +213,120 @@ void load_kernel (void)
         } 
     }
 
+
+    //
+    // Read /SD/vmlinux
+    //
+    u_printf("\nLoading kernel vmlinux\n");
+
+    err = fat_file_open(&file, "/SD/vmlinux", FAT_READ);
+    if (FAT_ERR_NONE != err)
+    {
+        u_printf("fat_file_open err : 0x%x\n", err);
+        u_printf("vmlinux not found\n");
+        return;
+    }
+
+    // Allocate a temporary buffer (e.g., 1024 bytes)
+    buf_size = 40960;
+    pbuf = HeapMgr_malloc(buf_size);
+    if (NULL == pbuf) 
+    {
+        u_printf("HeapMgr_malloc fail!\n");
+        fat_file_close(&file);  // Avoid resource leak
+        return;
+    }
+
+    dest_addr = 0x2000000;
+    total_read = 0;
+
+    // u@unamed:~/prjs/la32r-linux$ loongarch32r-linux-gnusf-readelf -l la_build/vmlinux
+    // 
+    // Elf file type is EXEC (Executable file)
+    // Entry point 0x24f19c0
+    // There are 2 program headers, starting at offset 52
+    // 
+    // Program Headers:
+    //   Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+    //   LOAD           0x001000 0x02000000 0x02000000 0x7273f8 0x7a6754 RWE 0x1000
+    //   NOTE           0x000000 0x00000000 0x00000000 0x00000 0x00000 R   0x4
+    // 
+    //  Section to Segment mapping:
+    //   Segment Sections...
+    //    00     .text __ex_table .rodata __param __modver .notes .data .init.text .init.data .exit.text .rela.dyn .bss 
+    //    01    
+
+    // hard coded segment 00 file offset
+    file.offset = 0x1000;
+
+    // Loop until the entire file is read
+    while (1) 
+    {
+        u_printf(".");
+        //u_printf("File size: %d File offset: %d\n", file.size, file.offset);
+
+        cnt = 0;
+        err = fat_file_read(&file, pbuf, buf_size, &cnt);
+
+        if (FAT_ERR_NONE != err) {
+            u_printf("fat_file_read err : 0x%x\n", err);
+            goto exit_load_kernel;
+        }
+
+        if (cnt == 0) {
+            // End of file reached
+            break;
+        }
+
+        // Copy to destination address
+        u_memcpy((void*)dest_addr + total_read, pbuf, cnt);
+        total_read += cnt;
+
+
+        // If read less than requested, end of file has been reached
+        if (cnt < buf_size) {
+            break;
+        }
+    }
+
+    u_printf("\n\n");
+    u_printf("File size: %d, total read: %d\n", file.size, total_read);
+    u_printf("Copied to SDRAM starting at 0x2000000\n");
+
+    err = fat_file_close(&file);
+    if (FAT_ERR_NONE != err) 
+    {
+        u_printf("fat_file_close err : 0x%x\n", err);
+    }
+
+    //print_buffer((char*)0x2000000, cnt);
+    //u_printf("\n");
+    //u_printf("%s\n", (char*)0x2000000);
+
+    pelfhdr = (Elf32_Ehdr*)0x2000000;
+
+    kernel_entry = pelfhdr->e_entry;
+
+    u_printf("Kernel vmlinux entry at 0x%x\n\n", kernel_entry);
+    print_buffer((char*)0x24f19c0, 16);
+    u_printf("\nJump to kernel entry\n\n");
+
+    delay();
+    delay();
+    delay();
+
+    screen_clear();
+
+    jump_to_kernel(kernel_entry);
+
+exit_load_kernel:
+
+    if (pbuf) 
+    {
+        HeapMgr_free(pbuf);  // Free the allocated buffer
+    }
+
+    return;
 }
 
 void main_sdram_stack (void)

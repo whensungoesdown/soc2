@@ -89,6 +89,15 @@ void update_screen (void)
     u_memcpy((void*)TEXT_VIDEO_RAM_START, g_screen, TEXT_COLUMN_MAX * TEXT_ROW_MAX);
 }
 
+void screen_clear(void)
+{
+    g_screen_curr_row = 0;
+    g_screen_curr_col = 0;
+
+    u_memset((char*)g_screen, 0, sizeof(g_screen));
+    update_screen();
+}
+
 void screen_puts(char* s)
 {
     int i = 0;
