@@ -128,7 +128,7 @@ typedef struct {
 } Elf32_Ehdr;
 
 
-void jump_to_kernel(unsigned kernel_entry)
+void jump_to_kernel(unsigned int kernel_entry)
 {
     void (*entry)(void) = (void (*)(void))kernel_entry;
     entry();
@@ -145,6 +145,7 @@ void load_kernel (void)
     int buf_size;
     int total_read;
     unsigned int dest_addr;
+    unsigned long sp;
 
     Elf32_Ehdr* pelfhdr = NULL;
     unsigned int kernel_entry = 0;
@@ -256,14 +257,12 @@ void load_kernel (void)
     //    00     .text __ex_table .rodata __param __modver .notes .data .init.text .init.data .exit.text .rela.dyn .bss 
     //    01    
 
-    // hard coded segment 00 file offset
+  
     file.offset = 0x1000;
 
     // Loop until the entire file is read
     while (1) 
     {
-        u_printf(".");
-        //u_printf("File size: %d File offset: %d\n", file.size, file.offset);
 
         cnt = 0;
         err = fat_file_read(&file, pbuf, buf_size, &cnt);
@@ -282,6 +281,8 @@ void load_kernel (void)
         u_memcpy((void*)dest_addr + total_read, pbuf, cnt);
         total_read += cnt;
 
+        u_printf(".");
+        //u_printf("File size: %d File offset: %d\n", file.size, file.offset);
 
         // If read less than requested, end of file has been reached
         if (cnt < buf_size) {
@@ -308,16 +309,61 @@ void load_kernel (void)
     kernel_entry = pelfhdr->e_entry;
 
     u_printf("Kernel vmlinux entry at 0x%x\n\n", kernel_entry);
-    print_buffer((char*)0x24f19c0, 16);
+    print_buffer((char*)kernel_entry, 16);
+
+    u_printf("0x231c77c\n");
+    print_buffer((char*)0x231c77c, 128);
+
+    u_printf("0x231c77c\n");
+    print_buffer_dword((int*)0x231c77c, 16);
+
+    //u_printf("\n");
+    //u_printf("0x231c77c\n");
+    //print_buffer_dword((int*)0x231c77c, 16);
+
+
+    __asm__ volatile (
+        "move %0, $sp\n\t"
+        : "=r"(sp)
+        :
+        :
+    );
+
+    u_printf("\n\ncurrent sp = 0x%x\n", sp);
+
+    *(int*)0x231c77c = 0x03400000;
+    *(int*)0x231c780 = 0x03400000;
+
+//    *(int*)0x231c78c = 0x03400000;
+//    *(int*)0x231c790 = 0x03400000;
+//    *(int*)0x231c794 = 0x03400000;
+//    *(int*)0x231c798 = 0x03400000;
+//    *(int*)0x231c79c = 0x03400000;
+//    *(int*)0x231c7a0 = 0x03400000;
+//    *(int*)0x231c7a4 = 0x03400000;
+//    *(int*)0x231c7a8 = 0x03400000;
+//    *(int*)0x231c7ac = 0x03400000;
+
     u_printf("\nJump to kernel entry\n\n");
 
     delay();
     delay();
     delay();
 
+    //while(1){}
+
     screen_clear();
 
     jump_to_kernel(kernel_entry);
+
+    //__asm__ volatile (
+    //    "move $sp, %0\n\t"
+    //    "ld.w $t0, %1\n\t"      // 从 kernel_entry 变量加载地址到 $t0
+    //    "jirl $zero, $t0, 0\n\t"
+    //    :
+    //    : "r"(0x1c007ff0), "m"(kernel_entry)
+    //    : "sp", "$t0", "memory"
+    //);
 
 exit_load_kernel:
 
@@ -366,11 +412,58 @@ exit_main_sdram_stack:
     }
 }
 
+void test_case_0 (void)
+{
+    *(int*)0x10014 = 'abcd';
+
+//    *(int*)0x2500000 = 0xAAAABBBB;
+//    while(1) {}
+
+// /home/u/prjs/soc2/simulation/soc2_test9_bootloader/testcode/main.c:417
+// 1c000980:       1404a00c        lu12i.w $r12,9472(0x2500)
+// 1c000984:       1555556d        lu12i.w $r13,-349525(0xaaaab)
+// 1c000988:       03aeedad        ori     $r13,$r13,0xbbb
+// 1c00098c:       2980018d        st.w    $r13,$r12,0
+
+// 21dd880:       1482828c        lu12i.w $r12,267284(0x41414)
+// 21dd884:       0385058c        ori     $r12,$r12,0x141
+// 21dd888:       1400020d        lu12i.w $r13,16(0x10)
+// 21dd88c:       038061ad        ori     $r13,$r13,0x18
+// 21dd890:       298001ac        st.w    $r12,$r13,0         
+
+// /home/u/prjs/soc2/simulation/soc2_test9_bootloader/testcode/main.c:418 (discriminator 1)
+// 1c000990:       50000000        b       0 # 1c000990 <test_case_0+0x1c>
+
+    // *(int*)0x2500000 = 0xAAAABBBB
+    *(int*)0x2000000 = 0x1404a00c; // lu12i.w $r12,9472(0x2500)
+    *(int*)0x2000004 = 0x1555556d; // lu12i.w $r13,-349525(0xaaaab)
+    *(int*)0x2000008 = 0x03aeedad; // ori     $r13,$r13,0xbbb
+    *(int*)0x200000c = 0x2980018d; // st.w    $r13,$r12,0
+
+    // *(int*)0x10018 = 'AAAA';
+    *(int*)0x2000010 = 0x1482828c; // lu12i.w $r12,267284(0x41414)
+    *(int*)0x2000014 = 0x0385058c; // ori     $r12,$r12,0x141
+    *(int*)0x2000018 = 0x1400020d; // lu12i.w $r13,16(0x10)
+    *(int*)0x200001c = 0x038061ad; // ori     $r13,$r13,0x18
+    *(int*)0x2000020 = 0x298001ac; // st.w    $r12,$r13,0         
+
+    // while(1) {}
+    *(int*)0x2000024 = 0x298001ac; // b       0 # 1c000990 <test_case_0+0x1c>
+
+    __asm__ volatile (
+        "li.w   $t0, %0\n"
+        "jirl   $zero, $t0, 0\n"
+        :
+        : "i"(0x2000000)
+        : "$t0"
+    );
+}
+
 void main (void)
 {
     int ret = -1;
     int sdstatus = 0;
-    int i = 0;
+    unsigned int i = 0;
     int val = 0;
 
 //    ret = sd_read_sector(0x2000, g_testbuffer);
@@ -400,6 +493,8 @@ void main (void)
 
     //
 
+    //test_case_0();
+
     banner();
 
     delay();
@@ -409,24 +504,54 @@ void main (void)
     delay();
 
     u_printf("SDRAM: 0x2000000 - 0x3fffffff\n");
-    u_printf("SDRAM: Read dword at address 0x2000030: 0x%x\n", *(int*)0x2000030);
 
-    u_printf("SDRAM: Write 0xAABBCCDD at address 0x2000030\n");
-    *(int*)0x2000030 = 0xAABBCCDD;
+    u_printf("SDRAM: memory test read/write at ");
 
-    val = *(int*)0x2000030;
-    u_printf("SDRAM: Read dword at address 0x2000030: 0x%x         ", val);
-
-    if (0xAABBCCDD == val)
+    for (i = 0x2000000; i < 0x4000000; i += 4)
     {
-        u_printf("[OK]\n\n");
-    }
-    else
-    {
-        u_printf( "FAIL!\n\n");                
-        goto exit_main;
+        if (0 == i % 0x100000)
+        {
+            u_printf("0x%x ", i);
+        }
 
+        *(int*)i = i;
+        val = *(int*)i;
+        if (i == val)
+        {
+            if (0 == i % 0x100000)
+            {
+                screen_col_move(-10);
+            }
+        }
+        else
+        {
+            u_printf("FAIL, addr 0x%x, read 0x%x\n\n", i, val);
+            goto exit_main;
+        }
     }
+
+    screen_col_move(-3);
+
+    u_printf("                             [OK]\n\n");
+
+    //u_printf("SDRAM: Read dword at address 0x2000030: 0x%x\n", *(int*)0x2000030);
+
+    //u_printf("SDRAM: Write 0xAABBCCDD at address 0x2000030\n");
+    //*(int*)0x2000030 = 0xAABBCCDD;
+
+    //val = *(int*)0x2000030;
+    //u_printf("SDRAM: Read dword at address 0x2000030: 0x%x         ", val);
+
+    //if (0xAABBCCDD == val)
+    //{
+    //    u_printf("[OK]\n\n");
+    //}
+    //else
+    //{
+    //    u_printf( "FAIL!\n\n");                
+    //    goto exit_main;
+
+    //}
 
 
     //u_printf("System check PASS.\n\n");

@@ -59,6 +59,20 @@ int u_strlen (const char *str)
     return s - str;
 }
 
+void screen_col_move (int n)
+{
+    g_screen_curr_col += n;
+
+    if (g_screen_curr_col < 0)
+    {
+        g_screen_curr_col = 0;
+    }
+    else if (g_screen_curr_col > TEXT_COLUMN_MAX)
+    {
+        g_screen_curr_col = TEXT_COLUMN_MAX;
+    }
+}
+
 void scroll_screen_buffer(void)
 {
     // 将第1行到倒数第1行向上移动一行

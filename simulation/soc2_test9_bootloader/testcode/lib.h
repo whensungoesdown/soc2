@@ -10,6 +10,7 @@ void u_memset(char* dest, char ch, int count);
 int u_memcmp(const void *s1, const void *s2, int n); 
 int u_strlen (const char *str);
 
+void screen_col_move (int n);
 void scroll_screen_buffer(void);
 void update_screen (void);
 void screen_clear(void);
