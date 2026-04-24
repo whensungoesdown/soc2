@@ -11,7 +11,7 @@ void banner (void)
     u_printf("          _|  _|    _|  _|          _|    \n");  
     u_printf("    _|_|_|      _|_|      _|_|_|  _|_|_|_|\n"); 
     u_printf("    \n");
-    u_printf("                        Bootloader Ver 0.1\n");
+    u_printf("                        Bootloader Ver 0.2\n");
     u_printf("    \n");
     u_printf("    \n");
 }
@@ -71,12 +71,6 @@ static bool disk_read(uint8_t* buf, uint32_t sect)
 {
     int ret = 0;
     
-//    delay();
-//    delay();
-//    delay();
-
-//    u_printf("disk_read(): sect 0x%x\n", sect);
-
     ret = sd_read_sector(sect, buf);
     if (0 == ret)
     {
@@ -196,7 +190,6 @@ void load_kernel (void)
         err = fat_dir_read(&dir, &info);
         if (err == FAT_ERR_EOF)
             break;
-        //CHECK_ERROR(err);
         if (0 != err)
         {
             u_printf("fat_dir read err: 0x%x\n", err);
@@ -206,7 +199,6 @@ void load_kernel (void)
         print_info(&info);
 
         err = fat_dir_next(&dir);
-        //CHECK_ERROR(err);
         if (0 != err)
         {
             u_printf("fat_dir_next read err: 0x%x\n", err);
@@ -300,26 +292,12 @@ void load_kernel (void)
         u_printf("fat_file_close err : 0x%x\n", err);
     }
 
-    //print_buffer((char*)0x2000000, cnt);
-    //u_printf("\n");
-    //u_printf("%s\n", (char*)0x2000000);
 
     pelfhdr = (Elf32_Ehdr*)0x2000000;
 
     kernel_entry = pelfhdr->e_entry;
 
     u_printf("Kernel vmlinux entry at 0x%x\n\n", kernel_entry);
-    print_buffer((char*)kernel_entry, 16);
-
-    u_printf("0x231c77c\n");
-    print_buffer((char*)0x231c77c, 128);
-
-    u_printf("0x231c77c\n");
-    print_buffer_dword((int*)0x231c77c, 16);
-
-    //u_printf("\n");
-    //u_printf("0x231c77c\n");
-    //print_buffer_dword((int*)0x231c77c, 16);
 
 
     __asm__ volatile (
@@ -329,28 +307,12 @@ void load_kernel (void)
         :
     );
 
-    u_printf("\n\ncurrent sp = 0x%x\n", sp);
-
-    *(int*)0x231c77c = 0x03400000;
-    *(int*)0x231c780 = 0x03400000;
-
-//    *(int*)0x231c78c = 0x03400000;
-//    *(int*)0x231c790 = 0x03400000;
-//    *(int*)0x231c794 = 0x03400000;
-//    *(int*)0x231c798 = 0x03400000;
-//    *(int*)0x231c79c = 0x03400000;
-//    *(int*)0x231c7a0 = 0x03400000;
-//    *(int*)0x231c7a4 = 0x03400000;
-//    *(int*)0x231c7a8 = 0x03400000;
-//    *(int*)0x231c7ac = 0x03400000;
+    u_printf("\n\nCurrent sp = 0x%x\n", sp);
 
     u_printf("\nJump to kernel entry\n\n");
 
     delay();
     delay();
-    delay();
-
-    //while(1){}
 
     screen_clear();
 
@@ -401,11 +363,6 @@ void main_sdram_stack (void)
 
 
 exit_main_sdram_stack:
-
-    //if (NULL != pbuff)
-    //{
-    //	HeapMgr_free(pbuff);
-    //}
 
     while(1) 
     {
@@ -466,33 +423,6 @@ void main (void)
     unsigned int i = 0;
     int val = 0;
 
-//    ret = sd_read_sector(0x2000, g_testbuffer);
-//
-//    // uty: test
-//    val = 0xffffaabb;
-//    *(short*)(g_testbuffer + 0) = (short)val;
-//
-//    val = 0xffffccdd;
-//    *(short*)(g_testbuffer + 2) = (short)val;
-//
-//    val = 0xffffeeff;
-//    *(short*)(g_testbuffer + 4) = (short)val;
-//
-//    val = 0xffff1122;
-//    *(short*)(g_testbuffer + 6) = (short)val;
-//
-//    val = 0xffff3344;
-//    *(short*)(g_testbuffer + 8) = (short)val;
-//
-//    val = 0xffff5566;
-//    *(short*)(g_testbuffer + 8) = (short)val;
-//
-//    print_buffer_dword(g_testbuffer, 3);
-//
-//    //while(1){}
-
-    //
-
     //test_case_0();
 
     banner();
@@ -534,28 +464,6 @@ void main (void)
 
     u_printf("                             [OK]\n\n");
 
-    //u_printf("SDRAM: Read dword at address 0x2000030: 0x%x\n", *(int*)0x2000030);
-
-    //u_printf("SDRAM: Write 0xAABBCCDD at address 0x2000030\n");
-    //*(int*)0x2000030 = 0xAABBCCDD;
-
-    //val = *(int*)0x2000030;
-    //u_printf("SDRAM: Read dword at address 0x2000030: 0x%x         ", val);
-
-    //if (0xAABBCCDD == val)
-    //{
-    //    u_printf("[OK]\n\n");
-    //}
-    //else
-    //{
-    //    u_printf( "FAIL!\n\n");                
-    //    goto exit_main;
-
-    //}
-
-
-    //u_printf("System check PASS.\n\n");
-
     u_printf("Set new stack top SDRAM 0x3fffff0\n\n");
     u_printf("Jump to main_sdram_stack()\n\n");
 
@@ -567,49 +475,6 @@ void main (void)
         : "r"(0x3fffff0)  
         : "sp", "$t0"
     );
-
-
-
-
-//    val = sd_read(0x1fe);
-//    u_printf("SD: Read word at offset 0x1fe: 0x%x                      ", val);
-//
-//    if (0x000055aa == val)
-//    {
-//        u_printf("[OK]\n\n");
-//    }
-//    else
-//    {
-//        u_printf( "FAIL!\n\n");                
-//        goto exit;
-//
-//    }
-
-//    // uty: test
-//    val = sd_read(0x1c4);
-//    u_printf("SD: Read word at offset 0x1c4: 0x%x\n", val);
-//    val = sd_read(0x1c6);
-//    u_printf("SD: Read word at offset 0x1c6: 0x%x\n", val);
-//    val = sd_read(0x1c8);
-//    u_printf("SD: Read word at offset 0x1c8: 0x%x\n", val);
-
-
-
-
-
-//    ret = sd_read_sector(0x2000, pbuff);
-//    //ret = sd_read_sector(0x2000, g_testbuffer);
-//    if (0 != ret)
-//    {
-//	    u_printf("sd_read_sector error!\n");
-//	    goto exit;
-//    }
-//
-//    u_printf("Read SD sector 0x2000:\n");
-    //print_buffer(pbuff, 16);
-    //print_buffer_dword((int*)pbuff, 4);
-    //print_buffer(g_testbuffer, 16);
-
 
 
 exit_main:

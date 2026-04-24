@@ -139,23 +139,23 @@ void screen_puts(char* s)
     //delay();
 }
 
-void screen_print_hex(int val)
-{
-    int i;
-    int started = 0;
-    char buffer[9] = {0}; // 32位最大8个hex字符, 0 ending
-    const char *hex_digits = "0123456789abcdef";
-
-    //return;
-
-    /* 转换为字符 buffer */
-    for (i = 0; i < 8; i++) {
-        buffer[7-i] = hex_digits[val & 0xF];
-        val >>= 4;
-    }
-
-    screen_puts(buffer);
-}
+//void screen_print_hex(int val)
+//{
+//    int i;
+//    int started = 0;
+//    char buffer[9] = {0}; // 32位最大8个hex字符, 0 ending
+//    const char *hex_digits = "0123456789abcdef";
+//
+//    //return;
+//
+//    /* 转换为字符 buffer */
+//    for (i = 0; i < 8; i++) {
+//        buffer[7-i] = hex_digits[val & 0xF];
+//        val >>= 4;
+//    }
+//
+//    screen_puts(buffer);
+//}
 
 void putchar(char c) 
 {
