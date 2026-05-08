@@ -104,6 +104,7 @@ module peripherals (
 
    wire sd_status_ren;
    wire sd_rd_sec_idx_wen;
+   wire sd_rd_sec_idx_wen_q;
    wire sd_rd_sec_ofs_wen;
    wire sd_rd_data_ren;
    wire sd_wraddr_wen;
