@@ -11,7 +11,7 @@ void banner (void)
     u_printf("          _|  _|    _|  _|          _|    \n");  
     u_printf("    _|_|_|      _|_|      _|_|_|  _|_|_|_|\n"); 
     u_printf("    \n");
-    u_printf("                           SOC2 05-08-2026\n");
+    u_printf("                           SOC2 05-17-2026\n");
     u_printf("    \n");
     u_printf("                        Bootloader Ver 0.2\n");
     u_printf("    \n");
@@ -358,7 +358,7 @@ void main_sdram_stack (void)
         goto exit_main_sdram_stack;
     }
 
-    u_printf("Heap located at 0x0x3C00000, size 0x200000 (2MB)\n\n");
+    u_printf("Heap located at 0x3C00000, size 0x200000 (2MB)\n\n");
 
 
     load_kernel();
