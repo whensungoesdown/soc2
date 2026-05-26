@@ -13,7 +13,7 @@ void banner (void)
     u_printf("    \n");
     u_printf("                           SOC2 05-19-2026\n");
     u_printf("    \n");
-    u_printf("                        Bootloader Ver 0.2\n");
+    u_printf("                       Bootloader Ver 0.21\n");
     u_printf("    \n");
     u_printf("    \n");
 }
@@ -143,14 +143,9 @@ void load_kernel (void)
     unsigned int dest_addr;
     unsigned long sp;
 
-    Elf32_Ehdr* pelfhdr = NULL;
+    Elf32_Ehdr pelfhdr = {0};
     unsigned int kernel_entry = 0;
 
-    if (NULL == g_buf)
-    {
-        u_printf("fat: g_buf is NULL\n");
-        return;
-    }
 
     g_buf = HeapMgr_malloc(512);
 
@@ -252,7 +247,7 @@ void load_kernel (void)
     //    01    
 
   
-    file.offset = 0x1000;
+    fat_file_seek(&file, 0x1000, FAT_SEEK_START);
 
     // Loop until the entire file is read
     while (1) 
@@ -288,16 +283,21 @@ void load_kernel (void)
     u_printf("File size: %d, total read: %d\n", file.size, total_read);
     u_printf("Copied to SDRAM starting at 0x2000000\n");
 
+    // read elf header 
+    fat_file_seek(&file, 0x0, FAT_SEEK_START);
+    err = fat_file_read(&file, (void*)&pelfhdr, sizeof(Elf32_Ehdr), &cnt);
+    if (FAT_ERR_NONE != err) {
+	    u_printf("fat_file_read err : 0x%x\n", err);
+	    goto exit_load_kernel;
+    }
+
     err = fat_file_close(&file);
     if (FAT_ERR_NONE != err) 
     {
         u_printf("fat_file_close err : 0x%x\n", err);
     }
 
-
-    pelfhdr = (Elf32_Ehdr*)0x2000000;
-
-    kernel_entry = pelfhdr->e_entry;
+    kernel_entry = pelfhdr.e_entry;
 
     u_printf("Kernel vmlinux entry at 0x%x\n\n", kernel_entry);
 
@@ -371,52 +371,52 @@ exit_main_sdram_stack:
     }
 }
 
-void test_case_0 (void)
-{
-    *(int*)0x10014 = 'abcd';
-
-//    *(int*)0x2500000 = 0xAAAABBBB;
-//    while(1) {}
-
-// /home/u/prjs/soc2/simulation/soc2_test9_bootloader/testcode/main.c:417
-// 1c000980:       1404a00c        lu12i.w $r12,9472(0x2500)
-// 1c000984:       1555556d        lu12i.w $r13,-349525(0xaaaab)
-// 1c000988:       03aeedad        ori     $r13,$r13,0xbbb
-// 1c00098c:       2980018d        st.w    $r13,$r12,0
-
-// 21dd880:       1482828c        lu12i.w $r12,267284(0x41414)
-// 21dd884:       0385058c        ori     $r12,$r12,0x141
-// 21dd888:       1400020d        lu12i.w $r13,16(0x10)
-// 21dd88c:       038061ad        ori     $r13,$r13,0x18
-// 21dd890:       298001ac        st.w    $r12,$r13,0         
-
-// /home/u/prjs/soc2/simulation/soc2_test9_bootloader/testcode/main.c:418 (discriminator 1)
-// 1c000990:       50000000        b       0 # 1c000990 <test_case_0+0x1c>
-
-    // *(int*)0x2500000 = 0xAAAABBBB
-    *(int*)0x2000000 = 0x1404a00c; // lu12i.w $r12,9472(0x2500)
-    *(int*)0x2000004 = 0x1555556d; // lu12i.w $r13,-349525(0xaaaab)
-    *(int*)0x2000008 = 0x03aeedad; // ori     $r13,$r13,0xbbb
-    *(int*)0x200000c = 0x2980018d; // st.w    $r13,$r12,0
-
-    // *(int*)0x10018 = 'AAAA';
-    *(int*)0x2000010 = 0x1482828c; // lu12i.w $r12,267284(0x41414)
-    *(int*)0x2000014 = 0x0385058c; // ori     $r12,$r12,0x141
-    *(int*)0x2000018 = 0x1400020d; // lu12i.w $r13,16(0x10)
-    *(int*)0x200001c = 0x038061ad; // ori     $r13,$r13,0x18
-    *(int*)0x2000020 = 0x298001ac; // st.w    $r12,$r13,0         
-
-    // while(1) {}
-    *(int*)0x2000024 = 0x298001ac; // b       0 # 1c000990 <test_case_0+0x1c>
-
-    __asm__ volatile (
-        "li.w   $t0, %0\n"
-        "jirl   $zero, $t0, 0\n"
-        :
-        : "i"(0x2000000)
-        : "$t0"
-    );
-}
+//void test_case_0 (void)
+//{
+//    *(int*)0x10014 = 'abcd';
+//
+////    *(int*)0x2500000 = 0xAAAABBBB;
+////    while(1) {}
+//
+//// /home/u/prjs/soc2/simulation/soc2_test9_bootloader/testcode/main.c:417
+//// 1c000980:       1404a00c        lu12i.w $r12,9472(0x2500)
+//// 1c000984:       1555556d        lu12i.w $r13,-349525(0xaaaab)
+//// 1c000988:       03aeedad        ori     $r13,$r13,0xbbb
+//// 1c00098c:       2980018d        st.w    $r13,$r12,0
+//
+//// 21dd880:       1482828c        lu12i.w $r12,267284(0x41414)
+//// 21dd884:       0385058c        ori     $r12,$r12,0x141
+//// 21dd888:       1400020d        lu12i.w $r13,16(0x10)
+//// 21dd88c:       038061ad        ori     $r13,$r13,0x18
+//// 21dd890:       298001ac        st.w    $r12,$r13,0         
+//
+//// /home/u/prjs/soc2/simulation/soc2_test9_bootloader/testcode/main.c:418 (discriminator 1)
+//// 1c000990:       50000000        b       0 # 1c000990 <test_case_0+0x1c>
+//
+//    // *(int*)0x2500000 = 0xAAAABBBB
+//    *(int*)0x2000000 = 0x1404a00c; // lu12i.w $r12,9472(0x2500)
+//    *(int*)0x2000004 = 0x1555556d; // lu12i.w $r13,-349525(0xaaaab)
+//    *(int*)0x2000008 = 0x03aeedad; // ori     $r13,$r13,0xbbb
+//    *(int*)0x200000c = 0x2980018d; // st.w    $r13,$r12,0
+//
+//    // *(int*)0x10018 = 'AAAA';
+//    *(int*)0x2000010 = 0x1482828c; // lu12i.w $r12,267284(0x41414)
+//    *(int*)0x2000014 = 0x0385058c; // ori     $r12,$r12,0x141
+//    *(int*)0x2000018 = 0x1400020d; // lu12i.w $r13,16(0x10)
+//    *(int*)0x200001c = 0x038061ad; // ori     $r13,$r13,0x18
+//    *(int*)0x2000020 = 0x298001ac; // st.w    $r12,$r13,0         
+//
+//    // while(1) {}
+//    *(int*)0x2000024 = 0x298001ac; // b       0 # 1c000990 <test_case_0+0x1c>
+//
+//    __asm__ volatile (
+//        "li.w   $t0, %0\n"
+//        "jirl   $zero, $t0, 0\n"
+//        :
+//        : "i"(0x2000000)
+//        : "$t0"
+//    );
+//}
 
 void main (void)
 {
