@@ -146,21 +146,26 @@
   CSRRD CSRWR CSRXCHG
 `````
 
+### Barrier
+
+`````assembly
+  DBAR IBAR
+`````
+
 ### Miscellaneous
 
 
 `````assembly
-  ERTN
+  ERTN SYSCALL BREAK RDCNTV{L/H}.W
 `````
 
 ## To Do
 
 - [ ] Memory access: `PRELD`
 - [ ] Atomic memory access: `LL.W`, `SC.W`
-- [ ] Barrier instructions: `DBAR`, `IBAR`
 - [ ] Floating-point instructions
 - [ ] Cache and TLB instructions
-- [ ] Miscellaneous: `SYSCALL`, `BREAK`, `RDCNTV{L/H}.W`, `RDCNTID`, `IDLE`
+- [ ] Miscellaneous: `RDCNTID`, `IDLE`
 
 ---
 
@@ -174,6 +179,7 @@
 | 0x6     | ERA      | exception return address |
 | 0x7     | BADV     | bad address          |
 | 0xc     | EENTRY   | exception entry      |
+| 0x30~0x33| SAVE0~SAVE3 | Data Save Register |
 | 0x41    | TCFG     | timer configuration  |
 | 0x42    | TVAL     | timer value          |
 | 0x43    | TICLR    | timer clear          |
@@ -182,8 +188,10 @@
 
 ## Exceptions
 
-- Load/Store Address Misaligned
-- Illegal Instruction
+- ADdress error Exception for Fetching instructions (ADEF)
+- ADdress error Exception for Memory access instructions (ADEM)
+- Address aLignment fault Exception (ALE)
+- Instruction Non-defined Exception (INE)
 - Timer Interrupt
 - Ext Interrupt
 ---
@@ -369,3 +377,7 @@ $ sudo screen /dev/ttyUSB0 115200
 
 ### soc2_test9_bootloader
 ![screenshot2](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/bootloader_ver0_1.jpg)
+
+### Run Linux 5.14
+
+https://www.bilibili.com/video/BV1N2E766EPf/
