@@ -459,10 +459,23 @@ void vTask2(void *pvParameters) {
 
 }
 
+static inline void enable_icache(void)
+{
+    unsigned long tmp = 1;
+
+    __asm__ volatile (
+        "csrwr %0, 0x101"
+        :
+        : "r"(tmp)
+        : "memory"
+    );
+}
 
 int main(void) {
 
     screen_puts("\r\n=== LoongArch64 FreeRTOS Demo ===\r\n");
+
+    enable_icache();
 
     // test
     //
