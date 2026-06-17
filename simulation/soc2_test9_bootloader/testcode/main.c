@@ -11,9 +11,9 @@ void banner (void)
     u_printf("          _|  _|    _|  _|          _|    \n");  
     u_printf("    _|_|_|      _|_|      _|_|_|  _|_|_|_|\n"); 
     u_printf("    \n");
-    u_printf("                           SOC2 05-19-2026\n");
+    u_printf("                           SOC2 06-17-2026\n");
     u_printf("    \n");
-    u_printf("                        Bootloader Ver 0.3\n");
+    u_printf("                        Bootloader Ver 0.4\n");
     u_printf("    \n");
     u_printf("    \n");
 }
@@ -128,6 +128,18 @@ void jump_to_kernel(unsigned int kernel_entry)
 {
     void (*entry)(void) = (void (*)(void))kernel_entry;
     entry();
+}
+
+static inline void enable_icache(void)
+{
+    unsigned long tmp = 1;
+
+    __asm__ volatile (
+        "csrwr %0, 0x101"
+        :
+        : "r"(tmp)
+        : "memory"
+    );
 }
 
 void load_kernel (void)
@@ -311,12 +323,16 @@ void load_kernel (void)
 
     u_printf("\n\nCurrent sp = 0x%x\n", sp);
 
+    u_printf("\nEnable icache\n\n");
+    enable_icache();
+
     u_printf("\nJump to kernel entry\n\n");
 
     delay();
     delay();
 
     screen_clear();
+
 
     jump_to_kernel(kernel_entry);
 

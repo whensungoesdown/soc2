@@ -36,6 +36,8 @@ void exception_handler_ale_panic(void) {
     uint64_t era = read_csr_era();
     uint64_t badv = read_csr_badv();
 
+    *(int*)0x10004 = 0x41414141;
+
 //    // 如果你有实现 printf，就用 printf
 //    // 如果没有，请把下面的 printf 换成 uart_puts 等函数
 //    printf("\n");
