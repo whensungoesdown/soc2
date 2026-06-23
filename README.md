@@ -146,6 +146,12 @@
   CSRRD CSRWR CSRXCHG
 `````
 
+### Atomic Memory Access
+
+`````assembly
+  LL.W SC.W
+`````
+
 ### Barrier
 
 `````assembly
@@ -162,7 +168,6 @@
 ## To Do
 
 - [ ] Memory access: `PRELD`
-- [ ] Atomic memory access: `LL.W`, `SC.W`
 - [ ] Floating-point instructions
 - [ ] Cache and TLB instructions
 - [ ] Miscellaneous: `RDCNTID`, `IDLE`
@@ -173,27 +178,31 @@
 
 | Address | Register | Description          |
 |---------|----------|----------------------|
-| 0x0     | CRMD     | ie, plv              |
-| 0x1     | PRMD     | pie, pplv            |
-| 0x5     | ESTAT    | exception status     |
-| 0x6     | ERA      | exception return address |
-| 0x7     | BADV     | bad address          |
-| 0xc     | EENTRY   | exception entry      |
+| 0x0     | CRMD     | Current Mode Information |
+| 0x1     | PRMD     | Pre-exception Mode Information |
+| 0x5     | ESTAT    | Exception Status     |
+| 0x6     | ERA      | Exception Return Address |
+| 0x7     | BADV     | Bad Virtual Address |
+| 0xc     | EENTRY   | Exception Entry Base Address |
 | 0x30~0x33| SAVE0~SAVE3 | Data Save Register |
-| 0x41    | TCFG     | timer configuration  |
-| 0x42    | TVAL     | timer value          |
-| 0x43    | TICLR    | timer clear          |
+| 0x41    | TCFG     | Timer Configuration  |
+| 0x42    | TVAL     | Timer Value          |
+| 0x43    | TICLR    | Timer Interrupt Clearing |
+| 0x60    | LLBCTL   | LLBit Controller     |
 
 ---
 
 ## Exceptions
 
-- ADdress error Exception for Fetching instructions (ADEF)
-- ADdress error Exception for Memory access instructions (ADEM)
-- Address aLignment fault Exception (ALE)
-- Instruction Non-defined Exception (INE)
-- Timer Interrupt
-- Ext Interrupt
+- 0x8 ADdress error Exception for Fetching instructions (ADEF)
+- 0x8 ADdress error Exception for Memory access instructions (ADEM)
+- 0x9 Address aLignment fault Exception (ALE)
+- 0xB SYStem call exception (SYS)
+- 0xC BReaKpoint exception (BRK)
+- 0xD Instruction Non-defined Exception (INE)
+- 0x0 Timer Interrupt
+- 0x0 Ext Interrupt
+
 ---
 
 
@@ -381,3 +390,10 @@ $ sudo screen /dev/ttyUSB0 115200
 ### Run Linux 5.14
 
 https://www.bilibili.com/video/BV1N2E766EPf/
+
+
+With icache enabled:
+
+https://www.bilibili.com/video/BV1hWjg6sEiV/
+
+
