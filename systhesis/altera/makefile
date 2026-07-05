@@ -29,8 +29,10 @@ ASSIGNMENT_FILES = soc2_top.qpf soc2_top.qsf
 FAMILY = "Cyclone IV E"
 #PART = EP4CE6E22C8
 #BOARD = c4e6e10pins
-PART = EP4CE15F23C8
-BOARD = ac415pins
+#PART = EP4CE15F23C8
+#BOARD = ac415pins
+PART = EP4CE30F23C8
+BOARD = hseda_ep4ce30_v3.2_pins
 
 ###################################################################
 # Main Targets
