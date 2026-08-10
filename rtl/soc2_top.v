@@ -10,16 +10,16 @@ module soc2_top(
    input              uart_rx,
    output             uart_tx,
 
-   output             sdram_clk,
-   inout  [15:0]      sdram_dq,
-   output [12:0]      sdram_addr,
-   output [ 1:0]      sdram_ba,
-   output             sdram_cas_n,
-   output             sdram_ras_n,
-   output             sdram_we_n,
-   output             sdram_cs_n,
-   output             sdram_cke,
-   output [ 1:0]      sdram_dqm,
+   output             sdram0_clk,
+   inout  [15:0]      sdram0_dq,
+   output [12:0]      sdram0_addr,
+   output [ 1:0]      sdram0_ba,
+   output             sdram0_cas_n,
+   output             sdram0_ras_n,
+   output             sdram0_we_n,
+   output             sdram0_cs_n,
+   output             sdram0_cke,
+   output [ 1:0]      sdram0_dqm,
 
    output             sdram1_clk,
    inout  [15:0]      sdram1_dq,
@@ -426,15 +426,15 @@ localparam AVALON_DATA_WIDTH = 16;
    wire [`DATA_WIDTH/8-1:0]  peri_wen;
 
    // sdram controller
-   wire [AVALON_ADDR_WIDTH-1:0]    av_address;
-   wire                            av_write;
-   wire                            av_read;
-   wire [AVALON_DATA_WIDTH-1:0]    av_writedata;
-   wire [1:0]                      av_byteenable;
-   wire                            av_burstcount;
-   wire [AVALON_DATA_WIDTH-1:0]    av_readdata;
-   wire                            av_waitrequest;
-   wire                            av_readdatavalid;
+   wire [AVALON_ADDR_WIDTH-1:0]    av0_address;
+   wire                            av0_write;
+   wire                            av0_read;
+   wire [AVALON_DATA_WIDTH-1:0]    av0_writedata;
+   wire [1:0]                      av0_byteenable;
+   wire                            av0_burstcount;
+   wire [AVALON_DATA_WIDTH-1:0]    av0_readdata;
+   wire                            av0_waitrequest;
+   wire                            av0_readdatavalid;
 
    wire [AVALON_ADDR_WIDTH-1:0]    av1_address;
    wire                            av1_write;
@@ -1332,15 +1332,15 @@ localparam AVALON_DATA_WIDTH = 16;
       .s_rready       (s3_rready),
    
       // Avalon Master Interface
-      .m_address      (av_address),
-      .m_write        (av_write),
-      .m_read         (av_read),
-      .m_writedata    (av_writedata),
-      .m_readdata     (av_readdata),
-      .m_byteenable   (av_byteenable),
-      .m_waitrequest  (av_waitrequest),
-      .m_readdatavalid(av_readdatavalid),
-      .m_burstcount   (av_burstcount)
+      .m_address      (av0_address),
+      .m_write        (av0_write),
+      .m_read         (av0_read),
+      .m_writedata    (av0_writedata),
+      .m_readdata     (av0_readdata),
+      .m_byteenable   (av0_byteenable),
+      .m_waitrequest  (av0_waitrequest),
+      .m_readdatavalid(av0_readdatavalid),
+      .m_burstcount   (av0_burstcount)
    );
 
    axi_burst_master_to_avalon16 #(
@@ -1468,7 +1468,7 @@ localparam AVALON_DATA_WIDTH = 16;
 
 
 //   assign sdram_clk = sys_clk;
-   assign sdram_clk = pll_clk_out_75mhz_shift;
+   assign sdram0_clk = pll_clk_out_75mhz_shift;
    assign sdram1_clk = pll_clk_out_75mhz_shift;
 
 //   ALTDDIO_OUT #(
@@ -1486,35 +1486,35 @@ localparam AVALON_DATA_WIDTH = 16;
 //       .aclr(~reset_n)
 //   );
       
-   sdram_controller u_sdram_ctrl (
+   sdram_controller u_sdram0_ctrl (
       //.clk            (sys_clk),
       .clk            (pll_clk_out_75mhz),
       .reset_n        (resetn),
 
-      .az_addr        (av_address[23:0]),     // Address from bridge
-      .az_be_n        (~av_byteenable),       // Byte enable (convert to low active)
-      .az_cs          (av_write | av_read),   // Chip select when read or write active
-      .az_data        (av_writedata),         // Write data from bridge
-      .az_rd_n        (~av_read),             // Read strobe (low active)
-      .az_wr_n        (~av_write),            // Write strobe (low active)
+      .az_addr        (av0_address[23:0]),     // Address from bridge
+      .az_be_n        (~av0_byteenable),       // Byte enable (convert to low active)
+      .az_cs          (av0_write | av0_read),   // Chip select when read or write active
+      .az_data        (av0_writedata),         // Write data from bridge
+      .az_rd_n        (~av0_read),             // Read strobe (low active)
+      .az_wr_n        (~av0_write),            // Write strobe (low active)
       
-      .za_data        (av_readdata),          // Read data to bridge
-      .za_valid       (av_readdatavalid),     // Read data valid
-      .za_waitrequest (av_waitrequest),       // Wait request
+      .za_data        (av0_readdata),          // Read data to bridge
+      .za_valid       (av0_readdatavalid),     // Read data valid
+      .za_waitrequest (av0_waitrequest),       // Wait request
       
       // SDRAM Physical Interface (to external SDRAM chip)
-      .zs_addr        (sdram_addr),
-      .zs_ba          (sdram_ba),
-      .zs_cas_n       (sdram_cas_n),
-      .zs_cke         (sdram_cke),
-      .zs_cs_n        (sdram_cs_n),
-      .zs_dq          (sdram_dq),
-      .zs_dqm         (sdram_dqm),
-      .zs_ras_n       (sdram_ras_n),
-      .zs_we_n        (sdram_we_n)
+      .zs_addr        (sdram0_addr),
+      .zs_ba          (sdram0_ba),
+      .zs_cas_n       (sdram0_cas_n),
+      .zs_cke         (sdram0_cke),
+      .zs_cs_n        (sdram0_cs_n),
+      .zs_dq          (sdram0_dq),
+      .zs_dqm         (sdram0_dqm),
+      .zs_ras_n       (sdram0_ras_n),
+      .zs_we_n        (sdram0_we_n)
    );
 
-   sdram_controller u_sdram_ctrl1 (
+   sdram_controller u_sdram1_ctrl (
       //.clk            (sys_clk),
       .clk            (pll_clk_out_75mhz),
       .reset_n        (resetn),
