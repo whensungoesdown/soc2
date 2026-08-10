@@ -6,8 +6,8 @@
 #include "heapmgr.h"
 #include "lib.h"
 
-// last 2MB of the SDRAM (0x2000000 - 0x3ffffff)
-#define HEAP_ADDR    0x3C00000
+// last 2MB of the SDRAM (0x2000000 - 0x5ffffff)
+#define HEAP_ADDR    0x5C00000
 #define HEAP_SIZE    0x200000
 
 struct header {       /* block header */

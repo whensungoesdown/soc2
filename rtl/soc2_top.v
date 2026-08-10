@@ -21,6 +21,17 @@ module soc2_top(
    output             sdram_cke,
    output [ 1:0]      sdram_dqm,
 
+   output             sdram1_clk,
+   inout  [15:0]      sdram1_dq,
+   output [12:0]      sdram1_addr,
+   output [ 1:0]      sdram1_ba,
+   output             sdram1_cas_n,
+   output             sdram1_ras_n,
+   output             sdram1_we_n,
+   output             sdram1_cs_n,
+   output             sdram1_cke,
+   output [ 1:0]      sdram1_dqm,
+
    output             sd_clk_dev,
    input              sd_miso,
    output             sd_mosi,
@@ -309,6 +320,86 @@ localparam AVALON_DATA_WIDTH = 16;
    wire               s3_bvalid;
    wire               s3_bready;
 
+   wire [3:0]         s4_arid;
+   wire [31:0]        s4_araddr;
+   wire [7:0]         s4_arlen;
+   wire [2:0]         s4_arsize;
+   wire [1:0]         s4_arburst;
+   wire               s4_arlock;
+   wire [3:0]         s4_arcache;
+   wire [2:0]         s4_arprot;
+   wire               s4_arvalid;
+   wire               s4_arready;
+                      
+   wire [3:0]         s4_rid;
+   wire [63:0]        s4_rdata;
+   wire [1:0]         s4_rresp;
+   wire               s4_rlast;
+   wire               s4_rvalid;
+   wire               s4_rready;
+                      
+   wire [3:0]         s4_awid;
+   wire [31:0]        s4_awaddr;
+   wire [7:0]         s4_awlen;
+   wire [2:0]         s4_awsize;
+   wire [1:0]         s4_awburst;
+   wire               s4_awlock;
+   wire [3:0]         s4_awcache;
+   wire [2:0]         s4_awprot;
+   wire               s4_awvalid;
+   wire               s4_awready;
+   wire [3:0]         s4_wid;
+   wire [63:0]        s4_wdata;
+   wire [7:0]         s4_wstrb;
+   wire               s4_wlast;
+   wire               s4_wvalid;
+   wire               s4_wready;
+                      
+   wire [3:0]         s4_bid;
+   wire [1:0]         s4_bresp;
+   wire               s4_bvalid;
+   wire               s4_bready;
+
+   wire [3:0]         s5_arid;
+   wire [31:0]        s5_araddr;
+   wire [7:0]         s5_arlen;
+   wire [2:0]         s5_arsize;
+   wire [1:0]         s5_arburst;
+   wire               s5_arlock;
+   wire [3:0]         s5_arcache;
+   wire [2:0]         s5_arprot;
+   wire               s5_arvalid;
+   wire               s5_arready;
+                      
+   wire [3:0]         s5_rid;
+   wire [63:0]        s5_rdata;
+   wire [1:0]         s5_rresp;
+   wire               s5_rlast;
+   wire               s5_rvalid;
+   wire               s5_rready;
+                      
+   wire [3:0]         s5_awid;
+   wire [31:0]        s5_awaddr;
+   wire [7:0]         s5_awlen;
+   wire [2:0]         s5_awsize;
+   wire [1:0]         s5_awburst;
+   wire               s5_awlock;
+   wire [3:0]         s5_awcache;
+   wire [2:0]         s5_awprot;
+   wire               s5_awvalid;
+   wire               s5_awready;
+   wire [3:0]         s5_wid;
+   wire [63:0]        s5_wdata;
+   wire [7:0]         s5_wstrb;
+   wire               s5_wlast;
+   wire               s5_wvalid;
+   wire               s5_wready;
+                      
+   wire [3:0]         s5_bid;
+   wire [1:0]         s5_bresp;
+   wire               s5_bvalid;
+   wire               s5_bready;
+
    //ram
    wire [`ADDR_WIDTH-1:0]    ram_raddr;
    wire [`DATA_WIDTH-1:0]    ram_rdata;
@@ -344,6 +435,16 @@ localparam AVALON_DATA_WIDTH = 16;
    wire [AVALON_DATA_WIDTH-1:0]    av_readdata;
    wire                            av_waitrequest;
    wire                            av_readdatavalid;
+
+   wire [AVALON_ADDR_WIDTH-1:0]    av1_address;
+   wire                            av1_write;
+   wire                            av1_read;
+   wire [AVALON_DATA_WIDTH-1:0]    av1_writedata;
+   wire [1:0]                      av1_byteenable;
+   wire                            av1_burstcount;
+   wire [AVALON_DATA_WIDTH-1:0]    av1_readdata;
+   wire                            av1_waitrequest;
+   wire                            av1_readdatavalid;
 
 
    assign dma_arid = 'h0;
@@ -441,7 +542,7 @@ localparam AVALON_DATA_WIDTH = 16;
    assign cpu_bid[3] = 1'b0;
 
 
-   amba_axi_m2s4 #(
+   amba_axi_m2s6 #(
       .WIDTH_CID    (1), // two masters need 1 bit to distinguish 
       .WIDTH_ID     (3),
       .SLAVE_EN0    (1),
@@ -455,10 +556,16 @@ localparam AVALON_DATA_WIDTH = 16;
       .ADDR_LENGTH2 (16),      // 64KB
       .SLAVE_EN3    (1),
       .ADDR_BASE3   ('h2000000),
-      .ADDR_LENGTH3 (25)       // 32MB
+      .ADDR_LENGTH3 (25),      // 32MB
+      .SLAVE_EN4    (1),
+      .ADDR_BASE4   ('h4000000),
+      .ADDR_LENGTH4 (25),      // 32MB
+      .SLAVE_EN5    (0),       // slave5 is not enabled
+      .ADDR_BASE5   ('h0),
+      .ADDR_LENGTH5 (0) 
    )
 
-   u_amba_axi_m2s4 (
+   u_amba_axi_m2s6 (
       .ARESETn      (resetn            ),
       .ACLK         (sys_clk           ), 
 
@@ -870,9 +977,147 @@ localparam AVALON_DATA_WIDTH = 16;
       .S3_RRESP     (s3_rresp),
       .S3_RLAST     (s3_rlast),
       .S3_RVALID    (s3_rvalid),
-      .S3_RREADY    (s3_rready)
+      .S3_RREADY    (s3_rready),
       `ifdef AMBA_AXI_RUSER
-      .S3_RUSER     (s3_ruser)
+      .S3_RUSER     (s3_ruser),
+      `endif
+
+
+      .S4_AWID      (s4_awid),
+      .S4_AWADDR    (s4_awaddr),
+      .S4_AWLEN     (s4_awlen),
+      .S4_AWLOCK    (s4_awlock),
+      .S4_AWSIZE    (s4_awsize),
+      .S4_AWBURST   (s4_awburst),
+      `ifdef  AMBA_AXI_CACHE
+      .S4_AWCACHE   (s4_awcache),
+      `endif
+      `ifdef AMBA_AXI_PROT
+      .S4_AWPROT    (s4_awprot),
+      `endif
+      .S4_AWVALID   (s4_awvalid),
+      .S4_AWREADY   (s4_awready),
+      `ifdef AMBA_QOS
+      .S4_AWQOS     (s4_awqos),
+      .S4_AWREGION  (s4_awregion),
+      `endif
+      `ifdef AMBA_AXI_AWUSER
+      .S4_AWUSER    (s4_awuser),
+      `endif
+      .S4_WID       (s4_wid),
+      .S4_WDATA     (s4_wdata),
+      .S4_WSTRB     (s4_wstrb),
+      .S4_WLAST     (s4_wlast),
+      .S4_WVALID    (s4_wvalid),
+      .S4_WREADY    (s4_wready),
+      `ifdef AMBA_AXI_WUSER
+      .S4_WUSER     (s4_wuser),
+      `endif
+      .S4_BID       (s4_bid),
+      .S4_BRESP     (s4_bresp),
+      .S4_BVALID    (s4_bvalid),
+      .S4_BREADY    (s4_bready),
+      `ifdef AMBA_AXI_BUSER
+      .S4_BUSER     (s4_buser),
+      `endif
+      .S4_ARID      (s4_arid),
+      .S4_ARADDR    (s4_araddr),
+      .S4_ARLEN     (s4_arlen),
+      .S4_ARLOCK    (s4_arlock),
+      .S4_ARSIZE    (s4_arsize),
+      .S4_ARBURST   (s4_arburst),
+      `ifdef  AMBA_AXI_CACHE
+      .S4_ARCACHE   (s4_arcache),
+      `endif
+      `ifdef AMBA_AXI_PROT
+      .S4_ARPROT    (s4_arprot),
+      `endif
+      .S4_ARVALID   (s4_arvalid),
+      .S4_ARREADY   (s4_arready),
+      `ifdef AMBA_QOS
+      .S4_ARQOS     (s4_arqos),
+      .S4_ARREGION  (s4_arregion),
+      `endif
+      `ifdef AMBA_AXI_ARUSER
+      .S4_ARUSER    (s4_aruser),
+      `endif
+      .S4_RID       (s4_rid),
+      .S4_RDATA     (s4_rdata),
+      .S4_RRESP     (s4_rresp),
+      .S4_RLAST     (s4_rlast),
+      .S4_RVALID    (s4_rvalid),
+      .S4_RREADY    (s4_rready),
+      `ifdef AMBA_AXI_RUSER
+      .S4_RUSER     (s4_ruser),
+      `endif
+
+
+      .S5_AWID      (s5_awid),
+      .S5_AWADDR    (s5_awaddr),
+      .S5_AWLEN     (s5_awlen),
+      .S5_AWLOCK    (s5_awlock),
+      .S5_AWSIZE    (s5_awsize),
+      .S5_AWBURST   (s5_awburst),
+      `ifdef  AMBA_AXI_CACHE
+      .S5_AWCACHE   (s5_awcache),
+      `endif
+      `ifdef AMBA_AXI_PROT
+      .S5_AWPROT    (s5_awprot),
+      `endif
+      .S5_AWVALID   (s5_awvalid),
+      .S5_AWREADY   (s5_awready),
+      `ifdef AMBA_QOS
+      .S5_AWQOS     (s5_awqos),
+      .S5_AWREGION  (s5_awregion),
+      `endif
+      `ifdef AMBA_AXI_AWUSER
+      .S5_AWUSER    (s5_awuser),
+      `endif
+      .S5_WID       (s5_wid),
+      .S5_WDATA     (s5_wdata),
+      .S5_WSTRB     (s5_wstrb),
+      .S5_WLAST     (s5_wlast),
+      .S5_WVALID    (s5_wvalid),
+      .S5_WREADY    (s5_wready),
+      `ifdef AMBA_AXI_WUSER
+      .S5_WUSER     (s5_wuser),
+      `endif
+      .S5_BID       (s5_bid),
+      .S5_BRESP     (s5_bresp),
+      .S5_BVALID    (s5_bvalid),
+      .S5_BREADY    (s5_bready),
+      `ifdef AMBA_AXI_BUSER
+      .S5_BUSER     (s5_buser),
+      `endif
+      .S5_ARID      (s5_arid),
+      .S5_ARADDR    (s5_araddr),
+      .S5_ARLEN     (s5_arlen),
+      .S5_ARLOCK    (s5_arlock),
+      .S5_ARSIZE    (s5_arsize),
+      .S5_ARBURST   (s5_arburst),
+      `ifdef  AMBA_AXI_CACHE
+      .S5_ARCACHE   (s5_arcache),
+      `endif
+      `ifdef AMBA_AXI_PROT
+      .S5_ARPROT    (s5_arprot),
+      `endif
+      .S5_ARVALID   (s5_arvalid),
+      .S5_ARREADY   (s5_arready),
+      `ifdef AMBA_QOS
+      .S5_ARQOS     (s5_arqos),
+      .S5_ARREGION  (s5_arregion),
+      `endif
+      `ifdef AMBA_AXI_ARUSER
+      .S5_ARUSER    (s5_aruser),
+      `endif
+      .S5_RID       (s5_rid),
+      .S5_RDATA     (s5_rdata),
+      .S5_RRESP     (s5_rresp),
+      .S5_RLAST     (s5_rlast),
+      .S5_RVALID    (s5_rvalid),
+      .S5_RREADY    (s5_rready)
+      `ifdef AMBA_AXI_RUSER
+      .S5_RUSER     (s5_ruser)
       `endif
    );
 
@@ -1098,6 +1343,68 @@ localparam AVALON_DATA_WIDTH = 16;
       .m_burstcount   (av_burstcount)
    );
 
+   axi_burst_master_to_avalon16 #(
+       //.AXI_ADDR_WIDTH(ADDR_WIDTH),
+       .AXI_ADDR_WIDTH(32),
+       //.AXI_DATA_WIDTH(DATA_WIDTH),
+       .AXI_DATA_WIDTH(64),
+       .AVALON_ADDR_WIDTH(AVALON_ADDR_WIDTH),
+       .AVALON_DATA_WIDTH(AVALON_DATA_WIDTH),
+       .AXI_MAX_BURST(16),
+       .FIFO_DEPTH(32)
+   ) u_axi_avalon_bridge1 (
+      .clk            (sys_clk),
+      .reset_n        (resetn),
+   
+      // AXI Slave Interface
+      .s_awid         (s4_awid),
+      //.s_awaddr       (s4_awaddr),
+      .s_awaddr       ({s4_awaddr[31:3], 3'b000}),
+      .s_awlen        (s4_awlen),
+      .s_awsize       (s4_awsize),
+      .s_awburst      (s4_awburst),
+      .s_awvalid      (s4_awvalid),
+      .s_awready      (s4_awready),
+   
+      //.s_wid          (s4_wid), // AXI4 no wid
+      .s_wdata        (s4_wdata),
+      .s_wstrb        (s4_wstrb),
+      .s_wlast        (s4_wlast),
+      .s_wvalid       (s4_wvalid),
+      .s_wready       (s4_wready),
+   
+      .s_bid          (s4_bid),
+      .s_bresp        (s4_bresp),
+      .s_bvalid       (s4_bvalid),
+      .s_bready       (s4_bready),
+   
+      .s_arid         (s4_arid),
+      //.s_araddr       (s4_araddr),
+      .s_araddr       ({s4_araddr[31:3], 3'b000}),
+      .s_arlen        (s4_arlen),
+      .s_arsize       (s4_arsize),
+      .s_arburst      (s4_arburst),
+      .s_arvalid      (s4_arvalid),
+      .s_arready      (s4_arready),
+   
+      .s_rid          (s4_rid),
+      .s_rdata        (s4_rdata),
+      .s_rresp        (s4_rresp),
+      .s_rlast        (s4_rlast),
+      .s_rvalid       (s4_rvalid),
+      .s_rready       (s4_rready),
+   
+      // Avalon Master Interface
+      .m_address      (av1_address),
+      .m_write        (av1_write),
+      .m_read         (av1_read),
+      .m_writedata    (av1_writedata),
+      .m_readdata     (av1_readdata),
+      .m_byteenable   (av1_byteenable),
+      .m_waitrequest  (av1_waitrequest),
+      .m_readdatavalid(av1_readdatavalid),
+      .m_burstcount   (av1_burstcount)
+   );
 
    sram ram(
       .clock        (sys_clk         ),
@@ -1162,6 +1469,7 @@ localparam AVALON_DATA_WIDTH = 16;
 
 //   assign sdram_clk = sys_clk;
    assign sdram_clk = pll_clk_out_75mhz_shift;
+   assign sdram1_clk = pll_clk_out_75mhz_shift;
 
 //   ALTDDIO_OUT #(
 //       .EXTEND_OE_DISABLE("OFF"),
@@ -1204,6 +1512,34 @@ localparam AVALON_DATA_WIDTH = 16;
       .zs_dqm         (sdram_dqm),
       .zs_ras_n       (sdram_ras_n),
       .zs_we_n        (sdram_we_n)
+   );
+
+   sdram_controller u_sdram_ctrl1 (
+      //.clk            (sys_clk),
+      .clk            (pll_clk_out_75mhz),
+      .reset_n        (resetn),
+
+      .az_addr        (av1_address[23:0]),     // Address from bridge
+      .az_be_n        (~av1_byteenable),       // Byte enable (convert to low active)
+      .az_cs          (av1_write | av1_read),   // Chip select when read or write active
+      .az_data        (av1_writedata),         // Write data from bridge
+      .az_rd_n        (~av1_read),             // Read strobe (low active)
+      .az_wr_n        (~av1_write),            // Write strobe (low active)
+      
+      .za_data        (av1_readdata),          // Read data to bridge
+      .za_valid       (av1_readdatavalid),     // Read data valid
+      .za_waitrequest (av1_waitrequest),       // Wait request
+      
+      // SDRAM Physical Interface (to external SDRAM chip)
+      .zs_addr        (sdram1_addr),
+      .zs_ba          (sdram1_ba),
+      .zs_cas_n       (sdram1_cas_n),
+      .zs_cke         (sdram1_cke),
+      .zs_cs_n        (sdram1_cs_n),
+      .zs_dq          (sdram1_dq),
+      .zs_dqm         (sdram1_dqm),
+      .zs_ras_n       (sdram1_ras_n),
+      .zs_we_n        (sdram1_we_n)
    );
 
    // need a pic here

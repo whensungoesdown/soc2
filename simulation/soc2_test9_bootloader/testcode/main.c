@@ -11,9 +11,9 @@ void banner (void)
     u_printf("          _|  _|    _|  _|          _|    \n");  
     u_printf("    _|_|_|      _|_|      _|_|_|  _|_|_|_|\n"); 
     u_printf("    \n");
-    u_printf("                           SOC2 08-09-2026\n");
+    u_printf("                           SOC2 08-10-2026\n");
     u_printf("    \n");
-    u_printf("                        Bootloader Ver 0.4\n");
+    u_printf("                        Bootloader Ver 0.5\n");
     u_printf("    \n");
     u_printf("    \n");
 }
@@ -374,7 +374,7 @@ void main_sdram_stack (void)
         goto exit_main_sdram_stack;
     }
 
-    u_printf("Heap located at 0x3C00000, size 0x200000 (2MB)\n\n");
+    u_printf("Heap located at 0x5C00000, size 0x200000 (2MB)\n\n");
 
 
     load_kernel();
@@ -451,11 +451,11 @@ void main (void)
     delay();
     delay();
 
-    u_printf("SDRAM: 0x2000000 - 0x3fffffff\n");
+    u_printf("SDRAM: 0x2000000 - 0x5fffffff\n");
 
     u_printf("SDRAM: memory test read/write at ");
 
-    for (i = 0x2000000; i < 0x4000000; i += 4)
+    for (i = 0x2000000; i < 0x6000000; i += 4)
     {
         if (0 == i % 0x100000)
         {
@@ -482,7 +482,7 @@ void main (void)
 
     u_printf("                             [OK]\n\n");
 
-    u_printf("Set new stack top SDRAM 0x3fffff0\n\n");
+    u_printf("Set new stack top SDRAM 0x5fffff0\n\n");
     u_printf("Jump to main_sdram_stack()\n\n");
 
     __asm__ volatile (
@@ -490,7 +490,7 @@ void main (void)
         "la $t0, main_sdram_stack\n\t"
         "jirl $zero, $t0, 0\n\t"
         :
-        : "r"(0x3fffff0)  
+        : "r"(0x5fffff0)  
         : "sp", "$t0"
     );
 
