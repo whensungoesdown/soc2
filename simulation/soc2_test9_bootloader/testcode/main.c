@@ -13,7 +13,7 @@ void banner (void)
     u_printf("    \n");
     u_printf("                           SOC2 08-10-2026\n");
     u_printf("    \n");
-    u_printf("                        Bootloader Ver 0.5\n");
+    u_printf("                        Bootloader Ver 0.6\n");
     u_printf("    \n");
     u_printf("    \n");
 }
@@ -259,6 +259,33 @@ void load_kernel (void)
     //    01    
 
   
+    //
+    // For the MMU-enabled version, load address is defined in
+    // arch/loongarch/loongson32/Platform.
+    //
+    // The address 0x2000000 is the start of SDRAM. Since the bootloader does
+    // not enable paging (PG mode), the kernel's LOAD segment is directly
+    // copied to this physical address.
+    // The bootloader then jumps to the entry point (pelfhdr.e_entry),
+    // effectively ignoring the 0xa
+    //
+    //
+    // u@unamed:~/prjs/la32r-linux-mmu$ loongarch32r-linux-gnusf-readelf -l la_build/vmlinux
+    // 
+    // Elf file type is EXEC (Executable file)
+    // Entry point 0xa218b130
+    // There are 2 program headers, starting at offset 52
+    // 
+    // Program Headers:
+    //   Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+    //   LOAD           0x001000 0xa2000000 0xa2000000 0x3525b0 0x3ac534 RWE 0x1000
+    //   NOTE           0x000000 0x00000000 0x00000000 0x00000 0x00000 R   0x4
+    // 
+    //  Section to Segment mapping:
+    //   Segment Sections...
+    //    00     .text __ex_table .rodata __param .notes .data .init.text .init.data .exit.text .bss 
+    //    01
+
     fat_file_seek(&file, 0x1000, FAT_SEEK_START);
 
     // Loop until the entire file is read
@@ -311,7 +338,9 @@ void load_kernel (void)
 
     kernel_entry = pelfhdr.e_entry;
 
-    u_printf("Kernel vmlinux entry at 0x%x\n\n", kernel_entry);
+    u_printf("Kernel vmlinux entry: 0x%x\n\n", kernel_entry);
+
+    kernel_entry = pelfhdr.e_entry & 0x0FFFFFFF;
 
 
     __asm__ volatile (
@@ -326,7 +355,7 @@ void load_kernel (void)
     u_printf("\nEnable icache\n\n");
     enable_icache();
 
-    u_printf("\nJump to kernel entry\n\n");
+    u_printf("\nJump to kernel entry at 0x%x\n\n", kernel_entry);
 
     delay();
     delay();
