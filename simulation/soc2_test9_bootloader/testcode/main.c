@@ -11,9 +11,9 @@ void banner (void)
     u_printf("          _|  _|    _|  _|          _|    \n");  
     u_printf("    _|_|_|      _|_|      _|_|_|  _|_|_|_|\n"); 
     u_printf("    \n");
-    u_printf("                           SOC2 08-10-2026\n");
+    u_printf("                           SOC2 08-24-2026\n");
     u_printf("    \n");
-    u_printf("                        Bootloader Ver 0.6\n");
+    u_printf("                        Bootloader Ver 0.7\n");
     u_printf("    \n");
     u_printf("    \n");
 }
@@ -388,6 +388,7 @@ void main_sdram_stack (void)
 {
     int ret = 0;
 
+
     u_printf("main_sdram_stack:\n\n");
 
     u_printf("SD: Init ...                                               ");                
@@ -471,6 +472,43 @@ void main (void)
     int val = 0;
 
     //test_case_0();
+    //while (1)
+    //{
+    //        //uart_putchar('A');
+    //        //uart_putchar('B');
+    //        //uart_putchar('C');
+    //        //uart_putchar('D');
+    //        //delay();
+    //    int uart_status = 0;
+
+    //    uart_status = *(int*)0x20004;
+
+    //    if (uart_status & 0x1)
+    //    {
+    //	    *(int*)0x20000 = 0x55;
+    //        //u_printf("send out U\n");
+    //        //for (int i = 0; i < 217; i++)
+    //        //{
+    //        //    asm volatile ("nop");
+    //        //}
+    //    }
+    //    else
+    //    {
+    //        //u_printf("uart_status 0x%x\n", uart_status);
+    //    }
+    //	//*(int*)0x20000 = 0x41;
+    //    //delay();
+    //    
+    //    //if ((*(int*)0x20004) & 0x1)
+    //    //{
+    //	//    *(int*)0x20000 = 0x41;
+    //    //    //asm volatile ("nop");
+    //    //    //asm volatile ("nop");
+    //    //    //asm volatile ("nop");
+    //    //    //asm volatile ("nop");
+    //    //    //asm volatile ("nop");
+    //    //}
+    //}
 
     banner();
 

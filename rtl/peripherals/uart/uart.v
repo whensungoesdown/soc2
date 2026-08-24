@@ -1,61 +1,91 @@
-module uart_tx (clk,rst,tx_data,tx_data_valid,tx_data_ack,txd);
-   
-   output txd;
-   input clk, rst;
-   input [7:0] tx_data;
-   input tx_data_valid;
-   output tx_data_ack;
+// ============================================================
+// UART Transmitter (1 stop bit) with start-bit width guaranteed
+// Clock: 25 MHz, Baud rate: ~115200 bps (BAUD_DIVISOR = 217)
+// - start bit lasts exactly BAUD_DIVISOR cycles
+// - tx_idle becomes 1 only after the stop bit has fully lasted
+// - txd forced high during stop_wait and idle states
+// ============================================================
+module uart_tx (
+    input        clk,
+    input        rst,
+    input  [7:0] tx_data,
+    input        tx_data_valid,
+    output       tx_idle,
+    output       txd
+);
+    parameter BAUD_DIVISOR = 217;
 
-   parameter BAUD_DIVISOR = 868;
+    reg [15:0] sample_cntr;
+    reg        sample_now;
+    reg [10:0] tx_shift;        // {padding, stop, data[7:0], start}
+    reg        ready;           // internal idle flag
+    reg        stop_wait;       // waiting for stop bit to complete its period
+    reg        load_pending;    // indicates a load request is pending
 
-   reg [15:0] sample_cntr;
-   reg [10:0] tx_shift;
-   reg sample_now;
-   reg tx_data_ack;
+    assign tx_idle = ready;
+    assign txd = (ready || stop_wait) ? 1'b1 : tx_shift[0];
 
-   assign txd = tx_shift[0];
+    // ----------------------------------------------------------
+    // Baud rate generator with load-reset
+    // ----------------------------------------------------------
+    always @(posedge clk) begin
+        if (rst) begin
+            sample_cntr <= 0;
+            sample_now  <= 1'b0;
+        end else if (load_pending) begin
+            // Reset counter when a new frame is loaded
+            sample_cntr <= 0;
+            sample_now  <= 1'b0;
+        end else if (sample_cntr == (BAUD_DIVISOR - 1)) begin
+            sample_cntr <= 0;
+            sample_now  <= 1'b1;
+        end else begin
+            sample_cntr <= sample_cntr + 1'b1;
+            sample_now  <= 1'b0;
+        end
+    end
 
-   always @(posedge clk) begin
-      if (rst) begin
-	 sample_cntr <= 0;
-	 sample_now <= 1'b0;
-      end
-      else if (sample_cntr == (BAUD_DIVISOR-1)) begin
-	 sample_cntr <= 0;
-	 sample_now <= 1'b1;
-      end
-      else begin
-	 sample_now <= 1'b0;
-	 sample_cntr <= sample_cntr + 1'b1;
-      end
-   end
+    // ----------------------------------------------------------
+    // Transmit control
+    // ----------------------------------------------------------
+    always @(posedge clk) begin
+        if (rst) begin
+            tx_shift     <= {11'b00000000001};   // idle
+            ready        <= 1'b1;
+            stop_wait    <= 1'b0;
+            load_pending <= 1'b0;
+        end else begin
+            // Default: clear load_pending after it has been acted upon
+            // (It is cleared when the counter reset happens, but we need to clear it
+            //  after the reset has been applied. Since reset occurs in the same cycle
+            //  as load_pending is set, we clear it here to avoid multiple loads.)
+            load_pending <= 1'b0;
 
-   reg ready;
-   always @(posedge clk) begin
-      if (rst) begin
-	 tx_shift <= {11'b00000000001};
-	 ready <= 1'b1;
-      end
-      else begin		
-	 if (!ready & sample_now) begin
-	    tx_shift <= {1'b0,tx_shift[10:1]};
-	    tx_data_ack <= 1'b0;
-	    ready <= ~|tx_shift[10:1];
-	 end		
-	 else if (ready & tx_data_valid) begin
-	    tx_shift[10:1] <= {1'b1,tx_data,1'b0};
-	    tx_data_ack <= 1'b1;
-	    ready <= 1'b0;		
-	 end
-	 else begin
-	    tx_data_ack <= 1'b0;
-	    ready <= ~|tx_shift[10:1];
-	 end
-      end		
-   end
+            // Load new data only when fully idle (ready && !stop_wait)
+            if (ready && !stop_wait && tx_data_valid) begin
+                tx_shift <= {1'b1, tx_data, 1'b0};
+                ready    <= 1'b0;
+                stop_wait <= 1'b0;
+                load_pending <= 1'b1;   // request counter reset
+            end
 
+            // Shift out next bit if currently transmitting
+            if (!ready && sample_now) begin
+                tx_shift <= {1'b0, tx_shift[10:1]};
+                // Check if stop bit just shifted out
+                if (~|tx_shift[10:1]) begin
+                    stop_wait <= 1'b1;
+                end
+            end
+
+            // Wait for the stop bit to finish its bit period
+            if (stop_wait && sample_now) begin
+                stop_wait <= 1'b0;
+                ready     <= 1'b1;
+            end
+        end
+    end
 endmodule
-
 ////////////////////////////////////////////////////////////////////
 
 module uart_rx (clk,rst,rx_data,rx_data_fresh,rxd);
@@ -64,7 +94,7 @@ module uart_rx (clk,rst,rx_data,rx_data_fresh,rxd);
    output [7:0] rx_data;
    output rx_data_fresh;
 
-   parameter BAUD_DIVISOR = 868;
+   parameter BAUD_DIVISOR = 217;
 
    reg [15:0] sample_cntr;
    reg [7:0] rx_shift;
@@ -156,27 +186,19 @@ endmodule
 ////////////////////////////////////////////////////////////////////
 
 module uart (clk,rst,
-   tx_data,tx_data_valid,tx_data_ack,txd,
+   tx_data,tx_data_valid,tx_idle,txd,
    rx_data,rx_data_fresh,rxd);
 
    parameter CLK_HZ = 25_000_000;
    parameter BAUD = 115200;
    parameter BAUD_DIVISOR = CLK_HZ / BAUD;
 
-   initial begin
-      if (BAUD_DIVISOR > 16'hffff) begin
-	 // This rate is too slow for the TX and RX sample 
-	 // counter resolution
-	 $display ("Error - Increase the size of the sample counters");
-	 $stop();
-      end
-   end
 
    output txd;
    input clk, rst, rxd;
    input [7:0] tx_data;
    input tx_data_valid;
-   output tx_data_ack;
+   output tx_idle;
    output [7:0] rx_data;
    output rx_data_fresh;
 
@@ -184,7 +206,7 @@ module uart (clk,rst,
       .clk(clk),.rst(rst),
       .tx_data(tx_data),
       .tx_data_valid(tx_data_valid),
-      .tx_data_ack(tx_data_ack),
+      .tx_idle(tx_idle),
       .txd(txd));
 
    defparam utx .BAUD_DIVISOR = BAUD_DIVISOR;

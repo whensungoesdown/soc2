@@ -1,4 +1,5 @@
 `define SOC2_PERI_UART_DR                  32'h20000
+`define SOC2_PERI_UART_STATUS              32'h20004
 
 `define SOC2_PERI_SD_STATUS                32'h20100
 `define SOC2_PERI_SD_RD_SEC_IDX            32'h20104
@@ -45,8 +46,27 @@ module peripherals (
    wire uart_wen;
 
    assign uart_ren = (rdaddress == `SOC2_PERI_UART_DR) & rden;
-   assign uart_wen = (rdaddress == `SOC2_PERI_UART_DR) & wren;
+   assign uart_wen = (wraddress == `SOC2_PERI_UART_DR) & wren;
 
+   //
+   // clk 75MHz, uart_clk 25MHz
+   // extend cycles 75/25 = 3
+   //
+   
+   wire uart_wen_sync;
+
+   cdc_sync #(
+       .WIDTH(1),
+       .PULSE_EXTEND(1),
+       .EXTEND_CYCLES(3)
+   ) u_cdc_uart_wen_stretch (
+       .src_clk    (clk),
+       .src_rst_n  (resetn),
+       .src_sig    (uart_wen),
+       .dst_clk    (uart_clk),
+       .dst_rst_n  (resetn),
+       .dst_sig    (uart_wen_sync)
+       );
 
 
    wire [7:0] uart_dr_in;
@@ -64,12 +84,13 @@ module peripherals (
 
    wire [7:0]  tx_data;
    wire        tx_data_valid;
-   wire        tx_data_ack; // transimit finished
+   wire        tx_idle;
    wire [7:0]  rx_data;
    wire        rx_data_fresh;
 
    assign tx_data = wdata[7:0];
-   assign tx_data_valid = uart_wen;
+   //assign tx_data_valid = uart_wen;
+   assign tx_data_valid = uart_wen_sync;
 
 
    dffrle_ns #(1) uart_intr_reg (
@@ -86,7 +107,7 @@ module peripherals (
       .rst              (~resetn      ),
       .tx_data          (tx_data      ),
       .tx_data_valid    (tx_data_valid),
-      .tx_data_ack      (tx_data_ack  ),
+      .tx_idle          (tx_idle      ),
       .txd              (uart_tx      ),
       .rx_data          (rx_data      ),
       .rx_data_fresh    (rx_data_fresh),
@@ -97,6 +118,14 @@ module peripherals (
    assign uart_dr_en = rx_data_fresh;
 
 
+   wire uart_status_ren;
+   wire [31:0] uart_status;
+
+   assign uart_status_ren = (rdaddress == `SOC2_PERI_UART_STATUS) & rden;
+   assign uart_status = {
+           31'b0,
+           tx_idle
+           };
 
    //
    //  SD
@@ -248,6 +277,7 @@ module peripherals (
    wire [31:0] rdata32_part_q; 
 
    assign rdata32_part_in = {32{uart_ren}} & {24'h0, uart_dr_q} |
+                            {32{uart_status_ren}} & uart_status |
                             {32{sd_status_ren}} & {29'h0, sd_wr_busy, sd_rd_busy, sd_init_end};
 
    dff_ns #(32) rdata32_part_reg (

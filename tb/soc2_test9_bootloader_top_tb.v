@@ -9,6 +9,7 @@ module top_tb(
    reg clk;
    reg resetn;
    reg rx;
+   wire tx;
 
    initial
       begin
@@ -62,7 +63,8 @@ module top_tb(
    soc2_top u_top (
       .clk      (clk      ),
       .resetn   (resetn   ),
-      .uart_rx  (rx       )
+      .uart_rx  (rx       ),
+      .uart_tx  (tx       )
       );
 
    always @(negedge clk)

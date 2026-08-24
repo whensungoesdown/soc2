@@ -5,6 +5,9 @@
 #define TEXT_COLUMN_MAX              80
 #define TEXT_ROW_MAX                 25
 
+#define UART_DR                  0x20000
+#define UART_STATUS              0x20004
+
 //
 // gcc -fno-zero-initialized-in-bss 
 //
@@ -157,17 +160,39 @@ void screen_puts(char* s)
 //    screen_puts(buffer);
 //}
 
+void uart_putchar(char c)
+{
+    int uart_status = 0;
+
+    while (1)
+    {
+        uart_status = *(int*)UART_STATUS;
+        if (1 == (uart_status & 0x1)) // tx_idle
+        {
+            break;
+        }
+    }
+
+    *(int*)UART_DR = (int)c;
+}
+
 void putchar(char c) 
 {
-    if (c == '\n') {
+
+    if (c == '\n') 
+    {
         // 先发送回车，再发送换行
         //UART_SendByte('\r');
+        uart_putchar('\r');
+        uart_putchar('\n');
         g_screen_curr_row++;
 	g_screen_curr_col = 0;
     }
     else
     {
         //UART_SendByte(c);
+        uart_putchar(c);
+
         g_screen[g_screen_curr_row][g_screen_curr_col] = c;
 
         g_screen_curr_col++;
