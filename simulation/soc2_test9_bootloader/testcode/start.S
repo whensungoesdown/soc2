@@ -99,8 +99,11 @@ setup_timer:
 #   addi.w  $t0, $t0, 0x40          # excp_handler 
    csrwr   $t0, 0xc                # EENTRY
 
-   addi.w  $t0, $r0, 0x4           # 
-   csrwr   $t0, 0x0                # CRMD.ie = 1
+   # uty: test disable ie, also, crmd.da=1 after reset, dont ruin it
+   #addi.w  $t0, $r0, 0x4           # 
+   #csrwr   $t0, 0x0                # CRMD.ie = 1
+   #addi.w  $t0, $r0, 0x8           # 
+   #csrwr   $t0, 0x0                # CRMD.da = 1
 
 #   lu12i.w $t0, 0x0FFFF
 #   addi.w  $t0, $t0, 0x7F3          # 'b1111 1111 1111 1111 1111 0111 1111 0011   initval=1111 1111 1111 1111 1111 0111 1111 00  periodic=1 en=1

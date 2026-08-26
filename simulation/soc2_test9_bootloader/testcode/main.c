@@ -11,9 +11,9 @@ void banner (void)
     u_printf("          _|  _|    _|  _|          _|    \n");  
     u_printf("    _|_|_|      _|_|      _|_|_|  _|_|_|_|\n"); 
     u_printf("    \n");
-    u_printf("                           SOC2 08-24-2026\n");
+    u_printf("                           SOC2 08-26-2026\n");
     u_printf("    \n");
-    u_printf("                        Bootloader Ver 0.7\n");
+    u_printf("                        Bootloader Ver 0.8\n");
     u_printf("    \n");
     u_printf("    \n");
 }
@@ -157,6 +157,8 @@ void load_kernel (void)
 
     Elf32_Ehdr pelfhdr = {0};
     unsigned int kernel_entry = 0;
+
+    int crmd = 0;
 
 
     g_buf = HeapMgr_malloc(512);
@@ -352,8 +354,16 @@ void load_kernel (void)
 
     u_printf("\n\nCurrent sp = 0x%x\n", sp);
 
-    u_printf("\nEnable icache\n\n");
-    enable_icache();
+    //u_printf("\nEnable icache\n\n");
+    //enable_icache();
+
+
+    asm volatile("csrrd   %0, 0x0\n\t"
+            "nop \n\t"
+            :"=r"(crmd)
+            );
+
+    u_printf("\ncrmd=0x%x\n", crmd);
 
     u_printf("\nJump to kernel entry at 0x%x\n\n", kernel_entry);
 
@@ -471,6 +481,15 @@ void main (void)
     unsigned int i = 0;
     int val = 0;
 
+    int crmd = 0;
+
+    asm volatile("csrrd   %0, 0x0\n\t"
+            "nop \n\t"
+            :"=r"(crmd)
+            );
+
+    u_printf("\ncrmd=0x%x\n", crmd);
+
     //test_case_0();
     //while (1)
     //{
@@ -520,14 +539,14 @@ void main (void)
 
     u_printf("SDRAM: 0x2000000 - 0x5fffffff\n");
 
-    u_printf("SDRAM: memory test read/write at ");
+    u_printf("SDRAM: memory test read/write ");
 
     for (i = 0x2000000; i < 0x6000000; i += 4)
     {
-        if (0 == i % 0x100000)
-        {
-            u_printf("0x%x ", i);
-        }
+        //if (0 == i % 0x100000)
+        //{
+        //    u_printf("0x%x ", i);
+        //}
 
         *(int*)i = i;
         val = *(int*)i;
@@ -535,19 +554,21 @@ void main (void)
         {
             if (0 == i % 0x100000)
             {
-                screen_col_move(-10);
+                //screen_col_move(-10);
+                u_printf("\rSDRAM: memory test read/write 0x%x ", i);
             }
         }
         else
         {
-            u_printf("FAIL, addr 0x%x, read 0x%x\n\n", i, val);
+            u_printf("\nFAIL, addr 0x%x, read 0x%x\n\n", i, val);
             goto exit_main;
         }
     }
 
-    screen_col_move(-3);
+    //screen_col_move(-3);
 
-    u_printf("                             [OK]\n\n");
+    //u_printf("                             [OK]\n\n");
+    u_printf("\rSDRAM: memory test read/write                              [OK]\n\n");
 
     u_printf("Set new stack top SDRAM 0x5fffff0\n\n");
     u_printf("Jump to main_sdram_stack()\n\n");
@@ -574,28 +595,57 @@ void do_excp_handler (void)
 {
     int estat = 0;
     int uart_data = 0;
+    int badv = 0;
+    int era = 0;
+    int crmd = 0;
 
 
-    asm volatile("csrrd   %0, 0x5\n\t"
-            "nop \n\t"
-            :"=r"(estat)
+//    asm volatile("csrrd   %0, 0x5\n\t"
+//            "nop \n\t"
+//            :"=r"(estat)
+//            );
+//
+//    asm volatile("csrrd   %0, 0x6\n\t"
+//            "nop \n\t"
+//            :"=r"(era)
+//            );
+//
+//    asm volatile("csrrd   %0, 0x7\n\t"
+//            "nop \n\t"
+//            :"=r"(badv)
+//            );
+//
+//    asm volatile("csrrd   %0, 0x0\n\t"
+//            "nop \n\t"
+//            :"=r"(crmd)
+//            );
+
+
+    asm volatile(
+            "csrrd %0, 0x5\n\t"
+            "csrrd %1, 0x6\n\t"
+            "csrrd %2, 0x7\n\t"
+            "csrrd %3, 0x0"
+            : "=r"(estat), "=r"(era), "=r"(badv), "=r"(crmd)
+            :
+            : /* no clobbers, csrrd is read-only */
             );
 
     *(int*)0x10014 = estat;
 
-    if (0x08 == estat)
-    {
-        // TI
-        *(int*)0x10018 = 'emiT';
-        *(int*)0x1001c = 'nI r';
-        *(int*)0x10020 = '!!rt';
-
-
-        // clr timer intr
-        asm volatile("addi.w  $t0, $r0, 0x1");
-        asm volatile("csrwr   $t0, 0x44");
-    }
-    else if (0x10 == estat)
+//    if (0x08 == estat)
+//    {
+//        // TI
+//        *(int*)0x10018 = 'emiT';
+//        *(int*)0x1001c = 'nI r';
+//        *(int*)0x10020 = '!!rt';
+//
+//
+//        // clr timer intr
+//        asm volatile("addi.w  $t0, $r0, 0x1");
+//        asm volatile("csrwr   $t0, 0x44");
+//    }
+    if (0x10 == estat)
     {
 
         // HWI0, uart
@@ -615,5 +665,12 @@ void do_excp_handler (void)
         *(int*)0x10018 = 'nknU';
         *(int*)0x1001c = ' nwo';
         *(int*)0x10020 = 'rtnI';
+
+        u_printf("\n\n\n\nestat=0x%x, era=0x%x, badv=0x%x, crmd=0x%x\n", estat, era, badv, crmd);
+        u_printf("Should not be here, hang.\n");
+
+        while(1) {}
+
     }
+	
 }

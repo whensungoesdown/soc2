@@ -62,19 +62,19 @@ int u_strlen (const char *str)
     return s - str;
 }
 
-void screen_col_move (int n)
-{
-    g_screen_curr_col += n;
-
-    if (g_screen_curr_col < 0)
-    {
-        g_screen_curr_col = 0;
-    }
-    else if (g_screen_curr_col > TEXT_COLUMN_MAX)
-    {
-        g_screen_curr_col = TEXT_COLUMN_MAX;
-    }
-}
+//void screen_col_move (int n)
+//{
+//    g_screen_curr_col += n;
+//
+//    if (g_screen_curr_col < 0)
+//    {
+//        g_screen_curr_col = 0;
+//    }
+//    else if (g_screen_curr_col > TEXT_COLUMN_MAX)
+//    {
+//        g_screen_curr_col = TEXT_COLUMN_MAX;
+//    }
+//}
 
 void scroll_screen_buffer(void)
 {
@@ -186,6 +186,12 @@ void putchar(char c)
         uart_putchar('\r');
         uart_putchar('\n');
         g_screen_curr_row++;
+	g_screen_curr_col = 0;
+    }
+    else if (c == '\r')
+    {
+        uart_putchar(c);
+        // go back to the beginning of the row
 	g_screen_curr_col = 0;
     }
     else
