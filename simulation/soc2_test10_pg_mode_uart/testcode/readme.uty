@@ -1,0 +1,4 @@
+compile and view assembly code
+
+$ make all
+$ loongarch32r-linux-gnusf-objdump -d -S obj/main.elf

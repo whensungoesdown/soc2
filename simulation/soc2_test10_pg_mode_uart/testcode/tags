@@ -1,0 +1,1740 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AS	Makefile	/^AS := $(CROSS_COMPILE)as$/;"	m
+BLAST	main_v0.c	16;"	d	file:
+BLAST_SPEED	main_v0.c	33;"	d	file:
+BULLET	main_v0.c	19;"	d	file:
+BULLET_SPEED	main_v0.c	30;"	d	file:
+Bpb	fat.c	/^} Bpb;$/;"	t	typeref:struct:__anon5	file:
+CC	Makefile	/^CC := $(CROSS_COMPILE)gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS := -nostdlib -nostartfiles -fno-builtin -D__loongarch32$/;"	m
+CLUST_BAD	fat.c	/^  CLUST_BAD  = 0x08,$/;"	e	enum:__anon2	file:
+CLUST_FREE	fat.c	/^  CLUST_FREE = 0x01,$/;"	e	enum:__anon2	file:
+CLUST_LAST	fat.c	/^  CLUST_LAST = 0x04,$/;"	e	enum:__anon2	file:
+CLUST_USED	fat.c	/^  CLUST_USED = 0x02,$/;"	e	enum:__anon2	file:
+CROSS_COMPILE	Makefile	/^CROSS_COMPILE := loongarch32r-linux-gnusf-$/;"	m
+Dir	fat.h	/^} Dir;$/;"	t	typeref:struct:__anon18
+DirInfo	fat.h	/^} DirInfo;$/;"	t	typeref:struct:__anon17
+Disassembly	obj/test.s	/^Disassembly of section .bss:$/;"	l
+Disassembly	obj/test.s	/^Disassembly of section .comment:$/;"	l
+Disassembly	obj/test.s	/^Disassembly of section .data:$/;"	l
+Disassembly	obj/test.s	/^Disassembly of section .debug_abbrev:$/;"	l
+Disassembly	obj/test.s	/^Disassembly of section .debug_aranges:$/;"	l
+Disassembly	obj/test.s	/^Disassembly of section .debug_frame:$/;"	l
+Disassembly	obj/test.s	/^Disassembly of section .debug_info:$/;"	l
+Disassembly	obj/test.s	/^Disassembly of section .debug_line:$/;"	l
+Disassembly	obj/test.s	/^Disassembly of section .debug_ranges:$/;"	l
+Disassembly	obj/test.s	/^Disassembly of section .debug_str:$/;"	l
+Disassembly	obj/test.s	/^Disassembly of section .got:$/;"	l
+Disassembly	obj/test.s	/^Disassembly of section .rodata:$/;"	l
+Disassembly	obj/test.s	/^Disassembly of section .text:$/;"	l
+DiskOps	fat.h	/^} DiskOps;$/;"	t	typeref:struct:__anon15
+EI_NIDENT	main.c	111;"	d	file:
+EXT_FLAG_ACT	fat.c	18;"	d	file:
+EXT_FLAG_MIRROR	fat.c	17;"	d	file:
+EXT_FLAG_SECOND	fat.c	19;"	d	file:
+Elf32_Ehdr	main.c	/^} Elf32_Ehdr;$/;"	t	typeref:struct:__anon20	file:
+FAT_ACCESSED	fat.h	/^  FAT_ACCESSED   = 0x20, \/\/ do not use (internal)$/;"	e	enum:__anon13
+FAT_APPEND	fat.h	/^  FAT_APPEND     = 0x04, \/\/ Set file offset to the end of the file$/;"	e	enum:__anon13
+FAT_ATTR_ARCHIVE	fat.h	/^  FAT_ATTR_ARCHIVE  = 0x20,$/;"	e	enum:__anon12
+FAT_ATTR_DIR	fat.h	/^  FAT_ATTR_DIR      = 0x10,$/;"	e	enum:__anon12
+FAT_ATTR_HIDDEN	fat.h	/^  FAT_ATTR_HIDDEN   = 0x02,$/;"	e	enum:__anon12
+FAT_ATTR_LABEL	fat.h	/^  FAT_ATTR_LABEL    = 0x08,$/;"	e	enum:__anon12
+FAT_ATTR_LFN	fat.h	/^  FAT_ATTR_LFN      = 0x0f,$/;"	e	enum:__anon12
+FAT_ATTR_NONE	fat.h	/^  FAT_ATTR_NONE     = 0x00,$/;"	e	enum:__anon12
+FAT_ATTR_RO	fat.h	/^  FAT_ATTR_RO       = 0x01,$/;"	e	enum:__anon12
+FAT_ATTR_SYS	fat.h	/^  FAT_ATTR_SYS      = 0x04,$/;"	e	enum:__anon12
+FAT_BUF_DIRTY	fat.c	/^  FAT_BUF_DIRTY  = 0x01,$/;"	e	enum:__anon1	file:
+FAT_CREATE	fat.h	/^  FAT_CREATE     = 0x10, \/\/ Create the file if it do not exist$/;"	e	enum:__anon13
+FAT_ERR_BROKEN	fat.h	/^  FAT_ERR_BROKEN   = -2,$/;"	e	enum:__anon11
+FAT_ERR_DENIED	fat.h	/^  FAT_ERR_DENIED   = -7,$/;"	e	enum:__anon11
+FAT_ERR_EOF	fat.h	/^  FAT_ERR_EOF      = -6,$/;"	e	enum:__anon11
+FAT_ERR_FULL	fat.h	/^  FAT_ERR_FULL     = -8,$/;"	e	enum:__anon11
+FAT_ERR_IO	fat.h	/^  FAT_ERR_IO     = -3,$/;"	e	enum:__anon11
+FAT_ERR_NOFAT	fat.h	/^  FAT_ERR_NOFAT    = -1,$/;"	e	enum:__anon11
+FAT_ERR_NONE	fat.h	/^  FAT_ERR_NONE     =  0,$/;"	e	enum:__anon11
+FAT_ERR_PARAM	fat.h	/^  FAT_ERR_PARAM    = -4,$/;"	e	enum:__anon11
+FAT_ERR_PATH	fat.h	/^  FAT_ERR_PATH     = -5,$/;"	e	enum:__anon11
+FAT_FILE_DIRTY	fat.h	/^  FAT_FILE_DIRTY = 0x80, \/\/ do not use (internal)$/;"	e	enum:__anon13
+FAT_H	fat.h	5;"	d
+FAT_INFO_DIRTY	fat.c	/^  FAT_INFO_DIRTY = 0x02,$/;"	e	enum:__anon1	file:
+FAT_MODIFIED	fat.h	/^  FAT_MODIFIED   = 0x40, \/\/ do not use (internal)$/;"	e	enum:__anon13
+FAT_READ	fat.h	/^  FAT_READ       = 0x02, \/\/ Open file for reading$/;"	e	enum:__anon13
+FAT_SEEK_CURR	fat.h	/^  FAT_SEEK_CURR,$/;"	e	enum:__anon14
+FAT_SEEK_END	fat.h	/^  FAT_SEEK_END,$/;"	e	enum:__anon14
+FAT_SEEK_START	fat.h	/^  FAT_SEEK_START,$/;"	e	enum:__anon14
+FAT_TRUNC	fat.h	/^  FAT_TRUNC      = 0x08, \/\/ Truncate the file after opening$/;"	e	enum:__anon13
+FAT_WRITE	fat.h	/^  FAT_WRITE      = 0x01, \/\/ Open file for writing$/;"	e	enum:__anon13
+FSINFO_HEAD_SIG	fat.c	11;"	d	file:
+FSINFO_STRUCT_SIG	fat.c	12;"	d	file:
+FSINFO_TAIL_SIG	fat.c	13;"	d	file:
+Fat	fat.h	/^typedef struct Fat$/;"	s
+Fat	fat.h	/^} Fat;$/;"	t	typeref:struct:Fat
+File	fat.h	/^} File;$/;"	t	typeref:struct:__anon19
+FsInfo	fat.c	/^} FsInfo;$/;"	t	typeref:struct:__anon6	file:
+HEAP_ADDR	heapmgrkr.c	10;"	d	file:
+HEAP_SIZE	heapmgrkr.c	11;"	d	file:
+Header	heapmgrkr.c	/^typedef struct header Header;$/;"	t	typeref:struct:header	file:
+HeapMgr_free	heapmgrkr.c	/^void HeapMgr_free(void *ap)$/;"	f
+HeapMgr_malloc	heapmgrkr.c	/^void *HeapMgr_malloc(size_t nbytes)$/;"	f
+LD	Makefile	/^LD := $(CROSS_COMPILE)ld$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS := -T bin.lds$/;"	m
+LEFT	main_v0.c	22;"	d	file:
+LFN_HEAD_MSK	fat.c	21;"	d	file:
+LFN_SEQ_MSK	fat.c	22;"	d	file:
+LIMIT	fat.c	9;"	d	file:
+Lfn	fat.c	/^} Lfn;$/;"	t	typeref:union:__anon8	file:
+Loc	fat.c	/^} Loc;$/;"	t	typeref:struct:__anon10	file:
+MBR_PART_OFF	fat.c	15;"	d	file:
+Mbr	fat.c	/^} Mbr;$/;"	t	typeref:struct:__anon3	file:
+NALLOC	heapmgrkr.c	56;"	d	file:
+OBJA	main_v0.c	10;"	d	file:
+OBJB	main_v0.c	13;"	d	file:
+OBJCOPY	Makefile	/^OBJCOPY := $(CROSS_COMPILE)objcopy$/;"	m
+OBJDUMP	Makefile	/^OBJDUMP := $(CROSS_COMPILE)objdump$/;"	m
+OBJS_C	Makefile	/^OBJS_C := $(obj_path)\/main.o $(obj_path)\/lib.o $(obj_path)\/heapmgrkr.o $(obj_path)\/fat.o$/;"	m
+RIGHT	main_v0.c	24;"	d	file:
+SD_INIT_DONE	lib.c	368;"	d	file:
+SD_INIT_TIMEOUT	lib.c	468;"	d	file:
+SD_RD_DATA	lib.c	364;"	d	file:
+SD_RD_SEC_IDX	lib.c	362;"	d	file:
+SD_RD_SEC_OFS	lib.c	363;"	d	file:
+SD_READ_BUSY	lib.c	369;"	d	file:
+SD_STATUS	lib.c	361;"	d	file:
+SD_WRADDR	lib.c	365;"	d	file:
+SD_WRDATA	lib.c	366;"	d	file:
+SD_WRITE_BUSY	lib.c	370;"	d	file:
+SFN_FREE	fat.c	24;"	d	file:
+SFN_LAST	fat.c	25;"	d	file:
+SFN_PAD	fat.c	26;"	d	file:
+SPACE	main_v0.c	27;"	d	file:
+START_O	Makefile	/^START_O := $(obj_path)\/start.o$/;"	m
+Sfn	fat.c	/^} Sfn;$/;"	t	typeref:struct:__anon7	file:
+TARGET_BIN	Makefile	/^TARGET_BIN := $(obj_path)\/out.bin$/;"	m
+TARGET_CONVERT	Makefile	/^TARGET_CONVERT := $(obj_path)\/convert$/;"	m
+TARGET_DATA	Makefile	/^TARGET_DATA := $(obj_path)\/out.data$/;"	m
+TARGET_ELF	Makefile	/^TARGET_ELF := $(obj_path)\/out.elf$/;"	m
+TARGET_S	Makefile	/^TARGET_S := $(obj_path)\/test.s$/;"	m
+TEXT_COLUMN	main_v0.c	5;"	d	file:
+TEXT_COLUMN_MAX	lib.c	5;"	d	file:
+TEXT_ROW	main_v0.c	6;"	d	file:
+TEXT_ROW_MAX	lib.c	6;"	d	file:
+TEXT_VIDEO_RAM_START	lib.c	4;"	d	file:
+TEXT_VIDEO_RAM_START	main_v0.c	4;"	d	file:
+Timestamp	fat.h	/^} Timestamp;$/;"	t	typeref:struct:__anon16
+_HEAPMGR_H_	heapmgr.h	2;"	d
+_LIB_H_	lib.h	2;"	d
+_start	start.S	/^_start:$/;"	l
+a0	obj/test.s	/^      a0:	0003d805 	0x0003d805$/;"	l
+a0	obj/test.s	/^      a0:	6d6f682f 	bgeu	$r1,$r15,94056(0x16f68) # 17008 <_start-0x1bfe8ff8>$/;"	l
+a0	obj/test.s	/^  a0:	0000001c 	0x0000001c$/;"	l
+a0	obj/test.s	/^  a0:	01150c00 	0x01150c00$/;"	l
+a0	obj/test.s	/^  a0:	4600305f 	bnez	$r2,-131024(0x7e0030) # fffe00d0 <g_buf+0xe3fd803c>$/;"	l
+a00	obj/test.s	/^     a00:	05820505 	0x05820505$/;"	l
+a00	obj/test.s	/^     a00:	69050404 	bltu	$r0,$r4,66820(0x10504) # 10f04 <_start-0x1bfef0fc>$/;"	l
+a00	obj/test.s	/^ a00:	000000a4 	0x000000a4$/;"	l
+a00	obj/test.s	/^ a00:	415f5441 	beqz	$r2,352084(0x55f54) # 56954 <_start-0x1bfa96ac>$/;"	l
+a04	obj/test.s	/^     a04:	0500746e 	0x0500746e$/;"	l
+a04	obj/test.s	/^     a04:	05054e0c 	0x05054e0c$/;"	l
+a04	obj/test.s	/^ a04:	4c200e44 	jirl	$r4,$r18,8204(0x200c)$/;"	l
+a04	obj/test.s	/^ a04:	5f525454 	bne	$r2,$r20,-44460(0x35254) # ffff5c58 <g_buf+0xe3fedbc4>$/;"	l
+a08	obj/test.s	/^     a08:	0009054a 	bytepick.w	$r10,$r10,$r1,0x2$/;"	l
+a08	obj/test.s	/^     a08:	00810704 	bstrins.d	$r4,$r24,0x1,0x1$/;"	l
+a08	obj/test.s	/^ a08:	00535953 	0x00535953$/;"	l
+a08	obj/test.s	/^ a08:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+a0c	obj/test.s	/^     a0c:	08050000 	0x08050000$/;"	l
+a0c	obj/test.s	/^     a0c:	4d030402 	jirl	$r2,$r0,66308(0x10304)$/;"	l
+a0c	obj/test.s	/^ a0c:	0c440397 	0x0c440397$/;"	l
+a0c	obj/test.s	/^ a0c:	5f646f6d 	bne	$r27,$r13,-39828(0x3646c) # ffff6e78 <g_buf+0xe3feede4>$/;"	l
+a10	obj/test.s	/^     a10:	0000cc05 	0x0000cc05$/;"	l
+a10	obj/test.s	/^     a10:	02001e05 	slti	$r5,$r16,7(0x7)$/;"	l
+a10	obj/test.s	/^ a10:	65746164 	bge	$r11,$r4,95328(0x17460) # 17e70 <_start-0x1bfe8190>$/;"	l
+a10	obj/test.s	/^ a10:	80020016 	0x80020016$/;"	l
+a14	obj/test.s	/^     a14:	04100500 	csrxchg	$r0,$r8,0x401$/;"	l
+a14	obj/test.s	/^     a14:	05820304 	0x05820304$/;"	l
+a14	obj/test.s	/^ a14:	44d644c1 	bnez	$r6,316996(0x4d644) # 4e058 <_start-0x1bfb1fa8>$/;"	l
+a14	obj/test.s	/^ a14:	74616600 	xvabsd.w	$xr0,$xr16,$xr25$/;"	l
+a18	obj/test.s	/^     a18:	0000021a 	0x0000021a$/;"	l
+a18	obj/test.s	/^     a18:	0402000f 	csrrd	$r15,0x80$/;"	l
+a18	obj/test.s	/^ a18:	030d44d7 	lu52i.d	$r23,$r6,849(0x351)$/;"	l
+a18	obj/test.s	/^ a18:	756f6d5f 	0x756f6d5f$/;"	l
+a1c	obj/test.s	/^     a1c:	0005b506 	alsl.w	$r6,$r8,$r13,0x4$/;"	l
+a1c	obj/test.s	/^     a1c:	0d058303 	0x0d058303$/;"	l
+a1c	obj/test.s	/^ a1c:	00000024 	0x00000024$/;"	l
+a1c	obj/test.s	/^ a1c:	6600746e 	bge	$r3,$r14,-130956(0x20074) # fffe0a90 <g_buf+0xe3fd89fc>$/;"	l
+a20	obj/test.s	/^     a20:	03040200 	lu52i.d	$r0,$r16,256(0x100)$/;"	l
+a20	obj/test.s	/^     a20:	05100100 	0x05100100$/;"	l
+a20	obj/test.s	/^ a20:	00000500 	0x00000500$/;"	l
+a20	obj/test.s	/^ a20:	675f7461 	bge	$r3,$r1,-41100(0x35f74) # ffff6994 <g_buf+0xe3fee900>$/;"	l
+a24	obj/test.s	/^     a24:	00000043 	0x00000043$/;"	l
+a24	obj/test.s	/^     a24:	00280582 	0x00280582$/;"	l
+a24	obj/test.s	/^ a24:	1c004050 	pcaddu12i	$r16,514(0x202)$/;"	l
+a24	obj/test.s	/^ a24:	745f7465 	0x745f7465$/;"	l
+a28	obj/test.s	/^     a28:	76080305 	0x76080305$/;"	l
+a28	obj/test.s	/^     a28:	83030402 	0x83030402$/;"	l
+a28	obj/test.s	/^ a28:	000001d8 	0x000001d8$/;"	l
+a28	obj/test.s	/^ a28:	73656d69 	vssrani.wu.d	$vr9,$vr11,0x1b$/;"	l
+a2c	obj/test.s	/^     a2c:	02000a05 	slti	$r5,$r16,2(0x2)$/;"	l
+a2c	obj/test.s	/^     a2c:	bc061c00 	0xbc061c00$/;"	l
+a2c	obj/test.s	/^ a2c:	48500e44 	0x48500e44$/;"	l
+a2c	obj/test.s	/^ a2c:	706d6174 	0x706d6174$/;"	l
+a30	obj/test.s	/^     a30:	01000004 	0x01000004$/;"	l
+a30	obj/test.s	/^     a30:	24020304 	ldptr.w	$r4,$r24,512(0x200)$/;"	l
+a30	obj/test.s	/^ a30:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+a30	obj/test.s	/^ a30:	706f6300 	0x706f6300$/;"	l
+a34	obj/test.s	/^     a34:	00280512 	0x00280512$/;"	l
+a34	obj/test.s	/^     a34:	00430511 	0x00430511$/;"	l
+a34	obj/test.s	/^ a34:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+a34	obj/test.s	/^ a34:	70625f79 	vabsd.bu	$vr25,$vr27,$vr23$/;"	l
+a38	obj/test.s	/^     a38:	03050000 	lu52i.d	$r0,$r0,320(0x140)$/;"	l
+a38	obj/test.s	/^     a38:	ba030402 	0xba030402$/;"	l
+a38	obj/test.s	/^ a38:	65735f62 	bge	$r27,$r2,95068(0x1735c) # 17d94 <_start-0x1bfe826c>$/;"	l
+a38	obj/test.s	/^ a38:	c101bc03 	0xc101bc03$/;"	l
+a3c	obj/test.s	/^     a3c:	02002605 	slti	$r5,$r16,9(0x9)$/;"	l
+a3c	obj/test.s	/^     a3c:	1c00760c 	pcaddu12i	$r12,944(0x3b0)$/;"	l
+a3c	obj/test.s	/^ a3c:	0d44d644 	0x0d44d644$/;"	l
+a3c	obj/test.s	/^ a3c:	726f7463 	0x726f7463$/;"	l
+a4	obj/test.s	/^      a4:	1c270200 	pcaddu12i	$r0,79888(0x13810)$/;"	l
+a4	obj/test.s	/^      a4:	2f752f65 	0x2f752f65$/;"	l
+a4	obj/test.s	/^  a4:	00000000 	0x00000000$/;"	l
+a4	obj/test.s	/^  a4:	13491927 	addu16i.d	$r7,$r9,-11706(0xd246)$/;"	l
+a4	obj/test.s	/^  a4:	455f5441 	bnez	$r2,352084(0x55f54) # 55ff8 <_start-0x1bfaa008>$/;"	l
+a40	obj/test.s	/^     a40:	00009907 	0x00009907$/;"	l
+a40	obj/test.s	/^     a40:	05ba0304 	0x05ba0304$/;"	l
+a40	obj/test.s	/^ a40:	00000003 	0x00000003$/;"	l
+a40	obj/test.s	/^ a40:	74616600 	xvabsd.w	$xr0,$xr16,$xr25$/;"	l
+a44	obj/test.s	/^     a44:	00009900 	0x00009900$/;"	l
+a44	obj/test.s	/^     a44:	0402001b 	csrrd	$r27,0x80$/;"	l
+a44	obj/test.s	/^ a44:	00000024 	0x00000024$/;"	l
+a44	obj/test.s	/^ a44:	6600305f 	bge	$r2,$r31,-131024(0x20030) # fffe0a74 <g_buf+0xe3fd89e0>$/;"	l
+a48	obj/test.s	/^     a48:	004a0800 	0x004a0800$/;"	l
+a48	obj/test.s	/^     a48:	05054503 	0x05054503$/;"	l
+a48	obj/test.s	/^ a48:	00000500 	0x00000500$/;"	l
+a48	obj/test.s	/^ a48:	315f7461 	vstelm.h	$vr1,$r3,-70(0x1ba),0x7$/;"	l
+a4c	obj/test.s	/^     a4c:	01040200 	0x01040200$/;"	l
+a4c	obj/test.s	/^     a4c:	08180000 	fmadd.s	$f0,$f0,$f0,$f16$/;"	l
+a4c	obj/test.s	/^ a4c:	1c004228 	pcaddu12i	$r8,529(0x211)$/;"	l
+a4c	obj/test.s	/^ a4c:	6e667300 	bgeu	$r24,$r0,-104848(0x26670) # fffe70bc <g_buf+0xe3fdf028>$/;"	l
+a50	obj/test.s	/^     a50:	0000004a 	0x0000004a$/;"	l
+a50	obj/test.s	/^     a50:	030c05ba 	lu52i.d	$r26,$r13,769(0x301)$/;"	l
+a50	obj/test.s	/^ a50:	00000140 	0x00000140$/;"	l
+a50	obj/test.s	/^ a50:	6168635f 	blt	$r26,$r31,92256(0x16860) # 172b0 <_start-0x1bfe8d50>$/;"	l
+a54	obj/test.s	/^     a54:	0105004f 	fmul.d	$f15,$f2,$f0$/;"	l
+a54	obj/test.s	/^     a54:	0105ba0a 	0x0105ba0a$/;"	l
+a54	obj/test.s	/^ a54:	48300e44 	0x48300e44$/;"	l
+a54	obj/test.s	/^ a54:	75700072 	0x75700072$/;"	l
+a58	obj/test.s	/^     a58:	00034806 	0x00034806$/;"	l
+a58	obj/test.s	/^     a58:	0543084b 	0x0543084b$/;"	l
+a58	obj/test.s	/^ a58:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+a58	obj/test.s	/^ a58:	66735f74 	bge	$r27,$r20,-101540(0x2735c) # fffe7db4 <g_buf+0xe3fdfd20>$/;"	l
+a5c	obj/test.s	/^     a5c:	00990900 	bstrins.d	$r0,$r8,0x19,0x2$/;"	l
+a5c	obj/test.s	/^     a5c:	834bf309 	0x834bf309$/;"	l
+a5c	obj/test.s	/^ a5c:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+a5c	obj/test.s	/^ a5c:	616e5f6e 	blt	$r27,$r14,93788(0x16e5c) # 178b8 <_start-0x1bfe8748>$/;"	l
+a60	obj/test.s	/^     a60:	054e1405 	0x054e1405$/;"	l
+a60	obj/test.s	/^     a60:	29060000 	st.b	$r0,$r0,384(0x180)$/;"	l
+a60	obj/test.s	/^ a60:	7000656d 	vseq.b	$vr13,$vr11,$vr25$/;"	l
+a60	obj/test.s	/^ a60:	c1012403 	0xc1012403$/;"	l
+a64	obj/test.s	/^     a64:	01000005 	0x01000005$/;"	l
+a64	obj/test.s	/^     a64:	16058212 	lu32i.d	$r18,11280(0x2c10)$/;"	l
+a64	obj/test.s	/^ a64:	0d44d644 	0x0d44d644$/;"	l
+a64	obj/test.s	/^ a64:	6c5f7475 	bgeu	$r3,$r21,24436(0x5f74) # 69d8 <_start-0x1bff9628>$/;"	l
+a68	obj/test.s	/^     a68:	00830613 	bstrins.d	$r19,$r16,0x3,0x1$/;"	l
+a68	obj/test.s	/^     a68:	820c0586 	0x820c0586$/;"	l
+a68	obj/test.s	/^ a68:	00000003 	0x00000003$/;"	l
+a68	obj/test.s	/^ a68:	6e5f6e66 	bgeu	$r19,$r6,-106644(0x25f6c) # fffe69d4 <g_buf+0xe3fde940>$/;"	l
+a6c	obj/test.s	/^     a6c:	03050000 	lu52i.d	$r0,$r0,320(0x140)$/;"	l
+a6c	obj/test.s	/^     a6c:	054b1405 	0x054b1405$/;"	l
+a6c	obj/test.s	/^ a6c:	00000024 	0x00000024$/;"	l
+a6c	obj/test.s	/^ a6c:	5f656d61 	bne	$r11,$r1,-39572(0x3656c) # ffff6fd8 <g_buf+0xe3feef44>$/;"	l
+a70	obj/test.s	/^     a70:	1405850c 	lu12i.w	$r12,11304(0x2c28)$/;"	l
+a70	obj/test.s	/^     a70:	1c007610 	pcaddu12i	$r16,944(0x3b0)$/;"	l
+a70	obj/test.s	/^ a70:	00000500 	0x00000500$/;"	l
+a70	obj/test.s	/^ a70:	67617266 	bge	$r19,$r6,-40592(0x36170) # ffff6be0 <g_buf+0xe3feeb4c>$/;"	l
+a74	obj/test.s	/^     a74:	0006320a 	alsl.wu	$r10,$r16,$r12,0x1$/;"	l
+a74	obj/test.s	/^     a74:	09053d08 	0x09053d08$/;"	l
+a74	obj/test.s	/^ a74:	1c004368 	pcaddu12i	$r8,539(0x21b)$/;"	l
+a74	obj/test.s	/^ a74:	74616600 	xvabsd.w	$xr0,$xr16,$xr25$/;"	l
+a78	obj/test.s	/^     a78:	01d80100 	0x01d80100$/;"	l
+a78	obj/test.s	/^     a78:	03120585 	lu52i.d	$r5,$r12,1153(0x481)$/;"	l
+a78	obj/test.s	/^ a78:	000006ec 	0x000006ec$/;"	l
+a78	obj/test.s	/^ a78:	7269645f 	0x7269645f$/;"	l
+a7c	obj/test.s	/^     a7c:	00004305 	revh.2w	$r5,$r24$/;"	l
+a7c	obj/test.s	/^     a7c:	01054a74 	fmul.d	$f20,$f19,$f18$/;"	l
+a7c	obj/test.s	/^ a7c:	01800e44 	0x01800e44$/;"	l
+a7c	obj/test.s	/^ a7c:	6572635f 	bge	$r26,$r31,94816(0x17260) # 17cdc <_start-0x1bfe8324>$/;"	l
+a8	obj/test.s	/^      a8:	00000052 	0x00000052$/;"	l
+a8	obj/test.s	/^      a8:	6e6f6f6c 	bgeu	$r27,$r12,-102548(0x26f6c) # fffe7014 <g_buf+0xe3fdef80>$/;"	l
+a8	obj/test.s	/^  a8:	00001301 	clo.w	$r1,$r24$/;"	l
+a8	obj/test.s	/^  a8:	1c0003c0 	pcaddu12i	$r0,30(0x1e)$/;"	l
+a8	obj/test.s	/^  a8:	495f5252 	0x495f5252$/;"	l
+a80	obj/test.s	/^     a80:	001d3800 	mulh.wu	$r0,$r0,$r14$/;"	l
+a80	obj/test.s	/^     a80:	024a0f03 	sltui	$r3,$r24,643(0x283)$/;"	l
+a80	obj/test.s	/^ a80:	00657461 	bstrins.w	$r1,$r3,0x5,0x1d$/;"	l
+a80	obj/test.s	/^ a80:	96018148 	0x96018148$/;"	l
+a84	obj/test.s	/^     a84:	00007c1c 	0x00007c1c$/;"	l
+a84	obj/test.s	/^     a84:	01010014 	fadd.d	$f20,$f0,$f0$/;"	l
+a84	obj/test.s	/^ a84:	160c4402 	lu32i.d	$r2,25120(0x6220)$/;"	l
+a84	obj/test.s	/^ a84:	5f746567 	bne	$r11,$r7,-35740(0x37464) # ffff7ee8 <g_buf+0xe3fefe54>$/;"	l
+a88	obj/test.s	/^     a88:	000001d6 	0x000001d6$/;"	l
+a88	obj/test.s	/^     a88:	019c0100 	0x019c0100$/;"	l
+a88	obj/test.s	/^ a88:	00746166 	bstrins.w	$r6,$r11,0x14,0x18$/;"	l
+a88	obj/test.s	/^ a88:	06d00300 	0x06d00300$/;"	l
+a8c	obj/test.s	/^     a8c:	00a50002 	bstrins.d	$r2,$r0,0x25,0x0$/;"	l
+a8c	obj/test.s	/^     a8c:	0b000001 	0x0b000001$/;"	l
+a8c	obj/test.s	/^ a8c:	44d644c1 	bnez	$r6,316996(0x4d644) # 4e0d0 <_start-0x1bfb1f30>$/;"	l
+a8c	obj/test.s	/^ a8c:	5f657375 	bne	$r27,$r21,-39568(0x36570) # ffff6ffc <g_buf+0xe3feef68>$/;"	l
+a90	obj/test.s	/^     a90:	00000255 	0x00000255$/;"	l
+a90	obj/test.s	/^     a90:	01010000 	fadd.d	$f0,$f0,$f0$/;"	l
+a90	obj/test.s	/^ a90:	0000030d 	0x0000030d$/;"	l
+a90	obj/test.s	/^ a90:	73726966 	0x73726966$/;"	l
+a94	obj/test.s	/^     a94:	000d0efb 	bytepick.d	$r27,$r23,$r3,0x2$/;"	l
+a94	obj/test.s	/^     a94:	0901da01 	0x0901da01$/;"	l
+a94	obj/test.s	/^ a94:	0000001c 	0x0000001c$/;"	l
+a94	obj/test.s	/^ a94:	65720074 	bge	$r3,$r20,94720(0x17200) # 17c94 <_start-0x1bfe836c>$/;"	l
+a98	obj/test.s	/^     a98:	00000043 	0x00000043$/;"	l
+a98	obj/test.s	/^     a98:	01010101 	fadd.d	$f1,$f8,$f0$/;"	l
+a98	obj/test.s	/^ a98:	00000500 	0x00000500$/;"	l
+a98	obj/test.s	/^ a98:	76726573 	0x76726573$/;"	l
+a9c	obj/test.s	/^     a9c:	01000000 	0x01000000$/;"	l
+a9c	obj/test.s	/^     a9c:	0b689102 	0x0b689102$/;"	l
+a9c	obj/test.s	/^ a9c:	1c004a54 	pcaddu12i	$r20,594(0x252)$/;"	l
+a9c	obj/test.s	/^ a9c:	315f6465 	vstelm.h	$vr5,$r3,-78(0x1b2),0x7$/;"	l
+aa0	obj/test.s	/^     aa0:	0000057d 	0x0000057d$/;"	l
+aa0	obj/test.s	/^     aa0:	2f010000 	0x2f010000$/;"	l
+aa0	obj/test.s	/^ aa0:	000000dc 	0x000000dc$/;"	l
+aa0	obj/test.s	/^ aa0:	73657200 	vssrani.wu.d	$vr0,$vr16,0x1c$/;"	l
+aa4	obj/test.s	/^     aa4:	0901db01 	0x0901db01$/;"	l
+aa4	obj/test.s	/^     aa4:	656d6f68 	bge	$r27,$r8,93548(0x16d6c) # 17810 <_start-0x1bfe87f0>$/;"	l
+aa4	obj/test.s	/^ aa4:	44400e44 	bnez	$r18,1064972(0x10400c) # 104ab0 <_start-0x1befb550>$/;"	l
+aa4	obj/test.s	/^ aa4:	65767265 	bge	$r19,$r5,95856(0x17670) # 18114 <_start-0x1bfe7eec>$/;"	l
+aa8	obj/test.s	/^     aa8:	00000043 	0x00000043$/;"	l
+aa8	obj/test.s	/^     aa8:	6c2f752f 	bgeu	$r9,$r15,12148(0x2f74) # 3a1c <_start-0x1bffc5e4>$/;"	l
+aa8	obj/test.s	/^ aa8:	00325f64 	0x00325f64$/;"	l
+aa8	obj/test.s	/^ aa8:	0c440196 	0x0c440196$/;"	l
+aac	obj/test.s	/^     aac:	0c6c9102 	vfcmp.sune.d	$vr2,$vr8,$vr4$/;"	l
+aac	obj/test.s	/^     aac:	676e6f6f 	bge	$r27,$r15,-37268(0x36e6c) # ffff7918 <g_buf+0xe3fef884>$/;"	l
+aac	obj/test.s	/^ aac:	5f746166 	bne	$r11,$r6,-35744(0x37460) # ffff7f0c <g_buf+0xe3fefe78>$/;"	l
+aac	obj/test.s	/^ aac:	c8020016 	0xc8020016$/;"	l
+ab0	obj/test.s	/^     ab0:	2d6e6f73 	0x2d6e6f73$/;"	l
+ab0	obj/test.s	/^     ab0:	dc01006e 	0xdc01006e$/;"	l
+ab0	obj/test.s	/^ ab0:	030d44d6 	lu52i.d	$r22,$r6,849(0x351)$/;"	l
+ab0	obj/test.s	/^ ab0:	656c6966 	bge	$r11,$r6,93288(0x16c68) # 17718 <_start-0x1bfe88e8>$/;"	l
+ab4	obj/test.s	/^     ab4:	00430901 	0x00430901$/;"	l
+ab4	obj/test.s	/^     ab4:	2d756e67 	0x2d756e67$/;"	l
+ab4	obj/test.s	/^ ab4:	00000024 	0x00000024$/;"	l
+ab4	obj/test.s	/^ ab4:	65706f5f 	bge	$r26,$r31,94316(0x1706c) # 17b20 <_start-0x1bfe84e0>$/;"	l
+ab8	obj/test.s	/^     ab8:	6c6f6f74 	bgeu	$r27,$r20,28524(0x6f6c) # 7a24 <_start-0x1bff85dc>$/;"	l
+ab8	obj/test.s	/^     ab8:	91020000 	0x91020000$/;"	l
+ab8	obj/test.s	/^ ab8:	00000500 	0x00000500$/;"	l
+ab8	obj/test.s	/^ ab8:	6166006e 	blt	$r3,$r14,91648(0x16600) # 170b8 <_start-0x1bfe8f48>$/;"	l
+abc	obj/test.s	/^     abc:	69616863 	bltu	$r3,$r3,90472(0x16168) # 16c24 <_start-0x1bfe93dc>$/;"	l
+abc	obj/test.s	/^     abc:	fe0a0064 	0xfe0a0064$/;"	l
+abc	obj/test.s	/^ abc:	1c004b30 	pcaddu12i	$r16,601(0x259)$/;"	l
+abc	obj/test.s	/^ abc:	6e635f74 	bgeu	$r27,$r20,-105636(0x2635c) # fffe6e18 <g_buf+0xe3fded84>$/;"	l
+ac	obj/test.s	/^      ac:	00014305 	0x00014305$/;"	l
+ac	obj/test.s	/^      ac:	6e6f7367 	bgeu	$r27,$r7,-102544(0x26f70) # fffe701c <g_buf+0xe3fdef88>$/;"	l
+ac	obj/test.s	/^  ac:	00000028 	0x00000028$/;"	l
+ac	obj/test.s	/^  ac:	4900050d 	bcnez	$fcc0,3473412(0x350004) # 3500b0 <_start-0x1bcaff50>$/;"	l
+ac	obj/test.s	/^  ac:	6964004f 	bltu	$r2,$r15,91136(0x16400) # 164ac <_start-0x1bfe9b54>$/;"	l
+ac0	obj/test.s	/^     ac0:	01000004 	0x01000004$/;"	l
+ac0	obj/test.s	/^     ac0:	2e382d6e 	0x2e382d6e$/;"	l
+ac0	obj/test.s	/^ ac0:	00000290 	0x00000290$/;"	l
+ac0	obj/test.s	/^ ac0:	616e0074 	blt	$r3,$r20,93696(0x16e00) # 178c0 <_start-0x1bfe8740>$/;"	l
+ac4	obj/test.s	/^     ac4:	38782d33 	ldgt.b	$r19,$r9,$r11$/;"	l
+ac4	obj/test.s	/^     ac4:	430501a3 	beqz	$r13,984320(0xf0500) # f0fc4 <_start-0x1bf0f03c>$/;"	l
+ac4	obj/test.s	/^ ac4:	0030656d 	0x0030656d$/;"	l
+ac4	obj/test.s	/^ ac4:	48300e44 	0x48300e44$/;"	l
+ac8	obj/test.s	/^     ac8:	34365f36 	0x34365f36$/;"	l
+ac8	obj/test.s	/^     ac8:	ec000000 	0xec000000$/;"	l
+ac8	obj/test.s	/^ ac8:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+ac8	obj/test.s	/^ ac8:	656d616e 	bge	$r11,$r14,93536(0x16d60) # 17828 <_start-0x1bfe87d8>$/;"	l
+acc	obj/test.s	/^     acc:	4c1c001b 	jirl	$r27,$r0,7168(0x1c00)$/;"	l
+acc	obj/test.s	/^     acc:	6f6f6c2d 	bgeu	$r1,$r13,-37012(0x36f6c) # ffff7a38 <g_buf+0xe3fef9a4>$/;"	l
+acc	obj/test.s	/^ acc:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+acc	obj/test.s	/^ acc:	616e0031 	blt	$r1,$r17,93696(0x16e00) # 178cc <_start-0x1bfe8734>$/;"	l
+acc_date	fat.c	/^  uint16_t acc_date;$/;"	m	struct:__anon7	file:
+ad0	obj/test.s	/^     ad0:	01000001 	0x01000001$/;"	l
+ad0	obj/test.s	/^     ad0:	7261676e 	0x7261676e$/;"	l
+ad0	obj/test.s	/^ ad0:	0032656d 	0x0032656d$/;"	l
+ad0	obj/test.s	/^ ad0:	c1027403 	0xc1027403$/;"	l
+ad4	obj/test.s	/^     ad4:	00018b9c 	0x00018b9c$/;"	l
+ad4	obj/test.s	/^     ad4:	32336863 	0x32336863$/;"	l
+ad4	obj/test.s	/^ ad4:	0d44d644 	0x0d44d644$/;"	l
+ad4	obj/test.s	/^ ad4:	5f544146 	bne	$r10,$r6,-43968(0x35440) # ffff5f14 <g_buf+0xe3fede80>$/;"	l
+ad8	obj/test.s	/^     ad8:	05fc0d00 	0x05fc0d00$/;"	l
+ad8	obj/test.s	/^     ad8:	696c2d72 	bltu	$r11,$r18,93228(0x16c2c) # 17704 <_start-0x1bfe88fc>$/;"	l
+ad8	obj/test.s	/^ ad8:	00000003 	0x00000003$/;"	l
+ad8	obj/test.s	/^ ad8:	5f465542 	bne	$r10,$r2,-47532(0x34654) # ffff512c <g_buf+0xe3fed098>$/;"	l
+adc	obj/test.s	/^     adc:	2d78756e 	0x2d78756e$/;"	l
+adc	obj/test.s	/^     adc:	a3010000 	0xa3010000$/;"	l
+adc	obj/test.s	/^ adc:	00000024 	0x00000024$/;"	l
+adc	obj/test.s	/^ adc:	54524944 	bl	84955720(0x5105248) # 5105d24 <_start-0x16efa2dc>$/;"	l
+ae0	obj/test.s	/^     ae0:	00431901 	0x00431901$/;"	l
+ae0	obj/test.s	/^     ae0:	73756e67 	0x73756e67$/;"	l
+ae0	obj/test.s	/^ ae0:	00000500 	0x00000500$/;"	l
+ae0	obj/test.s	/^ ae0:	4c430059 	jirl	$r25,$r2,17152(0x4300)$/;"	l
+ae4	obj/test.s	/^     ae4:	32762d66 	0x32762d66$/;"	l
+ae4	obj/test.s	/^     ae4:	91020000 	0x91020000$/;"	l
+ae4	obj/test.s	/^ ae4:	1c004dc0 	pcaddu12i	$r0,622(0x26e)$/;"	l
+ae4	obj/test.s	/^ ae4:	5f545355 	bne	$r26,$r21,-43952(0x35450) # ffff5f34 <g_buf+0xe3fedea0>$/;"	l
+ae8	obj/test.s	/^     ae8:	05ae0d4c 	0x05ae0d4c$/;"	l
+ae8	obj/test.s	/^     ae8:	6c2f302e 	bgeu	$r1,$r14,12080(0x2f30) # 3a18 <_start-0x1bffc5e8>$/;"	l
+ae8	obj/test.s	/^ ae8:	00000144 	0x00000144$/;"	l
+ae8	obj/test.s	/^ ae8:	45455246 	bnez	$r18,1656144(0x194550) # 195038 <_start-0x1be6afc8>$/;"	l
+aec	obj/test.s	/^     aec:	672f6269 	bge	$r19,$r9,-53408(0x32f60) # ffff3a4c <g_buf+0xe3feb9b8>$/;"	l
+aec	obj/test.s	/^     aec:	a3010000 	0xa3010000$/;"	l
+aec	obj/test.s	/^ aec:	48300e44 	0x48300e44$/;"	l
+aec	obj/test.s	/^ aec:	72696400 	0x72696400$/;"	l
+af0	obj/test.s	/^     af0:	018b2801 	0x018b2801$/;"	l
+af0	obj/test.s	/^     af0:	6c2f6363 	bgeu	$r27,$r3,12128(0x2f60) # 3a50 <_start-0x1bffc5b0>$/;"	l
+af0	obj/test.s	/^ af0:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+af0	obj/test.s	/^ af0:	6165735f 	blt	$r26,$r31,91504(0x16570) # 17060 <_start-0x1bfe8fa0>$/;"	l
+af4	obj/test.s	/^     af4:	676e6f6f 	bge	$r27,$r15,-37268(0x36e6c) # ffff7960 <g_buf+0xe3fef8cc>$/;"	l
+af4	obj/test.s	/^     af4:	91020000 	0x91020000$/;"	l
+af4	obj/test.s	/^ af4:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+af4	obj/test.s	/^ af4:	00686372 	bstrins.w	$r18,$r27,0x8,0x18$/;"	l
+af8	obj/test.s	/^     af8:	02550b48 	sltui	$r8,$r26,1346(0x542)$/;"	l
+af8	obj/test.s	/^     af8:	68637261 	bltu	$r19,$r1,25456(0x6370) # 6e68 <_start-0x1bff9198>$/;"	l
+af8	obj/test.s	/^ af8:	7272696d 	0x7272696d$/;"	l
+af8	obj/test.s	/^ af8:	c1012803 	0xc1012803$/;"	l
+afc	obj/test.s	/^     afc:	2d723233 	0x2d723233$/;"	l
+afc	obj/test.s	/^     afc:	a5010000 	0xa5010000$/;"	l
+afc	obj/test.s	/^ afc:	0d44d644 	0x0d44d644$/;"	l
+afc	obj/test.s	/^ afc:	7200726f 	0x7200726f$/;"	l
+attr	fat.c	/^    uint8_t attr;$/;"	m	struct:__anon8::__anon9	file:
+attr	fat.c	/^  uint8_t attr;$/;"	m	struct:__anon7	file:
+attr	fat.h	/^  uint8_t attr;$/;"	m	struct:__anon17
+attr	fat.h	/^  uint8_t attr;$/;"	m	struct:__anon19
+b0	obj/test.s	/^      b0:	16290200 	lu32i.d	$r0,83984(0x14810)$/;"	l
+b0	obj/test.s	/^      b0:	756e672d 	0x756e672d$/;"	l
+b0	obj/test.s	/^  b0:	0e000013 	0x0e000013$/;"	l
+b0	obj/test.s	/^  b0:	44200e44 	bnez	$r18,1056780(0x10200c) # 1020bc <_start-0x1befdf44>$/;"	l
+b0	obj/test.s	/^  b0:	65735f72 	bge	$r27,$r18,95068(0x1735c) # 1740c <_start-0x1bfe8bf4>$/;"	l
+b00	obj/test.s	/^     b00:	00430901 	0x00430901$/;"	l
+b00	obj/test.s	/^     b00:	756e696c 	0x756e696c$/;"	l
+b00	obj/test.s	/^ b00:	00000003 	0x00000003$/;"	l
+b00	obj/test.s	/^ b00:	766f6d65 	0x766f6d65$/;"	l
+b04	obj/test.s	/^     b04:	6e672d78 	bgeu	$r11,$r24,-104660(0x2672c) # fffe7230 <g_buf+0xe3fdf19c>$/;"	l
+b04	obj/test.s	/^     b04:	91020000 	0x91020000$/;"	l
+b04	obj/test.s	/^ b04:	00000020 	0x00000020$/;"	l
+b04	obj/test.s	/^ b04:	6e655f65 	bgeu	$r27,$r5,-105124(0x2655c) # fffe7060 <g_buf+0xe3fdefcc>$/;"	l
+b08	obj/test.s	/^     b08:	00690c60 	bstrins.w	$r0,$r3,0x9,0x3$/;"	l
+b08	obj/test.s	/^     b08:	2f667375 	0x2f667375$/;"	l
+b08	obj/test.s	/^ b08:	00000500 	0x00000500$/;"	l
+b08	obj/test.s	/^ b08:	65697274 	bge	$r19,$r20,92528(0x16970) # 17478 <_start-0x1bfe8b88>$/;"	l
+b0c	obj/test.s	/^     b0c:	0901a601 	0x0901a601$/;"	l
+b0c	obj/test.s	/^     b0c:	2e332e38 	0x2e332e38$/;"	l
+b0c	obj/test.s	/^ b0c:	1c004f04 	pcaddu12i	$r4,632(0x278)$/;"	l
+b0c	obj/test.s	/^ b0c:	61700073 	blt	$r3,$r19,94208(0x17000) # 17b0c <_start-0x1bfe84f4>$/;"	l
+b10	obj/test.s	/^     b10:	00000043 	0x00000043$/;"	l
+b10	obj/test.s	/^     b10:	6e692f30 	bgeu	$r25,$r16,-104148(0x2692c) # fffe743c <g_buf+0xe3fdf3a8>$/;"	l
+b10	obj/test.s	/^ b10:	00000044 	0x00000044$/;"	l
+b10	obj/test.s	/^ b10:	5f657372 	bne	$r27,$r18,-39568(0x36570) # ffff7080 <g_buf+0xe3feefec>$/;"	l
+b14	obj/test.s	/^     b14:	0b6c9102 	0x0b6c9102$/;"	l
+b14	obj/test.s	/^     b14:	64756c63 	bge	$r3,$r3,30060(0x756c) # 8080 <_start-0x1bff7f80>$/;"	l
+b14	obj/test.s	/^ b14:	48300e44 	0x48300e44$/;"	l
+b14	obj/test.s	/^ b14:	5f6e6673 	bne	$r19,$r19,-37276(0x36e64) # ffff7978 <g_buf+0xe3fef8e4>$/;"	l
+b18	obj/test.s	/^     b18:	00000574 	0x00000574$/;"	l
+b18	obj/test.s	/^     b18:	68000065 	bltu	$r3,$r5,0 # b18 <_start-0x1bfff4e8>$/;"	l
+b18	obj/test.s	/^ b18:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+b18	obj/test.s	/^ b18:	656d616e 	bge	$r11,$r14,93536(0x16d60) # 17878 <_start-0x1bfe8788>$/;"	l
+b1c	obj/test.s	/^     b1c:	0901a701 	0x0901a701$/;"	l
+b1c	obj/test.s	/^     b1c:	6d706165 	bgeu	$r11,$r5,94304(0x17060) # 17b7c <_start-0x1bfe8484>$/;"	l
+b1c	obj/test.s	/^ b1c:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+b1c	obj/test.s	/^ b1c:	65726300 	bge	$r24,$r0,94816(0x17260) # 17d7c <_start-0x1bfe8284>$/;"	l
+b20	obj/test.s	/^     b20:	00000043 	0x00000043$/;"	l
+b20	obj/test.s	/^     b20:	726b7267 	0x726b7267$/;"	l
+b20	obj/test.s	/^ b20:	7461645f 	xvabsd.w	$xr31,$xr2,$xr25$/;"	l
+b20	obj/test.s	/^ b20:	d644c168 	0xd644c168$/;"	l
+b24	obj/test.s	/^     b24:	0000632e 	rdtimel.w	$r14,$r25$/;"	l
+b24	obj/test.s	/^     b24:	0b689102 	0x0b689102$/;"	l
+b24	obj/test.s	/^ b24:	00030d44 	0x00030d44$/;"	l
+b24	obj/test.s	/^ b24:	61660065 	blt	$r3,$r5,91648(0x16600) # 17124 <_start-0x1bfe8edc>$/;"	l
+b28	obj/test.s	/^     b28:	0000057d 	0x0000057d$/;"	l
+b28	obj/test.s	/^     b28:	74730000 	xvmin.w	$xr0,$xr0,$xr0$/;"	l
+b28	obj/test.s	/^ b28:	0000001c 	0x0000001c$/;"	l
+b28	obj/test.s	/^ b28:	69645f74 	bltu	$r27,$r20,91228(0x1645c) # 16f84 <_start-0x1bfe907c>$/;"	l
+b2c	obj/test.s	/^     b2c:	0901a801 	0x0901a801$/;"	l
+b2c	obj/test.s	/^     b2c:	66656464 	bge	$r3,$r4,-105116(0x26564) # fffe7090 <g_buf+0xe3fdeffc>$/;"	l
+b2c	obj/test.s	/^ b2c:	00000500 	0x00000500$/;"	l
+b2c	obj/test.s	/^ b2c:	656e5f72 	bge	$r27,$r18,93788(0x16e5c) # 17988 <_start-0x1bfe8678>$/;"	l
+b30	obj/test.s	/^     b30:	00000043 	0x00000043$/;"	l
+b30	obj/test.s	/^     b30:	0100682e 	0x0100682e$/;"	l
+b30	obj/test.s	/^ b30:	1c004f48 	pcaddu12i	$r8,634(0x27a)$/;"	l
+b30	obj/test.s	/^ b30:	66007478 	bge	$r3,$r24,-130956(0x20074) # fffe0ba4 <g_buf+0xe3fd8b10>$/;"	l
+b34	obj/test.s	/^     b34:	05000000 	0x05000000$/;"	l
+b34	obj/test.s	/^     b34:	0c649102 	vfcmp.sun.d	$vr2,$vr8,$vr4$/;"	l
+b34	obj/test.s	/^ b34:	00000060 	0x00000060$/;"	l
+b34	obj/test.s	/^ b34:	735f7461 	vsrarni.d.q	$vr1,$vr3,0x5d$/;"	l
+b38	obj/test.s	/^     b38:	006c6176 	bstrins.w	$r22,$r11,0xc,0x18$/;"	l
+b38	obj/test.s	/^     b38:	02050001 	slti	$r1,$r0,320(0x140)$/;"	l
+b38	obj/test.s	/^ b38:	00746174 	bstrins.w	$r20,$r11,0x14,0x18$/;"	l
+b38	obj/test.s	/^ b38:	44300e44 	bnez	$r18,1060876(0x10300c) # 103b44 <_start-0x1befc4bc>$/;"	l
+b3c	obj/test.s	/^     b3c:	0901a901 	0x0901a901$/;"	l
+b3c	obj/test.s	/^     b3c:	1c001db4 	pcaddu12i	$r20,237(0xed)$/;"	l
+b3c	obj/test.s	/^ b3c:	0c440196 	0x0c440196$/;"	l
+b3c	obj/test.s	/^ b3c:	6c6c6f66 	bgeu	$r27,$r6,27756(0x6c6c) # 77a8 <_start-0x1bff8858>$/;"	l
+b4	obj/test.s	/^      b4:	00000031 	0x00000031$/;"	l
+b4	obj/test.s	/^      b4:	6f6f742d 	bgeu	$r1,$r13,-37004(0x36f74) # ffff7028 <g_buf+0xe3feef94>$/;"	l
+b4	obj/test.s	/^  b4:	0803000d 	0x0803000d$/;"	l
+b4	obj/test.s	/^  b4:	0c440196 	0x0c440196$/;"	l
+b4	obj/test.s	/^  b4:	46007463 	bnez	$r3,917620(0xe0074) # e0128 <_start-0x1bf1fed8>$/;"	l
+b40	obj/test.s	/^     b40:	00000043 	0x00000043$/;"	l
+b40	obj/test.s	/^     b40:	05011a03 	0x05011a03$/;"	l
+b40	obj/test.s	/^ b40:	4c020016 	jirl	$r22,$r0,512(0x200)$/;"	l
+b40	obj/test.s	/^ b40:	705f776f 	0x705f776f$/;"	l
+b44	obj/test.s	/^     b44:	005c9102 	0x005c9102$/;"	l
+b44	obj/test.s	/^     b44:	05400824 	0x05400824$/;"	l
+b44	obj/test.s	/^ b44:	00687461 	bstrins.w	$r1,$r3,0x8,0x1d$/;"	l
+b44	obj/test.s	/^ b44:	030d44d6 	lu52i.d	$r22,$r6,849(0x351)$/;"	l
+b48	obj/test.s	/^     b48:	0c058227 	0x0c058227$/;"	l
+b48	obj/test.s	/^     b48:	560f040e 	bl	3804932(0x3a0f04) # 3a1a4c <_start-0x1bc5e5b4>$/;"	l
+b48	obj/test.s	/^ b48:	00000024 	0x00000024$/;"	l
+b48	obj/test.s	/^ b48:	5f746166 	bne	$r11,$r6,-35744(0x37460) # ffff7fa8 <g_buf+0xe3feff14>$/;"	l
+b4c	obj/test.s	/^     b4c:	01000006 	0x01000006$/;"	l
+b4c	obj/test.s	/^     b4c:	8310054a 	0x8310054a$/;"	l
+b4c	obj/test.s	/^ b4c:	00000500 	0x00000500$/;"	l
+b4c	obj/test.s	/^ b4c:	656c6966 	bge	$r11,$r6,93288(0x16c68) # 177b4 <_start-0x1bfe884c>$/;"	l
+b50	obj/test.s	/^     b50:	05f20805 	0x05f20805$/;"	l
+b50	obj/test.s	/^     b50:	b71e019e 	0xb71e019e$/;"	l
+b50	obj/test.s	/^ b50:	1c004fa8 	pcaddu12i	$r8,637(0x27d)$/;"	l
+b50	obj/test.s	/^ b50:	6972775f 	bltu	$r26,$r31,94836(0x17274) # 17dc4 <_start-0x1bfe823c>$/;"	l
+b54	obj/test.s	/^     b54:	1a058322 	pcalau12i	$r2,11289(0x2c19)$/;"	l
+b54	obj/test.s	/^     b54:	64000001 	bge	$r0,$r1,0 # b54 <_start-0x1bfff4ac>$/;"	l
+b54	obj/test.s	/^ b54:	000005a0 	0x000005a0$/;"	l
+b54	obj/test.s	/^ b54:	6f006574 	bgeu	$r11,$r20,-65436(0x30064) # ffff0bb8 <g_buf+0xe3fe8b24>$/;"	l
+b58	obj/test.s	/^     b58:	881c001b 	0x881c001b$/;"	l
+b58	obj/test.s	/^     b58:	f21205ba 	0xf21205ba$/;"	l
+b58	obj/test.s	/^ b58:	48500e44 	0x48500e44$/;"	l
+b58	obj/test.s	/^ b58:	635f7475 	blt	$r3,$r21,-41100(0x35f74) # ffff6acc <g_buf+0xe3feea38>$/;"	l
+b5c	obj/test.s	/^     b5c:	01000000 	0x01000000$/;"	l
+b5c	obj/test.s	/^     b5c:	75081305 	0x75081305$/;"	l
+b5c	obj/test.s	/^ b5c:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+b5c	obj/test.s	/^ b5c:	7473756c 	xvmin.w	$xr12,$xr11,$xr29$/;"	l
+b60	obj/test.s	/^     b60:	0001b79c 	0x0001b79c$/;"	l
+b60	obj/test.s	/^     b60:	05bc0c05 	0x05bc0c05$/;"	l
+b60	obj/test.s	/^ b60:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+b60	obj/test.s	/^ b60:	6c5f6700 	bgeu	$r24,$r0,24420(0x5f64) # 6ac4 <_start-0x1bff953c>$/;"	l
+b64	obj/test.s	/^     b64:	00781000 	bstrins.w	$r0,$r0,0x18,0x4$/;"	l
+b64	obj/test.s	/^     b64:	0c05bb0e 	0x0c05bb0e$/;"	l
+b64	obj/test.s	/^ b64:	46006e65 	bnez	$r19,1441900(0x16006c) # 160bd0 <_start-0x1be9f430>$/;"	l
+b64	obj/test.s	/^ b64:	c1058403 	0xc1058403$/;"	l
+b68	obj/test.s	/^     b68:	34019e01 	0x34019e01$/;"	l
+b68	obj/test.s	/^     b68:	83120582 	0x83120582$/;"	l
+b68	obj/test.s	/^ b68:	0d44d644 	0x0d44d644$/;"	l
+b68	obj/test.s	/^ b68:	415f5441 	beqz	$r2,352084(0x55f54) # 56abc <_start-0x1bfa9544>$/;"	l
+b6c	obj/test.s	/^     b6c:	000001b7 	0x000001b7$/;"	l
+b6c	obj/test.s	/^     b6c:	05821005 	0x05821005$/;"	l
+b6c	obj/test.s	/^ b6c:	00000003 	0x00000003$/;"	l
+b6c	obj/test.s	/^ b6c:	5f525454 	bne	$r2,$r20,-44460(0x35254) # ffff5dc0 <g_buf+0xe3fedd2c>$/;"	l
+b70	obj/test.s	/^     b70:	006e9102 	bstrpick.w	$r2,$r8,0xe,0x4$/;"	l
+b70	obj/test.s	/^     b70:	1c05831f 	pcaddu12i	$r31,11288(0x2c18)$/;"	l
+b70	obj/test.s	/^ b70:	00000020 	0x00000020$/;"	l
+b70	obj/test.s	/^ b70:	004e464c 	0x004e464c$/;"	l
+b74	obj/test.s	/^     b74:	bc190582 	0xbc190582$/;"	l
+b74	obj/test.s	/^     b74:	bf070205 	0xbf070205$/;"	l
+b74	obj/test.s	/^ b74:	00000500 	0x00000500$/;"	l
+b74	obj/test.s	/^ b74:	5f746166 	bne	$r11,$r6,-35744(0x37460) # ffff7fd4 <g_buf+0xe3feff40>$/;"	l
+b78	obj/test.s	/^     b78:	0a000001 	0x0a000001$/;"	l
+b78	obj/test.s	/^     b78:	75081705 	0x75081705$/;"	l
+b78	obj/test.s	/^ b78:	1c005548 	pcaddu12i	$r8,682(0x2aa)$/;"	l
+b78	obj/test.s	/^ b78:	636e7973 	blt	$r11,$r19,-37256(0x36e78) # ffff79f0 <g_buf+0xe3fef95c>$/;"	l
+b7c	obj/test.s	/^     b7c:	00000547 	0x00000547$/;"	l
+b7c	obj/test.s	/^     b7c:	05821305 	0x05821305$/;"	l
+b7c	obj/test.s	/^ b7c:	00000090 	0x00000090$/;"	l
+b7c	obj/test.s	/^ b7c:	65726300 	bge	$r24,$r0,94816(0x17260) # 17ddc <_start-0x1bfe8224>$/;"	l
+b8	obj/test.s	/^      b8:	6168636c 	blt	$r27,$r12,92256(0x16860) # 16918 <_start-0x1bfe96e8>$/;"	l
+b8	obj/test.s	/^      b8:	77070804 	0x77070804$/;"	l
+b8	obj/test.s	/^  b8:	0b3b0b3a 	0x0b3b0b3a$/;"	l
+b8	obj/test.s	/^  b8:	575f5441 	bl	17260372(0x1075f54) # 107600c <_start-0x1af89ff4>$/;"	l
+b8	obj/test.s	/^  b8:	d6540016 	0xd6540016$/;"	l
+b80	obj/test.s	/^     b80:	05017501 	0x05017501$/;"	l
+b80	obj/test.s	/^     b80:	1305f319 	addu16i.d	$r25,$r24,-16004(0xc17c)$/;"	l
+b80	obj/test.s	/^ b80:	48300e44 	0x48300e44$/;"	l
+b80	obj/test.s	/^ b80:	6d69745f 	bgeu	$r2,$r31,92532(0x16974) # 174f4 <_start-0x1bfe8b0c>$/;"	l
+b84	obj/test.s	/^     b84:	00000043 	0x00000043$/;"	l
+b84	obj/test.s	/^     b84:	f31405bc 	0xf31405bc$/;"	l
+b84	obj/test.s	/^ b84:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+b84	obj/test.s	/^ b84:	68630065 	bltu	$r3,$r5,25344(0x6300) # 6e84 <_start-0x1bff917c>$/;"	l
+b88	obj/test.s	/^     b88:	05bc0f05 	0x05bc0f05$/;"	l
+b88	obj/test.s	/^     b88:	1c001a9c 	pcaddu12i	$r28,212(0xd4)$/;"	l
+b88	obj/test.s	/^ b88:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+b88	obj/test.s	/^ b88:	5f6b6365 	bne	$r27,$r5,-38048(0x36b60) # ffff76e8 <g_buf+0xe3fef654>$/;"	l
+b8c	obj/test.s	/^     b8c:	000000c8 	0x000000c8$/;"	l
+b8c	obj/test.s	/^     b8c:	1605ba0c 	lu32i.d	$r12,11728(0x2dd0)$/;"	l
+b8c	obj/test.s	/^ b8c:	00746166 	bstrins.w	$r6,$r11,0x14,0x18$/;"	l
+b8c	obj/test.s	/^ b8c:	44c17402 	bnez	$r0,573812(0x8c174) # 8cd00 <_start-0x1bf73300>$/;"	l
+b90	obj/test.s	/^     b90:	020a9c01 	slti	$r1,$r0,679(0x2a7)$/;"	l
+b90	obj/test.s	/^     b90:	ba100583 	0xba100583$/;"	l
+b90	obj/test.s	/^ b90:	030d44d6 	lu52i.d	$r22,$r6,849(0x351)$/;"	l
+b90	obj/test.s	/^ b90:	6d657469 	bgeu	$r3,$r9,91508(0x16574) # 17104 <_start-0x1bfe8efc>$/;"	l
+b94	obj/test.s	/^     b94:	05831805 	0x05831805$/;"	l
+b94	obj/test.s	/^     b94:	4c0d0000 	jirl	$r0,$r0,3328(0xd00)$/;"	l
+b94	obj/test.s	/^ b94:	00000020 	0x00000020$/;"	l
+b94	obj/test.s	/^ b94:	41460073 	beqz	$r3,-3324416(0x4d4600) # ffcd5194 <g_buf+0xe3ccd100>$/;"	l
+b98	obj/test.s	/^     b98:	01000004 	0x01000004$/;"	l
+b98	obj/test.s	/^     b98:	82720322 	0x82720322$/;"	l
+b98	obj/test.s	/^ b98:	00000500 	0x00000500$/;"	l
+b98	obj/test.s	/^ b98:	54415f54 	bl	-45072036(0xd50415c) # fd504cf4 <g_buf+0xe14fcc60>$/;"	l
+b9c	obj/test.s	/^     b9c:	05822905 	0x05822905$/;"	l
+b9c	obj/test.s	/^     b9c:	43120175 	beqz	$r11,-2682368(0x571200) # ffd71d9c <g_buf+0xe3d69d08>$/;"	l
+b9c	obj/test.s	/^ b9c:	1c0055d8 	pcaddu12i	$r24,686(0x2ae)$/;"	l
+b9c	obj/test.s	/^ b9c:	415f5254 	beqz	$r18,-3055792(0x515f50) # ffd16aec <g_buf+0xe3d0ea58>$/;"	l
+ba0	obj/test.s	/^     ba0:	0105bb0c 	0x0105bb0c$/;"	l
+ba0	obj/test.s	/^     ba0:	02000000 	slti	$r0,$r0,0$/;"	l
+ba0	obj/test.s	/^ ba0:	00000034 	0x00000034$/;"	l
+ba0	obj/test.s	/^ ba0:	49484352 	0x49484352$/;"	l
+ba4	obj/test.s	/^     ba4:	034a0f03 	andi	$r3,$r24,0x283$/;"	l
+ba4	obj/test.s	/^     ba4:	550b5c91 	bl	38079324(0x2450b5c) # 2451700 <_start-0x19bae900>$/;"	l
+ba4	obj/test.s	/^ ba4:	48200e44 	0x48200e44$/;"	l
+ba4	obj/test.s	/^ ba4:	6f004556 	bgeu	$r10,$r22,-65468(0x30044) # ffff0be8 <g_buf+0xe3fe8b54>$/;"	l
+ba8	obj/test.s	/^     ba8:	01000002 	0x01000002$/;"	l
+ba8	obj/test.s	/^     ba8:	053c080a 	0x053c080a$/;"	l
+ba8	obj/test.s	/^ ba8:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+ba8	obj/test.s	/^ ba8:	34366666 	0x34366666$/;"	l
+bac	obj/test.s	/^     bac:	08110308 	fmadd.s	$f8,$f24,$f0,$f2$/;"	l
+bac	obj/test.s	/^     bac:	43090177 	beqz	$r11,-2160384(0x5f0900) # ffdf14ac <g_buf+0xe3de9418>$/;"	l
+bac	obj/test.s	/^ bac:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+bac	obj/test.s	/^ bac:	63656400 	blt	$r0,$r0,-39580(0x36564) # ffff7110 <g_buf+0xe3fef07c>$/;"	l
+banner	main.c	/^void banner (void)$/;"	f
+base	heapmgrkr.c	/^static Header base;       \/* empty list to get started *\/$/;"	v	file:
+bb0	obj/test.s	/^     bb0:	02000000 	slti	$r0,$r0,0$/;"	l
+bb0	obj/test.s	/^     bb0:	bb0c053c 	0xbb0c053c$/;"	l
+bb0	obj/test.s	/^ bb0:	5f65646f 	bne	$r3,$r15,-39580(0x36564) # ffff7114 <g_buf+0xe3fef080>$/;"	l
+bb0	obj/test.s	/^ bb0:	d644c158 	0xd644c158$/;"	l
+bb4	obj/test.s	/^     bb4:	05840b05 	0x05840b05$/;"	l
+bb4	obj/test.s	/^     bb4:	7d0b6891 	0x7d0b6891$/;"	l
+bb4	obj/test.s	/^ bb4:	00030d44 	0x00030d44$/;"	l
+bb4	obj/test.s	/^ bb4:	656d6974 	bge	$r11,$r20,93544(0x16d68) # 1791c <_start-0x1bfe86e4>$/;"	l
+bb8	obj/test.s	/^     bb8:	01000005 	0x01000005$/;"	l
+bb8	obj/test.s	/^     bb8:	0c05ba08 	0x0c05ba08$/;"	l
+bb8	obj/test.s	/^ bb8:	00000020 	0x00000020$/;"	l
+bb8	obj/test.s	/^ bb8:	6d617473 	bgeu	$r3,$r19,90484(0x16174) # 16d2c <_start-0x1bfe92d4>$/;"	l
+bbc	obj/test.s	/^     bbc:	43090178 	beqz	$r11,-1898240(0x630900) # ffe314bc <g_buf+0xe3e29428>$/;"	l
+bbc	obj/test.s	/^     bbc:	8310054c 	0x8310054c$/;"	l
+bbc	obj/test.s	/^ bbc:	00000500 	0x00000500$/;"	l
+bbc	obj/test.s	/^ bbc:	656d0070 	bge	$r3,$r16,93440(0x16d00) # 178bc <_start-0x1bfe8744>$/;"	l
+bc	obj/test.s	/^      bc:	04000000 	csrrd	$r0,0x0$/;"	l
+bc	obj/test.s	/^      bc:	382d6e69 	0x382d6e69$/;"	l
+bc	obj/test.s	/^  bc:	00030d44 	0x00030d44$/;"	l
+bc	obj/test.s	/^  bc:	13490b39 	addu16i.d	$r25,$r25,-11710(0xd242)$/;"	l
+bc	obj/test.s	/^  bc:	45544952 	bnez	$r10,-3582904(0x495448) # ffc95504 <g_buf+0xe3c8d470>$/;"	l
+bc0	obj/test.s	/^     bc0:	02000000 	slti	$r0,$r0,0$/;"	l
+bc0	obj/test.s	/^     bc0:	05f80805 	0x05f80805$/;"	l
+bc0	obj/test.s	/^ bc0:	00616964 	bstrins.w	$r4,$r11,0x1,0x1a$/;"	l
+bc0	obj/test.s	/^ bc0:	1c00560c 	pcaddu12i	$r12,688(0x2b0)$/;"	l
+bc4	obj/test.s	/^     bc4:	0a006c91 	0x0a006c91$/;"	l
+bc4	obj/test.s	/^     bc4:	1d05830e 	pcaddu12i	$r14,-513000(0x82c18)$/;"	l
+bc4	obj/test.s	/^ bc4:	000000bc 	0x000000bc$/;"	l
+bc4	obj/test.s	/^ bc4:	53554c43 	b	17782092(0x10f554c) # 10f6110 <_start-0x1af09ef0>$/;"	l
+bc8	obj/test.s	/^     bc8:	00000563 	0x00000563$/;"	l
+bc8	obj/test.s	/^     bc8:	820505bb 	0x820505bb$/;"	l
+bc8	obj/test.s	/^ bc8:	48500e44 	0x48500e44$/;"	l
+bc8	obj/test.s	/^ bc8:	53555f54 	b	-44870308(0xd53555c) # fd536124 <g_buf+0xe152e090>$/;"	l
+bcc	obj/test.s	/^     bcc:	05015f01 	0x05015f01$/;"	l
+bcc	obj/test.s	/^     bcc:	05830c05 	0x05830c05$/;"	l
+bcc	obj/test.s	/^ bcc:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+bcc	obj/test.s	/^ bcc:	73004445 	0x73004445$/;"	l
+bd0	obj/test.s	/^     bd0:	00000043 	0x00000043$/;"	l
+bd0	obj/test.s	/^     bd0:	0105ed10 	0x0105ed10$/;"	l
+bd0	obj/test.s	/^ bd0:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+bd0	obj/test.s	/^ bd0:	635f6372 	blt	$r27,$r18,-41120(0x35f60) # ffff6b30 <g_buf+0xe3feea9c>$/;"	l
+bd4	obj/test.s	/^     bd4:	05400850 	0x05400850$/;"	l
+bd4	obj/test.s	/^     bd4:	1c001a38 	pcaddu12i	$r24,209(0xd1)$/;"	l
+bd4	obj/test.s	/^ bd4:	44c1a002 	bnez	$r0,573856(0x8c1a0) # 8cd74 <_start-0x1bf7328c>$/;"	l
+bd4	obj/test.s	/^ bd4:	7473756c 	xvmin.w	$xr12,$xr11,$xr29$/;"	l
+bd8	obj/test.s	/^     bd8:	00000064 	0x00000064$/;"	l
+bd8	obj/test.s	/^     bd8:	0c05f508 	0x0c05f508$/;"	l
+bd8	obj/test.s	/^ bd8:	030d44d6 	lu52i.d	$r22,$r6,849(0x351)$/;"	l
+bd8	obj/test.s	/^ bd8:	74616600 	xvabsd.w	$xr0,$xr16,$xr25$/;"	l
+bdc	obj/test.s	/^     bdc:	02489c01 	sltui	$r1,$r0,551(0x227)$/;"	l
+bdc	obj/test.s	/^     bdc:	f20505bb 	0xf20505bb$/;"	l
+bdc	obj/test.s	/^ bdc:	00000024 	0x00000024$/;"	l
+bdc	obj/test.s	/^ bdc:	6f6d755f 	bgeu	$r10,$r31,-37516(0x36d74) # ffff7950 <g_buf+0xe3fef8bc>$/;"	l
+be0	obj/test.s	/^     be0:	054b1305 	0x054b1305$/;"	l
+be0	obj/test.s	/^     be0:	c70d0000 	0xc70d0000$/;"	l
+be0	obj/test.s	/^ be0:	00000500 	0x00000500$/;"	l
+be0	obj/test.s	/^ be0:	00746e75 	bstrins.w	$r21,$r19,0x14,0x1b$/;"	l
+be4	obj/test.s	/^     be4:	01000005 	0x01000005$/;"	l
+be4	obj/test.s	/^     be4:	1905820c 	pcaddi	$r12,-513008(0x82c10)$/;"	l
+be4	obj/test.s	/^ be4:	1c0056c8 	pcaddu12i	$r8,694(0x2b6)$/;"	l
+be4	obj/test.s	/^ be4:	5f6e6673 	bne	$r19,$r19,-37276(0x36e64) # ffff7a48 <g_buf+0xe3fef9b4>$/;"	l
+be8	obj/test.s	/^     be8:	01040200 	0x01040200$/;"	l
+be8	obj/test.s	/^     be8:	481a015f 	bcnez	$fcc2,-255488(0x7c1a00) # fffc25e8 <g_buf+0xe3fba554>$/;"	l
+be8	obj/test.s	/^ be8:	00000214 	0x00000214$/;"	l
+be8	obj/test.s	/^ be8:	665f7369 	bge	$r27,$r9,-106640(0x25f70) # fffe6b58 <g_buf+0xe3fdeac4>$/;"	l
+bec	obj/test.s	/^     bec:	002d0582 	alsl.d	$r2,$r12,$r1,0x3$/;"	l
+bec	obj/test.s	/^     bec:	03000002 	lu52i.d	$r2,$r0,0$/;"	l
+bec	obj/test.s	/^ bec:	00656572 	bstrins.w	$r18,$r11,0x5,0x19$/;"	l
+bec	obj/test.s	/^ bec:	48600e44 	0x48600e44$/;"	l
+bf0	obj/test.s	/^     bf0:	117fbc91 	addu16i.d	$r17,$r4,24559(0x5fef)$/;"	l
+bf0	obj/test.s	/^     bf0:	ba020402 	0xba020402$/;"	l
+bf0	obj/test.s	/^ bf0:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+bf0	obj/test.s	/^ bf0:	6f6d6572 	bgeu	$r11,$r18,-37532(0x36d64) # ffff7954 <g_buf+0xe3fef8c0>$/;"	l
+bf4	obj/test.s	/^     bf4:	0004ed0b 	alsl.w	$r11,$r8,$r27,0x2$/;"	l
+bf4	obj/test.s	/^     bf4:	02002405 	slti	$r5,$r0,9(0x9)$/;"	l
+bf4	obj/test.s	/^ bf4:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+bf4	obj/test.s	/^ bf4:	635f6576 	blt	$r11,$r22,-41116(0x35f64) # ffff6b58 <g_buf+0xe3feeac4>$/;"	l
+bf8	obj/test.s	/^     bf8:	01610100 	0x01610100$/;"	l
+bf8	obj/test.s	/^     bf8:	05820204 	0x05820204$/;"	l
+bf8	obj/test.s	/^ bf8:	6e696168 	bgeu	$r11,$r8,-104096(0x26960) # fffe7558 <g_buf+0xe3fdf4c4>$/;"	l
+bf8	obj/test.s	/^ bf8:	c101f803 	0xc101f803$/;"	l
+bfc	obj/test.s	/^     bfc:	0000370d 	revb.4h	$r13,$r24$/;"	l
+bfc	obj/test.s	/^     bfc:	04020031 	csrwr	$r17,0x80$/;"	l
+bfc	obj/test.s	/^ bfc:	0d44d644 	0x0d44d644$/;"	l
+bfc	obj/test.s	/^ bfc:	6f6f6200 	bgeu	$r16,$r0,-37024(0x36f60) # ffff7b5c <g_buf+0xe3fefac8>$/;"	l
+boot	fat.c	/^  uint8_t boot[446];$/;"	m	struct:__anon3	file:
+boot_sig	fat.c	/^  uint8_t boot_sig;$/;"	m	struct:__anon5	file:
+buf	fat.h	/^  uint8_t buf[512];$/;"	m	struct:Fat
+buf	fat.h	/^  uint8_t buf[512];$/;"	m	struct:__anon19
+bytes_per_sect	fat.c	/^  uint16_t bytes_per_sect;$/;"	m	struct:__anon5	file:
+c	obj/test.s	/^       c:	00000000 	0x00000000$/;"	l
+c	obj/test.s	/^       c:	000d0efb 	bytepick.d	$r27,$r23,$r3,0x2$/;"	l
+c	obj/test.s	/^   c:	00000000 	0x00000000$/;"	l
+c	obj/test.s	/^   c:	00000d7c 	0x00000d7c$/;"	l
+c	obj/test.s	/^   c:	00030d01 	0x00030d01$/;"	l
+c	obj/test.s	/^   c:	130e250e 	addu16i.d	$r14,$r8,-15479(0xc389)$/;"	l
+c	obj/test.s	/^   c:	20686372 	ll.w	$r18,$r27,26720(0x6860)$/;"	l
+c	obj/test.s	/^   c:	2f752f65 	0x2f752f65$/;"	l
+c0	obj/test.s	/^      c0:	00d10504 	bstrpick.d	$r4,$r8,0x11,0x1$/;"	l
+c0	obj/test.s	/^      c0:	782d332e 	0x782d332e$/;"	l
+c0	obj/test.s	/^  c0:	00000020 	0x00000020$/;"	l
+c0	obj/test.s	/^  c0:	00000b38 	0x00000b38$/;"	l
+c0	obj/test.s	/^  c0:	6f6f7200 	bgeu	$r16,$r0,-37008(0x36f70) # ffff7030 <g_buf+0xe3feef9c>$/;"	l
+c00	obj/test.s	/^     c00:	05058102 	0x05058102$/;"	l
+c00	obj/test.s	/^     c00:	4c910200 	jirl	$r0,$r16,37120(0x9100)$/;"	l
+c00	obj/test.s	/^ c00:	00000003 	0x00000003$/;"	l
+c00	obj/test.s	/^ c00:	69735f74 	bltu	$r27,$r20,95068(0x1735c) # 17f5c <_start-0x1bfe80a4>$/;"	l
+c04	obj/test.s	/^     c04:	01040200 	0x01040200$/;"	l
+c04	obj/test.s	/^     c04:	a0041200 	0xa0041200$/;"	l
+c04	obj/test.s	/^ c04:	00000024 	0x00000024$/;"	l
+c04	obj/test.s	/^ c04:	61660067 	blt	$r3,$r7,91648(0x16600) # 17204 <_start-0x1bfe8dfc>$/;"	l
+c08	obj/test.s	/^     c08:	002705ba 	crcc.w.w.w	$r26,$r13,$r1$/;"	l
+c08	obj/test.s	/^     c08:	13000000 	addu16i.d	$r0,$r0,-16384(0xc000)$/;"	l
+c08	obj/test.s	/^ c08:	00000500 	0x00000500$/;"	l
+c08	obj/test.s	/^ c08:	72705f74 	0x72705f74$/;"	l
+c0c	obj/test.s	/^     c0c:	000004ce 	0x000004ce$/;"	l
+c0c	obj/test.s	/^     c0c:	ba030402 	0xba030402$/;"	l
+c0c	obj/test.s	/^ c0c:	0065626f 	bstrins.w	$r15,$r19,0x5,0x18$/;"	l
+c0c	obj/test.s	/^ c0c:	1c0058dc 	pcaddu12i	$r28,710(0x2c6)$/;"	l
+c10	obj/test.s	/^     c10:	02001505 	slti	$r5,$r8,5(0x5)$/;"	l
+c10	obj/test.s	/^     c10:	0d011101 	fsel	$f1,$f8,$f4,$fcc2$/;"	l
+c10	obj/test.s	/^ c10:	00000234 	0x00000234$/;"	l
+c10	obj/test.s	/^ c10:	5f746166 	bne	$r11,$r6,-35744(0x37460) # ffff8070 <g_buf+0xe3feffdc>$/;"	l
+c14	obj/test.s	/^     c14:	05820304 	0x05820304$/;"	l
+c14	obj/test.s	/^     c14:	1c001738 	pcaddu12i	$r24,185(0xb9)$/;"	l
+c14	obj/test.s	/^ c14:	48500e44 	0x48500e44$/;"	l
+c14	obj/test.s	/^ c14:	656c6966 	bge	$r11,$r6,93288(0x16c68) # 1787c <_start-0x1bfe8784>$/;"	l
+c18	obj/test.s	/^     c18:	00000300 	0x00000300$/;"	l
+c18	obj/test.s	/^     c18:	0c058610 	0x0c058610$/;"	l
+c18	obj/test.s	/^ c18:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+c18	obj/test.s	/^ c18:	6e79735f 	bgeu	$r26,$r31,-99984(0x27970) # fffe8588 <g_buf+0xe3fe04f4>$/;"	l
+c1c	obj/test.s	/^     c1c:	03649c01 	andi	$r1,$r0,0x927$/;"	l
+c1c	obj/test.s	/^     c1c:	ba1b0582 	0xba1b0582$/;"	l
+c1c	obj/test.s	/^ c1c:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+c1c	obj/test.s	/^ c1c:	666c0063 	bge	$r3,$r3,-103424(0x26c00) # fffe781c <g_buf+0xe3fdf788>$/;"	l
+c20	obj/test.s	/^     c20:	05820805 	0x05820805$/;"	l
+c20	obj/test.s	/^     c20:	c70d0000 	0xc70d0000$/;"	l
+c20	obj/test.s	/^ c20:	7000736e 	vseq.b	$vr14,$vr27,$vr28$/;"	l
+c20	obj/test.s	/^ c20:	c1021803 	0xc1021803$/;"	l
+c24	obj/test.s	/^     c24:	01000005 	0x01000005$/;"	l
+c24	obj/test.s	/^     c24:	16054b12 	lu32i.d	$r18,10840(0x2a58)$/;"	l
+c24	obj/test.s	/^ c24:	00747261 	bstrins.w	$r1,$r19,0x14,0x1c$/;"	l
+c24	obj/test.s	/^ c24:	0d44d644 	0x0d44d644$/;"	l
+c28	obj/test.s	/^     c28:	48260111 	bcnez	$fcc0,-3922432(0x442600) # ffc43228 <g_buf+0xe3c3b194>$/;"	l
+c28	obj/test.s	/^     c28:	821b0582 	0x821b0582$/;"	l
+c28	obj/test.s	/^ c28:	00000003 	0x00000003$/;"	l
+c28	obj/test.s	/^ c28:	65736572 	bge	$r11,$r18,95076(0x17364) # 17f8c <_start-0x1bfe8074>$/;"	l
+c2c	obj/test.s	/^     c2c:	03000002 	lu52i.d	$r2,$r0,0$/;"	l
+c2c	obj/test.s	/^     c2c:	054a1205 	0x054a1205$/;"	l
+c2c	obj/test.s	/^ c2c:	00000020 	0x00000020$/;"	l
+c2c	obj/test.s	/^ c2c:	64657672 	bge	$r19,$r18,25972(0x6574) # 71a0 <_start-0x1bff8e60>$/;"	l
+c30	obj/test.s	/^     c30:	0d7f9c91 	0x0d7f9c91$/;"	l
+c30	obj/test.s	/^     c30:	1905bb14 	pcaddi	$r20,-512552(0x82dd8)$/;"	l
+c30	obj/test.s	/^ c30:	00000500 	0x00000500$/;"	l
+c30	obj/test.s	/^ c30:	72696400 	0x72696400$/;"	l
+c34	obj/test.s	/^     c34:	000004ed 	0x000004ed$/;"	l
+c34	obj/test.s	/^     c34:	4a110582 	bcnez	$fcc4,659716(0xa1104) # a1d38 <_start-0x1bf5e2c8>$/;"	l
+c34	obj/test.s	/^ c34:	1c005b10 	pcaddu12i	$r16,728(0x2d8)$/;"	l
+c34	obj/test.s	/^ c34:	6464615f 	bge	$r10,$r31,25696(0x6460) # 7094 <_start-0x1bff8f6c>$/;"	l
+c38	obj/test.s	/^     c38:	05bc1405 	0x05bc1405$/;"	l
+c38	obj/test.s	/^     c38:	36011101 	0x36011101$/;"	l
+c38	obj/test.s	/^ c38:	00000048 	0x00000048$/;"	l
+c38	obj/test.s	/^ c38:	74616600 	xvabsd.w	$xr0,$xr16,$xr25$/;"	l
+c3c	obj/test.s	/^     c3c:	00000037 	0x00000037$/;"	l
+c3c	obj/test.s	/^     c3c:	0e058211 	0x0e058211$/;"	l
+c3c	obj/test.s	/^ c3c:	48200e44 	0x48200e44$/;"	l
+c3c	obj/test.s	/^ c3c:	6c69665f 	bgeu	$r18,$r31,26980(0x6964) # 75a0 <_start-0x1bff8a60>$/;"	l
+c4	obj/test.s	/^      c4:	04060000 	csrrd	$r0,0x180$/;"	l
+c4	obj/test.s	/^      c4:	365f3638 	0x365f3638$/;"	l
+c4	obj/test.s	/^  c4:	00000000 	0x00000000$/;"	l
+c4	obj/test.s	/^  c4:	0301130f 	lu52i.d	$r15,$r24,68(0x44)$/;"	l
+c4	obj/test.s	/^  c4:	6c635f74 	bgeu	$r27,$r20,25436(0x635c) # 6420 <_start-0x1bff9be0>$/;"	l
+c40	obj/test.s	/^     c40:	7f989103 	0x7f989103$/;"	l
+c40	obj/test.s	/^     c40:	820b0583 	0x820b0583$/;"	l
+c40	obj/test.s	/^ c40:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+c40	obj/test.s	/^ c40:	65725f65 	bge	$r27,$r5,94812(0x1725c) # 17e9c <_start-0x1bfe8164>$/;"	l
+c44	obj/test.s	/^     c44:	0005ae0b 	alsl.w	$r11,$r16,$r11,0x4$/;"	l
+c44	obj/test.s	/^     c44:	05ba0805 	0x05ba0805$/;"	l
+c44	obj/test.s	/^ c44:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+c44	obj/test.s	/^ c44:	6c006461 	bgeu	$r3,$r1,100(0x64) # ca8 <_start-0x1bfff358>$/;"	l
+c48	obj/test.s	/^     c48:	01130100 	fcopysign.d	$f0,$f8,$f0$/;"	l
+c48	obj/test.s	/^     c48:	16058311 	lu32i.d	$r17,11288(0x2c18)$/;"	l
+c48	obj/test.s	/^ c48:	5f747361 	bne	$r27,$r1,-35728(0x37470) # ffff80b8 <g_buf+0xe3ff0024>$/;"	l
+c48	obj/test.s	/^ c48:	d644c16c 	0xd644c16c$/;"	l
+c4c	obj/test.s	/^     c4c:	0003640a 	0x0003640a$/;"	l
+c4c	obj/test.s	/^     c4c:	82110582 	0x82110582$/;"	l
+c4c	obj/test.s	/^ c4c:	00030d44 	0x00030d44$/;"	l
+c4c	obj/test.s	/^ c4c:	70627573 	vabsd.bu	$vr19,$vr11,$vr29$/;"	l
+c50	obj/test.s	/^     c50:	05bb1405 	0x05bb1405$/;"	l
+c50	obj/test.s	/^     c50:	ac910300 	0xac910300$/;"	l
+c50	obj/test.s	/^ c50:	00000024 	0x00000024$/;"	l
+c50	obj/test.s	/^ c50:	5f687461 	bne	$r3,$r1,-38796(0x36874) # ffff74c4 <g_buf+0xe3fef430>$/;"	l
+c54	obj/test.s	/^     c54:	05bc8210 	0x05bc8210$/;"	l
+c54	obj/test.s	/^     c54:	17f0147f 	lu32i.d	$r31,-32605(0xf80a3)$/;"	l
+c54	obj/test.s	/^ c54:	00000500 	0x00000500$/;"	l
+c54	obj/test.s	/^ c54:	006e656c 	bstrins.w	$r12,$r11,0xe,0x19$/;"	l
+c58	obj/test.s	/^     c58:	00681c00 	bstrins.w	$r0,$r0,0x8,0x7$/;"	l
+c58	obj/test.s	/^     c58:	0105bb0b 	0x0105bb0b$/;"	l
+c58	obj/test.s	/^ c58:	1c005b58 	pcaddu12i	$r24,730(0x2da)$/;"	l
+c58	obj/test.s	/^ c58:	74636573 	xvabsd.wu	$xr19,$xr11,$xr25$/;"	l
+c5c	obj/test.s	/^     c5c:	001002f3 	add.w	$r19,$r23,$r0$/;"	l
+c5c	obj/test.s	/^     c5c:	02c40000 	addi.d	$r0,$r0,256(0x100)$/;"	l
+c5c	obj/test.s	/^ c5c:	00000188 	0x00000188$/;"	l
+c5c	obj/test.s	/^ c5c:	7265705f 	0x7265705f$/;"	l
+c60	obj/test.s	/^     c60:	15e00101 	lu12i.w	$r1,-65528(0xf0008)$/;"	l
+c60	obj/test.s	/^     c60:	6e0c0000 	bgeu	$r0,$r0,-128000(0x20c00) # fffe1860 <g_buf+0xe3fd97cc>$/;"	l
+c60	obj/test.s	/^ c60:	48400e44 	0x48400e44$/;"	l
+c60	obj/test.s	/^ c60:	756c635f 	0x756c635f$/;"	l
+c64	obj/test.s	/^     c64:	00020000 	0x00020000$/;"	l
+c64	obj/test.s	/^     c64:	01006d75 	0x01006d75$/;"	l
+c64	obj/test.s	/^ c64:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+c64	obj/test.s	/^ c64:	46007473 	bnez	$r3,-3276684(0x4e0074) # ffce0cd8 <g_buf+0xe3cd8c44>$/;"	l
+c68	obj/test.s	/^     c68:	000000cd 	0x000000cd$/;"	l
+c68	obj/test.s	/^     c68:	431f0122 	beqz	$r9,728832(0xb1f00) # b2b68 <_start-0x1bf4d498>$/;"	l
+c68	obj/test.s	/^ c68:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+c68	obj/test.s	/^ c68:	415f5441 	beqz	$r2,352084(0x55f54) # 56bbc <_start-0x1bfa9444>$/;"	l
+c6c	obj/test.s	/^     c6c:	02000000 	slti	$r0,$r0,0$/;"	l
+c6c	obj/test.s	/^     c6c:	0efb0101 	0x0efb0101$/;"	l
+c6c	obj/test.s	/^ c6c:	5f525454 	bne	$r2,$r20,-44460(0x35254) # ffff5ec0 <g_buf+0xe3fede2c>$/;"	l
+c6c	obj/test.s	/^ c6c:	c1016c03 	0xc1016c03$/;"	l
+c70	obj/test.s	/^     c70:	0101000d 	fadd.d	$f13,$f0,$f0$/;"	l
+c70	obj/test.s	/^     c70:	700c5c91 	vsub.b	$vr17,$vr4,$vr23$/;"	l
+c70	obj/test.s	/^ c70:	0d44d644 	0x0d44d644$/;"	l
+c70	obj/test.s	/^ c70:	44444948 	bnez	$r10,2114632(0x204448) # 2050b8 <_start-0x1bdfaf48>$/;"	l
+c74	obj/test.s	/^     c74:	00000101 	0x00000101$/;"	l
+c74	obj/test.s	/^     c74:	01240100 	0x01240100$/;"	l
+c74	obj/test.s	/^ c74:	00000003 	0x00000003$/;"	l
+c74	obj/test.s	/^ c74:	66004e45 	bge	$r18,$r5,-130996(0x2004c) # fffe0cc0 <g_buf+0xe3fd8c2c>$/;"	l
+c78	obj/test.s	/^     c78:	00000100 	0x00000100$/;"	l
+c78	obj/test.s	/^     c78:	00037421 	0x00037421$/;"	l
+c78	obj/test.s	/^ c78:	00000024 	0x00000024$/;"	l
+c78	obj/test.s	/^ c78:	645f7461 	bge	$r3,$r1,24436(0x5f74) # 6bec <_start-0x1bff9414>$/;"	l
+c7c	obj/test.s	/^     c7c:	6c910200 	bgeu	$r16,$r0,37120(0x9100) # 9d7c <_start-0x1bff6284>$/;"	l
+c7c	obj/test.s	/^     c7c:	6f682f01 	bgeu	$r24,$r1,-38868(0x3682c) # ffff74a8 <g_buf+0xe3fef414>$/;"	l
+c7c	obj/test.s	/^ c7c:	00000500 	0x00000500$/;"	l
+c7c	obj/test.s	/^ c7c:	725f7269 	0x725f7269$/;"	l
+c8	obj/test.s	/^      c8:	000000a6 	0x000000a6$/;"	l
+c8	obj/test.s	/^      c8:	6f6c2d34 	bgeu	$r9,$r20,-37844(0x36c2c) # ffff6cf4 <g_buf+0xe3feec60>$/;"	l
+c8	obj/test.s	/^  c8:	00747375 	bstrins.w	$r21,$r27,0x14,0x1c$/;"	l
+c8	obj/test.s	/^  c8:	1c0003e8 	pcaddu12i	$r8,31(0x1f)$/;"	l
+c8	obj/test.s	/^  c8:	3a050b08 	0x3a050b08$/;"	l
+c80	obj/test.s	/^     c80:	18581400 	pcaddi	$r0,180384(0x2c0a0)$/;"	l
+c80	obj/test.s	/^     c80:	752f656d 	xvsigncov.w	$xr13,$xr11,$xr25$/;"	l
+c80	obj/test.s	/^ c80:	1c005ce0 	pcaddu12i	$r0,743(0x2e7)$/;"	l
+c80	obj/test.s	/^ c80:	6e697765 	bgeu	$r27,$r5,-104076(0x26974) # fffe75f4 <g_buf+0xe3fdf560>$/;"	l
+c84	obj/test.s	/^     c84:	00841c00 	bstrins.d	$r0,$r0,0x4,0x7$/;"	l
+c84	obj/test.s	/^     c84:	6f6f6c2f 	bgeu	$r1,$r15,-37012(0x36f6c) # ffff7bf0 <g_buf+0xe3fefb5c>$/;"	l
+c84	obj/test.s	/^ c84:	000001a0 	0x000001a0$/;"	l
+c84	obj/test.s	/^ c84:	66730064 	bge	$r3,$r4,-101632(0x27300) # fffe7f84 <g_buf+0xe3fdfef0>$/;"	l
+c88	obj/test.s	/^     c88:	03000000 	lu52i.d	$r0,$r0,0$/;"	l
+c88	obj/test.s	/^     c88:	6f73676e 	bgeu	$r27,$r14,-35996(0x37364) # ffff7fec <g_buf+0xe3feff58>$/;"	l
+c88	obj/test.s	/^ c88:	48500e44 	0x48500e44$/;"	l
+c88	obj/test.s	/^ c88:	73695f6e 	vssrarni.w.d	$vr14,$vr27,0x17$/;"	l
+c8c	obj/test.s	/^     c8c:	6e0c0000 	bgeu	$r0,$r0,-128000(0x20c00) # fffe188c <g_buf+0xe3fd97f8>$/;"	l
+c8c	obj/test.s	/^     c8c:	6e672d6e 	bgeu	$r11,$r14,-104660(0x2672c) # fffe73b8 <g_buf+0xe3fdf324>$/;"	l
+c8c	obj/test.s	/^ c8c:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+c8c	obj/test.s	/^ c8c:	73616c5f 	vssrani.w.d	$vr31,$vr2,0x1b$/;"	l
+c90	obj/test.s	/^     c90:	01006d75 	0x01006d75$/;"	l
+c90	obj/test.s	/^     c90:	6f742d75 	bgeu	$r11,$r21,-35796(0x3742c) # ffff80bc <g_buf+0xe3ff0028>$/;"	l
+c90	obj/test.s	/^ c90:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+c90	obj/test.s	/^ c90:	616d0074 	blt	$r3,$r20,93440(0x16d00) # 17990 <_start-0x1bfe8670>$/;"	l
+c94	obj/test.s	/^     c94:	4a28012c 	bcnez	$fcc1,3287040(0x322800) # 323494 <_start-0x1bcdcb6c>$/;"	l
+c94	obj/test.s	/^     c94:	68636c6f 	bltu	$r3,$r15,25452(0x636c) # 7000 <_start-0x1bff9000>$/;"	l
+c94	obj/test.s	/^ c94:	64006b73 	bge	$r27,$r19,104(0x68) # cfc <_start-0x1bfff304>$/;"	l
+c94	obj/test.s	/^ c94:	c1018403 	0xc1018403$/;"	l
+c98	obj/test.s	/^     c98:	02000000 	slti	$r0,$r0,0$/;"	l
+c98	obj/test.s	/^     c98:	2d6e6961 	0x2d6e6961$/;"	l
+c98	obj/test.s	/^ c98:	0d44d644 	0x0d44d644$/;"	l
+c98	obj/test.s	/^ c98:	615f7269 	blt	$r19,$r9,89968(0x15f70) # 16c08 <_start-0x1bfe93f8>$/;"	l
+c9c	obj/test.s	/^     c9c:	2d332e38 	0x2d332e38$/;"	l
+c9c	obj/test.s	/^     c9c:	e20b5891 	0xe20b5891$/;"	l
+c9c	obj/test.s	/^ c9c:	00000003 	0x00000003$/;"	l
+c9c	obj/test.s	/^ c9c:	6c635f74 	bgeu	$r27,$r20,25436(0x635c) # 6ff8 <_start-0x1bff9008>$/;"	l
+ca0	obj/test.s	/^     ca0:	01000005 	0x01000005$/;"	l
+ca0	obj/test.s	/^     ca0:	5f363878 	bne	$r3,$r24,-51656(0x33638) # ffff42d8 <g_buf+0xe3fec244>$/;"	l
+ca0	obj/test.s	/^ ca0:	00000024 	0x00000024$/;"	l
+ca0	obj/test.s	/^ ca0:	00747375 	bstrins.w	$r21,$r27,0x14,0x1c$/;"	l
+ca4	obj/test.s	/^     ca4:	431f012d 	beqz	$r9,3612416(0x371f00) # 372ba4 <_start-0x1bc8d45c>$/;"	l
+ca4	obj/test.s	/^     ca4:	6c2d3436 	bgeu	$r1,$r22,11572(0x2d34) # 39d8 <_start-0x1bffc628>$/;"	l
+ca4	obj/test.s	/^ ca4:	00000500 	0x00000500$/;"	l
+ca4	obj/test.s	/^ ca4:	5f636361 	bne	$r27,$r1,-40096(0x36360) # ffff7004 <g_buf+0xe3feef70>$/;"	l
+ca8	obj/test.s	/^     ca8:	02000000 	slti	$r0,$r0,0$/;"	l
+ca8	obj/test.s	/^     ca8:	676e6f6f 	bge	$r27,$r15,-37268(0x36e6c) # ffff7b14 <g_buf+0xe3fefa80>$/;"	l
+ca8	obj/test.s	/^ ca8:	1c005e80 	pcaddu12i	$r0,756(0x2f4)$/;"	l
+ca8	obj/test.s	/^ ca8:	65746164 	bge	$r11,$r4,95328(0x17460) # 18108 <_start-0x1bfe7ef8>$/;"	l
+cac	obj/test.s	/^     cac:	68637261 	bltu	$r19,$r1,25456(0x6370) # 701c <_start-0x1bff8fe4>$/;"	l
+cac	obj/test.s	/^     cac:	700c5491 	vsub.b	$vr17,$vr4,$vr21$/;"	l
+cac	obj/test.s	/^ cac:	000003b8 	0x000003b8$/;"	l
+cac	obj/test.s	/^ cac:	554c4300 	bl	-67023808(0xc014c40) # fc0158ec <g_buf+0xe000d858>$/;"	l
+cb0	obj/test.s	/^     cb0:	012f0100 	0x012f0100$/;"	l
+cb0	obj/test.s	/^     cb0:	2d723233 	0x2d723233$/;"	l
+cb0	obj/test.s	/^ cb0:	48600e44 	0x48600e44$/;"	l
+cb0	obj/test.s	/^ cb0:	4c5f5453 	jirl	$r19,$r2,24404(0x5f54)$/;"	l
+cb4	obj/test.s	/^     cb4:	00037421 	0x00037421$/;"	l
+cb4	obj/test.s	/^     cb4:	756e696c 	0x756e696c$/;"	l
+cb4	obj/test.s	/^ cb4:	00545341 	0x00545341$/;"	l
+cb4	obj/test.s	/^ cb4:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+cb8	obj/test.s	/^     cb8:	68910200 	bltu	$r16,$r0,37120(0x9100) # 9db8 <_start-0x1bff6248>$/;"	l
+cb8	obj/test.s	/^     cb8:	6e672d78 	bgeu	$r11,$r24,-104660(0x2672c) # fffe73e4 <g_buf+0xe3fdf350>$/;"	l
+cb8	obj/test.s	/^ cb8:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+cb8	obj/test.s	/^ cb8:	5f726964 	bne	$r11,$r4,-36248(0x37268) # ffff7f20 <g_buf+0xe3fefe8c>$/;"	l
+cbc	obj/test.s	/^     cbc:	18dc1400 	pcaddi	$r0,450720(0x6e0a0)$/;"	l
+cbc	obj/test.s	/^     cbc:	2d667375 	0x2d667375$/;"	l
+cbc	obj/test.s	/^ cbc:	61766461 	blt	$r3,$r1,95844(0x17664) # 18320 <_start-0x1bfe7ce0>$/;"	l
+cbc	obj/test.s	/^ cbc:	c1039c03 	0xc1039c03$/;"	l
+cc	obj/test.s	/^      cc:	48060104 	bcnez	$fcc0,1050112(0x100600) # 1006cc <_start-0x1beff934>$/;"	l
+cc	obj/test.s	/^      cc:	61676e6f 	blt	$r19,$r15,92012(0x1676c) # 16838 <_start-0x1bfe97c8>$/;"	l
+cc	obj/test.s	/^  cc:	000000a0 	0x000000a0$/;"	l
+cc	obj/test.s	/^  cc:	390b3b0b 	0x390b3b0b$/;"	l
+cc	obj/test.s	/^  cc:	676e6f6c 	bge	$r27,$r12,-37268(0x36e6c) # ffff6f38 <g_buf+0xe3feeea4>$/;"	l
+cc0	obj/test.s	/^     cc0:	006c1c00 	bstrins.w	$r0,$r0,0xc,0x7$/;"	l
+cc0	obj/test.s	/^     cc0:	302e3276 	vldrepl.w	$vr22,$r19,-464(0xe30)$/;"	l
+cc0	obj/test.s	/^ cc0:	0065636e 	bstrins.w	$r14,$r27,0x5,0x18$/;"	l
+cc0	obj/test.s	/^ cc0:	0d44d644 	0x0d44d644$/;"	l
+cc4	obj/test.s	/^     cc4:	032c0000 	lu52i.d	$r0,$r0,-1280(0xb00)$/;"	l
+cc4	obj/test.s	/^     cc4:	6f6f6c2f 	bgeu	$r1,$r15,-37012(0x36f6c) # ffff7c30 <g_buf+0xe3fefb9c>$/;"	l
+cc4	obj/test.s	/^ cc4:	00000003 	0x00000003$/;"	l
+cc4	obj/test.s	/^ cc4:	6e676973 	bgeu	$r11,$r19,-104600(0x26768) # fffe742c <g_buf+0xe3fdf398>$/;"	l
+cc8	obj/test.s	/^     cc8:	6e0c0000 	bgeu	$r0,$r0,-128000(0x20c00) # fffe18c8 <g_buf+0xe3fd9834>$/;"	l
+cc8	obj/test.s	/^     cc8:	7261676e 	0x7261676e$/;"	l
+cc8	obj/test.s	/^ cc8:	00000024 	0x00000024$/;"	l
+cc8	obj/test.s	/^ cc8:	72747300 	0x72747300$/;"	l
+ccc	obj/test.s	/^     ccc:	01006d75 	0x01006d75$/;"	l
+ccc	obj/test.s	/^     ccc:	32336863 	0x32336863$/;"	l
+ccc	obj/test.s	/^ ccc:	00000500 	0x00000500$/;"	l
+ccc	obj/test.s	/^ ccc:	68637465 	bltu	$r3,$r5,25460(0x6374) # 7040 <_start-0x1bff8fc0>$/;"	l
+cd0	obj/test.s	/^     cd0:	4a280136 	bcnez	$fcc1,-2480128(0x5a2800) # ffda34d0 <g_buf+0xe3d9b43c>$/;"	l
+cd0	obj/test.s	/^     cd0:	696c2d72 	bltu	$r11,$r18,93228(0x16c2c) # 178fc <_start-0x1bfe8704>$/;"	l
+cd0	obj/test.s	/^ cd0:	1c006238 	pcaddu12i	$r24,785(0x311)$/;"	l
+cd0	obj/test.s	/^ cd0:	6168635f 	blt	$r26,$r31,92256(0x16860) # 17530 <_start-0x1bfe8ad0>$/;"	l
+cd4	obj/test.s	/^     cd4:	02000000 	slti	$r0,$r0,0$/;"	l
+cd4	obj/test.s	/^     cd4:	2d78756e 	0x2d78756e$/;"	l
+cd4	obj/test.s	/^ cd4:	0000032c 	0x0000032c$/;"	l
+cd4	obj/test.s	/^ cd4:	6d006e69 	bgeu	$r19,$r9,65644(0x1006c) # 10d40 <_start-0x1bfef2c0>$/;"	l
+cd8	obj/test.s	/^     cd8:	700c5091 	vsub.b	$vr17,$vr4,$vr20$/;"	l
+cd8	obj/test.s	/^     cd8:	73756e67 	0x73756e67$/;"	l
+cd8	obj/test.s	/^ cd8:	48300e44 	0x48300e44$/;"	l
+cd8	obj/test.s	/^ cd8:	726f6a61 	0x726f6a61$/;"	l
+cdc	obj/test.s	/^     cdc:	01380100 	0x01380100$/;"	l
+cdc	obj/test.s	/^     cdc:	79732f66 	0x79732f66$/;"	l
+cdc	obj/test.s	/^ cdc:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+cdc	obj/test.s	/^ cdc:	74756f00 	xvmax.wu	$xr0,$xr24,$xr27$/;"	l
+ce0	obj/test.s	/^     ce0:	00037421 	0x00037421$/;"	l
+ce0	obj/test.s	/^     ce0:	6f6f7273 	bgeu	$r19,$r19,-37008(0x36f70) # ffff7c50 <g_buf+0xe3fefbbc>$/;"	l
+ce0	obj/test.s	/^ ce0:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+ce0	obj/test.s	/^ ce0:	6c61765f 	bgeu	$r18,$r31,24948(0x6174) # 6e54 <_start-0x1bff91ac>$/;"	l
+ce4	obj/test.s	/^     ce4:	64910200 	bge	$r16,$r0,37120(0x9100) # 9de4 <_start-0x1bff621c>$/;"	l
+ce4	obj/test.s	/^     ce4:	73752f74 	0x73752f74$/;"	l
+ce4	obj/test.s	/^ ce4:	74656700 	xvavg.w	$xr0,$xr24,$xr25$/;"	l
+ce4	obj/test.s	/^ ce4:	c1031003 	0xc1031003$/;"	l
+ce8	obj/test.s	/^     ce8:	19481400 	pcaddi	$r0,-376672(0xa40a0)$/;"	l
+ce8	obj/test.s	/^     ce8:	6e692f72 	bgeu	$r27,$r18,-104148(0x2692c) # fffe7614 <g_buf+0xe3fdf580>$/;"	l
+ce8	obj/test.s	/^ ce8:	0d44d644 	0x0d44d644$/;"	l
+ce8	obj/test.s	/^ ce8:	6372635f 	blt	$r26,$r31,-36256(0x37260) # ffff7f48 <g_buf+0xe3fefeb4>$/;"	l
+cec	obj/test.s	/^     cec:	00301c00 	0x00301c00$/;"	l
+cec	obj/test.s	/^     cec:	64756c63 	bge	$r3,$r3,30060(0x756c) # 8258 <_start-0x1bff7da8>$/;"	l
+cec	obj/test.s	/^ cec:	00000003 	0x00000003$/;"	l
+cec	obj/test.s	/^ cec:	78656e00 	0x78656e00$/;"	l
+cf0	obj/test.s	/^     cf0:	03490000 	andi	$r0,$r0,0x240$/;"	l
+cf0	obj/test.s	/^     cf0:	69622f65 	bltu	$r27,$r5,90668(0x1622c) # 16f1c <_start-0x1bfe90e4>$/;"	l
+cf0	obj/test.s	/^ cf0:	00000028 	0x00000028$/;"	l
+cf0	obj/test.s	/^ cf0:	72665f74 	0x72665f74$/;"	l
+cf4	obj/test.s	/^     cf4:	00007374 	0x00007374$/;"	l
+cf4	obj/test.s	/^     cf4:	630c0000 	blt	$r0,$r0,-62464(0x30c00) # ffff18f4 <g_buf+0xe3fe9860>$/;"	l
+cf4	obj/test.s	/^ cf4:	00000500 	0x00000500$/;"	l
+cf4	obj/test.s	/^ cf4:	46006565 	bnez	$r11,1441892(0x160064) # 160d58 <_start-0x1be9f2a8>$/;"	l
+cf8	obj/test.s	/^     cf8:	2e746166 	0x2e746166$/;"	l
+cf8	obj/test.s	/^     cf8:	3f010068 	0x3f010068$/;"	l
+cf8	obj/test.s	/^ cf8:	1c006564 	pcaddu12i	$r4,811(0x32b)$/;"	l
+cf8	obj/test.s	/^ cf8:	415f5441 	beqz	$r2,352084(0x55f54) # 56c4c <_start-0x1bfa93b4>$/;"	l
+cfc	obj/test.s	/^     cfc:	00000063 	0x00000063$/;"	l
+cfc	obj/test.s	/^     cfc:	00992001 	bstrins.d	$r1,$r0,0x19,0x8$/;"	l
+cfc	obj/test.s	/^ cfc:	0000055c 	0x0000055c$/;"	l
+cfc	obj/test.s	/^ cfc:	5f525454 	bne	$r2,$r20,-44460(0x35254) # ffff5f50 <g_buf+0xe3fedebc>$/;"	l
+check_fat	fat.c	/^static bool check_fat(uint8_t* buf)$/;"	f	file:
+clr_timer_intr	start.S	/^clr_timer_intr:$/;"	l
+clust	fat.c	/^    uint16_t clust;$/;"	m	struct:__anon8::__anon9	file:
+clust	fat.h	/^  uint32_t clust;$/;"	m	struct:__anon18
+clust	fat.h	/^  uint32_t clust;$/;"	m	struct:__anon19
+clust_clear	fat.c	/^static int clust_clear(Fat* fat, uint32_t clust)$/;"	f	file:
+clust_cnt	fat.h	/^  uint32_t clust_cnt;$/;"	m	struct:Fat
+clust_hi	fat.c	/^  uint16_t clust_hi;$/;"	m	struct:__anon7	file:
+clust_lo	fat.c	/^  uint16_t clust_lo;$/;"	m	struct:__anon7	file:
+clust_msk	fat.h	/^  uint32_t clust_msk;$/;"	m	struct:Fat
+clust_shift	fat.h	/^  uint8_t clust_shift;$/;"	m	struct:Fat
+clust_to_sect	fat.c	/^static uint32_t clust_to_sect(Fat* fat, uint32_t clust)$/;"	f	file:
+copy_bpb_sector	fat.c	/^  uint16_t copy_bpb_sector;$/;"	m	struct:__anon5	file:
+crc	fat.c	/^    uint8_t crc;$/;"	m	struct:__anon8::__anon9	file:
+cre_date	fat.c	/^  uint16_t cre_date;$/;"	m	struct:__anon7	file:
+cre_time	fat.c	/^  uint16_t cre_time;$/;"	m	struct:__anon7	file:
+create_chain	fat.c	/^static int create_chain(Fat* fat, uint32_t* out_clust)$/;"	f	file:
+created	fat.h	/^  Timestamp created;$/;"	m	struct:__anon17
+d0	obj/test.s	/^      d0:	03000003 	lu52i.d	$r3,$r0,0$/;"	l
+d0	obj/test.s	/^      d0:	33686372 	xvstelm.h	$xr18,$r27,48(0x30),0xa$/;"	l
+d0	obj/test.s	/^  d0:	0013010b 	maskeqz	$r11,$r8,$r0$/;"	l
+d0	obj/test.s	/^  d0:	48400e44 	0x48400e44$/;"	l
+d0	obj/test.s	/^  d0:	6e6f6c20 	bgeu	$r1,$r0,-102548(0x26f6c) # fffe703c <g_buf+0xe3fdefa8>$/;"	l
+d00	obj/test.s	/^     d00:	70797400 	0x70797400$/;"	l
+d00	obj/test.s	/^     d00:	91020000 	0x91020000$/;"	l
+d00	obj/test.s	/^ d00:	4542414c 	bnez	$r10,3228224(0x314240) # 314f40 <_start-0x1bceb0c0>$/;"	l
+d00	obj/test.s	/^ d00:	4c400e44 	jirl	$r4,$r18,16396(0x400c)$/;"	l
+d04	obj/test.s	/^     d04:	682e7365 	bltu	$r27,$r5,11888(0x2e70) # 3b74 <_start-0x1bffc48c>$/;"	l
+d04	obj/test.s	/^     d04:	7815004f 	0x7815004f$/;"	l
+d04	obj/test.s	/^ d04:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+d04	obj/test.s	/^ d04:	6964004c 	bltu	$r2,$r12,91136(0x16400) # 17104 <_start-0x1bfe8efc>$/;"	l
+d08	obj/test.s	/^     d08:	00000100 	0x00000100$/;"	l
+d08	obj/test.s	/^     d08:	601c0019 	blt	$r0,$r25,7168(0x1c00) # 2908 <_start-0x1bffd6f8>$/;"	l
+d08	obj/test.s	/^ d08:	0c440397 	0x0c440397$/;"	l
+d08	obj/test.s	/^ d08:	74615f72 	xvabsd.w	$xr18,$xr27,$xr23$/;"	l
+d0c	obj/test.s	/^     d0c:	0c000000 	0x0c000000$/;"	l
+d0c	obj/test.s	/^     d0c:	69647473 	bltu	$r3,$r19,91252(0x16474) # 17180 <_start-0x1bfe8e80>$/;"	l
+d0c	obj/test.s	/^ d0c:	38030016 	0x38030016$/;"	l
+d0c	obj/test.s	/^ d0c:	6f6f725f 	bgeu	$r18,$r31,-37008(0x36f70) # ffff7c7c <g_buf+0xe3fefbe8>$/;"	l
+d10	obj/test.s	/^     d10:	00727473 	bstrins.w	$r19,$r3,0x12,0x1d$/;"	l
+d10	obj/test.s	/^     d10:	692d746e 	bltu	$r3,$r14,77172(0x12d74) # 13a84 <_start-0x1bfec57c>$/;"	l
+d10	obj/test.s	/^ d10:	69640074 	bltu	$r3,$r20,91136(0x16400) # 17110 <_start-0x1bfe8ef0>$/;"	l
+d10	obj/test.s	/^ d10:	d644c105 	0xd644c105$/;"	l
+d14	obj/test.s	/^     d14:	21014601 	sc.w	$r1,$r16,324(0x144)$/;"	l
+d14	obj/test.s	/^     d14:	2e6e746e 	0x2e6e746e$/;"	l
+d14	obj/test.s	/^ d14:	0d44d744 	0x0d44d744$/;"	l
+d14	obj/test.s	/^ d14:	6c635f72 	bgeu	$r27,$r18,25436(0x635c) # 7070 <_start-0x1bff8f90>$/;"	l
+d18	obj/test.s	/^     d18:	00000374 	0x00000374$/;"	l
+d18	obj/test.s	/^     d18:	00010068 	0x00010068$/;"	l
+d18	obj/test.s	/^ d18:	00000003 	0x00000003$/;"	l
+d18	obj/test.s	/^ d18:	00747375 	bstrins.w	$r21,$r27,0x14,0x1c$/;"	l
+d1c	obj/test.s	/^     d1c:	00609102 	bstrpick.w	$r2,$r8,0x0,0x4$/;"	l
+d1c	obj/test.s	/^     d1c:	64747300 	bge	$r24,$r0,29808(0x7470) # 818c <_start-0x1bff7e74>$/;"	l
+d1c	obj/test.s	/^ d1c:	00000020 	0x00000020$/;"	l
+d1c	obj/test.s	/^ d1c:	5f544146 	bne	$r10,$r6,-43968(0x35440) # ffff615c <g_buf+0xe3fee0c8>$/;"	l
+d20	obj/test.s	/^     d20:	00990700 	bstrins.d	$r0,$r24,0x19,0x1$/;"	l
+d20	obj/test.s	/^     d20:	2d746e69 	0x2d746e69$/;"	l
+d20	obj/test.s	/^ d20:	00000500 	0x00000500$/;"	l
+d20	obj/test.s	/^ d20:	4b454553 	bcnez	$fcc2,-3193532(0x4f4544) # ffcf5264 <g_buf+0xe3ced1d0>$/;"	l
+d24	obj/test.s	/^     d24:	03740000 	andi	$r0,$r0,0xd00$/;"	l
+d24	obj/test.s	/^     d24:	746e6975 	0x746e6975$/;"	l
+d24	obj/test.s	/^ d24:	1c006ac0 	pcaddu12i	$r0,854(0x356)$/;"	l
+d24	obj/test.s	/^ d24:	5255435f 	b	-42052288(0xd7e5540) # fd7e6264 <g_buf+0xe17de1d0>$/;"	l
+d28	obj/test.s	/^     d28:	00682e6e 	bstrins.w	$r14,$r19,0x8,0xb$/;"	l
+d28	obj/test.s	/^     d28:	4a080000 	bceqz	$fcc0,133120(0x20800) # 21528 <_start-0x1bfdead8>$/;"	l
+d28	obj/test.s	/^ d28:	000000dc 	0x000000dc$/;"	l
+d28	obj/test.s	/^ d28:	41460052 	beqz	$r2,-3586560(0x494600) # ffc95328 <g_buf+0xe3c8d294>$/;"	l
+d2c	obj/test.s	/^     d2c:	1f000000 	pcaddu18i	$r0,-524288(0x80000)$/;"	l
+d2c	obj/test.s	/^     d2c:	66000001 	bge	$r0,$r1,-131072(0x20000) # fffe0d2c <g_buf+0xe3fd8c98>$/;"	l
+d2c	obj/test.s	/^ d2c:	48300e44 	0x48300e44$/;"	l
+d2c	obj/test.s	/^ d2c:	54415f54 	bl	-45072036(0xd50415c) # fd504e88 <g_buf+0xe14fcdf4>$/;"	l
+d30	obj/test.s	/^     d30:	682e7461 	bltu	$r3,$r1,11892(0x2e74) # 3ba4 <_start-0x1bffc45c>$/;"	l
+d30	obj/test.s	/^     d30:	99041200 	0x99041200$/;"	l
+d30	obj/test.s	/^ d30:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+d30	obj/test.s	/^ d30:	445f5254 	bnez	$r18,-3121328(0x505f50) # ffd06c80 <g_buf+0xe3cfebec>$/;"	l
+d34	obj/test.s	/^     d34:	00000000 	0x00000000$/;"	l
+d34	obj/test.s	/^     d34:	16000000 	lu32i.d	$r0,0$/;"	l
+d34	obj/test.s	/^ d34:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+d34	obj/test.s	/^ d34:	Address 0x0000000000000d34 is out of bounds.$/;"	l
+d38	obj/test.s	/^     d38:	0000064d 	0x0000064d$/;"	l
+d38	obj/test.s	/^     d38:	00010500 	asrtle.d	$r8,$r1$/;"	l
+d38	obj/test.s	/^ d38:	44c1c002 	bnez	$r0,573888(0x8c1c0) # 8cef8 <_start-0x1bf73108>$/;"	l
+d3c	obj/test.s	/^     d3c:	21280205 	sc.w	$r5,$r16,10240(0x2800)$/;"	l
+d3c	obj/test.s	/^     d3c:	340df001 	0x340df001$/;"	l
+d3c	obj/test.s	/^ d3c:	030d44d6 	lu52i.d	$r22,$r6,849(0x351)$/;"	l
+d4	obj/test.s	/^      d4:	000000a6 	0x000000a6$/;"	l
+d4	obj/test.s	/^      d4:	6c2d7232 	bgeu	$r17,$r18,11632(0x2d70) # 2e44 <_start-0x1bffd1bc>$/;"	l
+d4	obj/test.s	/^  d4:	000d1000 	bytepick.d	$r0,$r0,$r4,0x2$/;"	l
+d4	obj/test.s	/^  d4:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+d4	obj/test.s	/^  d4:	6e692067 	bgeu	$r3,$r7,-104160(0x26920) # fffe69f4 <g_buf+0xe3fde960>$/;"	l
+d40	obj/test.s	/^     d40:	041c0015 	csrrd	$r21,0x700$/;"	l
+d40	obj/test.s	/^     d40:	99031c00 	0x99031c00$/;"	l
+d40	obj/test.s	/^ d40:	00000024 	0x00000024$/;"	l
+d44	obj/test.s	/^     d44:	01000002 	0x01000002$/;"	l
+d44	obj/test.s	/^     d44:	2d050101 	0x2d050101$/;"	l
+d44	obj/test.s	/^ d44:	00000500 	0x00000500$/;"	l
+d48	obj/test.s	/^     d48:	0004249c 	alsl.w	$r28,$r4,$r9,0x1$/;"	l
+d48	obj/test.s	/^     d48:	14053d08 	lu12i.w	$r8,10728(0x29e8)$/;"	l
+d48	obj/test.s	/^ d48:	1c006b9c 	pcaddu12i	$r28,860(0x35c)$/;"	l
+d4c	obj/test.s	/^     d4c:	01040200 	0x01040200$/;"	l
+d4c	obj/test.s	/^     d4c:	756e1700 	0x756e1700$/;"	l
+d4c	obj/test.s	/^ d4c:	000002d4 	0x000002d4$/;"	l
+d50	obj/test.s	/^     d50:	002d05ba 	alsl.d	$r26,$r13,$r1,0x3$/;"	l
+d50	obj/test.s	/^     d50:	f001006d 	0xf001006d$/;"	l
+d50	obj/test.s	/^ d50:	48300e44 	0x48300e44$/;"	l
+d54	obj/test.s	/^     d54:	00004a23 	bitrev.4b	$r3,$r17$/;"	l
+d54	obj/test.s	/^     d54:	ba030402 	0xba030402$/;"	l
+d54	obj/test.s	/^ d54:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+d58	obj/test.s	/^     d58:	04040200 	csrxchg	$r0,$r16,0x100$/;"	l
+d58	obj/test.s	/^     d58:	4c910200 	jirl	$r0,$r16,37120(0x9100)$/;"	l
+d58	obj/test.s	/^ d58:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+d5c	obj/test.s	/^     d5c:	0005ae18 	alsl.w	$r24,$r16,$r11,0x4$/;"	l
+d5c	obj/test.s	/^     d5c:	05e40806 	0x05e40806$/;"	l
+d5c	obj/test.s	/^ d5c:	c102b803 	0xc102b803$/;"	l
+d60	obj/test.s	/^     d60:	04020001 	csrrd	$r1,0x80$/;"	l
+d60	obj/test.s	/^     d60:	2ef00100 	0x2ef00100$/;"	l
+d60	obj/test.s	/^ d60:	0d44d644 	0x0d44d644$/;"	l
+d64	obj/test.s	/^     d64:	00000374 	0x00000374$/;"	l
+d64	obj/test.s	/^     d64:	f64b0606 	0xf64b0606$/;"	l
+d64	obj/test.s	/^ d64:	00000003 	0x00000003$/;"	l
+d68	obj/test.s	/^     d68:	05f40a05 	0x05f40a05$/;"	l
+d68	obj/test.s	/^     d68:	18489102 	pcaddi	$r2,148616(0x24488)$/;"	l
+d68	obj/test.s	/^ d68:	00000020 	0x00000020$/;"	l
+d6c	obj/test.s	/^     d6c:	000005e2 	0x000005e2$/;"	l
+d6c	obj/test.s	/^     d6c:	2b054a03 	fld.s	$f3,$r16,338(0x152)$/;"	l
+d6c	obj/test.s	/^ d6c:	00000500 	0x00000500$/;"	l
+d70	obj/test.s	/^     d70:	04040200 	csrxchg	$r0,$r16,0x100$/;"	l
+d70	obj/test.s	/^     d70:	433af001 	beqz	$r0,473840(0x73af0) # 74860 <_start-0x1bf8b7a0>$/;"	l
+d70	obj/test.s	/^ d70:	1c006e70 	pcaddu12i	$r16,883(0x373)$/;"	l
+d74	obj/test.s	/^     d74:	0013054a 	maskeqz	$r10,$r10,$r1$/;"	l
+d74	obj/test.s	/^     d74:	02000000 	slti	$r0,$r0,0$/;"	l
+d74	obj/test.s	/^ d74:	00000048 	0x00000048$/;"	l
+d78	obj/test.s	/^     d78:	70194491 	0x70194491$/;"	l
+d78	obj/test.s	/^     d78:	ba010402 	0xba010402$/;"	l
+d78	obj/test.s	/^ d78:	48200e44 	0x48200e44$/;"	l
+d7c	obj/test.s	/^     d7c:	01007274 	0x01007274$/;"	l
+d7c	obj/test.s	/^     d7c:	02000305 	slti	$r5,$r24,0$/;"	l
+d7c	obj/test.s	/^ d7c:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+d8	obj/test.s	/^      d8:	00006205 	rdtimel.w	$r5,$r16$/;"	l
+d8	obj/test.s	/^      d8:	78756e69 	0x78756e69$/;"	l
+d8	obj/test.s	/^  d8:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+d8	obj/test.s	/^  d8:	0b3a0e03 	0x0b3a0e03$/;"	l
+d8	obj/test.s	/^  d8:	41460074 	beqz	$r3,-3062272(0x514600) # ffd146d8 <g_buf+0xe3d0c644>$/;"	l
+d80	obj/test.s	/^     d80:	03740bf2 	andi	$r18,$r31,0xd02$/;"	l
+d80	obj/test.s	/^     d80:	05f20104 	0x05f20104$/;"	l
+d80	obj/test.s	/^ d80:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+d84	obj/test.s	/^     d84:	0402001e 	csrrd	$r30,0x80$/;"	l
+d84	obj/test.s	/^     d84:	91020000 	0x91020000$/;"	l
+d84	obj/test.s	/^ d84:	d644c16c 	0xd644c16c$/;"	l
+d88	obj/test.s	/^     d88:	05580b6c 	0x05580b6c$/;"	l
+d88	obj/test.s	/^     d88:	17054a03 	lu32i.d	$r3,-513456(0x82a50)$/;"	l
+d88	obj/test.s	/^ d88:	00030d44 	0x00030d44$/;"	l
+d8c	obj/test.s	/^     d8c:	03040200 	lu52i.d	$r0,$r16,256(0x100)$/;"	l
+d8c	obj/test.s	/^     d8c:	07010000 	0x07010000$/;"	l
+d8c	obj/test.s	/^ d8c:	00000020 	0x00000020$/;"	l
+d90	obj/test.s	/^     d90:	03740b01 	andi	$r1,$r24,0xd02$/;"	l
+d90	obj/test.s	/^     d90:	830a05f2 	0x830a05f2$/;"	l
+d90	obj/test.s	/^ d90:	00000500 	0x00000500$/;"	l
+d94	obj/test.s	/^     d94:	91020000 	0x91020000$/;"	l
+d94	obj/test.s	/^     d94:	f64b0105 	0xf64b0105$/;"	l
+d94	obj/test.s	/^ d94:	1c006eb8 	pcaddu12i	$r24,885(0x375)$/;"	l
+d98	obj/test.s	/^     d98:	3d080d05 	0x3d080d05$/;"	l
+d98	obj/test.s	/^     d98:	6e650c68 	bgeu	$r3,$r8,-105204(0x2650c) # fffe72a4 <g_buf+0xe3fdf210>$/;"	l
+d98	obj/test.s	/^ d98:	00000054 	0x00000054$/;"	l
+d9c	obj/test.s	/^     d9c:	05bb0605 	0x05bb0605$/;"	l
+d9c	obj/test.s	/^     d9c:	08010064 	0x08010064$/;"	l
+d9c	obj/test.s	/^ d9c:	48200e44 	0x48200e44$/;"	l
+da0	obj/test.s	/^     da0:	03740b01 	andi	$r1,$r24,0xd02$/;"	l
+da0	obj/test.s	/^     da0:	0805830c 	0x0805830c$/;"	l
+da0	obj/test.s	/^ da0:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+da4	obj/test.s	/^     da4:	91020000 	0x91020000$/;"	l
+da4	obj/test.s	/^     da4:	f5090584 	0xf5090584$/;"	l
+da4	obj/test.s	/^ da4:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+da8	obj/test.s	/^     da8:	157c1464 	lu12i.w	$r4,-270173(0xbe0a3)$/;"	l
+da8	obj/test.s	/^     da8:	b90a054b 	0xb90a054b$/;"	l
+da8	obj/test.s	/^ da8:	d644c178 	0xd644c178$/;"	l
+dac	obj/test.s	/^     dac:	01441c00 	0x01441c00$/;"	l
+dac	obj/test.s	/^     dac:	05820905 	0x05820905$/;"	l
+dac	obj/test.s	/^ dac:	00030d44 	0x00030d44$/;"	l
+data_sect	fat.h	/^  uint32_t data_sect;  $/;"	m	struct:Fat
+day	fat.h	/^  uint8_t day;$/;"	m	struct:__anon16
+db0	obj/test.s	/^     db0:	04090000 	csrrd	$r0,0x240$/;"	l
+db0	obj/test.s	/^     db0:	1405850a 	lu12i.w	$r10,11304(0x2c28)$/;"	l
+db0	obj/test.s	/^ db0:	0000001c 	0x0000001c$/;"	l
+db4	obj/test.s	/^     db4:	04020082 	csrxchg	$r2,$r4,0x80$/;"	l
+db4	obj/test.s	/^     db4:	961a0000 	0x961a0000$/;"	l
+db4	obj/test.s	/^ db4:	00000500 	0x00000500$/;"	l
+db8	obj/test.s	/^     db8:	004a0601 	0x004a0601$/;"	l
+db8	obj/test.s	/^     db8:	01000005 	0x01000005$/;"	l
+db8	obj/test.s	/^ db8:	1c006f0c 	pcaddu12i	$r12,888(0x378)$/;"	l
+dbc	obj/test.s	/^     dbc:	00430dfb 	0x00430dfb$/;"	l
+dbc	obj/test.s	/^     dbc:	82020402 	0x82020402$/;"	l
+dbc	obj/test.s	/^ dbc:	00000064 	0x00000064$/;"	l
+dc	obj/test.s	/^      dc:	13180300 	addu16i.d	$r0,$r24,-14848(0xc600)$/;"	l
+dc	obj/test.s	/^      dc:	756e672d 	0x756e672d$/;"	l
+dc	obj/test.s	/^  dc:	0b390b3b 	0x0b390b3b$/;"	l
+dc	obj/test.s	/^  dc:	44c18402 	bnez	$r0,573828(0x8c184) # 8c260 <_start-0x1bf73da0>$/;"	l
+dc	obj/test.s	/^  dc:	52455f54 	b	-44939940(0xd52455c) # fd524638 <g_buf+0xe151c5a4>$/;"	l
+dc0	obj/test.s	/^     dc0:	4b060105 	bcnez	$fcc0,1508864(0x170600) # 1713c0 <_start-0x1be8ec40>$/;"	l
+dc0	obj/test.s	/^     dc0:	91020000 	0x91020000$/;"	l
+dc0	obj/test.s	/^ dc0:	44200e44 	bnez	$r18,1056780(0x10200c) # 102dcc <_start-0x1befd234>$/;"	l
+dc4	obj/test.s	/^     dc4:	0b054008 	0x0b054008$/;"	l
+dc4	obj/test.s	/^     dc4:	e8150060 	0xe8150060$/;"	l
+dc4	obj/test.s	/^ dc4:	0c440196 	0x0c440196$/;"	l
+dc8	obj/test.s	/^     dc8:	381c0016 	stx.d	$r22,$r0,$r0$/;"	l
+dc8	obj/test.s	/^     dc8:	4b0c05f3 	bcnez	$fcc7,-3208188(0x4f0c04) # ffcf19cc <g_buf+0xe3ce9938>$/;"	l
+dc8	obj/test.s	/^ dc8:	50020016 	b	5767680(0x580200) # 580fc8 <_start-0x1ba7f038>$/;"	l
+dcc	obj/test.s	/^     dcc:	054a0305 	0x054a0305$/;"	l
+dcc	obj/test.s	/^     dcc:	0b000000 	0x0b000000$/;"	l
+dcc	obj/test.s	/^ dcc:	030d44d6 	lu52i.d	$r22,$r6,849(0x351)$/;"	l
+dd0	obj/test.s	/^     dd0:	0000055e 	0x0000055e$/;"	l
+dd0	obj/test.s	/^     dd0:	04020016 	csrrd	$r22,0x80$/;"	l
+dd0	obj/test.s	/^ dd0:	0000001c 	0x0000001c$/;"	l
+dd4	obj/test.s	/^     dd4:	0e010a01 	0x0e010a01$/;"	l
+dd4	obj/test.s	/^     dd4:	1c054b03 	pcaddu12i	$r3,10840(0x2a58)$/;"	l
+dd4	obj/test.s	/^ dd4:	00000500 	0x00000500$/;"	l
+dd8	obj/test.s	/^     dd8:	00000099 	0x00000099$/;"	l
+dd8	obj/test.s	/^     dd8:	03040200 	lu52i.d	$r0,$r16,256(0x100)$/;"	l
+dd8	obj/test.s	/^ dd8:	1c006f70 	pcaddu12i	$r16,891(0x37b)$/;"	l
+ddc	obj/test.s	/^     ddc:	002f0582 	0x002f0582$/;"	l
+ddc	obj/test.s	/^     ddc:	005f9102 	0x005f9102$/;"	l
+ddc	obj/test.s	/^ ddc:	0000005c 	0x0000005c$/;"	l
+de0	obj/test.s	/^     de0:	02030402 	slti	$r2,$r0,193(0xc1)$/;"	l
+de0	obj/test.s	/^     de0:	05851600 	0x05851600$/;"	l
+de0	obj/test.s	/^ de0:	44200e44 	bnez	$r18,1056780(0x10200c) # 102dec <_start-0x1befd214>$/;"	l
+de4	obj/test.s	/^     de4:	0905123c 	0x0905123c$/;"	l
+de4	obj/test.s	/^     de4:	c3010000 	0xc3010000$/;"	l
+de4	obj/test.s	/^ de4:	0c440196 	0x0c440196$/;"	l
+de8	obj/test.s	/^     de8:	0013680d 	maskeqz	$r13,$r0,$r26$/;"	l
+de8	obj/test.s	/^     de8:	03040200 	lu52i.d	$r0,$r16,256(0x100)$/;"	l
+de8	obj/test.s	/^ de8:	48020016 	bceqz	$fcc0,-2620928(0x580200) # ffd80fe8 <g_buf+0xe3d78f54>$/;"	l
+dec	obj/test.s	/^     dec:	0001cc1c 	0x0001cc1c$/;"	l
+dec	obj/test.s	/^     dec:	001c05f2 	mul.w	$r18,$r15,$r1$/;"	l
+dec	obj/test.s	/^ dec:	030d44d6 	lu52i.d	$r22,$r6,849(0x351)$/;"	l
+decode_timestamp	fat.c	/^static void decode_timestamp(uint16_t date, uint16_t time, Timestamp* ts)$/;"	f	file:
+delay	lib.c	/^void delay (void)$/;"	f
+df0	obj/test.s	/^     df0:	81030402 	0x81030402$/;"	l
+df0	obj/test.s	/^     df0:	da9c0100 	0xda9c0100$/;"	l
+df4	obj/test.s	/^     df4:	02000305 	slti	$r5,$r24,0$/;"	l
+df4	obj/test.s	/^     df4:	17000004 	lu32i.d	$r4,-524288(0x80000)$/;"	l
+df8	obj/test.s	/^     df8:	006d756e 	bstrins.w	$r14,$r11,0xd,0x1d$/;"	l
+df8	obj/test.s	/^     df8:	05ba0104 	0x05ba0104$/;"	l
+dfc	obj/test.s	/^     dfc:	0105bc0a 	0x0105bc0a$/;"	l
+dfc	obj/test.s	/^     dfc:	4316c301 	beqz	$r24,464576(0x716c0) # 724bc <_start-0x1bf8db44>$/;"	l
+dir_add	fat.c	/^static int dir_add(Dir* dir, const char* name, int len, uint8_t attr, uint32_t clust)$/;"	f	file:
+dir_advance	fat.c	/^static int dir_advance(Dir* dir, int cnt)$/;"	f	file:
+dir_at_clust	fat.c	/^static void dir_at_clust(Dir* dir, uint32_t clust)$/;"	f	file:
+dir_at_root	fat.c	/^static bool dir_at_root(Dir* dir)$/;"	f	file:
+dir_enter	fat.c	/^static void dir_enter(Dir* dir, uint32_t clust)$/;"	f	file:
+dir_idx	fat.h	/^  uint16_t dir_idx;$/;"	m	struct:__anon19
+dir_next	fat.c	/^static int dir_next(Dir* dir)$/;"	f	file:
+dir_next_stretch	fat.c	/^static int dir_next_stretch(Dir* dir)$/;"	f	file:
+dir_ptr	fat.c	/^static void* dir_ptr(Dir* dir)$/;"	f	file:
+dir_search	fat.c	/^static int dir_search(Dir* dir, const char* name, int len, Loc* loc)$/;"	f	file:
+dir_sect	fat.h	/^  uint32_t dir_sect;$/;"	m	struct:__anon19
+disk_read	main.c	/^static bool disk_read(uint8_t* buf, uint32_t sect)$/;"	f	file:
+disk_write	main.c	/^static bool disk_write(const uint8_t* buf, uint32_t sect)$/;"	f	file:
+do_excp_handler	main.c	/^void do_excp_handler (void)$/;"	f
+do_excp_handler	main_v0.c	/^void do_excp_handler (void)$/;"	f
+drive_num	fat.c	/^  uint8_t drive_num;$/;"	m	struct:__anon5	file:
+e0	obj/test.s	/^      e0:	00000067 	0x00000067$/;"	l
+e0	obj/test.s	/^      e0:	762d6673 	0x762d6673$/;"	l
+e0	obj/test.s	/^  e0:	030d44d6 	lu52i.d	$r22,$r6,849(0x351)$/;"	l
+e0	obj/test.s	/^  e0:	05381349 	0x05381349$/;"	l
+e0	obj/test.s	/^  e0:	45445f52 	bnez	$r26,-3586980(0x49445c) # ffc9453c <g_buf+0xe3c8c4a8>$/;"	l
+e00	obj/test.s	/^     e00:	02000000 	slti	$r0,$r0,0$/;"	l
+e00	obj/test.s	/^     e00:	1205f64b 	addu16i.d	$r11,$r18,-32387(0x817d)$/;"	l
+e04	obj/test.s	/^     e04:	05132402 	0x05132402$/;"	l
+e04	obj/test.s	/^     e04:	ae184c91 	0xae184c91$/;"	l
+e08	obj/test.s	/^     e08:	01000005 	0x01000005$/;"	l
+e08	obj/test.s	/^     e08:	1228020b 	addu16i.d	$r11,$r16,-30208(0x8a00)$/;"	l
+e0c	obj/test.s	/^     e0c:	037421c3 	andi	$r3,$r14,0xd08$/;"	l
+e0c	obj/test.s	/^     e0c:	05831b05 	0x05831b05$/;"	l
+e10	obj/test.s	/^     e10:	123c020d 	addu16i.d	$r13,$r16,-28928(0x8f00)$/;"	l
+e10	obj/test.s	/^     e10:	91020000 	0x91020000$/;"	l
+e14	obj/test.s	/^     e14:	05831b05 	0x05831b05$/;"	l
+e14	obj/test.s	/^     e14:	06151848 	cacop	0x8,$r2,1350(0x546)$/;"	l
+e18	obj/test.s	/^     e18:	122c0223 	addu16i.d	$r3,$r17,-29952(0x8b00)$/;"	l
+e18	obj/test.s	/^     e18:	c3010000 	0xc3010000$/;"	l
+e1c	obj/test.s	/^     e1c:	0000432d 	revh.2w	$r13,$r25$/;"	l
+e1c	obj/test.s	/^     e1c:	3c080c05 	0x3c080c05$/;"	l
+e20	obj/test.s	/^     e20:	05831b05 	0x05831b05$/;"	l
+e20	obj/test.s	/^     e20:	44910200 	bnez	$r16,37120(0x9100) # 9f20 <_start-0x1bff60e0>$/;"	l
+e24	obj/test.s	/^     e24:	123c020c 	addu16i.d	$r12,$r16,-28928(0x8f00)$/;"	l
+e24	obj/test.s	/^     e24:	72747019 	0x72747019$/;"	l
+e28	obj/test.s	/^     e28:	05831905 	0x05831905$/;"	l
+e28	obj/test.s	/^     e28:	0bc50100 	0x0bc50100$/;"	l
+e2c	obj/test.s	/^     e2c:	00000374 	0x00000374$/;"	l
+e2c	obj/test.s	/^     e2c:	123c020b 	addu16i.d	$r11,$r16,-28928(0x8f00)$/;"	l
+e30	obj/test.s	/^     e30:	02010583 	slti	$r3,$r12,65(0x41)$/;"	l
+e30	obj/test.s	/^     e30:	1a6c9102 	pcalau12i	$r2,222344(0x36488)$/;"	l
+e34	obj/test.s	/^     e34:	000004f2 	0x000004f2$/;"	l
+e34	obj/test.s	/^     e34:	05f61344 	0x05f61344$/;"	l
+e38	obj/test.s	/^     e38:	05760803 	0x05760803$/;"	l
+e38	obj/test.s	/^     e38:	4309c601 	beqz	$r16,461252(0x709c4) # 717fc <_start-0x1bf8e804>$/;"	l
+e3c	obj/test.s	/^     e3c:	02000000 	slti	$r0,$r0,0$/;"	l
+e3c	obj/test.s	/^     e3c:	1505bc0f 	lu12i.w	$r15,-512544(0x82de0)$/;"	l
+e4	obj/test.s	/^      e4:	0000b203 	0x0000b203$/;"	l
+e4	obj/test.s	/^      e4:	2f302e32 	0x2f302e32$/;"	l
+e4	obj/test.s	/^  e4:	00000020 	0x00000020$/;"	l
+e4	obj/test.s	/^  e4:	01110000 	fscaleb.d	$f0,$f0,$f0$/;"	l
+e4	obj/test.s	/^  e4:	4445494e 	bnez	$r10,3687752(0x384548) # 38462c <_start-0x1bc7b9d4>$/;"	l
+e40	obj/test.s	/^     e40:	4a25054a 	bcnez	$fcc2,2761988(0x2a2504) # 2a3344 <_start-0x1bd5ccbc>$/;"	l
+e40	obj/test.s	/^     e40:	581a6891 	beq	$r4,$r17,6760(0x1a68) # 28a8 <_start-0x1bffd758>$/;"	l
+e44	obj/test.s	/^     e44:	01000005 	0x01000005$/;"	l
+e44	obj/test.s	/^     e44:	30022f05 	0x30022f05$/;"	l
+e48	obj/test.s	/^     e48:	03740be4 	andi	$r4,$r31,0xd02$/;"	l
+e48	obj/test.s	/^     e48:	4a3d0512 	bcnez	$fcc0,-3523324(0x4a3d04) # ffca4b4c <g_buf+0xe3c9cab8>$/;"	l
+e4c	obj/test.s	/^     e4c:	28022a05 	ld.b	$r5,$r16,138(0x8a)$/;"	l
+e4c	obj/test.s	/^     e4c:	91020000 	0x91020000$/;"	l
+e50	obj/test.s	/^     e50:	08470512 	0x08470512$/;"	l
+e50	obj/test.s	/^     e50:	6e651964 	bgeu	$r11,$r4,-105192(0x26518) # fffe7368 <g_buf+0xe3fdf2d4>$/;"	l
+e54	obj/test.s	/^     e54:	084c053c 	0x084c053c$/;"	l
+e54	obj/test.s	/^     e54:	e5010064 	0xe5010064$/;"	l
+e58	obj/test.s	/^     e58:	0003740b 	0x0003740b$/;"	l
+e58	obj/test.s	/^     e58:	0842053c 	0x0842053c$/;"	l
+e5c	obj/test.s	/^     e5c:	0209053c 	slti	$r28,$r9,577(0x241)$/;"	l
+e5c	obj/test.s	/^     e5c:	60910200 	blt	$r16,$r0,37120(0x9100) # 9f5c <_start-0x1bff60a4>$/;"	l
+e60	obj/test.s	/^     e60:	0013e014 	masknez	$r20,$r0,$r24$/;"	l
+e60	obj/test.s	/^     e60:	0f051224 	0x0f051224$/;"	l
+e64	obj/test.s	/^     e64:	0000c01c 	0x0000c01c$/;"	l
+e64	obj/test.s	/^     e64:	4a190583 	bcnez	$fcc4,923908(0xe1904) # e2768 <_start-0x1bf1d898>$/;"	l
+e68	obj/test.s	/^     e68:	0004c000 	alsl.w	$r0,$r0,$r16,0x2$/;"	l
+e68	obj/test.s	/^     e68:	38022605 	0x38022605$/;"	l
+e6c	obj/test.s	/^     e6c:	05961a00 	0x05961a00$/;"	l
+e6c	obj/test.s	/^     e6c:	4a330512 	bcnez	$fcc0,-3525884(0x4a3304) # ffca4170 <g_buf+0xe3c9c0dc>$/;"	l
+e70	obj/test.s	/^     e70:	28022105 	ld.b	$r5,$r8,136(0x88)$/;"	l
+e70	obj/test.s	/^     e70:	d7010000 	0xd7010000$/;"	l
+e74	obj/test.s	/^     e74:	0000430d 	revh.2w	$r13,$r24$/;"	l
+e74	obj/test.s	/^     e74:	083d0512 	0x083d0512$/;"	l
+e78	obj/test.s	/^     e78:	4a4b053c 	bcnez	$fcc1,-898300(0x724b04) # fff2597c <g_buf+0xe3f1d8e8>$/;"	l
+e78	obj/test.s	/^     e78:	5c910200 	bne	$r16,$r0,37120(0x9100) # 9f78 <_start-0x1bff6088>$/;"	l
+e7c	obj/test.s	/^     e7c:	054a3805 	0x054a3805$/;"	l
+e7c	obj/test.s	/^     e7c:	14e41500 	lu12i.w	$r0,467112(0x720a8)$/;"	l
+e8	obj/test.s	/^      e8:	03da0500 	xori	$r0,$r8,0x681$/;"	l
+e8	obj/test.s	/^      e8:	6e6f6f6c 	bgeu	$r27,$r12,-102548(0x26f6c) # fffe7054 <g_buf+0xe3fdefc0>$/;"	l
+e8	obj/test.s	/^  e8:	00000000 	0x00000000$/;"	l
+e8	obj/test.s	/^  e8:	01134901 	fcopysign.d	$f1,$f8,$f18$/;"	l
+e8	obj/test.s	/^  e8:	72694400 	0x72694400$/;"	l
+e80	obj/test.s	/^     e80:	00381c00 	0x00381c00$/;"	l
+e80	obj/test.s	/^     e80:	12340209 	addu16i.d	$r9,$r16,-29440(0x8d00)$/;"	l
+e84	obj/test.s	/^     e84:	08830105 	0x08830105$/;"	l
+e84	obj/test.s	/^     e84:	5e1a0000 	bne	$r0,$r0,-124416(0x21a00) # fffe2884 <g_buf+0xe3fda7f0>$/;"	l
+e88	obj/test.s	/^     e88:	01000005 	0x01000005$/;"	l
+e88	obj/test.s	/^     e88:	080d0540 	0x080d0540$/;"	l
+e8c	obj/test.s	/^     e8c:	00990ee7 	bstrins.d	$r7,$r23,0x19,0x3$/;"	l
+e8c	obj/test.s	/^     e8c:	f2030575 	0xf2030575$/;"	l
+e90	obj/test.s	/^     e90:	054c1205 	0x054c1205$/;"	l
+e90	obj/test.s	/^     e90:	91020000 	0x91020000$/;"	l
+e94	obj/test.s	/^     e94:	1b00005b 	pcalau12i	$r27,-524286(0x80002)$/;"	l
+e94	obj/test.s	/^     e94:	3205ba08 	0x3205ba08$/;"	l
+e98	obj/test.s	/^     e98:	0000056c 	0x0000056c$/;"	l
+e98	obj/test.s	/^     e98:	01040200 	0x01040200$/;"	l
+e9c	obj/test.s	/^     e9c:	00210582 	div.wu	$r2,$r12,$r1$/;"	l
+e9c	obj/test.s	/^     e9c:	4806a001 	bceqz	$fcc0,263840(0x406a0) # 4153c <_start-0x1bfbeac4>$/;"	l
+e_ehsize	main.c	/^    unsigned short e_ehsize;          \/\/ 2 B$/;"	m	struct:__anon20	file:
+e_entry	main.c	/^    unsigned int e_entry;             \/\/ 4 B (32位系统通常4字节)$/;"	m	struct:__anon20	file:
+e_flags	main.c	/^    unsigned int e_flags;             \/\/ 4 B$/;"	m	struct:__anon20	file:
+e_ident	main.c	/^    unsigned char e_ident[EI_NIDENT]; \/\/ 16 B$/;"	m	struct:__anon20	file:
+e_machine	main.c	/^    unsigned short e_machine;         \/\/ 2 B$/;"	m	struct:__anon20	file:
+e_phentsize	main.c	/^    unsigned short e_phentsize;       \/\/ 2 B$/;"	m	struct:__anon20	file:
+e_phnum	main.c	/^    unsigned short e_phnum;           \/\/ 2 B$/;"	m	struct:__anon20	file:
+e_phoff	main.c	/^    unsigned int e_phoff;             \/\/ 4 B$/;"	m	struct:__anon20	file:
+e_shentsize	main.c	/^    unsigned short e_shentsize;       \/\/ 2 B$/;"	m	struct:__anon20	file:
+e_shnum	main.c	/^    unsigned short e_shnum;           \/\/ 2 B$/;"	m	struct:__anon20	file:
+e_shoff	main.c	/^    unsigned int e_shoff;             \/\/ 4 B$/;"	m	struct:__anon20	file:
+e_shstrndx	main.c	/^    unsigned short e_shstrndx;        \/\/ 2 B$/;"	m	struct:__anon20	file:
+e_type	main.c	/^    unsigned short e_type;            \/\/ 2 B$/;"	m	struct:__anon20	file:
+e_version	main.c	/^    unsigned int e_version;           \/\/ 4 B$/;"	m	struct:__anon20	file:
+ea0	obj/test.s	/^     ea0:	201c0012 	ll.w	$r18,$r0,7168(0x1c00)$/;"	l
+ea0	obj/test.s	/^     ea0:	82010402 	0x82010402$/;"	l
+ea4	obj/test.s	/^     ea4:	01000001 	0x01000001$/;"	l
+ea4	obj/test.s	/^     ea4:	02001d05 	slti	$r5,$r8,7(0x7)$/;"	l
+ea8	obj/test.s	/^     ea8:	0004fe9c 	alsl.w	$r28,$r20,$r31,0x2$/;"	l
+ea8	obj/test.s	/^     ea8:	3c080104 	0x3c080104$/;"	l
+eac	obj/test.s	/^     eac:	00631700 	bstrins.w	$r0,$r24,0x3,0x5$/;"	l
+eac	obj/test.s	/^     eac:	054b0e05 	0x054b0e05$/;"	l
+eb0	obj/test.s	/^     eb0:	04020025 	csrwr	$r5,0x80$/;"	l
+eb0	obj/test.s	/^     eb0:	9913a001 	0x9913a001$/;"	l
+eb4	obj/test.s	/^     eb4:	02000000 	slti	$r0,$r0,0$/;"	l
+eb4	obj/test.s	/^     eb4:	03057f02 	lu52i.d	$r2,$r24,351(0x15f)$/;"	l
+eb8	obj/test.s	/^     eb8:	01040200 	0x01040200$/;"	l
+eb8	obj/test.s	/^     eb8:	1b006f91 	pcalau12i	$r17,-523396(0x8037c)$/;"	l
+ebc	obj/test.s	/^     ebc:	00000518 	0x00000518$/;"	l
+ebc	obj/test.s	/^     ebc:	880a05ba 	0x880a05ba$/;"	l
+ec	obj/test.s	/^      ec:	19030000 	pcaddi	$r0,-518144(0x81800)$/;"	l
+ec	obj/test.s	/^      ec:	63726167 	blt	$r11,$r7,-36256(0x37260) # ffff734c <g_buf+0xe3fef2b8>$/;"	l
+ec	obj/test.s	/^  ec:	12000013 	addu16i.d	$r19,$r0,-32768(0x8000)$/;"	l
+ec	obj/test.s	/^  ec:	1c000488 	pcaddu12i	$r8,36(0x24)$/;"	l
+ec	obj/test.s	/^  ec:	6f666e49 	bgeu	$r18,$r9,-39316(0x3666c) # ffff6758 <g_buf+0xe3fee6c4>$/;"	l
+ec0	obj/test.s	/^     ec0:	084b0105 	0x084b0105$/;"	l
+ec0	obj/test.s	/^     ec0:	a0068e01 	0xa0068e01$/;"	l
+ec4	obj/test.s	/^     ec4:	08160540 	fmadd.s	$f0,$f10,$f1,$f12$/;"	l
+ec4	obj/test.s	/^     ec4:	a81c0011 	0xa81c0011$/;"	l
+ec8	obj/test.s	/^     ec8:	01000000 	0x01000000$/;"	l
+ec8	obj/test.s	/^     ec8:	8211053d 	0x8211053d$/;"	l
+ecc	obj/test.s	/^     ecc:	00055e9c 	alsl.w	$r28,$r20,$r23,0x3$/;"	l
+ecc	obj/test.s	/^     ecc:	05822905 	0x05822905$/;"	l
+ed0	obj/test.s	/^     ed0:	38058223 	0x38058223$/;"	l
+ed0	obj/test.s	/^     ed0:	61761700 	blt	$r24,$r0,95764(0x17614) # 184e4 <_start-0x1bfe7b1c>$/;"	l
+ed4	obj/test.s	/^     ed4:	4b01054a 	bcnez	$fcc2,2818308(0x2b0104) # 2b0fd8 <_start-0x1bd4f028>$/;"	l
+ed4	obj/test.s	/^     ed4:	8e01006c 	0x8e01006c$/;"	l
+ed8	obj/test.s	/^     ed8:	0000431b 	revh.2w	$r27,$r24$/;"	l
+ed8	obj/test.s	/^     ed8:	081205f6 	fmadd.s	$f22,$f15,$f1,$f4$/;"	l
+edc	obj/test.s	/^     edc:	4c910200 	jirl	$r0,$r16,37120(0x9100)$/;"	l
+edc	obj/test.s	/^     edc:	821d053d 	0x821d053d$/;"	l
+ee0	obj/test.s	/^     ee0:	01006919 	0x01006919$/;"	l
+ee0	obj/test.s	/^     ee0:	05821705 	0x05821705$/;"	l
+ee4	obj/test.s	/^     ee4:	00430990 	0x00430990$/;"	l
+ee4	obj/test.s	/^     ee4:	2c054a31 	vld	$vr17,$r17,338(0x152)$/;"	l
+ee8	obj/test.s	/^     ee8:	4b010582 	bcnez	$fcc4,721156(0xb0104) # b0fec <_start-0x1bf4f014>$/;"	l
+ee8	obj/test.s	/^     ee8:	91020000 	0x91020000$/;"	l
+eec	obj/test.s	/^     eec:	06041a6c 	cacop	0xc,$r19,262(0x106)$/;"	l
+eec	obj/test.s	/^     eec:	080a05f6 	0x080a05f6$/;"	l
+ef0	obj/test.s	/^     ef0:	8212053d 	0x8212053d$/;"	l
+ef0	obj/test.s	/^     ef0:	91010000 	0x91010000$/;"	l
+ef4	obj/test.s	/^     ef4:	00004309 	revh.2w	$r9,$r24$/;"	l
+ef4	obj/test.s	/^     ef4:	054a0605 	0x054a0605$/;"	l
+ef8	obj/test.s	/^     ef8:	1c054c12 	pcaddu12i	$r18,10848(0x2a60)$/;"	l
+ef8	obj/test.s	/^     ef8:	68910200 	bltu	$r16,$r0,37120(0x9100) # 9ff8 <_start-0x1bff6008>$/;"	l
+efc	obj/test.s	/^     efc:	0005ae1a 	alsl.w	$r26,$r16,$r11,0x4$/;"	l
+efc	obj/test.s	/^     efc:	820a0582 	0x820a0582$/;"	l
+encode_timestamp	fat.c	/^static void encode_timestamp(uint16_t* date, uint16_t* time)$/;"	f	file:
+excp_handler	start.S	/^excp_handler:$/;"	l
+ext_flags	fat.c	/^  uint16_t ext_flags;$/;"	m	struct:__anon5	file:
+f0	obj/test.s	/^      f0:	00007a14 	0x00007a14$/;"	l
+f0	obj/test.s	/^      f0:	72323368 	0x72323368$/;"	l
+f0	obj/test.s	/^  f0:	00000038 	0x00000038$/;"	l
+f0	obj/test.s	/^  f0:	13490021 	addu16i.d	$r1,$r1,-11712(0xd240)$/;"	l
+f0	obj/test.s	/^  f0:	74616400 	xvabsd.w	$xr0,$xr0,$xr25$/;"	l
+f00	obj/test.s	/^     f00:	0a920100 	xvfnmadd.s	$xr0,$xr8,$xr0,$xr4$/;"	l
+f00	obj/test.s	/^     f00:	74080905 	xvslt.bu	$xr5,$xr8,$xr2$/;"	l
+f04	obj/test.s	/^     f04:	0000055e 	0x0000055e$/;"	l
+f04	obj/test.s	/^     f04:	3c080805 	0x3c080805$/;"	l
+f08	obj/test.s	/^     f08:	054b0e05 	0x054b0e05$/;"	l
+f08	obj/test.s	/^     f08:	1a589102 	pcalau12i	$r2,181384(0x2c488)$/;"	l
+f0c	obj/test.s	/^     f0c:	0000050d 	0x0000050d$/;"	l
+f0c	obj/test.s	/^     f0c:	0a058410 	0x0a058410$/;"	l
+f10	obj/test.s	/^     f10:	05142802 	0x05142802$/;"	l
+f10	obj/test.s	/^     f10:	48119301 	0x48119301$/;"	l
+f14	obj/test.s	/^     f14:	02000002 	slti	$r2,$r0,0$/;"	l
+f14	obj/test.s	/^     f14:	40084b01 	beqz	$r24,264264(0x40848) # 4175c <_start-0x1bfbe8a4>$/;"	l
+f18	obj/test.s	/^     f18:	07006491 	0x07006491$/;"	l
+f18	obj/test.s	/^     f18:	75080a05 	0x75080a05$/;"	l
+f1c	obj/test.s	/^     f1c:	00000099 	0x00000099$/;"	l
+f1c	obj/test.s	/^     f1c:	05820605 	0x05820605$/;"	l
+f20	obj/test.s	/^     f20:	0000056e 	0x0000056e$/;"	l
+f20	obj/test.s	/^     f20:	0805840f 	0x0805840f$/;"	l
+f24	obj/test.s	/^     f24:	00004a08 	bitrev.4b	$r8,$r16$/;"	l
+f24	obj/test.s	/^     f24:	830e05bb 	0x830e05bb$/;"	l
+f28	obj/test.s	/^     f28:	05841205 	0x05841205$/;"	l
+f28	obj/test.s	/^     f28:	1b000800 	pcalau12i	$r0,-524224(0x80040)$/;"	l
+f2c	obj/test.s	/^     f2c:	0000058a 	0x0000058a$/;"	l
+f2c	obj/test.s	/^     f2c:	0a05821b 	0x0a05821b$/;"	l
+f30	obj/test.s	/^     f30:	c4067301 	0xc4067301$/;"	l
+f30	obj/test.s	/^     f30:	f2090582 	0xf2090582$/;"	l
+f34	obj/test.s	/^     f34:	3c080805 	0x3c080805$/;"	l
+f34	obj/test.s	/^     f34:	dc1c0010 	0xdc1c0010$/;"	l
+f38	obj/test.s	/^     f38:	01000000 	0x01000000$/;"	l
+f38	obj/test.s	/^     f38:	054b0e05 	0x054b0e05$/;"	l
+f3c	obj/test.s	/^     f3c:	00059f9c 	alsl.w	$r28,$r28,$r7,0x4$/;"	l
+f3c	obj/test.s	/^     f3c:	0a05840f 	0x0a05840f$/;"	l
+f4	obj/test.s	/^      f4:	01450500 	0x01450500$/;"	l
+f4	obj/test.s	/^      f4:	6e696c2d 	bgeu	$r1,$r13,-104084(0x2696c) # fffe6a60 <g_buf+0xe3fde9cc>$/;"	l
+f4	obj/test.s	/^  f4:	00000b2f 	0x00000b2f$/;"	l
+f4	obj/test.s	/^  f4:	48300e44 	0x48300e44$/;"	l
+f4	obj/test.s	/^  f4:	65735f61 	bge	$r27,$r1,95068(0x1735c) # 17450 <_start-0x1bfe8bb0>$/;"	l
+f40	obj/test.s	/^     f40:	00731700 	bstrins.w	$r0,$r24,0x13,0x5$/;"	l
+f40	obj/test.s	/^     f40:	4b0105bd 	bcnez	$fcc5,-589564(0x770104) # fff71044 <g_buf+0xe3f68fb0>$/;"	l
+f44	obj/test.s	/^     f44:	0d054008 	0x0d054008$/;"	l
+f44	obj/test.s	/^     f44:	74187301 	0x74187301$/;"	l
+f48	obj/test.s	/^     f48:	02000003 	slti	$r3,$r0,0$/;"	l
+f48	obj/test.s	/^     f48:	06053d08 	cacop	0x8,$r8,335(0x14f)$/;"	l
+f4c	obj/test.s	/^     f4c:	69195c91 	bltu	$r4,$r17,72028(0x1195c) # 128a8 <_start-0x1bfed758>$/;"	l
+f4c	obj/test.s	/^     f4c:	830c05bb 	0x830c05bb$/;"	l
+f50	obj/test.s	/^     f50:	05840a05 	0x05840a05$/;"	l
+f50	obj/test.s	/^     f50:	09750100 	0x09750100$/;"	l
+f54	obj/test.s	/^     f54:	00000043 	0x00000043$/;"	l
+f54	obj/test.s	/^     f54:	06058212 	cacop	0x12,$r16,352(0x160)$/;"	l
+f58	obj/test.s	/^     f58:	006c9102 	bstrpick.w	$r2,$r8,0xc,0x4$/;"	l
+f58	obj/test.s	/^     f58:	4c0b054a 	jirl	$r10,$r10,2820(0xb04)$/;"	l
+f5c	obj/test.s	/^     f5c:	0006201c 	alsl.wu	$r28,$r0,$r8,0x1$/;"	l
+f5c	obj/test.s	/^     f5c:	75080805 	0x75080805$/;"	l
+f60	obj/test.s	/^     f60:	05830e05 	0x05830e05$/;"	l
+f60	obj/test.s	/^     f60:	066a0100 	0x066a0100$/;"	l
+f64	obj/test.s	/^     f64:	1005840d 	addu16i.d	$r13,$r0,353(0x161)$/;"	l
+f64	obj/test.s	/^     f64:	1c001070 	pcaddu12i	$r16,131(0x83)$/;"	l
+f68	obj/test.s	/^     f68:	00000054 	0x00000054$/;"	l
+f68	obj/test.s	/^     f68:	021a05bb 	slti	$r27,$r13,1665(0x681)$/;"	l
+f6c	obj/test.s	/^     f6c:	15051324 	lu12i.w	$r4,-513895(0x82899)$/;"	l
+f6c	obj/test.s	/^     f6c:	ce1c9c01 	0xce1c9c01$/;"	l
+f70	obj/test.s	/^     f70:	01000005 	0x01000005$/;"	l
+f70	obj/test.s	/^     f70:	02190582 	slti	$r2,$r12,1601(0x641)$/;"	l
+f74	obj/test.s	/^     f74:	10380665 	addu16i.d	$r5,$r19,3585(0xe01)$/;"	l
+f74	obj/test.s	/^     f74:	1405137c 	lu12i.w	$r28,10395(0x289b)$/;"	l
+f78	obj/test.s	/^     f78:	00381c00 	0x00381c00$/;"	l
+f78	obj/test.s	/^     f78:	020b0582 	slti	$r2,$r12,705(0x2c1)$/;"	l
+f7c	obj/test.s	/^     f7c:	0805147c 	0x0805147c$/;"	l
+f7c	obj/test.s	/^     f7c:	9c010000 	0x9c010000$/;"	l
+f8	obj/test.s	/^      f8:	1a030000 	pcalau12i	$r0,6144(0x1800)$/;"	l
+f8	obj/test.s	/^      f8:	672d7875 	bge	$r3,$r21,-53896(0x32d78) # ffff2e70 <g_buf+0xe3feaddc>$/;"	l
+f8	obj/test.s	/^  f8:	02960181 	addi.w	$r1,$r12,1408(0x580)$/;"	l
+f8	obj/test.s	/^  f8:	49002113 	bcnez	$fcc0,-3342304(0x4d0020) # ffcd0118 <g_buf+0xe3cc8084>$/;"	l
+f8	obj/test.s	/^  f8:	79007463 	0x79007463$/;"	l
+f80	obj/test.s	/^     f80:	0005411d 	alsl.w	$r29,$r8,$r16,0x3$/;"	l
+f80	obj/test.s	/^     f80:	830e05bb 	0x830e05bb$/;"	l
+f84	obj/test.s	/^     f84:	05841005 	0x05841005$/;"	l
+f84	obj/test.s	/^     f84:	06570100 	0x06570100$/;"	l
+f88	obj/test.s	/^     f88:	1528020a 	lu12i.w	$r10,-442352(0x94010)$/;"	l
+f88	obj/test.s	/^     f88:	1c000fe4 	pcaddu12i	$r4,127(0x7f)$/;"	l
+f8c	obj/test.s	/^     f8c:	00000054 	0x00000054$/;"	l
+f8c	obj/test.s	/^     f8c:	084b0105 	0x084b0105$/;"	l
+f90	obj/test.s	/^     f90:	060e9c01 	cacop	0x1,$r0,935(0x3a7)$/;"	l
+f90	obj/test.s	/^     f90:	080d0540 	0x080d0540$/;"	l
+f94	obj/test.s	/^     f94:	69190000 	bltu	$r0,$r0,71936(0x11900) # 12894 <_start-0x1bfed76c>$/;"	l
+f94	obj/test.s	/^     f94:	bb2005e5 	0xbb2005e5$/;"	l
+f98	obj/test.s	/^     f98:	05822c05 	0x05822c05$/;"	l
+f98	obj/test.s	/^     f98:	12590100 	addu16i.d	$r0,$r8,-27072(0x9640)$/;"	l
+f9c	obj/test.s	/^     f9c:	0000004a 	0x0000004a$/;"	l
+f9c	obj/test.s	/^     f9c:	0583820c 	0x0583820c$/;"	l
+fa0	obj/test.s	/^     fa0:	0605bc0d 	cacop	0xd,$r0,367(0x16f)$/;"	l
+fa0	obj/test.s	/^     fa0:	196c9102 	pcaddi	$r2,-301944(0xb6488)$/;"	l
+fa4	obj/test.s	/^     fa4:	5a01006a 	beq	$r3,$r10,-130816(0x20100) # fffe10a4 <g_buf+0xe3fd9010>$/;"	l
+fa4	obj/test.s	/^     fa4:	830c05f3 	0x830c05f3$/;"	l
+fa8	obj/test.s	/^     fa8:	00004a12 	bitrev.4b	$r18,$r16$/;"	l
+fa8	obj/test.s	/^     fa8:	05851705 	0x05851705$/;"	l
+fac	obj/test.s	/^     fac:	053c080c 	0x053c080c$/;"	l
+fac	obj/test.s	/^     fac:	68910200 	bltu	$r16,$r0,37120(0x9100) # a0ac <_start-0x1bff5f54>$/;"	l
+fat	fat.h	/^  Fat* fat;$/;"	m	struct:__anon18
+fat	fat.h	/^  Fat* fat;$/;"	m	struct:__anon19
+fat_cnt	fat.c	/^  uint8_t fat_cnt;$/;"	m	struct:__anon5	file:
+fat_dir_create	fat.c	/^int fat_dir_create(Dir* dir, const char* path)$/;"	f
+fat_dir_next	fat.c	/^int fat_dir_next(Dir* dir)$/;"	f
+fat_dir_open	fat.c	/^int fat_dir_open(Dir* dir, const char* path)$/;"	f
+fat_dir_read	fat.c	/^int fat_dir_read(Dir* dir, DirInfo* info)$/;"	f
+fat_dir_rewind	fat.c	/^int fat_dir_rewind(Dir* dir)$/;"	f
+fat_file_close	fat.c	/^int fat_file_close(File* file)$/;"	f
+fat_file_open	fat.c	/^int fat_file_open(File* file, const char* path, uint8_t flags)$/;"	f
+fat_file_read	fat.c	/^int fat_file_read(File* file, void* buf, int len, int* bytes)$/;"	f
+fat_file_seek	fat.c	/^int fat_file_seek(File* file, int offset, int seek)$/;"	f
+fat_file_sync	fat.c	/^int fat_file_sync(File* file)$/;"	f
+fat_file_write	fat.c	/^int fat_file_write(File* file, const void* buf, int len, int* bytes)$/;"	f
+fat_get_error	fat.c	/^const char* fat_get_error(int err)$/;"	f
+fat_get_timestamp	fat.c	/^__attribute__((weak)) void fat_get_timestamp(Timestamp* ts)$/;"	f
+fat_mount	fat.c	/^int fat_mount(DiskOps* ops, int partition, Fat* fat, const char* name)$/;"	f
+fat_probe	fat.c	/^int fat_probe(DiskOps* ops, int partition)$/;"	f
+fat_sect	fat.h	/^  uint32_t fat_sect[2];$/;"	m	struct:Fat
+fat_stat	fat.c	/^int fat_stat(const char* path, DirInfo* info)$/;"	f
+fat_sync	fat.c	/^int fat_sync(Fat* fat)$/;"	f
+fat_umount	fat.c	/^int fat_umount(Fat* fat)$/;"	f
+fat_unlink	fat.c	/^int fat_unlink(const char* path)$/;"	f
+fb0	obj/test.s	/^     fb0:	01006b19 	0x01006b19$/;"	l
+fb0	obj/test.s	/^     fb0:	0b05f506 	0x0b05f506$/;"	l
+fb4	obj/test.s	/^     fb4:	004a125b 	0x004a125b$/;"	l
+fb4	obj/test.s	/^     fb4:	bbf3bb83 	0xbbf3bb83$/;"	l
+fb8	obj/test.s	/^     fb8:	2105bbf3 	sc.w	$r19,$r31,1464(0x5b8)$/;"	l
+fb8	obj/test.s	/^     fb8:	91020000 	0x91020000$/;"	l
+fbc	obj/test.s	/^     fbc:	006e1964 	bstrins.w	$r4,$r11,0xe,0x6$/;"	l
+fbc	obj/test.s	/^     fbc:	01040200 	0x01040200$/;"	l
+fc	obj/test.s	/^      fc:	00008614 	0x00008614$/;"	l
+fc	obj/test.s	/^      fc:	6673756e 	bge	$r11,$r14,-101516(0x27374) # fffe7470 <g_buf+0xe3fdf3dc>$/;"	l
+fc	obj/test.s	/^  fc:	00052f13 	alsl.w	$r19,$r24,$r11,0x3$/;"	l
+fc	obj/test.s	/^  fc:	00160c44 	orn	$r4,$r2,$r3$/;"	l
+fc	obj/test.s	/^  fc:	00726165 	bstrins.w	$r5,$r11,0x12,0x18$/;"	l
+fc0	obj/test.s	/^     fc0:	001505ba 	or	$r26,$r13,$r1$/;"	l
+fc0	obj/test.s	/^     fc0:	43095d01 	beqz	$r8,461148(0x7095c) # 7191c <_start-0x1bf8e6e4>$/;"	l
+fc4	obj/test.s	/^     fc4:	02000000 	slti	$r0,$r0,0$/;"	l
+fc4	obj/test.s	/^     fc4:	82010402 	0x82010402$/;"	l
+fc8	obj/test.s	/^     fc8:	05830b05 	0x05830b05$/;"	l
+fc8	obj/test.s	/^     fc8:	1b006091 	pcalau12i	$r17,-523516(0x80304)$/;"	l
+fcc	obj/test.s	/^     fcc:	000005a0 	0x000005a0$/;"	l
+fcc	obj/test.s	/^     fcc:	0584bc0c 	0x0584bc0c$/;"	l
+fd0	obj/test.s	/^     fd0:	0a05bb0e 	0x0a05bb0e$/;"	l
+fd0	obj/test.s	/^     fd0:	40064c01 	beqz	$r0,263756(0x4064c) # 4161c <_start-0x1bfbe9e4>$/;"	l
+fd4	obj/test.s	/^     fd4:	4b0105bc 	bcnez	$fcc5,-851708(0x730104) # fff310d8 <g_buf+0xe3f29044>$/;"	l
+fd4	obj/test.s	/^     fd4:	a41c000f 	0xa41c000f$/;"	l
+fd8	obj/test.s	/^     fd8:	01000000 	0x01000000$/;"	l
+fd8	obj/test.s	/^     fd8:	0d054008 	0x0d054008$/;"	l
+fdc	obj/test.s	/^     fdc:	00063e9c 	alsl.wu	$r28,$r20,$r15,0x1$/;"	l
+fdc	obj/test.s	/^     fdc:	2405e508 	ldptr.w	$r8,$r8,1508(0x5e4)$/;"	l
+fe0	obj/test.s	/^     fe0:	0f501500 	0x0f501500$/;"	l
+fe0	obj/test.s	/^     fe0:	820c05bb 	0x820c05bb$/;"	l
+fe4	obj/test.s	/^     fe4:	00681c00 	bstrins.w	$r0,$r0,0x8,0x7$/;"	l
+fe4	obj/test.s	/^     fe4:	05bb1805 	0x05bb1805$/;"	l
+fe8	obj/test.s	/^     fe8:	053c080c 	0x053c080c$/;"	l
+fe8	obj/test.s	/^     fe8:	72190000 	0x72190000$/;"	l
+fec	obj/test.s	/^     fec:	0100776f 	0x0100776f$/;"	l
+fec	obj/test.s	/^     fec:	0605840d 	cacop	0xd,$r0,353(0x161)$/;"	l
+ff0	obj/test.s	/^     ff0:	00430e4f 	0x00430e4f$/;"	l
+ff0	obj/test.s	/^     ff0:	830c05f3 	0x830c05f3$/;"	l
+ff4	obj/test.s	/^     ff4:	05851605 	0x05851605$/;"	l
+ff4	obj/test.s	/^     ff4:	91020000 	0x91020000$/;"	l
+ff8	obj/test.s	/^     ff8:	053c081c 	0x053c081c$/;"	l
+ff8	obj/test.s	/^     ff8:	1d00006c 	pcaddu12i	$r12,-524285(0x80003)$/;"	l
+ffc	obj/test.s	/^     ffc:	000005ec 	0x000005ec$/;"	l
+ffc	obj/test.s	/^     ffc:	08058231 	0x08058231$/;"	l
+find_fat_volume	fat.c	/^static Fat* find_fat_volume(const char* name, int len)$/;"	f	file:
+flags	fat.h	/^  uint8_t flags;$/;"	m	struct:Fat
+flags	fat.h	/^  uint8_t flags;$/;"	m	struct:__anon19
+follow_path	fat.c	/^static int follow_path(Dir* dir, const char** path, Loc* loc)$/;"	f	file:
+free_cnt	fat.c	/^  uint32_t free_cnt;$/;"	m	struct:__anon6	file:
+free_cnt	fat.h	/^  uint32_t free_cnt;$/;"	m	struct:Fat
+freep	heapmgrkr.c	/^static Header *freep = NULL;     \/* start of free list *\/$/;"	v	file:
+fs_type	fat.c	/^  char fs_type[8];$/;"	m	struct:__anon5	file:
+g_blastdelay	main_v0.c	/^int g_blastdelay = 0;$/;"	v
+g_buf	fat.c	/^uint8_t* g_buf;$/;"	v
+g_bulletdelay	main_v0.c	/^int g_bulletdelay = 0;$/;"	v
+g_crc	fat.c	/^static uint8_t g_crc;$/;"	v	file:
+g_currentpos	main_v0.c	/^int g_currentpos = 0;$/;"	v
+g_fat	main.c	/^static Fat g_fat;$/;"	v	file:
+g_fat_list	fat.c	/^static Fat* g_fat_list;$/;"	v	file:
+g_init	heapmgrkr.c	/^int g_init = 0;$/;"	v
+g_key	main_v0.c	/^int g_key = 0;$/;"	v
+g_len	fat.c	/^static uint16_t g_len;$/;"	v	file:
+g_lfn_indices	fat.c	/^static uint8_t g_lfn_indices[13] = {1, 3, 5, 7, 9, 14, 16, 18, 20, 22, 24, 28, 30};$/;"	v	file:
+g_months	main.c	/^static const char* g_months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};$/;"	v	file:
+g_ops	main.c	/^static DiskOps g_ops =$/;"	v	file:
+g_screen	lib.c	/^char g_screen[TEXT_ROW_MAX][TEXT_COLUMN_MAX] = {0};$/;"	v
+g_screen	main_v0.c	/^int g_screen[8][10] = {0};$/;"	v
+g_screen_curr_col	lib.c	/^int g_screen_curr_col = 0;$/;"	v
+g_screen_curr_row	lib.c	/^int g_screen_curr_row = 0;$/;"	v
+get_crc	fat.c	/^static uint8_t get_crc(const uint8_t* name)$/;"	f	file:
+get_fat	fat.c	/^static int get_fat(Fat* fat, uint32_t clust, uint32_t* out_val, uint8_t* out_flags)$/;"	f	file:
+get_part_lba	fat.c	/^static bool get_part_lba(uint8_t* buf, int partition, uint32_t* lba)$/;"	f	file:
+head_cnt	fat.c	/^  uint16_t head_cnt;$/;"	m	struct:__anon5	file:
+head_sig	fat.c	/^  uint32_t head_sig;$/;"	m	struct:__anon6	file:
+header	heapmgrkr.c	/^struct header {       \/* block header *\/$/;"	s	file:
+hidden_sect_cnt	fat.c	/^  uint32_t hidden_sect_cnt;$/;"	m	struct:__anon5	file:
+hour	fat.h	/^  uint8_t hour;$/;"	m	struct:__anon16
+htos16	lib.c	/^static inline unsigned short htos16(unsigned short x) $/;"	f	file:
+idx	fat.c	/^  uint16_t idx;$/;"	m	struct:__anon10	file:
+idx	fat.h	/^  uint16_t idx;$/;"	m	struct:__anon18
+info_sect	fat.c	/^  uint16_t info_sect;$/;"	m	struct:__anon5	file:
+info_sect	fat.h	/^  uint32_t info_sect;$/;"	m	struct:Fat
+itoa	lib.c	/^static void itoa(int num, char *buffer, int base)$/;"	f	file:
+jump	fat.c	/^  uint8_t jump[3];$/;"	m	struct:__anon5	file:
+jump_to_kernel	main.c	/^void jump_to_kernel(unsigned int kernel_entry)$/;"	f
+last_subpath_len	fat.c	/^static int last_subpath_len(const char* path)$/;"	f	file:
+last_used	fat.h	/^  uint32_t last_used;$/;"	m	struct:Fat
+lba	fat.c	/^    uint32_t lba;$/;"	m	struct:__anon3::__anon4	file:
+load_kernel	main.c	/^void load_kernel (void)$/;"	f
+loop	start.S	/^loop:$/;"	l
+main	convert.c	/^int main(void)$/;"	f
+main	main.c	/^void main (void)$/;"	f
+main	main_v0.c	/^void main(void)$/;"	f
+main_sdram_stack	main.c	/^void main_sdram_stack (void)$/;"	f
+major	fat.c	/^  uint8_t major;$/;"	m	struct:__anon5	file:
+media	fat.c	/^  uint8_t media;$/;"	m	struct:__anon5	file:
+min	fat.h	/^  uint8_t min;$/;"	m	struct:__anon16
+minor	fat.c	/^  uint8_t minor;$/;"	m	struct:__anon5	file:
+mod_date	fat.c	/^  uint16_t mod_date;$/;"	m	struct:__anon7	file:
+mod_time	fat.c	/^  uint16_t mod_time;$/;"	m	struct:__anon7	file:
+modified	fat.h	/^  Timestamp modified;$/;"	m	struct:__anon17
+month	fat.h	/^  uint8_t month;$/;"	m	struct:__anon16
+morecore	heapmgrkr.c	/^static Header *morecore(unsigned nu)$/;"	f	file:
+name	fat.c	/^  char name[8];$/;"	m	struct:__anon5	file:
+name	fat.c	/^  uint8_t name[11];$/;"	m	struct:__anon7	file:
+name	fat.h	/^  char name[255];$/;"	m	struct:__anon17
+name	fat.h	/^  char name[32];$/;"	m	struct:Fat
+name0	fat.c	/^    uint8_t name0[10];$/;"	m	struct:__anon8::__anon9	file:
+name1	fat.c	/^    uint8_t name1[12];$/;"	m	struct:__anon8::__anon9	file:
+name2	fat.c	/^    uint8_t name2[4];$/;"	m	struct:__anon8::__anon9	file:
+name_len	fat.h	/^  uint8_t name_len;$/;"	m	struct:Fat
+name_len	fat.h	/^  uint8_t name_len;$/;"	m	struct:__anon17
+next	fat.h	/^  struct Fat* next;$/;"	m	struct:Fat	typeref:struct:Fat::Fat
+next_free	fat.c	/^  uint32_t next_free;$/;"	m	struct:__anon6	file:
+obj_path	Makefile	/^obj_path := .\/obj$/;"	m
+offset	fat.h	/^  uint32_t offset;$/;"	m	struct:__anon19
+ops	fat.h	/^  DiskOps ops;$/;"	m	struct:Fat
+parse_lfn_name	fat.c	/^static int parse_lfn_name(Dir* dir)$/;"	f	file:
+parse_sfn_name	fat.c	/^static void parse_sfn_name(uint8_t* sfn_name)$/;"	f	file:
+part	fat.c	/^  } part[4];$/;"	m	struct:__anon3	typeref:struct:__anon3::__anon4	file:
+print_buffer	main.c	/^void print_buffer(const unsigned char* pbuff, int len) $/;"	f
+print_buffer_dword	main.c	/^void print_buffer_dword(const int* pbuff, int len)$/;"	f
+print_info	main.c	/^void print_info(DirInfo* info)$/;"	f
+probe	fat.c	/^int probe(DiskOps* ops, int partition, uint32_t* lba)$/;"	f
+ptr	heapmgrkr.c	/^   struct header *ptr; \/* next block if on free list *\/$/;"	m	struct:header	typeref:struct:header::header	file:
+put_fat	fat.c	/^static int put_fat(Fat* fat, uint32_t clust, uint32_t val)$/;"	f	file:
+put_fat2	fat.c	/^static int put_fat2(Fat* fat, uint32_t fat_sect, uint32_t clust, uint32_t val)$/;"	f	file:
+put_lfn_name_frag	fat.c	/^static void put_lfn_name_frag(Lfn* lfn, const char* name, int len)$/;"	f	file:
+put_sfn_name	fat.c	/^static void put_sfn_name(uint8_t* sfn_name, const char* name, int len)$/;"	f	file:
+putchar	lib.c	/^void putchar(char c) $/;"	f
+raw	fat.c	/^  uint8_t raw[32];$/;"	m	union:__anon8	file:
+read	fat.h	/^  bool (*read)(uint8_t* buf, uint32_t sect);$/;"	m	struct:__anon15
+remove_chain	fat.c	/^static int remove_chain(Fat* fat, uint32_t clust)$/;"	f	file:
+remove_entries	fat.c	/^static int remove_entries(Dir* dir, Loc* loc)$/;"	f	file:
+res_sect_cnt	fat.c	/^  uint16_t res_sect_cnt;$/;"	m	struct:__anon5	file:
+reserved	fat.c	/^  uint8_t reserved;$/;"	m	struct:__anon7	file:
+reserved_0	fat.c	/^    uint8_t reserved_0[3];$/;"	m	struct:__anon3::__anon4	file:
+reserved_0	fat.c	/^  uint8_t reserved_0[12];$/;"	m	struct:__anon5	file:
+reserved_0	fat.c	/^  uint8_t reserved_0[480];$/;"	m	struct:__anon6	file:
+reserved_1	fat.c	/^    uint8_t reserved_1[3];$/;"	m	struct:__anon3::__anon4	file:
+reserved_1	fat.c	/^  uint8_t reserved_1;$/;"	m	struct:__anon5	file:
+reserved_1	fat.c	/^  uint8_t reserved_1[12];$/;"	m	struct:__anon6	file:
+reserved_2	fat.c	/^  uint8_t reserved_2[420];$/;"	m	struct:__anon5	file:
+root_clust	fat.h	/^  uint32_t root_clust;$/;"	m	struct:Fat
+root_cluster	fat.c	/^  uint32_t root_cluster;$/;"	m	struct:__anon5	file:
+root_ent_cnt	fat.c	/^  uint16_t root_ent_cnt;$/;"	m	struct:__anon5	file:
+sclust	fat.h	/^  uint32_t sclust;$/;"	m	struct:__anon18
+sclust	fat.h	/^  uint32_t sclust;$/;"	m	struct:__anon19
+screen_clear	lib.c	/^void screen_clear(void)$/;"	f
+screen_col_move	lib.c	/^void screen_col_move (int n)$/;"	f
+screen_print_hex	lib.c	/^void screen_print_hex(int val)$/;"	f
+screen_puts	lib.c	/^void screen_puts(char* s)$/;"	f
+scroll_screen_buffer	lib.c	/^void scroll_screen_buffer(void)$/;"	f
+sd_read	lib.c	/^int sd_read (int addr)$/;"	f
+sd_read_sector	lib.c	/^int sd_read_sector (int sec_idx, void* buffer)$/;"	f
+sd_wait_init_done	lib.c	/^int sd_wait_init_done(void)$/;"	f
+sec	fat.h	/^  uint8_t sec;$/;"	m	struct:__anon16
+sect	fat.c	/^  uint32_t sect;$/;"	m	struct:__anon10	file:
+sect	fat.h	/^  uint32_t sect;$/;"	m	struct:Fat
+sect	fat.h	/^  uint32_t sect;$/;"	m	struct:__anon18
+sect	fat.h	/^  uint32_t sect;$/;"	m	struct:__anon19
+sect_cnt_16	fat.c	/^  uint16_t sect_cnt_16;$/;"	m	struct:__anon5	file:
+sect_cnt_32	fat.c	/^  uint32_t sect_cnt_32;$/;"	m	struct:__anon5	file:
+sect_per_clust	fat.c	/^  uint8_t sect_per_clust;$/;"	m	struct:__anon5	file:
+sect_per_fat_16	fat.c	/^  uint16_t sect_per_fat_16;$/;"	m	struct:__anon5	file:
+sect_per_fat_32	fat.c	/^  uint32_t sect_per_fat_32;$/;"	m	struct:__anon5	file:
+sect_per_track	fat.c	/^  uint16_t sect_per_track;$/;"	m	struct:__anon5	file:
+sect_to_clust	fat.c	/^static uint32_t sect_to_clust(Fat* fat, uint32_t sect)$/;"	f	file:
+seq	fat.c	/^    uint8_t seq;$/;"	m	struct:__anon8::__anon9	file:
+setup_timer	start.S	/^setup_timer:$/;"	l
+sfn_char	fat.c	/^static char sfn_char(char c)$/;"	f	file:
+sfn_cluster	fat.c	/^static uint32_t sfn_cluster(Sfn* sfn)$/;"	f	file:
+sfn_is_free	fat.c	/^static bool sfn_is_free(Sfn* sfn)$/;"	f	file:
+sfn_is_last	fat.c	/^static bool sfn_is_last(Sfn* sfn)$/;"	f	file:
+sfn_is_lfn	fat.c	/^static bool sfn_is_lfn(Sfn* sfn)$/;"	f	file:
+sig	fat.c	/^  uint16_t sig;$/;"	m	struct:__anon3	file:
+sign	fat.c	/^  uint8_t sign[2];$/;"	m	struct:__anon5	file:
+size	fat.c	/^    uint32_t size;$/;"	m	struct:__anon3::__anon4	file:
+size	fat.c	/^  uint32_t size;$/;"	m	struct:__anon7	file:
+size	fat.h	/^  uint32_t size;$/;"	m	struct:__anon17
+size	fat.h	/^  uint32_t size;$/;"	m	struct:__anon19
+size	heapmgrkr.c	/^   unsigned size;     \/* size of this block *\/$/;"	m	struct:header	file:
+start	start.S	/^start:$/;"	l
+status	fat.c	/^    uint8_t status;$/;"	m	struct:__anon3::__anon4	file:
+stretch_chain	fat.c	/^static int stretch_chain(Fat* fat, uint32_t clust, uint32_t* out_clust)$/;"	f	file:
+struct_sig	fat.c	/^  uint32_t struct_sig;$/;"	m	struct:__anon6	file:
+subpath_len	fat.c	/^static int subpath_len(const char* path)$/;"	f	file:
+sync_buf	fat.c	/^static int sync_buf(Fat* fat)$/;"	f	file:
+sync_fs	fat.c	/^static int sync_fs(Fat* fat)$/;"	f	file:
+tail_sig	fat.c	/^  uint32_t tail_sig;$/;"	m	struct:__anon6	file:
+tenth	fat.c	/^  uint8_t tenth;$/;"	m	struct:__anon7	file:
+test_case_0	main.c	/^void test_case_0 (void)$/;"	f
+to_upper	fat.c	/^static char to_upper(char c)$/;"	f	file:
+type	fat.c	/^    uint8_t type;$/;"	m	struct:__anon3::__anon4	file:
+type	fat.c	/^    uint8_t type;$/;"	m	struct:__anon8::__anon9	file:
+u_ctz	fat.c	/^static inline int u_ctz(unsigned int x) {$/;"	f	file:
+u_memcmp	lib.c	/^int u_memcmp(const void *s1, const void *s2, int n) $/;"	f
+u_memcpy	lib.c	/^void *u_memcpy(void *dest, const void *src, unsigned n)$/;"	f
+u_memset	lib.c	/^void u_memset(char* dest, char ch, int count)$/;"	f
+u_printf	lib.c	/^int u_printf(const char *format, ...) $/;"	f
+u_strlen	lib.c	/^int u_strlen (const char *str) $/;"	f
+update_buf	fat.c	/^static int update_buf(Fat* fat, uint32_t sect)$/;"	f	file:
+update_screen	lib.c	/^void update_screen (void)$/;"	f
+utoa_hex	lib.c	/^static void utoa_hex(unsigned int num, char *buffer, int uppercase)$/;"	f	file:
+volume_id	fat.c	/^  uint32_t volume_id;$/;"	m	struct:__anon5	file:
+volume_label	fat.c	/^  char volume_label[11];$/;"	m	struct:__anon5	file:
+vprintf_core	lib.c	/^static void vprintf_core(const char *format, va_list args)$/;"	f	file:
+write	fat.h	/^  bool (*write)(const uint8_t* buf, uint32_t sect);$/;"	m	struct:__anon15
+year	fat.h	/^  uint16_t year;$/;"	m	struct:__anon16
