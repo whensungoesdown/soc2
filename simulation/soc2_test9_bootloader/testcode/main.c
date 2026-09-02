@@ -11,7 +11,7 @@ void banner (void)
     u_printf("          _|  _|    _|  _|          _|    \n");  
     u_printf("    _|_|_|      _|_|      _|_|_|  _|_|_|_|\n"); 
     u_printf("    \n");
-    u_printf("                           SOC2 09-01-2026\n");
+    u_printf("                           SOC2 09-02-2026\n");
     u_printf("    \n");
     u_printf("                        Bootloader Ver 0.8\n");
     u_printf("    \n");
@@ -354,8 +354,8 @@ void load_kernel (void)
 
     u_printf("\n\nCurrent sp = 0x%x\n", sp);
 
-    //u_printf("\nEnable icache\n\n");
-    //enable_icache();
+    u_printf("\nEnable icache\n\n");
+    enable_icache();
 
 
     asm volatile("csrrd   %0, 0x0\n\t"
