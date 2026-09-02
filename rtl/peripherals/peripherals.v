@@ -122,9 +122,21 @@ module peripherals (
    wire [31:0] uart_status;
 
    assign uart_status_ren = (rdaddress == `SOC2_PERI_UART_STATUS) & rden;
+
+   wire uart_tx_busy;
+
+   uart_tx_busy_ctrl u_uart_tx_busy_ctrl(
+      .clk              (clk),
+      .resetn           (resetn), 
+      .uart_tx_data_wen (uart_wen),
+      .tx_idle          (tx_idle),
+      .uart_tx_busy     (uart_tx_busy)
+   );
+
    assign uart_status = {
            31'b0,
-           tx_idle
+           //tx_idle
+           uart_tx_busy
            };
 
    //

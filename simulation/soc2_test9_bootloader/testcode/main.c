@@ -13,7 +13,7 @@ void banner (void)
     u_printf("    \n");
     u_printf("                           SOC2 09-02-2026\n");
     u_printf("    \n");
-    u_printf("                        Bootloader Ver 0.8\n");
+    u_printf("                        Bootloader Ver 0.9\n");
     u_printf("    \n");
     u_printf("    \n");
 }

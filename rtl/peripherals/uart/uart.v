@@ -220,3 +220,52 @@ module uart (clk,rst,
    defparam urx .BAUD_DIVISOR = BAUD_DIVISOR;
 
 endmodule
+//-----------------------------------------------------------------------------
+// Module: UART transmit busy flag generator
+//  - Asserts uart_tx_busy (1) when uart_tx_data_wen is high (write enable)
+//  - De-asserts uart_tx_busy (0) upon detecting a rising edge of tx_idle
+//-----------------------------------------------------------------------------
+
+module uart_tx_busy_ctrl (
+    input  clk, 
+    input  resetn,
+    input  uart_tx_data_wen, 
+    input  tx_idle,      // Transmitter idle indication, high = idle
+    output uart_tx_busy  // Busy flag, high = busy
+);
+
+    //------------------------ Internal signals -------------------------
+    wire tx_idle_dly;     // tx_idle delayed by one clock cycle
+    wire tx_idle_rise;    // Rising edge of tx_idle
+    wire busy_en;         // Enable for busy register
+    wire busy_din;        // Data input for busy register
+
+    //------------------------ Edge detection -------------------------
+    // Delay tx_idle by one cycle
+    dffrl_ns #(1) tx_idle_dly_reg (
+        .clk   (clk),
+        .rst_l (resetn),
+        .din   (tx_idle),
+        .q     (tx_idle_dly)
+    );
+
+    // Rising edge: current = 1, previous = 0
+    assign tx_idle_rise = tx_idle & ~tx_idle_dly;
+
+    //------------------------ Busy register control -------------------------
+    // Enable when either a write occurs or a completion (rising edge) is detected
+    assign busy_en = uart_tx_data_wen | tx_idle_rise;
+
+    // Data input: set priority (write operation overrides completion event)
+    assign busy_din = uart_tx_data_wen ? 1'b1 : 1'b0;
+
+    // Busy flag register
+    dffrle_ns #(1) uart_tx_busy_reg (
+        .clk   (clk),
+        .rst_l (resetn),
+        .en    (busy_en),
+        .din   (busy_din),
+        .q     (uart_tx_busy)
+    );
+
+endmodule
