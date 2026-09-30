@@ -105,6 +105,7 @@ $(ASSIGNMENT_FILES):
 	@echo "" >> $(PROJECT).qsf
 	@echo "# Warning suppression" >> $(PROJECT).qsf
 	@echo "set_global_assignment -name MESSAGE_DISABLE 10335" >> $(PROJECT).qsf
+	@echo "set_global_assignment -name SDC_FILE soc2_top.sdc" >> $(PROJECT).qsf
 
 # Fixed: Add $(COMBINED_FLIST) dependency
 map.chg: $(COMBINED_FLIST)

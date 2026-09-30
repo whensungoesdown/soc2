@@ -69,6 +69,7 @@ localparam AVALON_DATA_WIDTH = 16;
    //assign sys_clk = clk; // 50mhz
    assign sys_clk = pll_clk_out_75mhz;
    //assign sys_clk = pll_clk_out_25mhz;
+
    assign vga_clk = pll_clk_out_25mhz;
    assign uart_clk = pll_clk_out_25mhz;
    assign sd_clk = pll_clk_out_25mhz;
@@ -1487,8 +1488,8 @@ localparam AVALON_DATA_WIDTH = 16;
 //   );
       
    sdram_controller u_sdram0_ctrl (
-      //.clk            (sys_clk),
-      .clk            (pll_clk_out_75mhz),
+      .clk            (sys_clk),
+      //.clk            (pll_clk_out_75mhz),
       .reset_n        (resetn),
 
       .az_addr        (av0_address[23:0]),     // Address from bridge
@@ -1515,8 +1516,8 @@ localparam AVALON_DATA_WIDTH = 16;
    );
 
    sdram_controller u_sdram1_ctrl (
-      //.clk            (sys_clk),
-      .clk            (pll_clk_out_75mhz),
+      .clk            (sys_clk),
+      //.clk            (pll_clk_out_75mhz),
       .reset_n        (resetn),
 
       .az_addr        (av1_address[23:0]),     // Address from bridge
