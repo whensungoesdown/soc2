@@ -1,399 +1,231 @@
-# SOC2 (CPU7B)
+# SoC2 — a LoongArch32r SoC built around the CPU7B core
 
+SoC2 is an FPGA system-on-chip built around **CPU7B**, a single-issue,
+in-order LoongArch32r (LA32R) processor with an L1 instruction cache and
+software-managed TLBs. It runs bare-metal programs, FreeRTOS and
+**Linux 5.14** on Intel/Altera Cyclone IV boards.
 
-## Pipeline
+| | |
+|---|---|
+| CPU | CPU7B, LA32R, single issue, in order, 75 MHz |
+| MMU | 32-entry iTLB and dTLB, 2 direct-mapping windows (DMW0/1), PLV0/PLV3 |
+| L1 I-cache | 16 KB, 2-way set associative, 32-byte lines |
+| Interconnect | AXI4 crossbar, 2 masters x 5 slaves |
+| Memory | On-chip SRAM, 2 x 32 MB SDRAM |
+| Peripherals | UART (115200 8N1), SD card, VGA 80x25 text mode, timer |
+| Software | Bare metal, FreeRTOS, bootloader, Linux 5.14 |
 
-- Single-issue, in-order core
-
-- Main pipeline: `bf → f → d → e → m(ex2) → w`
-
-- LSU pipeline: `ls1 → ls2 → ls3`
-
-- 16KB 2-way set-associative L1 instruction cache: `ic1 → ic2`
-
-## Modules
-
-`````c
- +-CPU7B-----------------------------------------------------------------------------------+
- | +-----------------------------+     +----------------------------------------------+    |                           
- | |IFU                          |     | EXU               +--------+    +-------+    |    |
- | |  +------------+  +--------+ |     |     +---------+   |        |    |  alu  |    |    |
- | |  |            |  |        | |     |     |         |   |        |    |       |    |    |
- | |  |    fcl     |  |        | |     |     |   csr   |   |        |    +-------+    |    |
- | |  |            |->| decode | | ->  |     |         |   |        |    +-------+    |    |
- | |  |   instr Q  |  |        | |     |     +---------+   |        |    |  bru  |    |    |
- | |  |            |  |        | |     |     +---------+   |  ecl   |    |       |    |    |
- | |  +------------+  +--------+ |     |     |         |   |   &    |    +-------+    |    |
- | +----| |--- | |---------------+     |     | regfile |   |  byp   |    +-------+    |    |
- |      | |    | |                     |     |         |   |        |    |  mul  |    |    |
- |      | |  +-----------------+       |     +-------- +   |        |    |       |    |    |
- |      | |  |                 |       |                   |        |    +-------+    |    |
- |      | |  | L1 icache       |       |  +-----------+    |        |    +-------+    |    |          
- |      | |  |                 |       |  |           |    |        |    |  div  |    |    |
- |      | |  |                 |       |  |    lsu    |    |        |    |       |    |    |
- |      | |  +-----------------+       |  |           |    +--------+    +-------+    |    |
- |      | |    | |                     |  +------------                               |    |
- |      | |    | |                     +-----|------|---------------------------------+    |
- |      | |    | |                           |      |                                      |
- |  +-------------------------------------------------+                                    |
- |  |                                                 |                                    |
- |  |                       BIU                       |                                    |
- |  |                                                 |                                    |
- |  +-------------------------------------------------+                                clk |-- 75MHz
- |                  |      |                                                               |
- +------------------|      |---------------------------------------------------------------+
-                    |  m0  |
-           +--------------------------------------------+
-           |                                            |      +-s0-------------------------------+
-           |                                            |      |          |                       |
-       ----|                                            |------|          |  VGA text mode 80x25  |
-           |                                            |      | VGA RAM  |                       |
- (DMA)  m1 |                                            |------|          |  640x480 70Hz         |
-           |                                            |      |          |                    clk|-- 25MHz
-       ----|                axi_matrix                  |      +----------------------------------+
-           |                   2x4                      | 
-           |                                            |      +-s1-------+ 
-           |                                            |      |          | 
-           |                                            |------|          | 
-           |                                            |      |   SRAM   | 
-           |                                            |------|          | 
-           |                                            |      |          | 
-           |                                            |      +----------+ 
-           +--------------------------------------------+
-                    |      |             |      |     
-                    |      |             |      |
-                +-s2-----------+     +-s3-----------+                             
-                |              |     |              |               
-                | Peripherals  |     |    SDRAM     |               
-                |              |     |              |               
-                |              |     |              |               
-                |              |     |          clk |-- 75MHz               
-                +--------------+     +--------------+               
-   
-   
-   
-                                                        +--------------+    
-                                               25MHz ---|c0            |
-                                               75MHz ---|c1            |
-                                                        |   pll        |   refclk
-                                                        |        inclk0|--- 50MHz
-                                                        +--------------+  
-`````
+The core is developed in its own repository and included as a submodule:
+see [rtl/cpu7b/README.md](rtl/cpu7b/README.md) for the instruction set,
+CSRs, exceptions, I-cache and TLB details.
 
 ---
 
-## LoongArch32r Instruction Set
+## Contents
 
-### Integer Arithmetic
-
-
-`````assembly
-
-  ADD.W SUB.W ADDI.W 
-
-  LU12I.W PCADDU12I 
-
-  SLT[U] SLT[U]I 
-
-  AND OR NOR XOR
-
-  ANDI ORI XORI
-
-  NOP
-`````
-	
-### Bit-Shift
-
-`````assembly
-  SLL.W SRL.W SRA.W SLL.W SRL.W SRA.W
-
-  SLLI.W SRLI.W SRAI.W
-`````
-
-### Branch and Jump
-
-`````assembly
-  BEQ BNE BLT[U] BGE[U]
-
-  B BL
-
-  JIRL
-`````
-
-### Integer Multiply
-
-`````assembly
-  MUL.W MULH.W[U]
-`````
-
-### Integer Divide
-
-`````assembly
-  DIV.W[U]  MOD.W[U]
-`````
-
-### Memory Access
-
-`````assembly
-  LD.B LD.H LD.W LD.BU LD.HU LD.HU
-
-  ST.B ST.H ST.W
-`````
-
-### CSR Access
-
-`````assembly
-  CSRRD CSRWR CSRXCHG
-`````
-
-### Atomic Memory Access
-
-`````assembly
-  LL.W SC.W
-`````
-
-### Barrier
-
-`````assembly
-  DBAR IBAR
-`````
-
-### Miscellaneous
-
-
-`````assembly
-  ERTN SYSCALL BREAK RDCNTV{L/H}.W
-`````
-
-## To Do
-
-- [ ] Memory access: `PRELD`
-- [ ] Floating-point instructions
-- [ ] Cache and TLB instructions
-- [ ] Miscellaneous: `RDCNTID`, `IDLE`
+- [Block Diagram](#block-diagram)
+- [CPU7B Core](#cpu7b-core)
+- [Memory Map](#memory-map)
+- [Clocks](#clocks)
+- [Repository Layout](#repository-layout)
+- [Getting Started](#getting-started)
+- [Simulation Tests](#simulation-tests)
+- [Demos](#demos)
 
 ---
 
-## CSR Registers
+## Block Diagram
 
-| Address | Register | Description          |
-|---------|----------|----------------------|
-| 0x0     | CRMD     | Current Mode Information |
-| 0x1     | PRMD     | Pre-exception Mode Information |
-| 0x5     | ESTAT    | Exception Status     |
-| 0x6     | ERA      | Exception Return Address |
-| 0x7     | BADV     | Bad Virtual Address |
-| 0xc     | EENTRY   | Exception Entry Base Address |
-| 0x30~0x33| SAVE0~SAVE3 | Data Save Register |
-| 0x41    | TCFG     | Timer Configuration  |
-| 0x42    | TVAL     | Timer Value          |
-| 0x43    | TICLR    | Timer Interrupt Clearing |
-| 0x60    | LLBCTL   | LLBit Controller     |
+```text
+ +-CPU7B-------------------------------------------------------------------+
+ |  +-IFU------------------------+     +-EXU----------------------------+  |
+ |  |  fcl   instr Q   decode    | --> |  csr   regfile   ecl & byp     |  |
+ |  |  L1 icache   itlb          |     |  alu   bru   mul   div         |  |
+ |  +------------------------------+   |  lsu   dtlb                    |  |
+ |                                     +--------------------------------+  |
+ |  +-BIU---------------------------------------------------------------+  |
+ |  +-------------------------------------------------------------------+  |
+ +------------------------------------|------------------------------------+
+                                      | M0                     M1 (DMA)
+                     +----------------------------------------------+
+                     |            AXI crossbar  (amba_axi_m2s6)     |
+                     +----------------------------------------------+
+                        | S0       | S1       | S2        | S3       | S4
+                    +--------+ +--------+ +-----------+ +--------+ +--------+
+                    |  SRAM  | |VGA RAM | |Peripherals| | SDRAM0 | | SDRAM1 |
+                    |        | |80x25   | |UART, SD   | | 32 MB  | | 32 MB  |
+                    +--------+ +--------+ +-----------+ +--------+ +--------+
+```
 
----
-
-## Exceptions
-
-- 0x8 ADdress error Exception for Fetching instructions (ADEF)
-- 0x8 ADdress error Exception for Memory access instructions (ADEM)
-- 0x9 Address aLignment fault Exception (ALE)
-- 0xB SYStem call exception (SYS)
-- 0xC BReaKpoint exception (BRK)
-- 0xD Instruction Non-defined Exception (INE)
-- 0x0 Timer Interrupt
-- 0x0 Ext Interrupt
+Each slave is attached through a bridge: `axi_sram_bridge` for SRAM, VGA
+RAM and the peripheral bus, and `axi_burst_master_to_avalon16` in front of
+each `sdram_controller`.
 
 ---
 
+## CPU7B Core
 
-## L1 Instruction Cache
+- **Pipeline:** `bf → f → d → e → m → w`; LSU sub-pipeline `ls1 → ls2 → ls3`;
+  I-cache pipeline `ic1 → ic2`.
+- **ISA:** LA32R integer subset: arithmetic, shifts, branches, MUL/DIV,
+  loads and stores, LL/SC, DBAR/IBAR, CSR access, TLB instructions
+  (TLBSRCH, TLBRD, TLBWR, TLBFILL, INVTLB), ERTN, SYSCALL, BREAK, RDCNTV.
+- **Exceptions:** INT, PIL, PIS, PIF, PME, PPI, ADEF, ADEM, ALE, SYS, BRK,
+  INE, TLBR.
+- **Not implemented:** floating point, RDCNTID, IDLE (PRELD executes as a
+  NOP).
 
-The L1 instruction cache is organized as a 2-way set-associative structure with a 32-byte (256-bit) line size. It consists of 256 sets, each containing two ways, for a total capacity of 16KB (32 bytes × 256 sets × 2 ways). Linefill buffer is also 32-byte, fetched from memory using AXI burst transactions of four 64-bit quadwords per access.
+Design notes for the fetch unit, including pipeline timelines, are in
+[rtl/cpu7b/rtl/c7bifu/README.md](rtl/cpu7b/rtl/c7bifu/README.md).
 
-Each way contains a 22-bit tag ram and 4 64-bit data ram.
-
-
-`````c
- 32-bit address
- 
-    |____________________|___________|
-   31       tag        11 10         0
-`````
-
-
-`````c
-
- 8-bit index, 256 sets   (10-bit address in the code, but only 8 bits are actually used)
-
- tag ram index
-
- ifu_icu_addr_ic1[14:5]
-
-
- data ram index, last 2-bit addresses ram line
-
- {ic_lu_addr_ic2[14:5], al_cnt_q[1:0]}
-`````
-
-````c
-
- tag ram 22-bit, [21] v, [20:0] tag
-
-   v
-  |_|____________________|
- 21 20      tag          0
-
-
- data ram 64-bit
-
-    |______________________________________________________________________|
-   63                                data                                  0
-`````
-
+---
 
 ## Memory Map
 
-```````````````
-        0x0  +--------------+
-(0x1c000000) |              |
-             |    RAM       |  32KB
-             |              |
-             |              |
-     0x7fff  +--------------+ 
-             |              |
-             |              |
-             |              |
-             |              |
-    0x10000  +--------------+
-             |   VGA RAM    |   2KB
-    0x107ff  +--------------+   
-             |              |  
-             |   Reserved   |  64KB
-             |   VGA RAM    | 
-             |              |
-             |              |
-             |              |
-             |              |
-             |              |
-    0x20000  +--------------+         0x20000  RW   uartdr     (32-bit register, 
-             |              |                                   low 8 bits are used to transmit and receive data)
-             |              |  64KB
-             |              |
-             | Device MMIO  |         
-             |              |         0x20100  RO   sdstatus   (bit0: init_done, bit1: rd_busy, bit2: wr_busy)
-             |              |         0x20104  WO   rd_addr    (32-bit)
-             |              |         0x20108  RO   rd_data    (16-bit)  
-    0x2ffff  |              |         0x2010C  WO   wr_addr    (32-bit)
-             +--------------+         0x20110  WO   wr_data    (16-bit)
-             |              |
-             |              |
-             |              |
-             .....
+Physical addresses, as decoded by the AXI crossbar (`rtl/soc2_top.v`).
 
-             |              |
-             |              |
-  0x2000000  +--------------+
-             |              |
-             |              |
-             |   SDRAM      |
-             |              |  32MB
-             | (32MB SDRAM  |
-             |  on AC415    |
-             |  FPGA board) |
-             |              |
-             |              |
-             |              |
-  0x3ffffff  |              |
-             +--------------+
-             |              |
-             |              |
-             |              |
-             .....
+| Base | Size | Slave | Description |
+|---|---|---|---|
+| `0x0001_0000` | 2 KB | S1 | VGA text RAM (80x25) |
+| `0x0002_0000` | 64 KB | S2 | Device MMIO (see below) |
+| `0x0200_0000` | 32 MB | S3 | SDRAM 0 |
+| `0x0400_0000` | 32 MB | S4 | SDRAM 1 |
+| `0x1C00_0000` | 64 KB window | S0 | On-chip SRAM; reset vector `0x1C00_0000` |
 
-             |              |
-             |              |
- 0x1c000000  +--------------+
-             |              |
-             |    RAM       |  32KB
-             |              |
- 0x1c007fff  |              |
-             +--------------+
-             |              |
-             |              |
+### Device registers
 
-             .....
-```````````````
+| Address | Access | Name | Description |
+|---|---|---|---|
+| `0x0002_0000` | RW | `uartdr` | UART data, bits [7:0] transmit/receive |
+| `0x0002_0100` | RO | `sdstatus` | bit 0 `init_done`, bit 1 `rd_busy`, bit 2 `wr_busy` |
+| `0x0002_0104` | WO | `rd_addr` | SD read address (32-bit) |
+| `0x0002_0108` | RO | `rd_data` | SD read data (16-bit) |
+| `0x0002_010C` | WO | `wr_addr` | SD write address (32-bit) |
+| `0x0002_0110` | WO | `wr_data` | SD write data (16-bit) |
 
+---
 
+## Clocks
 
+| Clock | Frequency | Used by |
+|---|---|---|
+| `inclk0` | 50 MHz | Board reference, PLL input |
+| `c1` | 75 MHz | CPU7B, AXI crossbar, SDRAM |
+| `c0` | 25 MHz | VGA (640x480 @ 70 Hz), UART |
 
-## Build and Test
+---
 
+## Repository Layout
 
+```text
+soc2/
+├── rtl/
+│   ├── soc2_top.v           FPGA top level
+│   ├── soc2_simu_top.v      Simulation top level
+│   ├── amba_axi_m2s*.v      AXI crossbars
+│   ├── ram_bridge.v         AXI to SRAM bridge
+│   ├── cpu7b/               CPU7B core (submodule)
+│   ├── sdram/               SDRAM controller (submodule)
+│   ├── peripherals/         UART, SD card controller
+│   └── vga/                 VGA text mode
+├── flist/                   File lists for synthesis and simulation
+├── tb/                      Test benches, one per test
+├── simulation/              Simulation tests with test programs
+└── systhesis/altera/        Quartus project, pin assignments
+```
 
-### Build cpu7b
+Pin assignments are provided for these boards in `systhesis/altera/`:
+`ac415pins`, `c4e6e10pins`, `hseda_ep4ce30_v3.2_pins`.
 
+---
 
-`````shell
-u@uu:~/prjs/cpu7b$ cd systhesis/altera/
-u@uu:~/prjs/cpu7b/systhesis/altera$ make
-`````
+## Getting Started
 
-### Run tests
+### Clone
 
-`````shell
-u@unamed:~/prjs/cpu7b/simulation$ ./run_all_tests.sh 
+The core and the SDRAM controller are submodules:
 
-`````
+```shell
+git clone --recurse-submodules <soc2-repo-url>
+# or, in an existing clone
+git submodule update --init --recursive
+```
 
-## Debug
+### Synthesis (Quartus)
 
-#### Test code
+```shell
+cd systhesis/altera
+make
+```
 
-`````shell
-u@uu:~/prjs/cpu7b/simulation/test0$ vim testcode/start.S
-`````
+### Simulation
 
-#### Compile and Simulate
+Each test has its own directory under `simulation/`:
 
-`````shell
-u@uu:~/prjs/cpu7b/simulation/test0$ ./simulate.sh 
-`````
+```shell
+cd simulation/soc2_test2_ccode
+./simulate.sh        # build the test program and run the simulation
+./viewwave.sh        # open the waveform
+```
 
-#### View the Signals 
+The test program is in `testcode/` (for example `testcode/start.S`).
 
-`````shell
-u@uu:~/prjs/cpu7b/simulation/test0$ ./viewwave.sh
-`````
+Core-level regression tests are run from the core repository:
 
----------------------------
+```shell
+cd rtl/cpu7b/simulation
+./run_all_tests.sh
+```
 
+### Serial console
 
-## Test
+```shell
+sudo screen /dev/ttyUSB0 115200
+```
 
-![screenshot0](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/dinosaur.gif)
+---
 
-### With timer interrupt, dinosaur jumps
-![screenshot1](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/dinosaur_jump.gif)
+## Simulation Tests
 
+| Test | Description |
+|---|---|
+| `soc2_test0_vgaram` | VGA text RAM access |
+| `soc2_test1_pll` | PLL and clocking |
+| `soc2_test2_ccode` | C program |
+| `soc2_test3_timer` | Timer interrupt |
+| `soc2_test4_ld_sw.b` | Load/store byte |
+| `soc2_test5_uart` | UART |
+| `soc2_test6_spaceinvaders` | Space Invaders game |
+| `soc2_test7_freertos` | FreeRTOS |
+| `soc2_test8_sdram` | SDRAM |
+| `soc2_test9_bootloader` | Bootloader |
+| `soc2_test10_pg_mode_uart` | Paging mode with UART output |
 
-### Space Invaders
-`````shell
-$ sudo screen /dev/ttyUSB0 115200 
-`````
-![screenshot1](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/space_invaders.gif)
+---
 
+## Demos
 
-### soc2_test9_bootloader
-![screenshot2](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/bootloader_ver0_1.jpg)
+**Dinosaur game**
 
-### Run Linux 5.14
+![dinosaur](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/dinosaur.gif)
 
-https://www.bilibili.com/video/BV1N2E766EPf/
+**Dinosaur game with timer interrupt (jump)**
 
+![dinosaur jump](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/dinosaur_jump.gif)
 
-With icache enabled:
+**Space Invaders over UART**
 
-https://www.bilibili.com/video/BV1hWjg6sEiV/
+![space invaders](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/space_invaders.gif)
 
+**Bootloader (`soc2_test9_bootloader`)**
 
+![bootloader](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/bootloader_ver0_1.jpg)
+
+**Linux 5.14**
+
+- Boot: https://www.bilibili.com/video/BV1N2E766EPf/
+- Boot with I-cache enabled: https://www.bilibili.com/video/BV1hWjg6sEiV/
+
+---
+
+More notes and articles: https://whensungoesdown.github.io
