@@ -19,6 +19,21 @@ The core is developed in its own repository and included as a submodule:
 see [rtl/cpu7b/README.md](rtl/cpu7b/README.md) for the instruction set,
 CSRs, exceptions, I-cache and TLB details.
 
+### Linux with an interactive shell
+
+SoC2 boots Linux 5.14 with the MMU enabled and runs a glibc user space:
+a small dynamically linked shell runs as `/init`, takes commands from the
+serial console and lists the running kernel threads with `ps`.
+
+Boot from power-on: the bootloader loads the kernel from the SD card into
+SDRAM, Linux boots and starts the shell (sped up, pauses removed):
+
+![SoC2 booting Linux 5.14 to an interactive shell](docs/images/linux_boot.gif)
+
+![SoC2 running Linux 5.14 with an interactive shell](docs/images/linux_minish.png)
+
+See [Linux user space](#linux-user-space) for what this exercises.
+
 ---
 
 ## Contents
@@ -30,6 +45,7 @@ CSRs, exceptions, I-cache and TLB details.
 - [Repository Layout](#repository-layout)
 - [Getting Started](#getting-started)
 - [Simulation Tests](#simulation-tests)
+- [Linux User Space](#linux-user-space)
 - [Demos](#demos)
 
 ---
@@ -203,6 +219,34 @@ sudo screen /dev/ttyUSB0 115200
 
 ---
 
+## Linux User Space
+
+The kernel is a LoongArch32r port of Linux 5.14 with MMU support
+(`soc2-mmu` branch of
+[la32r-linux](https://github.com/whensungoesdown/la32r-linux)). The root
+file system is a minimal initramfs: one dynamically linked program as
+`/init`, glibc 2.27 and the dynamic linker.
+
+Running it exercises:
+
+- **Paging:** demand paging, copy-on-write and TLB refill through the
+  software-managed iTLB and dTLB, in user mode (PLV3)
+- **System calls:** file system, `/proc`, `mount`, `brk`, `uname`, ...
+- **Dynamic linking:** `ld.so` loading and relocating `libc.so.6`
+- **Console input:** the SoC2 UART driver (`ttyS0`) with its RX
+  interrupt; keystrokes go through the TTY layer to the shell
+
+The shell (`init.c`) mounts `/proc`, `/sys` and `/dev`, opens `ttyS0` as
+the controlling terminal and provides built-in commands (`ls`, `cd`,
+`cat`, `mkdir`, `ps`, `mount`, `dmesg`, ...) as well as pipes, redirection
+and background jobs.
+
+Status: the shell runs interactively. `ps` (which uses `snprintf`)
+occasionally crashes when run as the first command after boot; this is
+being investigated.
+
+---
+
 ## Demos
 
 **Dinosaur game**
@@ -221,7 +265,13 @@ sudo screen /dev/ttyUSB0 115200
 
 ![bootloader](https://github.com/whensungoesdown/whensungoesdown.github.io/raw/main/_posts/bootloader_ver0_1.jpg)
 
-**Linux 5.14**
+**Linux 5.14 with an interactive shell (MMU, glibc user space)**
+
+![linux boot](docs/images/linux_boot.gif)
+
+![linux shell](docs/images/linux_minish.png)
+
+**Linux 5.14 boot videos**
 
 - Boot: https://www.bilibili.com/video/BV1N2E766EPf/
 - Boot with I-cache enabled: https://www.bilibili.com/video/BV1hWjg6sEiV/
